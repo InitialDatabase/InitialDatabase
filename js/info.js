@@ -121,6 +121,27 @@
             : `全 ${filteredItems.length} 件`;
     }
 
+    function removeCardFromList(card){
+        card.classList.add("infoCard--readExit");
+
+        window.setTimeout(() => {
+            card.remove();
+
+            renderCount(getFilteredItems());
+
+            if(listElement.children.length === 0){
+                listElement.innerHTML = `<p class="emptyMessage">条件に一致する情報がありません</p>`;
+            }
+        }, 250);
+    }
+
+    function handleCardRead(card){
+        // 未読のみ表示中に既読になったカードは、スクロールしたその場で一覧から取り除く
+        if(state.unreadOnly){
+            removeCardFromList(card);
+        }
+    }
+
     function render(){
         const filteredItems = getFilteredItems();
         const sortedItems = getSortedItems(filteredItems);
@@ -146,7 +167,7 @@
             });
         });
 
-        setupReadTrackingByView(listElement);
+        setupReadTrackingByView(listElement, undefined, handleCardRead);
         loadTweetEmbeds(listElement);
     }
 

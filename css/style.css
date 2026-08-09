@@ -271,6 +271,13 @@ nav a:hover{
     border:1px solid #c8ccd1;
     border-radius:8px;
     padding:20px;
+    transition:opacity .25s ease, transform .25s ease;
+}
+
+.infoCard--readExit{
+    opacity:0;
+    transform:scale(.98);
+    pointer-events:none;
 }
 
 .infoCardImage{
@@ -348,40 +355,6 @@ nav a:hover{
         height:auto;
         max-height:260px;
     }
-}
-
-/* ==========================
-   関連情報
-   ========================== */
-
-.relatedInfoSection{
-    margin-top:14px;
-    padding-top:14px;
-    border-top:1px dashed #c8ccd1;
-}
-
-.relatedInfoLabel{
-    font-size:.85em;
-    font-weight:bold;
-    color:#54595d;
-    margin-bottom:6px;
-}
-
-.relatedInfoList{
-    list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-}
-
-.relatedInfoList a{
-    color:#0645ad;
-    font-size:.9em;
-    text-decoration:none;
-}
-
-.relatedInfoList a:hover{
-    text-decoration:underline;
 }
 
 .tweetCard{
@@ -575,6 +548,12 @@ nav a:hover{
     color:#72777d;
     font-size:.9em;
     background:transparent;
+}
+
+.eventCalendarEmptyNotice{
+    color:#54595d;
+    text-align:center;
+    padding:32px 16px;
 }
 
 .eventCalendarActions{
@@ -1645,18 +1624,6 @@ html.theme-dark .backToTopButton{
     border-color:#36c;
 }
 
-html.theme-dark .relatedInfoSection{
-    border-top-color:#333;
-}
-
-html.theme-dark .relatedInfoLabel{
-    color:#b7b7b7;
-}
-
-html.theme-dark .relatedInfoList a{
-    color:#8ab4ff;
-}
-
 html.theme-dark .eventCalendarSection,
 html.theme-dark .commentsSection{
     background:#1b1b1d;
@@ -1698,6 +1665,10 @@ html.theme-dark .eventCalendarList a{
 }
 
 html.theme-dark .eventCalendarPeriod{
+    color:#b7b7b7;
+}
+
+html.theme-dark .eventCalendarEmptyNotice{
     color:#b7b7b7;
 }
 

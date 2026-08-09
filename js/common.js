@@ -398,56 +398,6 @@ function buildInfoCardBadges(item){
 }
 
 // ==========================
-// 関連情報
-// ==========================
-
-function getRelatedItems(item, limit){
-    if(typeof database === "undefined" || !Array.isArray(database.infos)){
-        return [];
-    }
-
-    const tags = Array.isArray(item.tags) ? item.tags : [];
-
-    if(tags.length === 0){
-        return [];
-    }
-
-    return database.infos
-        .filter(other =>
-            other.id !== item.id &&
-            Array.isArray(other.tags) &&
-            other.tags.some(tag => tags.includes(tag))
-        )
-        .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))
-        .slice(0, limit ?? 3);
-}
-
-function buildRelatedInfoHtml(item){
-    const related = getRelatedItems(item, 3);
-
-    if(related.length === 0){
-        return "";
-    }
-
-    const linksHtml = related.map(relatedItem => `
-        <li>
-            <a href="${escapeHTML(relatedItem.articleUrl || "#")}" target="_blank" rel="noopener noreferrer">
-                ${escapeHTML(getItemTitle(relatedItem))}
-            </a>
-        </li>
-    `).join("");
-
-    return `
-        <div class="relatedInfoSection">
-            <p class="relatedInfoLabel">🔗 関連情報</p>
-            <ul class="relatedInfoList">
-                ${linksHtml}
-            </ul>
-        </div>
-    `;
-}
-
-// ==========================
 // 情報カード生成（頭文字D情報／お気に入り共通）
 // ==========================
 
@@ -462,7 +412,6 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
         .filter(Boolean)
         .join(" ");
     const readAttrsHtml = `data-read-category="${escapeHTML(cardCategory)}" data-read-id="${item.id}"`;
-    const relatedInfoHtml = buildRelatedInfoHtml(item);
 
     if(isTweet){
         return `
@@ -483,8 +432,6 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
                         ${shareButtonsHtml}
                         ${actionsHtml}
                     </div>
-
-                    ${relatedInfoHtml}
 
                 </div>
 
@@ -531,8 +478,6 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
                     ${actionsHtml}
                 </div>
 
-                ${relatedInfoHtml}
-
             </div>
 
         </article>
@@ -573,14 +518,37 @@ function normalizeFavoriteEntry(entry){
     };
 }
 
+let storageWarningShown = false;
+
 function getFavoriteStorage(){
     if(typeof window === "undefined"){
         return null;
     }
 
     try{
-        return window.localStorage;
+        const storage = window.localStorage;
+
+        // file:// で直接開いた場合など、ブラウザによってはlocalStorageへの
+        // アクセスがここで例外にならずに失敗することがあるため、実際に
+        // 書き込み・削除できるかを確認しておく（お気に入り・既読管理が
+        // 一切保存されない不具合の切り分け用）。
+        const testKey = "__initialDDatabaseStorageTest__";
+        storage.setItem(testKey, "1");
+        storage.removeItem(testKey);
+
+        return storage;
     }catch(error){
+        if(!storageWarningShown){
+            storageWarningShown = true;
+            console.warn(
+                "[頭文字Database] localStorageが利用できないため、お気に入り・既読状態が保存されません。" +
+                "index.htmlをfile://で直接開いている場合は、ローカルサーバー" +
+                "（例: `npx serve` や VSCodeのLive Server）経由、またはGitHub Pages等の" +
+                "http(s)環境で開くと解消することがあります。",
+                error
+            );
+        }
+
         return null;
     }
 }
@@ -783,9 +751,10 @@ function markItemRead(category, id){
 
 // カードが画面に一定時間（既定1秒）表示されたら既読にする。
 // 素早くスクロールして通り過ぎただけでは既読にならないよう、表示が続いた場合のみ確定する。
-// 未読のみ表示中でも、既読化した瞬間に一覧から消えてチラつかないよう、
-// ここでは一覧の再描画は行わない（次にフィルタ操作をした際に反映される）。
-function setupReadTrackingByView(container, dwellMs){
+// 既読になったカードは onRead コールバックに通知する（未読のみ表示中に一覧から
+// 取り除く、といった呼び出し側の処理に利用できる。初期表示時点で既に既読だった
+// カードについては呼ばれない）。
+function setupReadTrackingByView(container, dwellMs, onRead){
     if(!container){
         return;
     }
@@ -823,6 +792,10 @@ function setupReadTrackingByView(container, dwellMs){
                     }
 
                     observer.unobserve(card);
+
+                    if(typeof onRead === "function"){
+                        onRead(card, category, id);
+                    }
                 }, delay);
 
                 pendingTimers.set(card, timer);
