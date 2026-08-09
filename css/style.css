@@ -271,13 +271,6 @@ nav a:hover{
     border:1px solid #c8ccd1;
     border-radius:8px;
     padding:20px;
-    transition:opacity .25s ease, transform .25s ease;
-}
-
-.infoCard--readExit{
-    opacity:0;
-    transform:scale(.98);
-    pointer-events:none;
 }
 
 .infoCardImage{

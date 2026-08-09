@@ -750,11 +750,11 @@ function markItemRead(category, id){
 }
 
 // カードが画面に一定時間（既定1秒）表示されたら既読にする。
-// 素早くスクロールして通り過ぎただけでは既読にならないよう、表示が続いた場合のみ確定する。
-// 既読になったカードは onRead コールバックに通知する（未読のみ表示中に一覧から
-// 取り除く、といった呼び出し側の処理に利用できる。初期表示時点で既に既読だった
-// カードについては呼ばれない）。
-function setupReadTrackingByView(container, dwellMs, onRead){
+// 素早くスクロールして通り過ぎただけでは既読になりません。
+// 未読のみ表示中でも、既読化した瞬間に一覧から消えてチラつかないよう、
+// ここでは一覧の再描画は行わない（表示切り替えなど、次にフィルタ操作を
+// したタイミングで反映される）。
+function setupReadTrackingByView(container, dwellMs){
     if(!container){
         return;
     }
@@ -792,10 +792,6 @@ function setupReadTrackingByView(container, dwellMs, onRead){
                     }
 
                     observer.unobserve(card);
-
-                    if(typeof onRead === "function"){
-                        onRead(card, category, id);
-                    }
                 }, delay);
 
                 pendingTimers.set(card, timer);

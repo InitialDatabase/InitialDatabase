@@ -42,7 +42,7 @@ const sortedItems = [...items].sort((a, b) =>
 const rssItems = sortedItems.map(item => `
     <item>
         <title>${escapeXml(item.title)}</title>
-        <link>${escapeXml(item.articleUrl || siteUrl)}</link>
+        <link>${escapeXml(siteUrl)}</link>
         <guid isPermaLink="false">initialdatabase-info-${item.id}</guid>
         <pubDate>${toRfc822(item.date)}</pubDate>
         <description>${escapeXml(item.description || "")}</description>
