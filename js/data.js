@@ -373,6 +373,62 @@ const database = {
             description:
             "『頭文字D』の北条豪と高橋啓介の対決をテーマにした1/64スケールのHonda NSXミニカーが登場。ジオラマシート2枚入り。発売予定は2026年11月。",
             articleUrl:"https://x.com/HJ_Minicar/status/2078009689330364587"
+        },
+
+        {
+            id:35,
+            title:"頭文字Dキャラクターの愛車デザイン、インテリアプレート全31種で登場",
+            date:"2026-07-17",
+            source:"GRANUP（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』に登場するキャラクターたちの愛車をデザインしたインテリアプレートが、全31種のラインナップで登場。",
+            articleUrl:"https://x.com/GRANUP_PR/status/2078027172049260560"
+        },
+
+        {
+            id:36,
+            title:"頭文字Dぬいぐるみマスコット「ぬいぴ〜す＋」「ぬいぴ〜すふれんず」登場",
+            date:"2026-07-17",
+            source:"GRANUP（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』のぬいぐるみマスコットシリーズ「ぬいぴ〜す＋」と、新規描き起こしの「ぬいぴ〜すふれんず」が同時に登場。",
+            articleUrl:"https://x.com/GRANUP_PR/status/2078026923788366284"
+        },
+
+        {
+            id:37,
+            title:"頭文字Dドリーミーくじ「-ぐんま〜ず-」、2026年11月14日発売決定",
+            date:"2026-07-15",
+            source:"GRANUPくじ公式（X）",
+            tags:["グッズ"],
+            eventStart:"2026-11-14",
+            description:
+            "A賞に全12種の手のひらサイズぬいぐるみマスコットが登場する『頭文字D』ドリーミーくじ「-ぐんま〜ず-」が発売決定。",
+            articleUrl:"https://x.com/grakuji_PR/status/2077302144768807371"
+        },
+
+        {
+            id:38,
+            title:"頭文字Dプラモデル「秋山渉 AE86レビン」「健二 RPS13 180SX」出荷開始",
+            date:"2026-07-14",
+            source:"アオシマPR（X）",
+            tags:["グッズ"],
+            description:
+            "アオシマの頭文字Dプラモデルシリーズより、No.21「秋山渉 AE86レビン（第25巻仕様）」とNo.22「健二 RPS13 180SX」の出荷がスタート。",
+            articleUrl:"https://x.com/aoshima_PR/status/2077151158834282650"
+        },
+
+        {
+            id:39,
+            title:"頭文字D「藤原とうふ店の集金袋」風ポーチなどグッズ、予約受付中",
+            date:"2026-07-13",
+            source:"セブンネットショッピング（X）",
+            tags:["グッズ", "予約開始"],
+            description:
+            "「藤原とうふ店の集金袋」風ポーチや、たばこサイズのカラビナポーチなど『頭文字D』グッズがセブンネットショッピングで予約受付中。",
+            articleUrl:"https://x.com/7_netshopping/status/2076592476060889394"
         }
 
     ]
