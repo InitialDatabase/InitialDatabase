@@ -14,8 +14,13 @@
     const state = {
         sort: "added",
         keyword: "",
-        activeTags: new Set()
+        activeTags: new Set(),
+        page: 1
     };
+
+    // 1ページ目は9件、2ページ目以降は10件ずつ表示する
+    const FIRST_PAGE_SIZE = 9;
+    const OTHER_PAGE_SIZE = 10;
 
     let activeSuggestionIndex = -1;
     let currentSuggestions = [];
@@ -99,6 +104,7 @@
                     state.activeTags.add(tag);
                 }
 
+                state.page = 1;
                 renderFavorites();
             });
         });
@@ -129,17 +135,32 @@
 
         if(resolvedFavorites.length === 0){
             favoriteList.innerHTML = `<p class="emptyMessage">お気に入りはありません</p>`;
+            renderPaginationControls("favoritePagination", 1, 1, () => {});
             return;
         }
 
         if(filteredFavorites.length === 0){
             favoriteList.innerHTML = `<p class="emptyMessage">条件に一致するお気に入りがありません</p>`;
+            renderPaginationControls("favoritePagination", 1, 1, () => {});
             return;
         }
 
         const sortedFavorites = getSortedFavorites(filteredFavorites);
 
-        favoriteList.innerHTML = sortedFavorites.map(({ favorite, item }) =>
+        const totalPages = getPaginationPageCount(sortedFavorites.length, FIRST_PAGE_SIZE, OTHER_PAGE_SIZE);
+
+        if(state.page > totalPages){
+            state.page = totalPages;
+        }
+
+        if(state.page < 1){
+            state.page = 1;
+        }
+
+        const [start, end] = getPaginationRange(state.page, FIRST_PAGE_SIZE, OTHER_PAGE_SIZE);
+        const pageFavorites = sortedFavorites.slice(start, end);
+
+        favoriteList.innerHTML = pageFavorites.map(({ favorite, item }) =>
             buildInfoCard(item, createRemoveFavoriteButton(favorite), "favoriteCard", state.keyword, favorite.category)
         ).join("");
 
@@ -152,6 +173,12 @@
 
         setupReadTrackingByView(favoriteList);
         loadTweetEmbeds(favoriteList);
+
+        renderPaginationControls("favoritePagination", state.page, totalPages, targetPage => {
+            state.page = targetPage;
+            renderFavorites();
+            favoriteList.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
     }
 
     // ==========================
@@ -206,6 +233,7 @@
         const title = getItemTitle(item);
 
         state.keyword = title;
+        state.page = 1;
 
         if(searchInput){
             searchInput.value = title;
@@ -269,6 +297,7 @@
     if(searchInput){
         searchInput.addEventListener("input", () => {
             state.keyword = searchInput.value.trim();
+            state.page = 1;
             renderFavorites();
             renderSuggestions(state.keyword);
         });
@@ -318,6 +347,7 @@
         toolbar.querySelectorAll("[data-favsort]").forEach(button => {
             button.addEventListener("click", () => {
                 state.sort = button.dataset.favsort;
+                state.page = 1;
 
                 toolbar.querySelectorAll("[data-favsort]").forEach(b =>
                     b.classList.toggle("is-active", b === button)

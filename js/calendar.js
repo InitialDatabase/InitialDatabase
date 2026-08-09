@@ -11,6 +11,7 @@
     const listElement = document.getElementById("eventCalendarList");
     const prevButton = document.getElementById("calendarPrevMonth");
     const nextButton = document.getElementById("calendarNextMonth");
+    const todayButton = document.getElementById("calendarTodayButton");
 
     if(!section || !grid || !monthLabel || !listElement || eventItems.length === 0){
         return;
@@ -51,6 +52,30 @@
         `).join("");
     }
 
+    function clearEventList(){
+        listElement.innerHTML = `<li class="eventCalendarEmpty">日付を選択してください</li>`;
+    }
+
+    function selectDate(date){
+        const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+        grid.querySelectorAll("[data-date]").forEach(button => {
+            button.classList.toggle("eventCalendarDay--selected", button.dataset.date === dateStr);
+        });
+
+        renderEventList(getEventsOnDate(date));
+    }
+
+    function updateTodayButtonState(){
+        if(!todayButton){
+            return;
+        }
+
+        const isCurrentMonth = state.year === today.getFullYear() && state.month === today.getMonth();
+
+        todayButton.disabled = isCurrentMonth;
+    }
+
     function renderGrid(){
         const firstDay = new Date(state.year, state.month, 1);
         const lastDay = new Date(state.year, state.month + 1, 0);
@@ -58,6 +83,8 @@
         const daysInMonth = lastDay.getDate();
 
         monthLabel.textContent = `${state.year}年${state.month + 1}月`;
+
+        updateTodayButtonState();
 
         const cells = [];
 
@@ -115,46 +142,74 @@
 
         grid.querySelectorAll("[data-date]").forEach(button => {
             button.addEventListener("click", () => {
-                grid.querySelectorAll("[data-date]").forEach(b => b.classList.remove("eventCalendarDay--selected"));
-                button.classList.add("eventCalendarDay--selected");
-
-                const date = parseDateOnly(button.dataset.date);
-
-                renderEventList(getEventsOnDate(date));
+                selectDate(parseDateOnly(button.dataset.date));
             });
         });
     }
 
+    function goToMonth(year, month){
+        state.year = year;
+        state.month = month;
+
+        renderGrid();
+        clearEventList();
+    }
+
+    function goToPrevMonth(){
+        let month = state.month - 1;
+        let year = state.year;
+
+        if(month < 0){
+            month = 11;
+            year -= 1;
+        }
+
+        goToMonth(year, month);
+    }
+
+    function goToNextMonth(){
+        let month = state.month + 1;
+        let year = state.year;
+
+        if(month > 11){
+            month = 0;
+            year += 1;
+        }
+
+        goToMonth(year, month);
+    }
+
+    function goToToday(){
+        goToMonth(today.getFullYear(), today.getMonth());
+        selectDate(today);
+    }
+
     function render(){
         renderGrid();
-        renderEventList(getEventsOnDate(today));
+        selectDate(today);
     }
 
     if(prevButton){
-        prevButton.addEventListener("click", () => {
-            state.month -= 1;
-
-            if(state.month < 0){
-                state.month = 11;
-                state.year -= 1;
-            }
-
-            renderGrid();
-        });
+        prevButton.addEventListener("click", goToPrevMonth);
     }
 
     if(nextButton){
-        nextButton.addEventListener("click", () => {
-            state.month += 1;
-
-            if(state.month > 11){
-                state.month = 0;
-                state.year += 1;
-            }
-
-            renderGrid();
-        });
+        nextButton.addEventListener("click", goToNextMonth);
     }
+
+    if(todayButton){
+        todayButton.addEventListener("click", goToToday);
+    }
+
+    section.addEventListener("keydown", event => {
+        if(event.key === "ArrowLeft"){
+            event.preventDefault();
+            goToPrevMonth();
+        } else if(event.key === "ArrowRight"){
+            event.preventDefault();
+            goToNextMonth();
+        }
+    });
 
     render();
 

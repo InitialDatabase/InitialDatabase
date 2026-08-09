@@ -35,8 +35,14 @@
         sort: "new",
         period: "all",
         status: "all",
-        unreadOnly: false
+        unreadOnly: false,
+        page: 1,
+        customMonth: "" // アーカイブページの月別件数からの絞り込み（YYYY-MM）
     };
+
+    // 1ページ目は9件、2ページ目以降は10件ずつ表示する
+    const FIRST_PAGE_SIZE = 9;
+    const OTHER_PAGE_SIZE = 10;
 
     let activeSuggestionIndex = -1;
     let currentSuggestions = [];
@@ -75,6 +81,10 @@
 
         if(state.period === "ongoing"){
             return isOngoingEvent(item);
+        }
+
+        if(state.period === "custom-month"){
+            return typeof item.date === "string" && item.date.startsWith(state.customMonth);
         }
 
         return true;
@@ -205,6 +215,7 @@
                 state.status = "all";
                 state.period = "all";
                 state.activeTags = new Set([tag]);
+                state.page = 1;
 
                 if(searchInput){
                     searchInput.value = "";
@@ -253,7 +264,105 @@
         }
     }
 
-    function render(){
+    // アーカイブページの統計バー（タグ／月／出典／ステータス）からのリンクを反映し、
+    // 検索キーワード・ページ番号も含めてURLと状態を双方向に同期する
+    // 例：index.html?tag=グッズ　index.html?month=2026-08　index.html?status=ongoing
+    //     index.html?source=GRANUP（X）　index.html?keyword=フィギュア&page=2
+    function applyStateFromUrlParams(){
+        const params = new URLSearchParams(window.location.search);
+        const tagParam = params.get("tag");
+        const monthParam = params.get("month");
+        const statusParam = params.get("status");
+        const sourceParam = params.get("source");
+        const keywordParam = params.get("keyword");
+        const pageParam = params.get("page");
+
+        state.activeTags = new Set(
+            tagParam
+                ? tagParam.split(",").map(tag => tag.trim()).filter(tag => allTags.includes(tag))
+                : []
+        );
+
+        if(monthParam && /^\d{4}-\d{2}$/.test(monthParam)){
+            state.period = "custom-month";
+            state.customMonth = monthParam;
+        }else if(state.period === "custom-month"){
+            state.period = "all";
+            state.customMonth = "";
+        }
+
+        state.status = (statusParam && ["before", "reservation", "ongoing", "ended"].includes(statusParam))
+            ? statusParam
+            : "all";
+
+        // keywordが優先。旧来のsourceリンク（?source=...）も引き続きキーワードとして解釈する
+        state.keyword = keywordParam || sourceParam || "";
+
+        if(searchInput){
+            searchInput.value = state.keyword;
+        }
+
+        const parsedPage = Number(pageParam);
+        state.page = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+
+        syncControlButtons();
+
+        const hasActiveFilter = state.activeTags.size > 0
+            || state.period === "custom-month"
+            || state.status !== "all";
+
+        if(filterPanel && filterToggle){
+            filterPanel.classList.toggle("is-open", hasActiveFilter);
+            filterToggle.setAttribute("aria-expanded", hasActiveFilter ? "true" : "false");
+        }
+    }
+
+    // 現在の絞り込み状態からURLクエリを組み立てる（タグ・月・ステータス・キーワード・ページ番号）
+    function buildUrlParams(){
+        const params = new URLSearchParams();
+
+        if(state.activeTags.size > 0){
+            params.set("tag", Array.from(state.activeTags).join(","));
+        }
+
+        if(state.period === "custom-month" && state.customMonth){
+            params.set("month", state.customMonth);
+        }
+
+        if(state.status !== "all"){
+            params.set("status", state.status);
+        }
+
+        if(state.keyword){
+            params.set("keyword", state.keyword);
+        }
+
+        if(state.page > 1){
+            params.set("page", String(state.page));
+        }
+
+        return params;
+    }
+
+    // 状態をURLへ反映する。pushHistoryがtrueの場合のみ、戻る/進むで復元できる履歴エントリを追加する
+    // （ページ送りなどの明確な操作のみpushし、入力中のキーワードなどは置き換えのみに留める）
+    function updateUrlParams(pushHistory){
+        const query = buildUrlParams().toString();
+        const newUrl = window.location.pathname + (query ? `?${query}` : "") + window.location.hash;
+        const currentUrl = window.location.pathname + window.location.search + window.location.hash;
+
+        if(newUrl === currentUrl){
+            return;
+        }
+
+        if(pushHistory){
+            window.history.pushState(null, "", newUrl);
+        }else{
+            window.history.replaceState(null, "", newUrl);
+        }
+    }
+
+    function render(pushHistory){
         const filteredItems = getFilteredItems();
         const sortedItems = getSortedItems(filteredItems);
 
@@ -261,10 +370,25 @@
 
         if(sortedItems.length === 0){
             renderNoResults();
+            renderPaginationControls("infoPagination", 1, 1, () => {});
+            updateUrlParams(Boolean(pushHistory));
             return;
         }
 
-        listElement.innerHTML = sortedItems.map(item =>
+        const totalPages = getPaginationPageCount(sortedItems.length, FIRST_PAGE_SIZE, OTHER_PAGE_SIZE);
+
+        if(state.page > totalPages){
+            state.page = totalPages;
+        }
+
+        if(state.page < 1){
+            state.page = 1;
+        }
+
+        const [start, end] = getPaginationRange(state.page, FIRST_PAGE_SIZE, OTHER_PAGE_SIZE);
+        const pageItems = sortedItems.slice(start, end);
+
+        listElement.innerHTML = pageItems.map(item =>
             buildInfoCard(item, createFavoriteButton("infos", item.id), "", state.keyword, "infos")
         ).join("");
 
@@ -280,6 +404,14 @@
 
         setupReadTrackingByView(listElement);
         loadTweetEmbeds(listElement);
+
+        renderPaginationControls("infoPagination", state.page, totalPages, targetPage => {
+            state.page = targetPage;
+            render(true);
+            listElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        updateUrlParams(Boolean(pushHistory));
     }
 
     function renderTagFilters(){
@@ -305,6 +437,7 @@
                     button.classList.add("is-active");
                 }
 
+                state.page = 1;
                 render();
             });
         });
@@ -362,6 +495,7 @@
         const title = getItemTitle(item);
 
         state.keyword = title;
+        state.page = 1;
 
         if(searchInput){
             searchInput.value = title;
@@ -425,6 +559,7 @@
     if(searchInput){
         searchInput.addEventListener("input", () => {
             state.keyword = searchInput.value.trim();
+            state.page = 1;
             render();
             renderSuggestions(state.keyword);
         });
@@ -464,6 +599,7 @@
         controlsElement.querySelectorAll("[data-sort]").forEach(button => {
             button.addEventListener("click", () => {
                 state.sort = button.dataset.sort;
+                state.page = 1;
 
                 controlsElement.querySelectorAll("[data-sort]").forEach(b =>
                     b.classList.toggle("is-active", b === button)
@@ -476,6 +612,7 @@
         controlsElement.querySelectorAll("[data-period]").forEach(button => {
             button.addEventListener("click", () => {
                 state.period = button.dataset.period;
+                state.page = 1;
 
                 controlsElement.querySelectorAll("[data-period]").forEach(b =>
                     b.classList.toggle("is-active", b === button)
@@ -488,6 +625,7 @@
         controlsElement.querySelectorAll("[data-status]").forEach(button => {
             button.addEventListener("click", () => {
                 state.status = button.dataset.status;
+                state.page = 1;
 
                 controlsElement.querySelectorAll("[data-status]").forEach(b =>
                     b.classList.toggle("is-active", b === button)
@@ -500,6 +638,7 @@
         controlsElement.querySelectorAll("[data-readfilter]").forEach(button => {
             button.addEventListener("click", () => {
                 state.unreadOnly = button.dataset.readfilter === "unread";
+                state.page = 1;
 
                 controlsElement.querySelectorAll("[data-readfilter]").forEach(b =>
                     b.classList.toggle("is-active", b === button)
@@ -521,8 +660,16 @@
     }
 
     renderTagFilters();
+    applyStateFromUrlParams();
     renderLastUpdatedLabel(items, "lastUpdated");
     render();
     injectListStructuredData(items, "infoStructuredData");
+
+    // ブラウザの戻る/進むボタンで検索キーワード・ページ番号などの状態を復元する
+    window.addEventListener("popstate", () => {
+        applyStateFromUrlParams();
+        render();
+        listElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
 
 })();

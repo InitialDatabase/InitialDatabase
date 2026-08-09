@@ -251,6 +251,54 @@ nav a:hover{
     gap:20px;
 }
 
+.infoPagination{
+    display:flex;
+    justify-content:center;
+    margin-top:28px;
+}
+
+.infoPaginationNav{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.infoPageButton{
+    min-width:36px;
+    height:36px;
+    padding:0 10px;
+    border:1px solid #a2a9b1;
+    border-radius:6px;
+    background:white;
+    color:#202122;
+    font:inherit;
+    font-size:.9em;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.infoPageButton:hover:not(:disabled){
+    background:#eaecf0;
+}
+
+.infoPageButton.is-active{
+    background:#e2001c;
+    border-color:#e2001c;
+    color:white;
+    font-weight:bold;
+}
+
+.infoPageButton:disabled{
+    opacity:.4;
+    cursor:default;
+}
+
+.infoPageNav{
+    font-weight:bold;
+}
+
 .infoCard{
     display:flex;
     gap:24px;
@@ -521,6 +569,20 @@ nav a:hover{
     background:#eaecf0;
 }
 
+.eventCalendarHeader button:disabled{
+    opacity:.5;
+    cursor:default;
+}
+
+.eventCalendarHeader button:disabled:hover{
+    background:white;
+}
+
+.eventCalendarTodayButton{
+    margin-left:4px;
+    font-size:.85em !important;
+}
+
 .eventCalendarWeekdays{
     display:grid;
     grid-template-columns:repeat(7,1fr);
@@ -774,6 +836,48 @@ nav a:hover{
     display:flex;
     align-items:center;
     gap:10px;
+}
+
+a.statsBarLink{
+    text-decoration:none;
+    border-radius:6px;
+    padding:4px 6px;
+    margin:-4px -6px;
+    transition:.2s;
+}
+
+a.statsBarLink:hover,
+a.statsBarLink:focus-visible{
+    background:#eaecf0;
+    outline:none;
+}
+
+.statsSectionHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.archiveSearchRow{
+    margin-bottom:16px;
+}
+
+.archiveSearchInput{
+    width:100%;
+    max-width:420px;
+    padding:10px 14px;
+    color:#202122;
+    background:white;
+    border:1px solid #a2a9b1;
+    border-radius:22px;
+    font:inherit;
+}
+
+.archiveSearchInput:focus{
+    outline:2px solid #36c;
+    outline-offset:1px;
 }
 
 .statsBarLabel{
@@ -2019,6 +2123,10 @@ html.theme-dark .eventCalendarHeader button:hover{
     background:#232325;
 }
 
+html.theme-dark .eventCalendarHeader button:disabled:hover{
+    background:#101112;
+}
+
 html.theme-dark .eventCalendarDay{
     background:#101112;
     color:#e8e8e8;
@@ -2110,4 +2218,15 @@ html.theme-dark .statsBarFill{
 
 html.theme-dark .statsBarValue{
     color:#e8e8e8;
+}
+
+html.theme-dark a.statsBarLink:hover,
+html.theme-dark a.statsBarLink:focus-visible{
+    background:#2a2b2c;
+}
+
+html.theme-dark .archiveSearchInput{
+    background:#1c1d1e;
+    color:#e8e8e8;
+    border-color:#3a3b3c;
 }

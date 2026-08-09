@@ -1250,6 +1250,88 @@ function renderLastUpdatedLabel(items, elementId){
 }
 
 // ==========================
+// ページネーション（1ページ目のみ件数を変えられる汎用ページ送り）
+// ==========================
+
+// 例：firstPageSize=9, otherPageSize=10 の場合
+// 1ページ目：1〜9件目 / 2ページ目：10〜19件目 / 3ページ目：20〜29件目 …
+function getPaginationPageCount(totalCount, firstPageSize, otherPageSize){
+    if(totalCount <= 0){
+        return 1;
+    }
+
+    if(totalCount <= firstPageSize){
+        return 1;
+    }
+
+    return 1 + Math.ceil((totalCount - firstPageSize) / otherPageSize);
+}
+
+function getPaginationRange(page, firstPageSize, otherPageSize){
+    if(page <= 1){
+        return [0, firstPageSize];
+    }
+
+    const start = firstPageSize + (page - 2) * otherPageSize;
+
+    return [start, start + otherPageSize];
+}
+
+function renderPaginationControls(elementId, currentPage, totalPages, onPageChange){
+    const element = document.getElementById(elementId);
+
+    if(!element){
+        return;
+    }
+
+    if(totalPages <= 1){
+        element.innerHTML = "";
+        element.hidden = true;
+        return;
+    }
+
+    element.hidden = false;
+
+    const pageButtonsHtml = Array.from({ length: totalPages }, (unused, index) => {
+        const pageNumber = index + 1;
+
+        return `
+            <button
+                type="button"
+                class="infoPageButton${pageNumber === currentPage ? " is-active" : ""}"
+                data-page="${pageNumber}"
+                ${pageNumber === currentPage ? 'aria-current="page"' : ""}>
+                ${pageNumber}
+            </button>
+        `;
+    }).join("");
+
+    element.innerHTML = `
+        <nav class="infoPaginationNav" aria-label="ページ送り">
+            <button type="button" class="infoPageButton infoPageNav" data-page="${currentPage - 1}" ${currentPage <= 1 ? "disabled" : ""}>
+                前へ
+            </button>
+            ${pageButtonsHtml}
+            <button type="button" class="infoPageButton infoPageNav" data-page="${currentPage + 1}" ${currentPage >= totalPages ? "disabled" : ""}>
+                次へ
+            </button>
+        </nav>
+    `;
+
+    element.querySelectorAll("[data-page]").forEach(button => {
+        button.addEventListener("click", () => {
+            const targetPage = Number(button.dataset.page);
+
+            if(!targetPage || targetPage === currentPage){
+                return;
+            }
+
+            onPageChange(targetPage);
+        });
+    });
+}
+
+// ==========================
 // ダークモード
 // ==========================
 

@@ -102,12 +102,35 @@ gtag("config", "G-XXXXXXXXXX");
 </section>
 
 <section class="statsSection">
-    <h2>月別件数</h2>
+    <h2>出典別件数</h2>
+    <ul id="sourceStatsList" class="statsBarList"></ul>
+</section>
+
+<section class="statsSection">
+    <h2>ステータス別件数</h2>
+    <ul id="statusStatsList" class="statsBarList"></ul>
+</section>
+
+<section class="statsSection">
+    <div class="statsSectionHeader">
+        <h2>月別件数</h2>
+        <button type="button" id="monthStatsToggle" class="infoFilterButton" hidden>全期間を見る</button>
+    </div>
     <ul id="monthStatsList" class="statsBarList"></ul>
 </section>
 
 <section>
     <h2 class="visually-hidden">月別アーカイブ一覧</h2>
+
+    <div class="archiveSearchRow">
+        <label for="archiveSearchInput" class="visually-hidden">アーカイブをキーワードで検索</label>
+        <input
+            type="search"
+            id="archiveSearchInput"
+            class="archiveSearchInput"
+            placeholder="タイトル・タグ・出典で検索">
+    </div>
+
     <div id="archiveMonthList"></div>
 </section>
 
