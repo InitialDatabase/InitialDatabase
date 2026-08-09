@@ -136,7 +136,7 @@
   呼び出しに差し替えることで対応できます。
 
 - **Google Analytics**：`index.html` / `pages/favorites.html` / `pages/archive.html` 内の
-  `G-XXXXXXXXXX` を、実際のGA4測定IDに置き換えてください。
+  `G-19K4474718` を、実際のGA4測定IDに置き換えてください。
   使わない場合は、該当の `<script>` 2つを削除してください。
 
 - **giscus（コメント欄）**：`index.html` の `commentsSection` 内、
