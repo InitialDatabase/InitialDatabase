@@ -66,16 +66,6 @@
         renderEventList(getEventsOnDate(date));
     }
 
-    function updateTodayButtonState(){
-        if(!todayButton){
-            return;
-        }
-
-        const isCurrentMonth = state.year === today.getFullYear() && state.month === today.getMonth();
-
-        todayButton.disabled = isCurrentMonth;
-    }
-
     function renderGrid(){
         const firstDay = new Date(state.year, state.month, 1);
         const lastDay = new Date(state.year, state.month + 1, 0);
@@ -83,8 +73,6 @@
         const daysInMonth = lastDay.getDate();
 
         monthLabel.textContent = `${state.year}年${state.month + 1}月`;
-
-        updateTodayButtonState();
 
         const cells = [];
 

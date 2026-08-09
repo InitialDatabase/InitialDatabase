@@ -1,7 +1,7 @@
 {
     "name": "頭文字Database",
     "short_name": "頭文字DB",
-    "description": "頭文字Dのグッズ・コラボ・イベントなどの最新情報をXの投稿から厳選して掲載するファンサイトです。",
+    "description": "頭文字D・MFゴースト・昴と彗星のグッズやコラボ情報をXの投稿から厳選し、お気に入り登録やイベントカレンダーで整理・管理できるファンサイトです。",
     "start_url": "./index.html",
     "scope": "./",
     "display": "standalone",
