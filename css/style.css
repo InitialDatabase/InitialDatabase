@@ -68,7 +68,7 @@ header h1{
 .heroImage{
     display:block;
     width:100%;
-    max-width:50%;
+    max-width:100%;
     height:auto;
     margin:0 auto;
 }
