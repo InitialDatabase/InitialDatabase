@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://initialdatabase.github.io/InitialDatabase/sitemap.xml

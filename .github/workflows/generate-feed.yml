@@ -1,0 +1,40 @@
+name: Generate feed.xml / Notify new items
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "js/data.js"
+  workflow_dispatch:
+
+jobs:
+  generate-feed:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate feed.xml
+        run: node scripts/generate-feed.cjs
+
+      - name: Notify new items to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: node scripts/notify-new-items.cjs
+
+      - name: Commit updated feed.xml / notified-ids.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add feed.xml .github/notified-ids.json
+          git diff --cached --quiet || git commit -m "chore: update feed.xml and notified-ids.json"
+          git push

@@ -1,0 +1,1731 @@
+/* ==========================
+   頭文字Database
+   style.css
+   ========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#f6f6f6;
+    color:#202122;
+    font-family:"Yu Gothic UI","Meiryo",sans-serif;
+    line-height:1.7;
+}
+
+/* ==========================
+   Header
+   ========================== */
+
+header{
+    background:#202122;
+    color:white;
+    text-align:center;
+    padding:30px 20px;
+}
+
+header h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.subTitle{
+    color:#d9d9d9;
+    font-size:18px;
+}
+
+/* スクリーンリーダー用（見た目には表示しないがSEO/読み上げ用に残すテキスト） */
+.visually-hidden{
+    position:absolute;
+    width:1px;
+    height:1px;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+}
+
+/* ==========================
+   Hero Header（トップページの画像ヘッダー）
+   ========================== */
+
+.heroHeader{
+    padding:0;
+    background:#0b0b0c;
+}
+
+.heroImageWrap{
+    position:relative;
+    width:100%;
+    line-height:0;
+}
+
+.heroImage{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.heroImageMobile{
+    display:none;
+    width:100%;
+    height:auto;
+}
+
+.heroLink{
+    position:absolute;
+    top:58.87%;
+    height:21.47%;
+    display:block;
+    border-radius:6px;
+    transition:background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.heroLink:hover,
+.heroLink:focus-visible{
+    background-color:rgba(255,255,255,0.10);
+    box-shadow:inset 0 -3px 0 #e2001c;
+    outline:none;
+}
+
+.heroLink--info{       top:64.82%; height:15.41%; left:22.43%; width:25.42%; }
+.heroLink--favorites{  top:64.82%; height:15.41%; left:52.63%; width:23.03%; }
+
+/* ==========================
+   Navigation
+   ========================== */
+
+nav{
+    background:#ffffff;
+    border-bottom:1px solid #c8ccd1;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+nav li{
+    margin:0;
+}
+
+nav a{
+    display:block;
+    padding:15px 20px;
+    text-decoration:none;
+    color:#0645ad;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+nav a:hover{
+    background:#eaecf0;
+}
+
+/* ==========================
+   Main
+   ========================== */
+
+.container{
+    width:1100px;
+    max-width:95%;
+    margin:30px auto;
+}
+
+/* ==========================
+   Search
+   ========================== */
+
+.searchArea{
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+    padding:25px;
+    margin-bottom:25px;
+}
+
+.searchArea h2{
+    margin-bottom:15px;
+}
+
+#searchBox{
+    width:100%;
+    height:48px;
+    padding:10px;
+    font-size:18px;
+    border:1px solid #a2a9b1;
+    border-radius:5px;
+}
+
+#searchButton{
+    margin-top:15px;
+    width:180px;
+    height:48px;
+    border:none;
+    border-radius:5px;
+    background:#36c;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#searchButton:hover{
+    background:#447ff5;
+}
+
+/* ==========================
+   Database Overview
+   ========================== */
+
+.databaseOverview,
+.databaseCategories{
+    margin-bottom:25px;
+    padding:25px;
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+}
+
+.databaseOverview{
+    border-top:3px solid #36c;
+}
+
+.databaseOverview h2,
+.databaseCategories h2{
+    margin-bottom:15px;
+}
+
+.databaseOverview p{
+    color:#54595d;
+}
+
+/* ==========================
+   Category Cards
+   ========================== */
+
+.categoryGrid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+}
+
+.categoryCard{
+    display:block;
+    padding:20px;
+    background:#f8f9fa;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+    color:#202122;
+    text-decoration:none;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.categoryCard h3{
+    margin-bottom:8px;
+    color:#0645ad;
+}
+
+.categoryCard p{
+    color:#54595d;
+    font-size:.95em;
+}
+
+.categoryCard:hover{
+    transform:translateY(-2px);
+    border-color:#36c;
+    background:#ffffff;
+}
+
+.categoryCard:focus-visible{
+    outline:3px solid #36c;
+    outline-offset:2px;
+}
+
+/* ==========================
+   頭文字D情報（Info）
+   ========================== */
+
+.infoIntro{
+    color:#54595d;
+    margin-bottom:20px;
+}
+
+.infoList{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.infoCard{
+    display:flex;
+    gap:24px;
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+    padding:20px;
+}
+
+.infoCardImage{
+    flex:0 0 220px;
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:8px;
+    background:#eaecf0;
+}
+
+.infoCardBody{
+    flex:1;
+}
+
+.infoCardDate{
+    color:#72777d;
+    font-size:.9em;
+    margin-bottom:6px;
+}
+
+.infoCardBody h3{
+    margin-bottom:10px;
+}
+
+.infoCardBody p{
+    color:#54595d;
+    margin-bottom:14px;
+}
+
+.infoCardLinks{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.infoCardLinks a,
+.infoCardLinks button.infoCardLink{
+    display:inline-block;
+    padding:10px 18px;
+    border:none;
+    border-radius:22px;
+    background:#36c;
+    color:white;
+    text-decoration:none;
+    font:inherit;
+    font-weight:bold;
+    font-size:.95em;
+    cursor:pointer;
+    transition:background .2s;
+}
+
+.infoCardLinks a:hover,
+.infoCardLinks button.infoCardLink:hover{
+    background:#447ff5;
+}
+
+.infoCardLinks a.secondary,
+.infoCardLinks button.infoCardLink.secondary{
+    background:#eaecf0;
+    color:#0645ad;
+}
+
+.infoCardLinks a.secondary:hover,
+.infoCardLinks button.infoCardLink.secondary:hover{
+    background:#dde1e8;
+}
+
+@media (max-width:640px){
+    .infoCard{
+        flex-direction:column;
+    }
+    .infoCardImage{
+        width:100%;
+        height:auto;
+        max-height:260px;
+    }
+}
+
+/* ==========================
+   関連情報
+   ========================== */
+
+.relatedInfoSection{
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px dashed #c8ccd1;
+}
+
+.relatedInfoLabel{
+    font-size:.85em;
+    font-weight:bold;
+    color:#54595d;
+    margin-bottom:6px;
+}
+
+.relatedInfoList{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.relatedInfoList a{
+    color:#0645ad;
+    font-size:.9em;
+    text-decoration:none;
+}
+
+.relatedInfoList a:hover{
+    text-decoration:underline;
+}
+
+.tweetCard{
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+}
+
+.tweetCard .twitter-tweet{
+    margin:0 !important;
+    max-width:100%;
+}
+
+.tweetCard .infoCardBody{
+    width:100%;
+}
+
+.tweetCard .infoCardLinks{
+    justify-content:center;
+}
+
+/* ==========================
+   情報カード：バッジ・開催期間
+   ========================== */
+
+.infoBadges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:10px;
+}
+
+.infoBadge{
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:12px;
+    font-size:.78em;
+    font-weight:bold;
+    line-height:1.6;
+}
+
+.infoBadge--tag{
+    background:#eaf1ff;
+    color:#2a4b8d;
+}
+
+.infoBadge--new{
+    background:#d63333;
+    color:white;
+}
+
+.infoBadge--source{
+    background:#eaecf0;
+    color:#54595d;
+}
+
+.infoBadge--ending{
+    background:#f0a300;
+    color:white;
+}
+
+.infoCardEventPeriod{
+    color:#2a4b8d;
+    font-weight:bold;
+    font-size:.9em;
+    margin-bottom:8px;
+}
+
+/* ==========================
+   イベントカレンダー
+   ========================== */
+
+.eventCalendarSection{
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+    padding:16px;
+    margin-bottom:16px;
+}
+
+.eventCalendarSection h2{
+    margin-bottom:12px;
+    font-size:1.1em;
+}
+
+.eventCalendarHeader{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    margin-bottom:12px;
+    font-weight:bold;
+}
+
+.eventCalendarHeader button{
+    border:1px solid #a2a9b1;
+    background:white;
+    border-radius:6px;
+    padding:4px 12px;
+    cursor:pointer;
+    font:inherit;
+    font-size:1em;
+}
+
+.eventCalendarHeader button:hover{
+    background:#eaecf0;
+}
+
+.eventCalendarWeekdays{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    text-align:center;
+    color:#72777d;
+    font-size:.85em;
+    margin-bottom:4px;
+}
+
+.eventCalendarDays{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:4px;
+}
+
+.eventCalendarDay{
+    aspect-ratio:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid transparent;
+    border-radius:6px;
+    background:#f6f6f6;
+    font:inherit;
+    font-size:.9em;
+    cursor:pointer;
+}
+
+.eventCalendarDay--empty{
+    background:transparent;
+    cursor:default;
+}
+
+.eventCalendarDay--event{
+    background:#eaf1ff;
+    border-color:#36c;
+    font-weight:bold;
+    color:#2a4b8d;
+}
+
+.eventCalendarDay--today{
+    box-shadow:inset 0 0 0 2px #e2001c;
+}
+
+.eventCalendarDay--selected{
+    background:#36c;
+    color:white;
+}
+
+.eventCalendarList{
+    list-style:none;
+    margin-top:14px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.eventCalendarList li{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    padding:8px 10px;
+    background:#f6f6f6;
+    border-radius:6px;
+}
+
+.eventCalendarList a{
+    color:#0645ad;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.eventCalendarList a:hover{
+    text-decoration:underline;
+}
+
+.eventCalendarPeriod{
+    font-size:.85em;
+    color:#54595d;
+}
+
+.eventCalendarEmpty{
+    color:#72777d;
+    font-size:.9em;
+    background:transparent;
+}
+
+.eventCalendarActions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:4px;
+}
+
+.eventCalendarActions .calendarAddButton{
+    padding:4px 10px;
+    border-radius:14px;
+    font-size:.8em;
+}
+
+/* ==========================
+   月別アーカイブ
+   ========================== */
+
+.archiveSummary{
+    color:#54595d;
+    margin-bottom:16px;
+}
+
+.archiveMonthGroup{
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+    padding:14px 18px;
+    margin-bottom:12px;
+}
+
+.archiveMonthGroup summary{
+    cursor:pointer;
+    font-weight:bold;
+    list-style:revert;
+}
+
+.archiveMonthGroup summary:focus-visible{
+    outline:2px solid #36c;
+    outline-offset:2px;
+}
+
+.archiveMonthItems{
+    list-style:none;
+    margin-top:12px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.archiveMonthItem{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    font-size:.95em;
+}
+
+.archiveMonthItemDate{
+    flex:0 0 90px;
+    color:#72777d;
+}
+
+.archiveMonthItem a{
+    color:#0645ad;
+    text-decoration:none;
+}
+
+.archiveMonthItem a:hover{
+    text-decoration:underline;
+}
+
+/* ==========================
+   統計（タグ別・月別件数）
+   ========================== */
+
+.statsSection{
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.statsSection h2{
+    margin-bottom:14px;
+    font-size:1.1em;
+}
+
+.statsBarList{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.statsBarRow{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.statsBarLabel{
+    flex:0 0 130px;
+    font-size:.9em;
+    color:#54595d;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.statsBarTrack{
+    flex:1;
+    background:#eaecf0;
+    border-radius:6px;
+    height:14px;
+    overflow:hidden;
+}
+
+.statsBarFill{
+    display:block;
+    height:100%;
+    background:#36c;
+    border-radius:6px;
+}
+
+.statsBarValue{
+    flex:0 0 32px;
+    text-align:right;
+    font-size:.9em;
+    font-weight:bold;
+    color:#202122;
+}
+
+@media (max-width:640px){
+    .statsBarLabel{
+        flex-basis:90px;
+    }
+}
+
+/* ==========================
+   コメントセクション
+   ========================== */
+
+.commentsSection{
+    margin-top:30px;
+    padding-top:20px;
+    border-top:1px solid #c8ccd1;
+}
+
+.commentsSection h2{
+    margin-bottom:14px;
+}
+
+/* ==========================
+   頭文字D情報：検索・絞り込みUI
+   ========================== */
+
+.infoControls{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:10px;
+    padding:16px;
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+}
+
+.infoControlRow{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+}
+
+.infoSearchInput{
+    width:100%;
+    max-width:420px;
+    padding:10px 14px;
+    color:#202122;
+    background:white;
+    border:1px solid #a2a9b1;
+    border-radius:22px;
+    font:inherit;
+}
+
+.infoSearchInput:focus{
+    outline:2px solid #36c;
+    outline-offset:1px;
+}
+
+.infoTagButton{
+    padding:6px 14px;
+    border:1px solid #a2a9b1;
+    border-radius:16px;
+    background:white;
+    color:#202122;
+    font:inherit;
+    font-size:.9em;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.infoTagButton:hover{
+    background:#eaecf0;
+}
+
+.infoTagButton.is-active{
+    background:#36c;
+    border-color:#36c;
+    color:white;
+}
+
+.infoSubFilters{
+    justify-content:space-between;
+    gap:20px;
+}
+
+.infoFilterGroup{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    align-items:center;
+}
+
+.infoFilterLabel{
+    color:#54595d;
+    font-size:.9em;
+    font-weight:bold;
+    margin-right:2px;
+}
+
+.infoFilterButton{
+    padding:5px 12px;
+    border:1px solid #a2a9b1;
+    border-radius:14px;
+    background:white;
+    color:#202122;
+    font:inherit;
+    font-size:.85em;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.infoFilterButton:hover{
+    background:#eaecf0;
+}
+
+.infoFilterButton.is-active{
+    background:#202122;
+    border-color:#202122;
+    color:white;
+}
+
+@media (max-width:640px){
+    .infoSubFilters{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+
+/* ==========================
+   Result
+   ========================== */
+
+#result{
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+    padding:25px;
+}
+
+.dataCount{
+    color:#54595d;
+    margin:8px 0 16px;
+}
+
+.listControls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:end;
+    margin-bottom:20px;
+    padding:16px;
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+}
+
+.listControl{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    font-weight:bold;
+    color:#202122;
+}
+
+.listControl select{
+    min-width:160px;
+    padding:8px 10px;
+    color:#202122;
+    background:white;
+    border:1px solid #a2a9b1;
+    border-radius:4px;
+    font:inherit;
+}
+
+.listControl input[type="search"]{
+    min-width:220px;
+    padding:8px 10px;
+    color:#202122;
+    background:white;
+    border:1px solid #a2a9b1;
+    border-radius:4px;
+    font:inherit;
+}
+
+.listControl input[type="search"]:focus{
+    outline:2px solid #36c;
+    outline-offset:1px;
+}
+
+.listResetButton,
+.favoriteButton{
+    min-height:42px;
+    padding:8px 14px;
+    border:1px solid #36c;
+    border-radius:4px;
+    background:white;
+    color:#36c;
+    font:inherit;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.listResetButton{
+    align-self:end;
+}
+
+.listResetButton:hover,
+.favoriteButton:hover{
+    background:#eaecf0;
+}
+
+nav a:focus-visible,
+.info a:focus-visible,
+#result a:focus-visible,
+.listResetButton:focus-visible,
+.favoriteButton:focus-visible,
+.backToListLink:focus-visible,
+.backToTopButton:focus-visible{
+    outline:3px solid #36c;
+    outline-offset:2px;
+}
+
+.favoriteButton.is-favorite{
+    background:#36c;
+    color:white;
+}
+
+.favoriteButton.is-favorite:hover{
+    background:#447ff5;
+}
+
+.listControl select:focus,
+#searchBox:focus{
+    outline:2px solid #36c;
+    outline-offset:1px;
+}
+
+.emptyMessage{
+    padding:14px;
+    color:#54595d;
+    background:#f8f9fa;
+    border-left:4px solid #a2a9b1;
+}
+
+.resultSummary{
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+.searchCategorySection{
+    padding-top:16px;
+    margin-top:20px;
+    border-top:1px solid #eaecf0;
+}
+
+.searchCategorySection h2 span{
+    color:#54595d;
+    font-size:0.8em;
+    font-weight:normal;
+}
+
+.resultCategory{
+    display:inline-block;
+    margin-bottom:6px;
+    padding:2px 8px;
+    color:#54595d;
+    background:#eaecf0;
+    border-radius:999px;
+    font-size:0.85em;
+    font-weight:bold;
+}
+
+.detailActions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:center;
+    margin:0 0 20px;
+}
+
+.backToListLink{
+    color:#0645ad;
+    font-weight:bold;
+    text-decoration:underline;
+    text-underline-offset:2px;
+}
+
+.favoriteCard .favoriteActions{
+    margin-top:14px;
+}
+
+.backToTopButton{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:10;
+    min-width:96px;
+    min-height:44px;
+    padding:8px 12px;
+    border:1px solid #36c;
+    border-radius:22px;
+    background:#36c;
+    color:white;
+    font:inherit;
+    font-weight:bold;
+    cursor:pointer;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(10px);
+    transition:opacity .2s, transform .2s, background .2s;
+}
+
+.backToTopButton.is-visible{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+}
+
+.backToTopButton:hover{
+    background:#447ff5;
+}
+
+.card{
+    display:flex;
+    gap:30px;
+    margin-top:20px;
+}
+
+.info{
+    flex:1;
+}
+
+.info h2{
+    margin-bottom:20px;
+    border-bottom:2px solid #eaecf0;
+    padding-bottom:10px;
+}
+
+.info h3{
+    margin-bottom:12px;
+}
+
+.info a,
+#result a{
+    color:#0645ad;
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:2px;
+}
+
+.info a:hover,
+#result a:hover{
+    color:#0645ad;
+    text-decoration-thickness:2px;
+}
+
+.list-card,
+.search-card,
+.related-card{
+    margin-top:16px;
+    padding:20px;
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+}
+
+.search-card table,
+.related-card table{
+    margin-bottom:12px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:20px;
+}
+
+td{
+    border:1px solid #c8ccd1;
+    padding:12px;
+}
+
+td:first-child{
+    width:180px;
+    background:#eaecf0;
+    font-weight:bold;
+}
+
+.description h3{
+    margin-bottom:10px;
+}
+
+.description p{
+    line-height:1.8;
+}
+
+/* ==========================
+   UI/UX仕上げ（既存クラス/idへの追加調整のみ）
+   ========================== */
+
+/* ① ヘッダー：控えめなアクセントライン */
+header{
+    border-bottom:3px solid #36c;
+}
+
+header h1{
+    letter-spacing:1px;
+}
+
+/* ② ナビゲーション：押せる感を明確化（現在ページ表示は含まない） */
+nav a{
+    border-bottom:3px solid transparent;
+}
+
+nav a:hover,
+nav a:focus-visible{
+    border-bottom-color:#36c;
+}
+
+/* 現在ページのナビ項目（js/common.js の highlightCurrentNav が付与） */
+nav a.is-current{
+    color:#202122;
+    background:#eaecf0;
+    border-bottom-color:#36c;
+}
+
+/* ③ 検索UI：検索エリアとボタンの一体感 */
+.searchArea{
+    border-top:3px solid #36c;
+}
+
+#searchButton{
+    font-weight:700;
+}
+
+/* ④ 検索結果0件・未入力時：余白と境界線で見やすく（アイコン・絵文字は追加しない） */
+.emptyMessage{
+    padding:18px 20px;
+    border-left:4px solid #36c;
+    line-height:1.8;
+    font-size:1.05em;
+}
+
+/* ⑤ 一覧ページの操作UI：余白を少し広げて見やすく */
+.listControls{
+    padding:18px;
+    row-gap:14px;
+}
+
+.listControl{
+    gap:6px;
+}
+
+/* ⑥ リセットボタン：視認性を少し強化 */
+.listResetButton{
+    border-width:2px;
+    font-weight:700;
+}
+
+/* ⑦ カード：統一感のある非常に控えめなホバー（影は使わない） */
+.list-card,
+.search-card,
+.related-card{
+    transition:transform .15s ease, border-color .15s ease;
+}
+
+.list-card:hover,
+.search-card:hover,
+.related-card:hover{
+    transform:translateY(-2px);
+    border-color:#a2a9b1;
+}
+
+/* ⑧ テーブル：長い値でもスマホで崩れないように */
+td{
+    word-break:break-word;
+}
+
+/* ⑨ お気に入り・リセットボタン：タップしやすいサイズを全画面幅で確保 */
+.listResetButton,
+.favoriteButton{
+    min-height:44px;
+}
+
+/* ==========================
+   Footer
+   ========================== */
+
+footer{
+    margin-top:40px;
+    padding:20px;
+    text-align:center;
+    background:#202122;
+    color:white;
+}
+
+footer .disclaimer{
+    margin-top:10px;
+    font-size:0.75rem;
+    line-height:1.6;
+    color:#9a9a9a;
+    max-width:640px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/* ==========================
+   Responsive
+   ========================== */
+
+@media(max-width:900px){
+
+    .card{
+        flex-direction:column;
+    }
+
+    header h1{
+        font-size:30px;
+    }
+
+    nav ul{
+        flex-direction:column;
+    }
+
+    nav a{
+        text-align:center;
+    }
+
+    /* スマホ版ヒーロー画像に切り替え、リンク位置を縦並びレイアウトに合わせる */
+    .heroImage{
+        display:none;
+    }
+
+    .heroImageMobile{
+        display:block;
+    }
+
+    /* スマホ版ヒーロー画像(4列×2行グリッド)に合わせたリンク位置 */
+    .heroLink--info{       top:46.06%; height:16.45%; left:31.88%; width:36.13%; }
+    .heroLink--favorites{  top:65.79%; height:16.75%; left:35.60%; width:29.22%; }
+
+}
+
+@media(max-width:600px){
+
+        .databaseOverview,
+    .databaseCategories{
+        padding:16px;
+    }
+
+    .categoryGrid{
+        grid-template-columns:1fr;
+    }
+
+    .categoryCard{
+        padding:16px;
+    }
+
+    .container{
+        max-width:92%;
+        margin:20px auto;
+    }
+
+    header{
+        padding:22px 14px;
+    }
+
+    .subTitle{
+        font-size:16px;
+    }
+
+    .searchArea,
+    #result,
+    .list-card,
+    .search-card,
+    .related-card{
+        padding:16px;
+    }
+
+    #searchButton{
+        width:100%;
+    }
+
+    .listControls{
+        align-items:stretch;
+    }
+
+    .listControl select,
+.listControl input[type="search"]{
+    width:100%;
+}
+
+    .listResetButton{
+        width:100%;
+    }
+
+    .detailActions{
+        align-items:stretch;
+    }
+
+    .favoriteButton,
+    .backToListLink{
+        width:100%;
+        text-align:center;
+    }
+
+    .backToListLink{
+        padding:9px;
+        border:1px solid #a2a9b1;
+        border-radius:4px;
+    }
+
+    .backToTopButton{
+        right:12px;
+        bottom:12px;
+        min-width:88px;
+    }
+
+    td{
+        padding:9px;
+    }
+
+    td:first-child{
+        width:38%;
+    }
+}
+
+/* ==========================
+   YouTubeリンク
+   ========================== */
+
+.youtubeLink a,
+.youtubeLink a:hover,
+.youtubeLink a:focus,
+.youtubeLink a:visited,
+.youtubeLink a:active{
+    color:white;
+    text-decoration:none;
+}
+
+.youtubeLink a{
+    display:inline-block;
+    padding:10px 18px;
+    background:#cc0000;
+    border-radius:5px;
+    font-weight:bold;
+    transition:background .2s;
+}
+
+.youtubeLink a:hover{
+    background:#ff0000;
+}
+
+/* ==========================
+   YouTubeリンク（検索結果・詳細ページ共通）
+   ========================== */
+
+.youtubeLink{
+    margin-top:20px;
+}
+
+.youtubeLink a,
+.youtubeLink a:hover,
+.youtubeLink a:focus,
+.youtubeLink a:visited,
+.youtubeLink a:active{
+    display:inline-block;
+    padding:10px 18px;
+    background:#cc0000;
+    color:white;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.youtubeLink a:hover{
+    background:#ff0000;
+}
+
+/* ==========================
+   YouTubeリンクのデザイン統一
+   ========================== */
+
+.info a.youtubeButton,
+.info a.youtubeButton:hover,
+.info a.youtubeButton:focus,
+.info a.youtubeButton:visited,
+.info a.youtubeButton:active,
+#result a.youtubeButton,
+#result a.youtubeButton:hover,
+#result a.youtubeButton:focus,
+#result a.youtubeButton:visited,
+#result a.youtubeButton:active{
+    display:inline-block;
+    padding:10px 18px;
+    background:#cc0000;
+    color:#ffffff;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:background-color .2s;
+}
+
+.info a.youtubeButton:hover,
+#result a.youtubeButton:hover{
+    background:#ff0000;
+    color:#ffffff;
+}
+
+/* ==========================
+   検索ハイライト
+   ========================== */
+
+.infoCardBody mark{
+    background:#fff3a0;
+    color:#202122;
+    padding:0 2px;
+    border-radius:2px;
+}
+
+/* ==========================
+   最終更新・RSS購読
+   ========================== */
+
+.infoMetaRow{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:14px;
+    margin-bottom:16px;
+}
+
+.lastUpdated{
+    color:#72777d;
+    font-size:.9em;
+}
+
+.rssLink{
+    color:#0645ad;
+    font-size:.9em;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.rssLink:hover{
+    text-decoration:underline;
+}
+
+/* ==========================
+   お気に入り：インポートボタン
+   ========================== */
+
+.favoriteImportLabel{
+    display:inline-flex;
+    align-items:center;
+    cursor:pointer;
+}
+
+/* ==========================
+   ダークモード切り替えボタン
+   ========================== */
+
+.themeToggleButton{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    z-index:10;
+    min-width:96px;
+    min-height:44px;
+    padding:8px 12px;
+    border:1px solid #36c;
+    border-radius:22px;
+    background:white;
+    color:#36c;
+    font:inherit;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.themeToggleButton:hover{
+    background:#eaf1ff;
+}
+
+@media (max-width:600px){
+    .themeToggleButton{
+        left:12px;
+        bottom:12px;
+        min-width:88px;
+    }
+}
+
+/* ==========================
+   ダークモード配色
+   ========================== */
+
+html.theme-dark body{
+    background:#101112;
+    color:#e8e8e8;
+}
+
+html.theme-dark header{
+    background:#0b0b0c;
+}
+
+html.theme-dark nav{
+    background:#1b1b1d;
+    border-bottom-color:#333;
+}
+
+html.theme-dark nav a{
+    color:#8ab4ff;
+}
+
+html.theme-dark nav a:hover{
+    background:#232325;
+}
+
+html.theme-dark nav a.is-current{
+    color:#e8e8e8;
+    background:#232325;
+}
+
+html.theme-dark .searchArea,
+html.theme-dark .databaseOverview,
+html.theme-dark .databaseCategories,
+html.theme-dark .infoCard,
+html.theme-dark .infoControls,
+html.theme-dark #result,
+html.theme-dark .listControls,
+html.theme-dark .list-card,
+html.theme-dark .search-card,
+html.theme-dark .related-card{
+    background:#1b1b1d;
+    border-color:#333;
+    color:#e8e8e8;
+}
+
+html.theme-dark .categoryCard{
+    background:#202022;
+    border-color:#333;
+    color:#e8e8e8;
+}
+
+html.theme-dark .categoryCard:hover{
+    background:#26262a;
+    border-color:#8ab4ff;
+}
+
+html.theme-dark .infoCardBody p,
+html.theme-dark .infoIntro,
+html.theme-dark .infoCardDate,
+html.theme-dark .lastUpdated,
+html.theme-dark .databaseOverview p{
+    color:#b7b7b7;
+}
+
+html.theme-dark .infoCardBody mark{
+    background:#665c00;
+    color:#fff3a0;
+}
+
+html.theme-dark .infoSearchInput,
+html.theme-dark .listControl select,
+html.theme-dark .listControl input[type="search"]{
+    background:#101112;
+    color:#e8e8e8;
+    border-color:#444;
+}
+
+html.theme-dark .infoTagButton,
+html.theme-dark .infoFilterButton,
+html.theme-dark .favoriteImportLabel{
+    background:#101112;
+    border-color:#444;
+    color:#e8e8e8;
+}
+
+html.theme-dark .infoTagButton.is-active,
+html.theme-dark .infoFilterButton.is-active{
+    background:#36c;
+    border-color:#36c;
+    color:white;
+}
+
+html.theme-dark .infoBadge--source{
+    background:#2b2b2e;
+    color:#cfcfcf;
+}
+
+html.theme-dark .infoBadge--tag{
+    background:#1c2b4d;
+    color:#a9c4ff;
+}
+
+html.theme-dark .infoCardLinks a.secondary,
+html.theme-dark .infoCardLinks button.infoCardLink.secondary{
+    background:#2b2b2e;
+    color:#a9c4ff;
+}
+
+html.theme-dark .infoCardLinks a.secondary:hover,
+html.theme-dark .infoCardLinks button.infoCardLink.secondary:hover{
+    background:#333338;
+}
+
+html.theme-dark .emptyMessage{
+    background:#1b1b1d;
+    border-left-color:#36c;
+    color:#e8e8e8;
+}
+
+html.theme-dark .rssLink{
+    color:#8ab4ff;
+}
+
+html.theme-dark footer{
+    background:#0b0b0c;
+}
+
+html.theme-dark .themeToggleButton{
+    background:#1b1b1d;
+    color:#e8e8e8;
+    border-color:#8ab4ff;
+}
+
+html.theme-dark .themeToggleButton:hover{
+    background:#232325;
+}
+
+html.theme-dark .backToTopButton{
+    background:#36c;
+    border-color:#36c;
+}
+
+html.theme-dark .relatedInfoSection{
+    border-top-color:#333;
+}
+
+html.theme-dark .relatedInfoLabel{
+    color:#b7b7b7;
+}
+
+html.theme-dark .relatedInfoList a{
+    color:#8ab4ff;
+}
+
+html.theme-dark .eventCalendarSection,
+html.theme-dark .commentsSection{
+    background:#1b1b1d;
+    border-color:#333;
+    color:#e8e8e8;
+}
+
+html.theme-dark .commentsSection{
+    background:transparent;
+}
+
+html.theme-dark .eventCalendarHeader button{
+    background:#101112;
+    border-color:#444;
+    color:#e8e8e8;
+}
+
+html.theme-dark .eventCalendarHeader button:hover{
+    background:#232325;
+}
+
+html.theme-dark .eventCalendarDay{
+    background:#101112;
+    color:#e8e8e8;
+}
+
+html.theme-dark .eventCalendarDay--event{
+    background:#1c2b4d;
+    border-color:#8ab4ff;
+    color:#a9c4ff;
+}
+
+html.theme-dark .eventCalendarList li{
+    background:#101112;
+}
+
+html.theme-dark .eventCalendarList a{
+    color:#8ab4ff;
+}
+
+html.theme-dark .eventCalendarPeriod{
+    color:#b7b7b7;
+}
+
+html.theme-dark .archiveMonthGroup,
+html.theme-dark .statsSection{
+    background:#1b1b1d;
+    border-color:#333;
+    color:#e8e8e8;
+}
+
+html.theme-dark .archiveSummary,
+html.theme-dark .archiveMonthItemDate,
+html.theme-dark .statsBarLabel{
+    color:#b7b7b7;
+}
+
+html.theme-dark .archiveMonthItem a{
+    color:#8ab4ff;
+}
+
+html.theme-dark .statsBarTrack{
+    background:#101112;
+}
+
+html.theme-dark .statsBarFill{
+    background:#8ab4ff;
+}
+
+html.theme-dark .statsBarValue{
+    color:#e8e8e8;
+}

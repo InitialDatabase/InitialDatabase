@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="MVNvT0mgJ44mn5_F9MtYCspXtcR8zpGHSOoUNdlCISg" />
+
+<meta name="description" content="頭文字Dのグッズ・コラボ・イベントなどの最新情報をXの投稿から厳選して掲載するファンサイトです。">
+
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://initialdatabase.github.io/InitialDatabase/">
+
+<link rel="alternate" type="application/rss+xml" title="頭文字Database 新着情報" href="feed.xml">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="頭文字Database | 頭文字Dのグッズ・コラボ情報サイト">
+<meta property="og:description" content="頭文字Dのグッズ・コラボ・イベントなどの最新情報をXの投稿から厳選して掲載するファンサイトです。">
+<meta property="og:url" content="https://initialdatabase.github.io/InitialDatabase/">
+<meta property="og:image" content="https://initialdatabase.github.io/InitialDatabase/images/ogp.png">
+<meta property="og:image:alt" content="頭文字Database トップページ">
+<meta property="og:site_name" content="頭文字Database">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="頭文字Database">
+<meta name="twitter:description" content="頭文字Dのグッズ・コラボ・イベントなどの最新情報をXの投稿から厳選して掲載するファンサイトです。">
+<meta name="twitter:image" content="https://initialdatabase.github.io/InitialDatabase/images/ogp.png">
+
+<title>頭文字Database | 頭文字Dのグッズ・コラボ情報サイト</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e2001c">
+<link rel="apple-touch-icon" href="images/icon-192.png">
+
+<!-- Google Analytics（要設定：G-XXXXXXXXXX を実際の測定IDに置き換えてください） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){ dataLayer.push(arguments); }
+gtag("js", new Date());
+gtag("config", "G-XXXXXXXXXX");
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "頭文字Database",
+    "alternateName": "頭文字D Database",
+    "url": "https://initialdatabase.github.io/InitialDatabase/",
+    "description": "頭文字Dのグッズ・コラボ・イベントなどの最新情報をまとめたファンサイト。",
+    "inLanguage": "ja"
+}
+</script>
+
+</head>
+
+
+<body>
+
+
+<header class="heroHeader">
+
+<h1 class="visually-hidden">頭文字Database</h1>
+
+<p class="subTitle visually-hidden">
+頭文字D情報
+</p>
+
+<div class="heroImageWrap">
+
+<img
+    src="images/ogp.png"
+    alt="頭文字Database 頭文字Dデータベースサイト 頭文字D情報・お気に入り"
+    class="heroImage">
+
+<img
+    src="images/hero-mobile.png"
+    alt="頭文字Database 頭文字Dデータベースサイト 頭文字D情報・お気に入り"
+    class="heroImageMobile">
+
+<a class="heroLink heroLink--info" href="index.html" title="頭文字D情報を見る" aria-label="頭文字D情報を見る"></a>
+<a class="heroLink heroLink--favorites" href="pages/favorites.html" title="お気に入りを見る" aria-label="お気に入りを見る"></a>
+
+</div>
+
+</header>
+
+<nav>
+<ul>
+<li><a href="index.html">頭文字D情報</a></li>
+<li><a href="pages/favorites.html">お気に入り</a></li>
+<li><a href="pages/archive.html">アーカイブ・統計</a></li>
+</ul>
+</nav>
+
+
+<main class="container">
+
+
+<h2>
+頭文字D情報
+</h2>
+
+<p class="infoIntro">
+頭文字Dのグッズ・コラボ・イベントなどの最新情報をまとめています。気になる情報があれば、元記事のリンクから詳細をチェックしてみてください。
+</p>
+
+<p class="infoMetaRow">
+    <span id="lastUpdated" class="lastUpdated"></span>
+    <a class="rssLink" href="feed.xml" target="_blank" rel="noopener noreferrer">📡 RSSで購読</a>
+</p>
+
+<section class="eventCalendarSection" id="eventCalendarSection" hidden>
+
+    <h2>開催中・開催予定イベント</h2>
+
+    <div class="eventCalendarHeader">
+        <button type="button" id="calendarPrevMonth" aria-label="前の月へ">‹</button>
+        <span id="calendarMonthLabel"></span>
+        <button type="button" id="calendarNextMonth" aria-label="次の月へ">›</button>
+    </div>
+
+    <div class="eventCalendarGrid" id="eventCalendarGrid"></div>
+
+    <ul class="eventCalendarList" id="eventCalendarList"></ul>
+
+</section>
+
+<div class="infoControls" id="infoControls">
+
+    <div class="infoControlRow">
+        <input
+            type="search"
+            id="infoSearchInput"
+            class="infoSearchInput"
+            placeholder="キーワードで検索（例：ポップアップ、AE86）"
+            aria-label="頭文字D情報をキーワードで検索">
+    </div>
+
+    <div class="infoControlRow infoTagFilters" id="infoTagFilters" aria-label="タグで絞り込み">
+    </div>
+
+    <div class="infoControlRow infoSubFilters">
+
+        <div class="infoFilterGroup" role="group" aria-label="並び替え">
+            <span class="infoFilterLabel">並び替え：</span>
+            <button type="button" class="infoFilterButton is-active" data-sort="new">新着順</button>
+            <button type="button" class="infoFilterButton" data-sort="old">古い順</button>
+        </div>
+
+        <div class="infoFilterGroup" role="group" aria-label="期間で絞り込み">
+            <span class="infoFilterLabel">期間：</span>
+            <button type="button" class="infoFilterButton is-active" data-period="all">すべて</button>
+            <button type="button" class="infoFilterButton" data-period="week">今週</button>
+            <button type="button" class="infoFilterButton" data-period="month">今月</button>
+            <button type="button" class="infoFilterButton" data-period="ongoing">開催中のみ</button>
+        </div>
+
+        <div class="infoFilterGroup" role="group" aria-label="表示で絞り込み">
+            <span class="infoFilterLabel">表示：</span>
+            <button type="button" class="infoFilterButton is-active" data-readfilter="all">すべて</button>
+            <button type="button" class="infoFilterButton" data-readfilter="unread">未読のみ</button>
+        </div>
+
+    </div>
+
+</div>
+
+<p id="infoCount" class="dataCount"></p>
+
+<div class="infoList" id="infoList">
+</div>
+
+<section class="commentsSection">
+
+    <h2>コメント・ご要望</h2>
+
+    <!-- giscus（要設定：https://giscus.app で発行される data-repo / data-repo-id / data-category-id を設定してください） -->
+    <script src="https://giscus.app/client.js"
+        data-repo="YOUR-GITHUB-USERNAME/YOUR-REPO"
+        data-repo-id="YOUR_REPO_ID"
+        data-category="Comments"
+        data-category-id="YOUR_CATEGORY_ID"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="ja"
+        crossorigin="anonymous"
+        async>
+    </script>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+<p>
+© 頭文字Database
+</p>
+
+<p class="disclaimer">
+本サイトは『頭文字D』(原作:しげの秀一/講談社)の非公式ファンサイトです。株式会社講談社、株式会社avexピクチャーズ、その他関連権利者とは一切関係ありません。
+</p>
+
+</footer>
+
+
+
+<script>
+window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.x.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function(f) {
+        t._e.push(f);
+    };
+
+    return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+<script src="js/data.js"></script>
+
+<script src="js/common.js"></script>
+
+<script src="js/calendar.js"></script>
+
+<script src="js/info.js"></script>
+
+
+</body>
+
+</html>
