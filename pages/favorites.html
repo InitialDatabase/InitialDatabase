@@ -62,7 +62,7 @@ gtag("config", "G-XXXXXXXXXX");
     <span class="navToggleIcon" aria-hidden="true">☰</span> メニュー
 </button>
 <ul id="navMenu">
-<li><a href="../index.html">頭文字D情報</a></li>
+<li><a href="../index.html">最新情報</a></li>
 <li><a href="favorites.html">お気に入り</a></li>
 <li><a href="calendar.html">イベントカレンダー</a></li>
 <li><a href="archive.html">アーカイブ・統計</a></li>
@@ -75,6 +75,29 @@ gtag("config", "G-XXXXXXXXXX");
 <h2>お気に入り一覧</h2>
 
 <div class="infoControls" id="favoriteToolbar">
+
+    <div class="infoControlRow">
+        <input
+            type="search"
+            id="favoriteSearchInput"
+            class="infoSearchInput"
+            placeholder="キーワードで検索（例：ポップアップ、AE86）"
+            aria-label="お気に入りをキーワードで検索">
+    </div>
+
+    <button
+        type="button"
+        id="favoriteFilterToggle"
+        class="infoFilterToggle"
+        aria-expanded="false"
+        aria-controls="favoriteFilterPanel">
+        🔍 絞り込み・並び替え <span class="infoFilterToggleIcon" aria-hidden="true">▾</span>
+    </button>
+
+    <div class="infoFilterPanel" id="favoriteFilterPanel">
+
+    <div class="infoControlRow infoTagFilters" id="favoriteTagFilters" aria-label="タグで絞り込み">
+    </div>
 
     <div class="infoControlRow infoSubFilters">
 
@@ -92,6 +115,8 @@ gtag("config", "G-XXXXXXXXXX");
                 <input type="file" id="favoriteImportInput" accept="application/json" hidden>
             </label>
         </div>
+
+    </div>
 
     </div>
 

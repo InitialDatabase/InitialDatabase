@@ -344,7 +344,7 @@ function setupCalendarDownloadDelegation(){
 
 function getSourceTypeLabel(url){
     if(isTweetUrl(url)){
-        return "𝕏 X投稿";
+        return "";
     }
 
     if(!url){

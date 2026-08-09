@@ -7,10 +7,39 @@
     const toolbar = document.getElementById("favoriteToolbar");
     const exportButton = document.getElementById("favoriteExportButton");
     const importInput = document.getElementById("favoriteImportInput");
+    const searchInput = document.getElementById("favoriteSearchInput");
+    const tagFilterContainer = document.getElementById("favoriteTagFilters");
 
     const state = {
-        sort: "added"
+        sort: "added",
+        keyword: "",
+        activeTags: new Set()
     };
+
+    function matchesKeyword(item){
+        if(!state.keyword){
+            return true;
+        }
+
+        const haystack = [
+            getItemTitle(item),
+            item.description || "",
+            item.source || "",
+            ...(Array.isArray(item.tags) ? item.tags : [])
+        ].join(" ").toLowerCase();
+
+        return haystack.includes(state.keyword.toLowerCase());
+    }
+
+    function matchesTags(item){
+        if(state.activeTags.size === 0){
+            return true;
+        }
+
+        const itemTags = Array.isArray(item.tags) ? item.tags : [];
+
+        return Array.from(state.activeTags).every(tag => itemTags.includes(tag));
+    }
 
     function createRemoveFavoriteButton(favorite){
         return `
@@ -38,6 +67,41 @@
         return state.sort === "old" ? sorted : sorted.reverse();
     }
 
+    function renderTagFilters(resolvedFavorites){
+        if(!tagFilterContainer){
+            return;
+        }
+
+        const allTags = Array.from(new Set(
+            resolvedFavorites.flatMap(({ item }) => Array.isArray(item.tags) ? item.tags : [])
+        ));
+
+        if(allTags.length === 0){
+            tagFilterContainer.innerHTML = "";
+            return;
+        }
+
+        tagFilterContainer.innerHTML = allTags.map(tag => `
+            <button type="button" class="infoTagButton${state.activeTags.has(tag) ? " is-active" : ""}" data-favtag="${escapeHTML(tag)}">
+                ${escapeHTML(tag)}
+            </button>
+        `).join("");
+
+        tagFilterContainer.querySelectorAll("[data-favtag]").forEach(button => {
+            button.addEventListener("click", () => {
+                const tag = button.dataset.favtag;
+
+                if(state.activeTags.has(tag)){
+                    state.activeTags.delete(tag);
+                }else{
+                    state.activeTags.add(tag);
+                }
+
+                renderFavorites();
+            });
+        });
+    }
+
     function renderFavorites(){
         const resolvedFavorites = getFavorites().map(favorite => {
             const item = getFavoriteItem(favorite);
@@ -45,17 +109,32 @@
             return item ? { favorite, item } : null;
         }).filter(Boolean);
 
-        favoriteCount.textContent = `お気に入り：${resolvedFavorites.length}件`;
+        renderTagFilters(resolvedFavorites);
+
+        const filteredFavorites = resolvedFavorites.filter(({ item }) =>
+            matchesKeyword(item) && matchesTags(item)
+        );
+
+        const isFiltered = Boolean(state.keyword) || state.activeTags.size > 0;
+
+        favoriteCount.textContent = isFiltered
+            ? `お気に入り：${filteredFavorites.length}件（全${resolvedFavorites.length}件中）`
+            : `お気に入り：${resolvedFavorites.length}件`;
 
         if(resolvedFavorites.length === 0){
             favoriteList.innerHTML = `<p class="emptyMessage">お気に入りはありません</p>`;
             return;
         }
 
-        const sortedFavorites = getSortedFavorites(resolvedFavorites);
+        if(filteredFavorites.length === 0){
+            favoriteList.innerHTML = `<p class="emptyMessage">条件に一致するお気に入りがありません</p>`;
+            return;
+        }
+
+        const sortedFavorites = getSortedFavorites(filteredFavorites);
 
         favoriteList.innerHTML = sortedFavorites.map(({ favorite, item }) =>
-            buildInfoCard(item, createRemoveFavoriteButton(favorite), "favoriteCard", "", favorite.category)
+            buildInfoCard(item, createRemoveFavoriteButton(favorite), "favoriteCard", state.keyword, favorite.category)
         ).join("");
 
         favoriteList.querySelectorAll("[data-remove-favorite]").forEach(button => {
@@ -67,6 +146,23 @@
 
         setupReadTrackingByView(favoriteList);
         loadTweetEmbeds(favoriteList);
+    }
+
+    if(searchInput){
+        searchInput.addEventListener("input", () => {
+            state.keyword = searchInput.value.trim();
+            renderFavorites();
+        });
+    }
+
+    const filterToggle = document.getElementById("favoriteFilterToggle");
+    const filterPanel = document.getElementById("favoriteFilterPanel");
+
+    if(filterToggle && filterPanel){
+        filterToggle.addEventListener("click", () => {
+            const isOpen = filterPanel.classList.toggle("is-open");
+            filterToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
     }
 
     if(toolbar){
