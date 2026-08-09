@@ -396,6 +396,26 @@ nav a:hover{
     color:white;
 }
 
+.infoBadge--status-before{
+    background:#eaecf0;
+    color:#54595d;
+}
+
+.infoBadge--status-reservation{
+    background:#2a7de1;
+    color:white;
+}
+
+.infoBadge--status-ongoing{
+    background:#1f9d55;
+    color:white;
+}
+
+.infoBadge--status-ended{
+    background:#a2a9b1;
+    color:white;
+}
+
 .infoCardEventPeriod{
     color:#2a4b8d;
     font-weight:bold;
@@ -802,6 +822,10 @@ nav a:hover{
     align-items:center;
 }
 
+.infoSearchRow{
+    position:relative;
+}
+
 .infoSearchInput{
     width:100%;
     max-width:420px;
@@ -816,6 +840,54 @@ nav a:hover{
 .infoSearchInput:focus{
     outline:2px solid #36c;
     outline-offset:1px;
+}
+
+.infoSearchSuggestions{
+    list-style:none;
+    margin:4px 0 0;
+    padding:6px;
+    position:absolute;
+    top:100%;
+    left:0;
+    width:100%;
+    max-width:420px;
+    background:white;
+    border:1px solid #a2a9b1;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,.12);
+    z-index:20;
+    max-height:280px;
+    overflow-y:auto;
+}
+
+.infoSearchSuggestions[hidden]{
+    display:none;
+}
+
+.infoSearchSuggestionItem{
+    padding:8px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:.92em;
+    line-height:1.4;
+    color:#202122;
+}
+
+.infoSearchSuggestionItem mark{
+    background:#fff3a0;
+    color:inherit;
+}
+
+.infoSearchSuggestionItem:hover,
+.infoSearchSuggestionItem.is-active{
+    background:#eaf1ff;
+}
+
+.infoSearchSuggestionMeta{
+    display:block;
+    margin-top:2px;
+    color:#54595d;
+    font-size:.85em;
 }
 
 .infoTagButton{
@@ -1049,6 +1121,40 @@ nav a:focus-visible,
     color:#54595d;
     background:#f8f9fa;
     border-left:4px solid #a2a9b1;
+}
+
+.infoNoResults{
+    padding:20px;
+    background:#f8f9fa;
+    border-left:4px solid #a2a9b1;
+    border-radius:4px;
+}
+
+.infoNoResultsMessage{
+    margin:0 0 16px;
+    color:#54595d;
+}
+
+.infoNoResultsBlock{
+    margin-top:18px;
+}
+
+.infoNoResultsBlock h4{
+    margin:0 0 8px;
+    font-size:.95em;
+    color:#202122;
+}
+
+.infoNoResultsTags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.infoNoResultsFeatured{
+    display:grid;
+    gap:14px;
+    margin-top:8px;
 }
 
 .resultSummary{
@@ -1785,6 +1891,16 @@ html.theme-dark .infoBadge--tag{
     color:#a9c4ff;
 }
 
+html.theme-dark .infoBadge--status-before{
+    background:#2b2b2e;
+    color:#cfcfcf;
+}
+
+html.theme-dark .infoBadge--status-ended{
+    background:#2b2b2e;
+    color:#9a9a9a;
+}
+
 html.theme-dark .infoCardLinks a.secondary,
 html.theme-dark .infoCardLinks button.infoCardLink.secondary{
     background:#2b2b2e;
@@ -1800,6 +1916,35 @@ html.theme-dark .emptyMessage{
     background:#1b1b1d;
     border-left-color:#36c;
     color:#e8e8e8;
+}
+
+html.theme-dark .infoNoResults{
+    background:#1b1b1d;
+    border-left-color:#36c;
+    color:#e8e8e8;
+}
+
+html.theme-dark .infoNoResultsMessage,
+html.theme-dark .infoNoResultsBlock h4{
+    color:#e8e8e8;
+}
+
+html.theme-dark .infoSearchSuggestions{
+    background:#101112;
+    border-color:#444;
+}
+
+html.theme-dark .infoSearchSuggestionItem{
+    color:#e8e8e8;
+}
+
+html.theme-dark .infoSearchSuggestionItem:hover,
+html.theme-dark .infoSearchSuggestionItem.is-active{
+    background:#1c2b4d;
+}
+
+html.theme-dark .infoSearchSuggestionMeta{
+    color:#b7b7b7;
 }
 
 html.theme-dark .rssLink{

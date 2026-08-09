@@ -21,14 +21,12 @@
             return true;
         }
 
-        const haystack = [
+        return matchesSearchKeyword([
             getItemTitle(item),
             item.description || "",
             item.source || "",
             ...(Array.isArray(item.tags) ? item.tags : [])
-        ].join(" ").toLowerCase();
-
-        return haystack.includes(state.keyword.toLowerCase());
+        ], state.keyword);
     }
 
     function matchesTags(item){

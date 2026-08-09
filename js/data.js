@@ -69,7 +69,8 @@ const database = {
             tags:["グッズ","予約開始"],
             description:
             "『頭文字D』に登場する藤原とうふ店を1/64スケールで再現したATS MODELSのディオラマ組立キットが予約開始。パーツは塗装不要で、USB給電によるライト点灯も楽しめる。",
-            articleUrl:"https://x.com/hobbysearch_mc/status/2085561927342882892?s=20"
+            articleUrl:"https://x.com/hobbysearch_mc/status/2085561927342882892?s=20",
+            reservationStart:"2026-08-07"
         },
 
         {

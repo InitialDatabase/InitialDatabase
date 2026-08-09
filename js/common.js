@@ -30,6 +30,111 @@ function renderHighlightedText(text, keyword){
 }
 
 // ==========================
+// あいまい検索（表記ゆれ吸収・タイプミス許容）
+// ==========================
+// ひらがな/カタカナ・全角半角の表記ゆれを吸収し、多少のタイプミスも
+// 許容したうえで一致判定を行うための補助関数群。
+// 「Java」⇔「ジャバ」のような英単語⇔カタカナの変換には対応していない
+// （対応表が必要なため対象外）。
+
+function normalizeForSearch(value){
+    if(!value){
+        return "";
+    }
+
+    // NFKCで全角/半角（英数字・記号）の表記ゆれを吸収したうえで小文字化
+    const normalized = String(value).normalize("NFKC").toLowerCase();
+
+    // カタカナをひらがなに統一（ひらがな/カタカナの表記ゆれを吸収）
+    return normalized.replace(/[\u30a1-\u30f6]/g, char =>
+        String.fromCharCode(char.charCodeAt(0) - 0x60)
+    );
+}
+
+function levenshteinDistanceWithinLimit(a, b, maxDistance){
+    const lengthA = a.length;
+    const lengthB = b.length;
+
+    if(Math.abs(lengthA - lengthB) > maxDistance){
+        return maxDistance + 1;
+    }
+
+    let previousRow = Array.from({ length: lengthB + 1 }, (_, index) => index);
+
+    for(let i = 1; i <= lengthA; i++){
+        const currentRow = [i];
+        let rowMin = currentRow[0];
+
+        for(let j = 1; j <= lengthB; j++){
+            const substitutionCost = a[i - 1] === b[j - 1] ? 0 : 1;
+
+            const value = Math.min(
+                previousRow[j] + 1,
+                currentRow[j - 1] + 1,
+                previousRow[j - 1] + substitutionCost
+            );
+
+            currentRow.push(value);
+
+            if(value < rowMin){
+                rowMin = value;
+            }
+        }
+
+        if(rowMin > maxDistance){
+            return maxDistance + 1;
+        }
+
+        previousRow = currentRow;
+    }
+
+    return previousRow[lengthB];
+}
+
+function fuzzyIncludes(normalizedHaystack, normalizedNeedle){
+    if(!normalizedNeedle){
+        return true;
+    }
+
+    if(normalizedHaystack.includes(normalizedNeedle)){
+        return true;
+    }
+
+    // 短すぎる語句はタイプミス許容の対象外（誤ヒットを防ぐため）
+    if(normalizedNeedle.length < 2){
+        return false;
+    }
+
+    const maxDistance = normalizedNeedle.length <= 5 ? 1 : 2;
+    const minWindow = Math.max(1, normalizedNeedle.length - maxDistance);
+    const maxWindow = normalizedNeedle.length + maxDistance;
+
+    for(let size = minWindow; size <= maxWindow; size++){
+        for(let start = 0; start + size <= normalizedHaystack.length; start++){
+            const segment = normalizedHaystack.substr(start, size);
+
+            if(levenshteinDistanceWithinLimit(segment, normalizedNeedle, maxDistance) <= maxDistance){
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+function matchesSearchKeyword(fieldValues, keyword){
+    const normalizedKeyword = normalizeForSearch(keyword);
+
+    if(!normalizedKeyword){
+        return true;
+    }
+
+    const normalizedHaystack = normalizeForSearch(fieldValues.filter(Boolean).join(" "));
+
+    return fuzzyIncludes(normalizedHaystack, normalizedKeyword);
+}
+
+// ==========================
 // Xポスト埋め込み
 // ==========================
 
@@ -154,6 +259,54 @@ function isOngoingEvent(item){
     const today = getTodayDateOnly();
 
     return today >= start && today <= end;
+}
+
+// ==========================
+// ステータス絞り込み（発売前／予約開始／開催中／終了済み）
+// ==========================
+// item.reservationStart（予約開始日）／item.eventStart（発売日・開催開始日）／
+// item.eventEnd（終了日）の3つの任意フィールドから、4区分のステータスを判定する。
+// いずれのフィールドも持たない情報（通常のグッズ紹介など）は対象外としてnullを返す。
+
+function getItemEventStatus(item){
+    const reservationStart = parseDateOnly(item.reservationStart);
+    const eventStart = parseDateOnly(item.eventStart);
+    const eventEnd = parseDateOnly(item.eventEnd || item.eventStart);
+
+    if(!reservationStart && !eventStart){
+        return null;
+    }
+
+    const today = getTodayDateOnly();
+
+    if(eventEnd && today > eventEnd){
+        return "ended";
+    }
+
+    if(eventStart && today >= eventStart){
+        return "ongoing";
+    }
+
+    if(reservationStart && today >= reservationStart){
+        return "reservation";
+    }
+
+    return "before";
+}
+
+function getEventStatusLabel(status){
+    switch(status){
+        case "before":
+            return "発売前";
+        case "reservation":
+            return "予約開始";
+        case "ongoing":
+            return "開催中";
+        case "ended":
+            return "終了済み";
+        default:
+            return "";
+    }
 }
 
 function getDaysUntilEventEnd(item){
@@ -386,6 +539,16 @@ function buildInfoCardBadges(item){
                 </span>
             `);
         }
+    }
+
+    const eventStatus = getItemEventStatus(item);
+
+    if(eventStatus === "before" || eventStatus === "reservation" || eventStatus === "ended"){
+        badges.push(`
+            <span class="infoBadge infoBadge--status infoBadge--status-${eventStatus}">
+                ${escapeHTML(getEventStatusLabel(eventStatus))}
+            </span>
+        `);
     }
 
     const sourceTypeLabel = getSourceTypeLabel(item.articleUrl);

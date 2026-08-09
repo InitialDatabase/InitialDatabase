@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+<title>オフラインです | 頭文字Database</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e2001c">
+<link rel="apple-touch-icon" href="images/icon-192.png">
+
+</head>
+
+<body>
+
+<header class="heroHeader">
+
+<h1 class="visually-hidden">頭文字Database</h1>
+
+<p class="subTitle visually-hidden">
+オフラインです
+</p>
+
+<div class="heroImageWrap">
+
+<img
+    src="images/ogp.png"
+    alt="頭文字Database 頭文字Dデータベースサイト 最新情報・お気に入り"
+    class="heroImage">
+
+<img
+    src="images/hero-mobile.png"
+    alt="頭文字Database 頭文字Dデータベースサイト 最新情報・お気に入り"
+    class="heroImageMobile">
+
+</div>
+
+</header>
+
+<main class="container">
+
+<h2>📡 オフライン状態です</h2>
+
+<div class="infoNoResults">
+    <p class="infoNoResultsMessage">
+        現在インターネットに接続されていないため、このページを表示できませんでした。<br>
+        通信状態が回復すると、以前に閲覧したページはキャッシュから引き続き表示できます。
+    </p>
+    <div class="infoNoResultsBlock">
+        <h4>できること</h4>
+        <ul>
+            <li>電波の良い場所へ移動するか、Wi-Fiの接続をご確認ください。</li>
+            <li>通信が回復したら、下のボタンで再読み込みしてください。</li>
+            <li>一度表示したことのあるページは、オフラインのままでも閲覧できる場合があります。</li>
+        </ul>
+    </div>
+</div>
+
+<p class="infoMetaRow">
+    <button type="button" id="offlineReloadButton" class="infoFilterToggle" style="max-width:280px;">
+        🔄 再読み込みする
+    </button>
+</p>
+
+</main>
+
+<footer>
+
+<p>
+© 頭文字Database
+</p>
+
+<p class="disclaimer">
+本サイトは『頭文字D』(原作:しげの秀一/講談社)の非公式ファンサイトです。株式会社講談社、株式会社avexピクチャーズ、その他関連権利者とは一切関係ありません。
+</p>
+
+</footer>
+
+<script>
+document.getElementById("offlineReloadButton").addEventListener("click", () => {
+    window.location.reload();
+});
+</script>
+
+</body>
+
+</html>

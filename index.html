@@ -33,6 +33,10 @@
 
 <link rel="stylesheet" href="css/style.css">
 
+<!-- ファーストビュー（ヒーロー画像）のプリロード：LCP改善用 -->
+<link rel="preload" as="image" href="images/hero-mobile.png" media="(max-width:900px)">
+<link rel="preload" as="image" href="images/ogp.png" media="(min-width:901px)">
+
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#e2001c">
 <link rel="apple-touch-icon" href="images/icon-192.png">
@@ -120,13 +124,25 @@ gtag("config", "G-XXXXXXXXXX");
 
 <div class="infoControls" id="infoControls">
 
-    <div class="infoControlRow">
+    <div class="infoControlRow infoSearchRow">
         <input
             type="search"
             id="infoSearchInput"
             class="infoSearchInput"
             placeholder="キーワードで検索（例：ポップアップ、AE86）"
-            aria-label="最新情報をキーワードで検索">
+            aria-label="最新情報をキーワードで検索"
+            role="combobox"
+            aria-expanded="false"
+            aria-controls="infoSearchSuggestions"
+            aria-autocomplete="list"
+            autocomplete="off">
+        <ul
+            id="infoSearchSuggestions"
+            class="infoSearchSuggestions"
+            role="listbox"
+            aria-label="検索候補"
+            hidden>
+        </ul>
     </div>
 
     <button
@@ -157,6 +173,15 @@ gtag("config", "G-XXXXXXXXXX");
             <button type="button" class="infoFilterButton" data-period="week">今週</button>
             <button type="button" class="infoFilterButton" data-period="month">今月</button>
             <button type="button" class="infoFilterButton" data-period="ongoing">開催中のみ</button>
+        </div>
+
+        <div class="infoFilterGroup" role="group" aria-label="ステータスで絞り込み">
+            <span class="infoFilterLabel">ステータス：</span>
+            <button type="button" class="infoFilterButton is-active" data-status="all">すべて</button>
+            <button type="button" class="infoFilterButton" data-status="before">発売前</button>
+            <button type="button" class="infoFilterButton" data-status="reservation">予約開始</button>
+            <button type="button" class="infoFilterButton" data-status="ongoing">開催中</button>
+            <button type="button" class="infoFilterButton" data-status="ended">終了済み</button>
         </div>
 
         <div class="infoFilterGroup" role="group" aria-label="表示で絞り込み">
