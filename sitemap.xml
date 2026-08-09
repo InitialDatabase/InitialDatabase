@@ -15,4 +15,8 @@ xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
 <loc>https://initialdatabase.github.io/InitialDatabase/pages/calendar.html</loc>
 </url>
 
+<url>
+<loc>https://initialdatabase.github.io/InitialDatabase/pages/comments.html</loc>
+</url>
+
 </urlset>

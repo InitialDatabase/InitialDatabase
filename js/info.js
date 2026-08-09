@@ -223,6 +223,16 @@
         });
     }
 
+    const filterToggle = document.getElementById("infoFilterToggle");
+    const filterPanel = document.getElementById("infoFilterPanel");
+
+    if(filterToggle && filterPanel){
+        filterToggle.addEventListener("click", () => {
+            const isOpen = filterPanel.classList.toggle("is-open");
+            filterToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+    }
+
     renderTagFilters();
     renderLastUpdatedLabel(items, "lastUpdated");
     render();

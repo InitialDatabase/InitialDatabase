@@ -84,19 +84,20 @@ gtag("config", "G-XXXXXXXXXX");
     alt="頭文字Database 頭文字Dデータベースサイト 頭文字D情報・お気に入り"
     class="heroImageMobile">
 
-<a class="heroLink heroLink--info" href="index.html" title="頭文字D情報を見る" aria-label="頭文字D情報を見る"></a>
-<a class="heroLink heroLink--favorites" href="pages/favorites.html" title="お気に入りを見る" aria-label="お気に入りを見る"></a>
-
 </div>
 
 </header>
 
 <nav>
-<ul>
+<button type="button" id="navToggle" class="navToggle" aria-expanded="false" aria-controls="navMenu">
+    <span class="navToggleIcon" aria-hidden="true">☰</span> メニュー
+</button>
+<ul id="navMenu">
 <li><a href="index.html">頭文字D情報</a></li>
 <li><a href="pages/favorites.html">お気に入り</a></li>
 <li><a href="pages/calendar.html">イベントカレンダー</a></li>
 <li><a href="pages/archive.html">アーカイブ・統計</a></li>
+<li><a href="pages/comments.html">コメント</a></li>
 </ul>
 </nav>
 
@@ -128,6 +129,17 @@ gtag("config", "G-XXXXXXXXXX");
             aria-label="頭文字D情報をキーワードで検索">
     </div>
 
+    <button
+        type="button"
+        id="infoFilterToggle"
+        class="infoFilterToggle"
+        aria-expanded="false"
+        aria-controls="infoFilterPanel">
+        🔍 絞り込み・並び替え <span class="infoFilterToggleIcon" aria-hidden="true">▾</span>
+    </button>
+
+    <div class="infoFilterPanel" id="infoFilterPanel">
+
     <div class="infoControlRow infoTagFilters" id="infoTagFilters" aria-label="タグで絞り込み">
     </div>
 
@@ -155,34 +167,14 @@ gtag("config", "G-XXXXXXXXXX");
 
     </div>
 
+    </div>
+
 </div>
 
 <p id="infoCount" class="dataCount"></p>
 
 <div class="infoList" id="infoList">
 </div>
-
-<section class="commentsSection">
-
-    <h2>コメント・ご要望</h2>
-
-    <script src="https://giscus.app/client.js"
-        data-repo="InitialDatabase/InitialDatabase"
-        data-repo-id="R_kgDOTucynw"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOTucyn84DC-fl"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="ja"
-        crossorigin="anonymous"
-        async>
-    </script>
-
-</section>
 
 
 </main>

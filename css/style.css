@@ -77,25 +77,6 @@ header h1{
     height:auto;
 }
 
-.heroLink{
-    position:absolute;
-    top:58.87%;
-    height:21.47%;
-    display:block;
-    border-radius:6px;
-    transition:background-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.heroLink:hover,
-.heroLink:focus-visible{
-    background-color:rgba(255,255,255,0.10);
-    box-shadow:inset 0 -3px 0 #e2001c;
-    outline:none;
-}
-
-.heroLink--info{       top:64.82%; height:15.41%; left:22.43%; width:25.42%; }
-.heroLink--favorites{  top:64.82%; height:15.41%; left:52.63%; width:23.03%; }
-
 /* ==========================
    Navigation
    ========================== */
@@ -127,6 +108,10 @@ nav a{
 
 nav a:hover{
     background:#eaecf0;
+}
+
+.navToggle{
+    display:none;
 }
 
 /* ==========================
@@ -761,6 +746,41 @@ nav a:hover{
     color:white;
 }
 
+.infoFilterToggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    width:100%;
+    padding:10px 14px;
+    background:#eaecf0;
+    border:1px solid #a2a9b1;
+    border-radius:18px;
+    color:#202122;
+    font:inherit;
+    font-weight:bold;
+    font-size:.9em;
+    cursor:pointer;
+}
+
+.infoFilterToggleIcon{
+    transition:transform .2s;
+}
+
+.infoFilterToggle[aria-expanded="true"] .infoFilterToggleIcon{
+    transform:rotate(180deg);
+}
+
+.infoFilterPanel{
+    display:none;
+    flex-direction:column;
+    gap:14px;
+}
+
+.infoFilterPanel.is-open{
+    display:flex;
+}
+
 .infoSubFilters{
     justify-content:space-between;
     gap:20px;
@@ -803,6 +823,17 @@ nav a:hover{
 }
 
 @media (max-width:640px){
+    .infoTagFilters{
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        padding-bottom:2px;
+    }
+
+    .infoTagButton{
+        flex:0 0 auto;
+    }
+
     .infoSubFilters{
         flex-direction:column;
         align-items:flex-start;
@@ -1202,15 +1233,52 @@ footer .disclaimer{
         font-size:30px;
     }
 
+    .navToggle{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        width:100%;
+        padding:14px 20px;
+        background:#ffffff;
+        border:none;
+        border-bottom:1px solid #c8ccd1;
+        color:#0645ad;
+        font-weight:bold;
+        font-size:1rem;
+        cursor:pointer;
+    }
+
+    .navToggleIcon{
+        font-size:1.1rem;
+    }
+
     nav ul{
-        flex-direction:column;
+        display:none;
+        grid-template-columns:1fr 1fr;
+        gap:1px;
+        background:#c8ccd1;
+    }
+
+    nav ul.is-open{
+        display:grid;
+    }
+
+    nav li:last-child{
+        grid-column:1 / -1;
+    }
+
+    nav li{
+        background:#ffffff;
     }
 
     nav a{
         text-align:center;
+        padding:12px 8px;
+        font-size:0.9rem;
     }
 
-    /* スマホ版ヒーロー画像に切り替え、リンク位置を縦並びレイアウトに合わせる */
+    /* スマホ版ヒーロー画像に切り替え */
     .heroImage{
         display:none;
     }
@@ -1218,10 +1286,6 @@ footer .disclaimer{
     .heroImageMobile{
         display:block;
     }
-
-    /* スマホ版ヒーロー画像(4列×2行グリッド)に合わせたリンク位置 */
-    .heroLink--info{       top:46.06%; height:16.45%; left:31.88%; width:36.13%; }
-    .heroLink--favorites{  top:65.79%; height:16.75%; left:35.60%; width:29.22%; }
 
 }
 

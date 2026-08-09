@@ -6,21 +6,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="頭文字Dのグッズ・コラボ・イベントのうち、開催中・開催予定のイベントをカレンダー形式で確認できるページです。">
+<meta name="description" content="頭文字Databaseへのコメント・ご要望はこちらのページからお寄せください。">
 
 <meta name="robots" content="index,follow">
 
-<link rel="canonical" href="https://initialdatabase.github.io/InitialDatabase/pages/calendar.html">
+<link rel="canonical" href="https://initialdatabase.github.io/InitialDatabase/pages/comments.html">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="開催中・開催予定イベント | 頭文字Database">
-<meta property="og:description" content="頭文字Dのグッズ・コラボ・イベントのうち、開催中・開催予定のイベントをカレンダー形式で確認できるページです。">
-<meta property="og:url" content="https://initialdatabase.github.io/InitialDatabase/pages/calendar.html">
+<meta property="og:title" content="コメント・ご要望 | 頭文字Database">
+<meta property="og:description" content="頭文字Databaseへのコメント・ご要望はこちらのページからお寄せください。">
+<meta property="og:url" content="https://initialdatabase.github.io/InitialDatabase/pages/comments.html">
 <meta property="og:image" content="https://initialdatabase.github.io/InitialDatabase/images/ogp.png">
 <meta property="og:site_name" content="頭文字Database">
 <meta property="og:locale" content="ja_JP">
 
-<title>開催中・開催予定イベント | 頭文字Database</title>
+<title>コメント・ご要望 | 頭文字Database</title>
 
 <link rel="stylesheet" href="../css/style.css">
 
@@ -46,7 +46,7 @@ gtag("config", "G-XXXXXXXXXX");
 <h1 class="visually-hidden">頭文字Database</h1>
 
 <p class="subTitle visually-hidden">
-開催中・開催予定イベント
+コメント・ご要望
 </p>
 
 <div class="heroImageWrap">
@@ -80,52 +80,49 @@ gtag("config", "G-XXXXXXXXXX");
 
 <main class="container">
 
-<section class="eventCalendarSection" id="eventCalendarSection" hidden>
+<h2>コメント・ご要望</h2>
 
-    <h2>開催中・開催予定イベント</h2>
+<p class="infoIntro">
+頭文字Databaseへのコメント・ご要望はこちらからお寄せください。コメントの投稿にはGitHubアカウントでのログインが必要です。
+</p>
 
-    <div class="eventCalendarHeader">
-        <button type="button" id="calendarPrevMonth" aria-label="前の月へ">‹</button>
-        <span id="calendarMonthLabel"></span>
-        <button type="button" id="calendarNextMonth" aria-label="次の月へ">›</button>
-    </div>
+<section class="commentsSection" id="comments">
 
-    <div class="eventCalendarGrid" id="eventCalendarGrid"></div>
-
-    <ul class="eventCalendarList" id="eventCalendarList"></ul>
+    <script src="https://giscus.app/client.js"
+        data-repo="InitialDatabase/InitialDatabase"
+        data-repo-id="R_kgDOTucynw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTucyn84DC-fl"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ja"
+        crossorigin="anonymous"
+        async>
+    </script>
 
 </section>
-
-<p class="eventCalendarEmptyNotice" id="eventCalendarEmptyNotice">現在、開催中・開催予定のイベント情報はありません。</p>
 
 </main>
 
 <footer>
 
-<p>© 頭文字Database
+<p>
+© 頭文字Database
 </p>
 
 <p class="disclaimer">
-本サイトは『頭文字D』(原作:しげの秀一/講談社)の非公式ファンサイトです。株式会社講談社、株式会社avexピクチャーズ、その他関連権利者とは一切関係ありません。</p>
+本サイトは『頭文字D』(原作:しげの秀一/講談社)の非公式ファンサイトです。株式会社講談社、株式会社avexピクチャーズ、その他関連権利者とは一切関係ありません。
+</p>
 
 </footer>
 
 <script src="../js/data.js"></script>
 
 <script src="../js/common.js"></script>
-
-<script src="../js/calendar.js"></script>
-
-<script>
-// カレンダー本体（eventCalendarSection）が非表示のままの場合は、案内文を出し分ける
-(function(){
-    var section = document.getElementById("eventCalendarSection");
-    var notice = document.getElementById("eventCalendarEmptyNotice");
-    if(section && notice){
-        notice.hidden = !section.hidden;
-    }
-})();
-</script>
 
 </body>
 
