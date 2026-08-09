@@ -490,7 +490,7 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
 
 const favoriteCategories = {
     infos: {
-        label: "頭文字D情報",
+        label: "最新情報",
         dataKey: "infos"
     }
 };
@@ -879,7 +879,7 @@ function injectListStructuredData(items, elementId){
     const graphNodes = [
         {
             "@type": "ItemList",
-            name: "頭文字D情報",
+            name: "最新情報",
             itemListElement: itemListElements
         },
         ...eventNodes
@@ -912,7 +912,7 @@ function getNavLinkFileName(link){
 }
 
 function highlightCurrentNav(){
-    const navLinks = document.querySelectorAll("nav a");
+    const navLinks = document.querySelectorAll("#navMenu a");
 
     if(navLinks.length === 0){
         return;
@@ -1040,7 +1040,9 @@ function applyTheme(theme){
 }
 
 function setupThemeToggle(){
-    if(!document.body || document.getElementById("themeToggleButton")){
+    const nav = document.querySelector("nav");
+
+    if(!nav || document.getElementById("themeToggleButton")){
         return;
     }
 
@@ -1061,7 +1063,7 @@ function setupThemeToggle(){
         button.textContent = nextTheme === "dark" ? "☀️ ライト" : "🌙 ダーク";
     });
 
-    document.body.appendChild(button);
+    nav.appendChild(button);
 }
 
 if(typeof document !== "undefined"){

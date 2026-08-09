@@ -1,7 +1,7 @@
 // 頭文字Database Service Worker
 // 主要な静的ファイルをキャッシュし、オフラインでも閲覧できるようにする
 
-const CACHE_NAME = "initial-d-database-v2";
+const CACHE_NAME = "initial-d-database-v3";
 
 const CORE_ASSETS = [
     "./",
@@ -18,7 +18,6 @@ const CORE_ASSETS = [
     "manifest.json",
     "images/ogp.png",
     "images/hero-mobile.png",
-    "images/info-badge.png",
     "images/icon-192.png",
     "images/icon-512.png"
 ];
