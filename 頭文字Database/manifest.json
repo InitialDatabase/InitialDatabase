@@ -1,0 +1,31 @@
+{
+    "name": "頭文字Database",
+    "short_name": "頭文字DB",
+    "description": "頭文字Dのグッズ・コラボ・イベントなどの最新情報をXの投稿から厳選して掲載するファンサイトです。",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#0b0b0c",
+    "theme_color": "#e2001c",
+    "lang": "ja",
+    "icons": [
+        {
+            "src": "images/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "images/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "images/icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

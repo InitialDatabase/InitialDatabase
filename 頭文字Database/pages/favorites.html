@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="お気に入りに登録した頭文字Dのグッズ・コラボ情報の一覧ページです。">
+
+<meta name="robots" content="noindex,follow">
+
+<link rel="canonical" href="https://initialdatabase.github.io/InitialDatabase/pages/favorites.html">
+
+<title>お気に入り一覧 | 頭文字Database</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#e2001c">
+<link rel="apple-touch-icon" href="../images/icon-192.png">
+
+<!-- Google Analytics（要設定：G-XXXXXXXXXX を実際の測定IDに置き換えてください） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){ dataLayer.push(arguments); }
+gtag("js", new Date());
+gtag("config", "G-XXXXXXXXXX");
+</script>
+
+</head>
+
+<body>
+
+<header class="heroHeader">
+
+<h1 class="visually-hidden">頭文字Database</h1>
+
+<p class="subTitle visually-hidden">
+お気に入り一覧
+</p>
+
+<div class="heroImageWrap">
+
+<img
+    src="../images/ogp.png"
+    alt="頭文字Database 頭文字Dデータベースサイト 頭文字D情報・お気に入り"
+    class="heroImage">
+
+<img
+    src="../images/hero-mobile.png"
+    alt="頭文字Database 頭文字Dデータベースサイト 頭文字D情報・お気に入り"
+    class="heroImageMobile">
+
+<a class="heroLink heroLink--info" href="../index.html" title="頭文字D情報を見る" aria-label="頭文字D情報を見る"></a>
+<a class="heroLink heroLink--favorites" href="favorites.html" title="お気に入りを見る" aria-label="お気に入りを見る"></a>
+
+</div>
+
+</header>
+
+<nav>
+<ul>
+<li><a href="../index.html">頭文字D情報</a></li>
+<li><a href="favorites.html">お気に入り</a></li>
+<li><a href="calendar.html">イベントカレンダー</a></li>
+<li><a href="archive.html">アーカイブ・統計</a></li>
+</ul>
+</nav>
+
+<main class="container">
+
+<h2>お気に入り一覧</h2>
+
+<div class="infoControls" id="favoriteToolbar">
+
+    <div class="infoControlRow infoSubFilters">
+
+        <div class="infoFilterGroup" role="group" aria-label="並び替え">
+            <span class="infoFilterLabel">並び替え：</span>
+            <button type="button" class="infoFilterButton is-active" data-favsort="added">登録順</button>
+            <button type="button" class="infoFilterButton" data-favsort="new">新着順</button>
+            <button type="button" class="infoFilterButton" data-favsort="old">古い順</button>
+        </div>
+
+        <div class="infoFilterGroup" role="group" aria-label="バックアップ">
+            <button type="button" id="favoriteExportButton" class="infoFilterButton">⬇️ エクスポート</button>
+            <label class="infoFilterButton favoriteImportLabel">
+                ⬆️ インポート
+                <input type="file" id="favoriteImportInput" accept="application/json" hidden>
+            </label>
+        </div>
+
+    </div>
+
+</div>
+
+<p id="favoriteCount" class="dataCount"></p>
+
+<div id="favoriteList"></div>
+
+</main>
+
+<footer>
+
+<p>© 頭文字Database
+</p>
+
+<p class="disclaimer">
+本サイトは『頭文字D』(原作:しげの秀一/講談社)の非公式ファンサイトです。株式会社講談社、株式会社avexピクチャーズ、その他関連権利者とは一切関係ありません。</p>
+
+</footer>
+
+<script>
+window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.x.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function(f) {
+        t._e.push(f);
+    };
+
+    return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+<script src="../js/data.js"></script>
+
+<script src="../js/common.js"></script>
+
+<script src="../js/favorites.js"></script>
+
+</body>
+
+</html>

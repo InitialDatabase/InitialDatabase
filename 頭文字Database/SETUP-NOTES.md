@@ -1,0 +1,116 @@
+# 今回追加した機能と、公開前に手動設定が必要な項目
+
+## 今回（追加実装）追加した機能
+
+1. **Googleカレンダー／iCal追加ボタン**（common.js / createCalendarActionsHtml）
+   `eventStart`を持つ情報のカードに「📅 Googleカレンダーに追加」「🗓️ iCalに追加」ボタンが
+   自動で表示されます。iCalボタンはブラウザ上で.icsファイルを生成してダウンロードする方式
+   （サーバー不要）。イベントカレンダーの日別リストにも同じボタンが表示されます。
+
+2. **新着情報のDiscord通知**（scripts/notify-new-items.cjs）
+   `js/data.js`へのpush時に、GitHub Actionsが「まだ通知していない情報」を検出して
+   Discordのincoming webhookに自動投稿します。通知済みIDは`.github/notified-ids.json`に
+   記録され、同じ情報が二重に通知されることはありません。
+   **利用にはDiscordのwebhook URLをリポジトリのSecretに設定する必要があります**
+   （下記「公開前に手動で設定してほしい項目」参照）。未設定の場合は通知だけスキップされ、
+   feed.xmlの更新やnotified-ids.jsonの更新は通常通り行われます。
+
+3. **月別アーカイブ・統計ページ**（pages/archive.html / js/archive.js）
+   `js/data.js`の内容から自動生成される新ページです。月ごとに折りたたみ表示される
+   アーカイブ一覧と、タグ別・月別の件数を横棒グラフ（CSSのみ、外部ライブラリ不要）で
+   表示します。ヘッダー下に共通の`<nav>`を追加し、「頭文字D情報／お気に入り／
+   アーカイブ・統計」の3ページ間を行き来できるようにしました
+   （`nav a.is-current`の現在地ハイライトは元々common.js側に実装済みでした）。
+   Service Worker（sw.js）のキャッシュ対象にも追加済みです（キャッシュ名をv2に更新）。
+
+## 過去に実装した機能
+
+1. **関連情報の表示**（common.js / getRelatedItems）
+   同じタグを持つ他の情報を、各カードの下部に最大3件自動表示します。
+   タグが1つも共通しない場合は非表示になります。
+
+2. **イベント終了間近バッジ**（common.js / getDaysUntilEventEnd）
+   `eventStart` / `eventEnd` を持つ開催中の情報について、終了7日前を切ると
+   「あと◯日で終了」「本日終了」バッジを表示します。
+
+3. **イベントカレンダー**（js/calendar.js）
+   `eventStart` を持つ情報が1件もない間は自動的に非表示になります。
+   データを追加すると、月送りカレンダーとイベント一覧が自動的に表示されます。
+
+4. **既読/未読管理**（common.js / isItemRead, markItemRead, setupReadTrackingByView）
+   カードが画面に1秒以上表示されると、その情報が端末のlocalStorageに既読として
+   記録されます（IntersectionObserverによる検知）。すばやくスクロールして
+   通り過ぎただけでは既読になりません。見た目の変化（薄表示など）はなく、
+   「表示：未読のみ」フィルタでの絞り込みにのみ使われます。
+   ※「未読のみ」表示中に既読化したカードは、その場でフェードアウトして
+   　一覧から自動的に取り除かれます（info.js / handleCardRead）。
+   ※ 端末・ブラウザごとの記録です（お気に入りと同じ仕組み）。
+   ※ localStorageが使えない環境（index.htmlをfile://で直接開いた場合など）では
+   　お気に入り・既読状態が保存されません。その場合はブラウザのDevTools
+   　コンソールに警告が出力されます。ローカルサーバー（`npx serve`や
+   　VSCodeのLive Serverなど）経由、またはGitHub Pages等のhttp(s)環境で
+   　開いて動作確認してください。
+
+5. **PWA対応**（manifest.json / sw.js）
+   スマートフォンで「ホーム画面に追加」できるようになり、主要ファイルを
+   Service Workerでキャッシュしてオフラインでも閲覧できるようにしました。
+   アイコンは images/info-badge.png から自動生成した仮アイコンです
+   （images/icon-192.png / icon-512.png / icon-maskable-512.png）。
+   本番用にちゃんとしたロゴ画像がある場合は差し替えてください。
+
+6. **構造化データの拡充**（common.js / injectListStructuredData）
+   ページ読み込み時にItemListと、イベント情報についてはEventの
+   JSON-LDをJavaScriptで生成してheadに追加します。
+
+7. **GitHub Actionsでのfeed.xml自動生成**（.github/workflows/generate-feed.yml）
+   `js/data.js` を含むpushがあると、自動で `node scripts/generate-feed.cjs`
+   を実行し、feed.xmlの変更をコミットします。
+
+## 公開前に手動で設定してほしい項目
+
+- **Discord webhook（新着通知）**：Discordのサーバーで通知を受け取りたい
+  チャンネルの「連携サービス」→「ウェブフックを作成」からURLを発行し、
+  GitHubリポジトリの Settings → Secrets and variables → Actions →
+  New repository secret で、名前`DISCORD_WEBHOOK_URL`・値にそのURLを設定してください。
+  Discordを使わない場合は、`.github/workflows/generate-feed.yml`内の
+  「Notify new items to Discord」ステップを削除すれば通知処理自体を無効化できます。
+  ※ LINE公式アカウントなど他の通知先に変更したい場合は、
+  `scripts/notify-new-items.cjs`の`postToDiscord`関数を該当のWebhook/APIの
+  呼び出しに差し替えることで対応できます。
+
+- **Google Analytics**：`index.html` / `pages/favorites.html` / `pages/archive.html` 内の
+  `G-XXXXXXXXXX` を、実際のGA4測定IDに置き換えてください。
+  使わない場合は、該当の `<script>` 2つを削除してください。
+
+- **giscus（コメント欄）**：`index.html` の `commentsSection` 内、
+  `data-repo` / `data-repo-id` / `data-category-id` を、
+  [https://giscus.app](https://giscus.app) で発行される値に置き換えてください。
+  （リポジトリでGitHub Discussionsを有効にする必要があります）
+  コメント欄自体が不要であれば、`commentsSection` ごと削除してください。
+
+- **GitHub Actionsのブランチ名**：`generate-feed.yml` は
+  `main` ブランチへのpushを想定しています。実際の公開ブランチ名が違う場合は
+  ワークフロー内の `branches: [main]` を修正してください。
+
+- **PWAアイコン**：正式なロゴ・アイコン画像を用意できる場合は、
+  `images/icon-192.png` / `icon-512.png` / `icon-maskable-512.png` を
+  差し替えると見栄えが良くなります。
+
+## data.js の新しい任意フィールドについて
+
+既存の構造は変更していません。イベント関連の機能（カレンダー・終了間近バッジ）は、
+情報オブジェクトに以下の**任意フィールド**を追加した場合にのみ動作します
+（common.js内のisOngoingEvent等がもともと参照していたフィールドです）。
+
+```js
+{
+    id: 3,
+    title: "…",
+    date: "2026-08-09",
+    tags: ["イベント"],
+    description: "…",
+    articleUrl: "https://…",
+    eventStart: "2026-08-10",
+    eventEnd: "2026-08-20"
+}
+```
