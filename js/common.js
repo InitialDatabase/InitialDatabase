@@ -1144,6 +1144,53 @@ function initializeCommonUI(){
     setupThemeToggle();
     setupCalendarDownloadDelegation();
     registerServiceWorker();
+    trackSiteVisit();
+}
+
+// ==========================
+// サイト累計訪問者数（外部の無料カウンターサービスを利用）
+// ==========================
+
+// 全ページ共通のIDにすることで、どのページを開いても同じ合計カウントに加算される
+const SITE_VISITOR_BADGE_PAGE_ID = "initialdatabase-github-io.idd-total-visits";
+
+function getSiteVisitorBadgeUrl(leftText){
+    // バッジ画像のフォントは日本語の文字幅計算に対応していないため、
+    // ラベル部分（left_text）は必ず英数字にする（日本語ラベルはHTML側で別表示する）
+    const params = new URLSearchParams({
+        page_id: SITE_VISITOR_BADGE_PAGE_ID,
+        left_text: leftText || "Total Visits",
+        left_color: "#1a1a1a",
+        right_color: "#e2001c"
+    });
+
+    return `https://visitor-badge.laobi.icu/badge?${params.toString()}`;
+}
+
+function trackSiteVisit(){
+    if(typeof document === "undefined"){
+        return;
+    }
+
+    // アーカイブ・統計ページでは可視バッジ自体の読み込みでカウントされるため、
+    // 見えないカウント用の画像を二重に読み込まないようにする
+    if(document.getElementById("siteVisitorBadge")){
+        return;
+    }
+
+    const pixel = new Image();
+
+    pixel.alt = "";
+    pixel.width = 1;
+    pixel.height = 1;
+    pixel.style.position = "absolute";
+    pixel.style.width = "1px";
+    pixel.style.height = "1px";
+    pixel.style.opacity = "0";
+    pixel.style.pointerEvents = "none";
+    pixel.src = getSiteVisitorBadgeUrl();
+
+    document.body.appendChild(pixel);
 }
 
 function renderLastUpdatedLabel(items, elementId){

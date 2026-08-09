@@ -670,6 +670,27 @@ nav a:hover{
     margin-bottom:16px;
 }
 
+.visitorBadgeRow{
+    margin:0 0 4px;
+}
+
+.visitorBadgeLabel{
+    font-weight:bold;
+    margin-right:4px;
+    vertical-align:middle;
+}
+
+.visitorBadge{
+    height:20px;
+    vertical-align:middle;
+}
+
+.visitorBadgeNote{
+    color:#72777d;
+    font-size:.78em;
+    margin:0 0 16px;
+}
+
 .archiveMonthGroup{
     background:white;
     border:1px solid #c8ccd1;
@@ -2062,6 +2083,8 @@ html.theme-dark .statsSection{
 
 html.theme-dark .archiveSummary,
 html.theme-dark .archiveMonthItemDate,
+html.theme-dark .visitorBadgeNote,
+html.theme-dark .visitorBadgeLabel,
 html.theme-dark .statsBarLabel{
     color:#b7b7b7;
 }

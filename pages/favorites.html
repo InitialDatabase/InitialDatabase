@@ -76,13 +76,25 @@ gtag("config", "G-XXXXXXXXXX");
 
 <div class="infoControls" id="favoriteToolbar">
 
-    <div class="infoControlRow">
+    <div class="infoControlRow infoSearchRow">
         <input
             type="search"
             id="favoriteSearchInput"
             class="infoSearchInput"
             placeholder="キーワードで検索（例：ポップアップ、AE86）"
-            aria-label="お気に入りをキーワードで検索">
+            aria-label="お気に入りをキーワードで検索"
+            role="combobox"
+            aria-expanded="false"
+            aria-controls="favoriteSearchSuggestions"
+            aria-autocomplete="list"
+            autocomplete="off">
+        <ul
+            id="favoriteSearchSuggestions"
+            class="infoSearchSuggestions"
+            role="listbox"
+            aria-label="検索候補"
+            hidden>
+        </ul>
     </div>
 
     <button

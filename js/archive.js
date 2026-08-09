@@ -7,6 +7,15 @@
     const monthListElement = document.getElementById("archiveMonthList");
     const tagStatsElement = document.getElementById("tagStatsList");
     const monthStatsElement = document.getElementById("monthStatsList");
+    const visitorBadgeElement = document.getElementById("siteVisitorBadge");
+
+    // ==========================
+    // サイト累計訪問者数バッジ
+    // ==========================
+
+    if(visitorBadgeElement){
+        visitorBadgeElement.src = getSiteVisitorBadgeUrl("Total Visits");
+    }
 
     if(!monthListElement){
         return;

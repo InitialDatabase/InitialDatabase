@@ -8,6 +8,7 @@
     const exportButton = document.getElementById("favoriteExportButton");
     const importInput = document.getElementById("favoriteImportInput");
     const searchInput = document.getElementById("favoriteSearchInput");
+    const suggestionsElement = document.getElementById("favoriteSearchSuggestions");
     const tagFilterContainer = document.getElementById("favoriteTagFilters");
 
     const state = {
@@ -15,6 +16,9 @@
         keyword: "",
         activeTags: new Set()
     };
+
+    let activeSuggestionIndex = -1;
+    let currentSuggestions = [];
 
     function matchesKeyword(item){
         if(!state.keyword){
@@ -100,12 +104,16 @@
         });
     }
 
-    function renderFavorites(){
-        const resolvedFavorites = getFavorites().map(favorite => {
+    function getResolvedFavorites(){
+        return getFavorites().map(favorite => {
             const item = getFavoriteItem(favorite);
 
             return item ? { favorite, item } : null;
         }).filter(Boolean);
+    }
+
+    function renderFavorites(){
+        const resolvedFavorites = getResolvedFavorites();
 
         renderTagFilters(resolvedFavorites);
 
@@ -146,10 +154,153 @@
         loadTweetEmbeds(favoriteList);
     }
 
+    // ==========================
+    // インクリメンタルサーチ・サジェストのドロップダウン
+    // ==========================
+
+    function getSearchSuggestions(keyword, limit){
+        const normalizedKeyword = normalizeForSearch(keyword);
+
+        if(!normalizedKeyword){
+            return [];
+        }
+
+        return getResolvedFavorites()
+            .map(({ item }) => {
+                const title = getItemTitle(item);
+                const normalizedTitle = normalizeForSearch(title);
+                let score = -1;
+
+                if(normalizedTitle.startsWith(normalizedKeyword)){
+                    score = 3;
+                }else if(normalizedTitle.includes(normalizedKeyword)){
+                    score = 2;
+                }else if(fuzzyIncludes(normalizedTitle, normalizedKeyword)){
+                    score = 1;
+                }
+
+                return { item, score };
+            })
+            .filter(entry => entry.score >= 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, limit)
+            .map(entry => entry.item);
+    }
+
+    function closeSuggestions(){
+        if(!suggestionsElement){
+            return;
+        }
+
+        suggestionsElement.hidden = true;
+        suggestionsElement.innerHTML = "";
+        activeSuggestionIndex = -1;
+        currentSuggestions = [];
+
+        if(searchInput){
+            searchInput.setAttribute("aria-expanded", "false");
+        }
+    }
+
+    function applySuggestion(item){
+        const title = getItemTitle(item);
+
+        state.keyword = title;
+
+        if(searchInput){
+            searchInput.value = title;
+        }
+
+        closeSuggestions();
+        renderFavorites();
+        favoriteList.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function highlightActiveSuggestion(){
+        if(!suggestionsElement){
+            return;
+        }
+
+        suggestionsElement.querySelectorAll(".infoSearchSuggestionItem").forEach((element, index) => {
+            element.classList.toggle("is-active", index === activeSuggestionIndex);
+        });
+    }
+
+    function renderSuggestions(keyword){
+        if(!suggestionsElement){
+            return;
+        }
+
+        currentSuggestions = getSearchSuggestions(keyword, 5);
+        activeSuggestionIndex = -1;
+
+        if(currentSuggestions.length === 0){
+            closeSuggestions();
+            return;
+        }
+
+        suggestionsElement.innerHTML = currentSuggestions.map((item, index) => `
+            <li
+                class="infoSearchSuggestionItem"
+                role="option"
+                id="favoriteSearchSuggestion-${index}"
+                data-index="${index}">
+                ${renderHighlightedText(getItemTitle(item), keyword)}
+                ${item.date ? `<span class="infoSearchSuggestionMeta">${escapeHTML(item.date)}</span>` : ""}
+            </li>
+        `).join("");
+
+        suggestionsElement.hidden = false;
+
+        if(searchInput){
+            searchInput.setAttribute("aria-expanded", "true");
+        }
+
+        suggestionsElement.querySelectorAll(".infoSearchSuggestionItem").forEach(element => {
+            element.addEventListener("mousedown", event => {
+                // blurより先にクリックを処理するためmousedownで拾う
+                event.preventDefault();
+                const index = Number(element.dataset.index);
+                applySuggestion(currentSuggestions[index]);
+            });
+        });
+    }
+
     if(searchInput){
         searchInput.addEventListener("input", () => {
             state.keyword = searchInput.value.trim();
             renderFavorites();
+            renderSuggestions(state.keyword);
+        });
+
+        searchInput.addEventListener("keydown", event => {
+            if(!currentSuggestions.length || suggestionsElement.hidden){
+                return;
+            }
+
+            if(event.key === "ArrowDown"){
+                event.preventDefault();
+                activeSuggestionIndex = (activeSuggestionIndex + 1) % currentSuggestions.length;
+                highlightActiveSuggestion();
+            }else if(event.key === "ArrowUp"){
+                event.preventDefault();
+                activeSuggestionIndex = (activeSuggestionIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
+                highlightActiveSuggestion();
+            }else if(event.key === "Enter"){
+                if(activeSuggestionIndex >= 0){
+                    event.preventDefault();
+                    applySuggestion(currentSuggestions[activeSuggestionIndex]);
+                }else{
+                    closeSuggestions();
+                }
+            }else if(event.key === "Escape"){
+                closeSuggestions();
+            }
+        });
+
+        searchInput.addEventListener("blur", () => {
+            // クリック（mousedown）処理を先に走らせてから閉じる
+            setTimeout(closeSuggestions, 100);
         });
     }
 
