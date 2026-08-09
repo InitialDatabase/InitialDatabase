@@ -47,15 +47,6 @@
    `hero-mobile.png`（900px以下）または `ogp.png`（901px以上）を優先読み込みするようにしました。
    実際に表示に使われない方の画像を先読みしないよう、`media` 属性で出し分けています。
 
-8. **コメント機能をGitHubログイン不要のCusdisに変更**（pages/comments.html）
-   これまでのgiscus（GitHubアカウントでのログインが必須）から、
-   [Cusdis](https://cusdis.com) に変更しました。ニックネームとコメント本文を
-   入力するだけで、どなたでもログイン不要で投稿できます（ゲームウィズなどの
-   コメント欄に近い使用感です）。無料のホスティング版を利用する前提のため、
-   自前でサーバーやデータベースを用意する必要はありません。
-   ただし匿名投稿の性質上、初期設定では投稿ごとに管理者の承認が必要な
-   モデレーション設定になっています（詳しくは下記「Cusdisコメント欄の設定手順」参照）。
-
 ### 今回、あえて実装を見送った項目（判断理由）
 
 - **英単語⇔カタカナの用語対応辞書**（例：「Java」⇔「ジャバ」）：
@@ -148,9 +139,10 @@
   `G-XXXXXXXXXX` を、実際のGA4測定IDに置き換えてください。
   使わない場合は、該当の `<script>` 2つを削除してください。
 
-- **Cusdis（コメント欄）**：`pages/comments.html` の `cusdis_thread` 内、
-  `data-app-id="YOUR_CUSDIS_APP_ID"` を、実際のApp IDに置き換えてください。
-  取得手順は下記「Cusdisコメント欄の設定手順」を参照してください。
+- **giscus（コメント欄）**：`index.html` の `commentsSection` 内、
+  `data-repo` / `data-repo-id` / `data-category-id` を、
+  [https://giscus.app](https://giscus.app) で発行される値に置き換えてください。
+  （リポジトリでGitHub Discussionsを有効にする必要があります）
   コメント欄自体が不要であれば、`commentsSection` ごと削除してください。
 
 - **GitHub Actionsのブランチ名**：`generate-feed.yml` は
@@ -160,26 +152,6 @@
 - **PWAアイコン**：正式なロゴ・アイコン画像を用意できる場合は、
   `images/icon-192.png` / `icon-512.png` / `icon-maskable-512.png` を
   差し替えると見栄えが良くなります。
-
-## Cusdisコメント欄の設定手順
-
-1. [https://cusdis.com](https://cusdis.com) にアクセスし、アカウントを作成（無料）。
-2. ダッシュボードで「Add website」からサイトを追加。
-   - **Website Name**：任意（例：頭文字Database）
-   - **Website URL**：`https://initialdatabase.github.io/InitialDatabase`
-3. 追加すると発行される **App ID** をコピーし、
-   `pages/comments.html` 内の `data-app-id="YOUR_CUSDIS_APP_ID"` の
-   `YOUR_CUSDIS_APP_ID` 部分を書き換えてください。
-4. （任意・推奨）ダッシュボードの Settings で、投稿されたコメントを
-   即時公開するか、管理者が承認してから公開するか（モデレーション）を選べます。
-   匿名で誰でも投稿できる仕様上、荒らし・スパム対策として
-   「承認してから公開」の設定を推奨します。
-5. 新しいコメントが来るとダッシュボードで確認・承認でき、
-   メール通知を受け取る設定も可能です。
-
-※ Cusdisの`data-theme`（今回は`auto`＝OSのライト/ダーク設定に追従）は、
-　サイト右上のダークモード切り替えボタンとは連動しません（Cusdis側の仕様上の制約）。
-　サイトを手動でダークモードに切り替えても、コメント欄自体はOS設定に従った表示のままです。
 
 ## data.js の新しい任意フィールドについて
 
