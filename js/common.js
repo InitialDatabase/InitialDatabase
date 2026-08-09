@@ -749,12 +749,12 @@ function markItemRead(category, id){
     saveReadItemKeySet(keys);
 }
 
-// カードが画面に一定時間（既定1秒）表示されたら既読にする。
-// 素早くスクロールして通り過ぎただけでは既読になりません。
+// カードが画面に一瞬でも表示されたら既読にする（PC・スマホともに、
+// スクロールで通り過ぎただけでも既読として記録される）。
 // 未読のみ表示中でも、既読化した瞬間に一覧から消えてチラつかないよう、
 // ここでは一覧の再描画は行わない（表示切り替えなど、次にフィルタ操作を
 // したタイミングで反映される）。
-function setupReadTrackingByView(container, dwellMs){
+function setupReadTrackingByView(container){
     if(!container){
         return;
     }
@@ -764,43 +764,28 @@ function setupReadTrackingByView(container, dwellMs){
         return;
     }
 
-    const pendingTimers = new Map();
-    const delay = dwellMs ?? 1000;
-
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            const card = entry.target;
-
-            if(entry.isIntersecting){
-                if(pendingTimers.has(card)){
-                    return;
-                }
-
-                const timer = window.setTimeout(() => {
-                    pendingTimers.delete(card);
-
-                    const category = card.dataset.readCategory;
-                    const id = Number(card.dataset.readId);
-
-                    markItemRead(category, id);
-                    card.classList.add("is-read");
-
-                    const newBadge = card.querySelector(".infoBadge--new");
-
-                    if(newBadge){
-                        newBadge.remove();
-                    }
-
-                    observer.unobserve(card);
-                }, delay);
-
-                pendingTimers.set(card, timer);
-            }else if(pendingTimers.has(card)){
-                window.clearTimeout(pendingTimers.get(card));
-                pendingTimers.delete(card);
+            if(!entry.isIntersecting){
+                return;
             }
+
+            const card = entry.target;
+            const category = card.dataset.readCategory;
+            const id = Number(card.dataset.readId);
+
+            markItemRead(category, id);
+            card.classList.add("is-read");
+
+            const newBadge = card.querySelector(".infoBadge--new");
+
+            if(newBadge){
+                newBadge.remove();
+            }
+
+            observer.unobserve(card);
         });
-    }, { threshold: 0.6 });
+    }, { threshold: 0 });
 
     container.querySelectorAll("[data-read-id]").forEach(card => {
         if(isItemRead(card.dataset.readCategory, Number(card.dataset.readId))){
