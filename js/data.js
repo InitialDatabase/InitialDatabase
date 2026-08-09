@@ -318,6 +318,61 @@ const database = {
             description:
             "8月1日開始の陳麻婆豆腐×頭文字Dコラボにて、前面に「PROJECT.M.D」ロゴ、背面にAE86のイラストが入ったコラボ限定オリジナルTシャツの販売を予告。",
             articleUrl:"https://x.com/chenmapo_doufu/status/2080110652928958834"
+        },
+
+        {
+            id:30,
+            title:"『頭文字D』30周年記念モデル、1/64スケールAE86ミニカーがDMM通販で発売中",
+            date:"2026-07-21",
+            source:"DMM通販【公式】（X）",
+            tags:["グッズ"],
+            description:
+            "カーボンボンネットの質感やホイール、フォグランプ、「藤原とうふ店」ロゴまで細部を再現した1/64スケールのAE86が登場。透明ケース＆台座付き。",
+            articleUrl:"https://x.com/DMM_tsuhan/status/2079525544715280778"
+        },
+
+        {
+            id:31,
+            title:"『頭文字D』トレーディング原作コマ缶バッジ・イラストカードの予約は7月29日締切",
+            date:"2026-07-22",
+            source:"AMNIBUS（アムニバス）（X）",
+            tags:["グッズ"],
+            description:
+            "「トレーディング原作コマ缶バッジ」「トレーディング原作コマイラストカード」などの予約受付がAMNIBUSにて7月29日まで。当ショップ限定特典もあり。",
+            articleUrl:"https://x.com/AMNIBUS/status/2079853968486789428"
+        },
+
+        {
+            id:32,
+            title:"『昴と彗星』SUBARU BRZ（佐藤昴）のトミカプレミアムunlimited、2026年8月発売予定",
+            date:"2026-07-20",
+            source:"ヤマダデンキ LABI1 LIFE SELECT なんば（X）",
+            tags:["グッズ"],
+            description:
+            "ヤングマガジン連載中の『昴と彗星』より、トミカプレミアムunlimited 14 昴と彗星 SUBARU BRZ（佐藤昴）が登場。2026年8月発売予定で、LABI1 LIFE SELECTなんば地下1階玩具コーナーにて予約・購入可能。",
+            articleUrl:"https://x.com/labi1_namba/status/2079129183469687231"
+        },
+
+        {
+            id:33,
+            title:"『頭文字D』ハチロクをマンガ風に再現したキーチェーンが発売",
+            date:"2026-07-20",
+            source:"コミックナタリー（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』のハチロクをマンガ風に再現したキーチェーンが登場。背景台紙付きのボックス入り。",
+            articleUrl:"https://x.com/comic_natalie/status/2079144342451826821"
+        },
+
+        {
+            id:34,
+            title:"1/64 Honda NSX「北条豪 VS 高橋啓介」ミニカー、2026年11月発売予定",
+            date:"2026-07-17",
+            source:"Hobby JAPAN Minicar Project（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』の北条豪と高橋啓介の対決をテーマにした1/64スケールのHonda NSXミニカーが登場。ジオラマシート2枚入り。発売予定は2026年11月。",
+            articleUrl:"https://x.com/HJ_Minicar/status/2078009689330364587"
         }
 
     ]
