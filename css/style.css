@@ -68,7 +68,9 @@ header h1{
 .heroImage{
     display:block;
     width:100%;
+    max-width:50%;
     height:auto;
+    margin:0 auto;
 }
 
 .heroImageMobile{
@@ -411,11 +413,62 @@ nav a:hover{
     border-radius:8px;
     padding:16px;
     margin-bottom:16px;
+    overflow-x:hidden;
 }
 
 .eventCalendarSection h2{
     margin-bottom:12px;
     font-size:1.1em;
+}
+
+.eventCalendarSection{
+    margin-bottom:88px;
+}
+
+.eventCalendarLegend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    list-style:none;
+    margin-bottom:12px;
+    font-size:.8em;
+    color:#54595d;
+}
+
+.eventCalendarLegend li{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.eventCalendarLegendSwatch{
+    width:12px;
+    height:12px;
+    border-radius:3px;
+    display:inline-block;
+}
+
+.eventCalendarLegendSwatch--event{
+    background:#eaf1ff;
+    border:1px solid #36c;
+}
+
+.eventCalendarLegendSwatch--today{
+    background:transparent;
+    border:2px solid #e2001c;
+}
+
+.eventCalendarLegendSwatch--multi{
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#e2001c;
+    color:white;
+    font-size:9px;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .eventCalendarHeader{
@@ -450,14 +503,26 @@ nav a:hover{
     margin-bottom:4px;
 }
 
+.eventCalendarWeekday--sun{
+    color:#d33;
+}
+
+.eventCalendarWeekday--sat{
+    color:#36c;
+}
+
 .eventCalendarDays{
     display:grid;
-    grid-template-columns:repeat(7,1fr);
+    grid-template-columns:repeat(7,minmax(0,1fr));
+    align-content:start;
     gap:4px;
 }
 
 .eventCalendarDay{
     aspect-ratio:1;
+    position:relative;
+    min-width:0;
+    width:100%;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -481,13 +546,42 @@ nav a:hover{
     color:#2a4b8d;
 }
 
+.eventCalendarDay--connectRight{
+    border-top-right-radius:0;
+    border-bottom-right-radius:0;
+    margin-right:-4px;
+}
+
+.eventCalendarDay--connectLeft{
+    border-top-left-radius:0;
+    border-bottom-left-radius:0;
+}
+
 .eventCalendarDay--today{
-    box-shadow:inset 0 0 0 2px #e2001c;
+    box-shadow:inset 0 0 0 3px #e2001c;
+    font-weight:bold;
 }
 
 .eventCalendarDay--selected{
     background:#36c;
     color:white;
+}
+
+.eventCalendarDayBadge{
+    position:absolute;
+    top:2px;
+    right:2px;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#e2001c;
+    color:white;
+    font-size:.6em;
+    font-weight:bold;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .eventCalendarList{
@@ -1711,6 +1805,41 @@ html.theme-dark .eventCalendarDay--event{
     background:#1c2b4d;
     border-color:#8ab4ff;
     color:#a9c4ff;
+}
+
+html.theme-dark .eventCalendarDay--today{
+    box-shadow:inset 0 0 0 3px #ff6b6b;
+}
+
+html.theme-dark .eventCalendarDayBadge{
+    background:#ff6b6b;
+    color:#1b1b1d;
+}
+
+html.theme-dark .eventCalendarLegend{
+    color:#b7b7b7;
+}
+
+html.theme-dark .eventCalendarLegendSwatch--event{
+    background:#1c2b4d;
+    border-color:#8ab4ff;
+}
+
+html.theme-dark .eventCalendarLegendSwatch--today{
+    border-color:#ff6b6b;
+}
+
+html.theme-dark .eventCalendarLegendSwatch--multi{
+    background:#ff6b6b;
+    color:#1b1b1d;
+}
+
+html.theme-dark .eventCalendarWeekday--sun{
+    color:#ff8a8a;
+}
+
+html.theme-dark .eventCalendarWeekday--sat{
+    color:#8ab4ff;
 }
 
 html.theme-dark .eventCalendarList li{

@@ -69,22 +69,44 @@
             const date = new Date(state.year, state.month, day);
             const eventsOnDay = getEventsOnDate(date);
             const isToday = date.getTime() === today.getTime();
+
+            const prevDate = new Date(state.year, state.month, day - 1);
+            const nextDate = new Date(state.year, state.month, day + 1);
+            const connectsToPrev = eventsOnDay.length > 0 && getEventsOnDate(prevDate).length > 0;
+            const connectsToNext = eventsOnDay.length > 0 && getEventsOnDate(nextDate).length > 0;
+
             const classNames = [
                 "eventCalendarDay",
                 eventsOnDay.length > 0 ? "eventCalendarDay--event" : "",
-                isToday ? "eventCalendarDay--today" : ""
+                isToday ? "eventCalendarDay--today" : "",
+                connectsToPrev ? "eventCalendarDay--connectLeft" : "",
+                connectsToNext ? "eventCalendarDay--connectRight" : ""
             ].filter(Boolean).join(" ");
+
+            const badge = eventsOnDay.length > 1
+                ? `<span class="eventCalendarDayBadge">${eventsOnDay.length}</span>`
+                : "";
 
             cells.push(`
                 <button type="button" class="${classNames}" data-date="${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}">
-                    ${day}
+                    ${day}${badge}
                 </button>
             `);
         }
 
+        const totalCells = startWeekday + daysInMonth;
+        const trailingEmpty = (7 - (totalCells % 7)) % 7;
+
+        for(let i = 0; i < trailingEmpty; i++){
+            cells.push(`<span class="eventCalendarDay eventCalendarDay--empty"></span>`);
+        }
+
         grid.innerHTML = `
             <div class="eventCalendarWeekdays">
-                ${["日", "月", "火", "水", "木", "金", "土"].map(weekday => `<span>${weekday}</span>`).join("")}
+                ${["日", "月", "火", "水", "木", "金", "土"].map((weekday, index) => {
+                    const modifier = index === 0 ? " eventCalendarWeekday--sun" : (index === 6 ? " eventCalendarWeekday--sat" : "");
+                    return `<span class="eventCalendarWeekday${modifier}">${weekday}</span>`;
+                }).join("")}
             </div>
             <div class="eventCalendarDays">
                 ${cells.join("")}
