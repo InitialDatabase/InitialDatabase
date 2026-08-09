@@ -346,6 +346,13 @@ nav a:hover{
 .tweetCard .twitter-tweet{
     margin:0 !important;
     max-width:100%;
+    /* 埋め込み読み込み前後でカードの高さが大きく変わらないようにする */
+    min-height:250px;
+    width:100%;
+}
+
+.tweetCard .twitter-tweet[data-embed-requested] iframe{
+    min-height:inherit;
 }
 
 .tweetCard .infoCardBody{

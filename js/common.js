@@ -155,20 +155,62 @@ function isTweetUrl(url){
 
 function createTweetEmbed(url){
     return `
-        <blockquote class="twitter-tweet" data-dnt="true">
+        <blockquote class="twitter-tweet" data-dnt="true" data-conversation="none">
             <a href="${escapeHTML(url)}"></a>
         </blockquote>
     `;
 }
 
+// 画面内（またはその手前）に入ったツイートだけを順次埋め込む。
+// 一覧に並ぶ全ツイートを一度に読み込むと、初期表示が大きく遅くなるため。
 function loadTweetEmbeds(container){
-    if(typeof window === "undefined" || !window.twttr || !window.twttr.ready){
+    if(typeof window === "undefined" || !container){
         return;
     }
 
-    window.twttr.ready(twttr => {
-        twttr.widgets.load(container);
+    const blockquotes = container.querySelectorAll(".twitter-tweet:not([data-embed-requested])");
+
+    if(blockquotes.length === 0){
+        return;
+    }
+
+    const requestEmbed = element => {
+        if(element.dataset.embedRequested){
+            return;
+        }
+
+        element.dataset.embedRequested = "true";
+
+        if(!window.twttr || !window.twttr.ready){
+            return;
+        }
+
+        window.twttr.ready(twttr => {
+            twttr.widgets.load(element);
+        });
+    };
+
+    if(typeof IntersectionObserver === "undefined"){
+        // 未対応ブラウザ向けフォールバック：まとめて読み込む
+        blockquotes.forEach(requestEmbed);
+        return;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if(!entry.isIntersecting){
+                return;
+            }
+
+            requestEmbed(entry.target);
+            observer.unobserve(entry.target);
+        });
+    }, {
+        // 画面に入る少し手前から読み込みを開始し、スクロール時の待ち時間を減らす
+        rootMargin: "600px 0px"
     });
+
+    blockquotes.forEach(blockquote => observer.observe(blockquote));
 }
 
 // ==========================
