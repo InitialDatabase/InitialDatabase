@@ -18,8 +18,8 @@
         page: 1
     };
 
-    // 1ページ目は9件、2ページ目以降は10件ずつ表示する
-    const FIRST_PAGE_SIZE = 9;
+    // 1ページ目・2ページ目以降ともに10件ずつ表示する
+    const FIRST_PAGE_SIZE = 10;
     const OTHER_PAGE_SIZE = 10;
 
     let activeSuggestionIndex = -1;
