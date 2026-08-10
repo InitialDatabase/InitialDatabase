@@ -3,6 +3,67 @@ const database = {
     infos:[
 
         {
+            id:40,
+            title:"AE86実車＆1/18スケールモデルが高崎に集結、ポップアップショップ開催",
+            date:"2026-08-10",
+            source:"アニメ！アニメ！（X）",
+            tags:["イベント","グッズ"],
+            description:
+            "『頭文字D』のAE86実車と、連載30周年記念のAUTOart製1/18スケールモデルが、イオンモール高崎に集結。ミニカーの展示・販売や関連グッズの販売を行うポップアップショップを開催。",
+            articleUrl:"https://x.com/AnimeAnime_jp/status/2086656335819813198",
+            eventStart:"2026-08-11",
+            eventEnd:"2026-08-20"
+        },
+
+        {
+            id:41,
+            title:"ANGEL CLOVER×『頭文字D』30周年、文太のインプレッサ自動巻き腕時計デザイン公開",
+            date:"2026-08-09",
+            source:"ANGEL CLOVER（X）",
+            tags:["グッズ","コラボ"],
+            description:
+            "連載30周年記念コラボウォッチの新作、藤原文太 SUBARU IMPREZA WRX(GC8) type R STiモデル（自動巻き）のデザイン詳細を紹介。12時位置にGC8を象徴する「8」のインデックスを配置し、車載メーターをイメージしたサブダイヤルを採用。7月30日より予約受付中で、9月30日発売予定。",
+            articleUrl:"https://x.com/ANGELCLOVER_JP/status/2086376948218081313",
+            reservationStart:"2026-07-30"
+        },
+
+        {
+            id:42,
+            title:"アオシマ「楽プラ 文太のインプレッサ」予約受付中",
+            date:"2026-08-09",
+            source:"アオシマ online shop（X）",
+            tags:["グッズ"],
+            description:
+            "藤原とうふ店・店主 藤原文太のGC8インプレッサを商品化した「楽プラ スナップキット No.CM-6 頭文字D 文太のインプレッサ」が予約受付中。塗装不要・接着剤不要で、2026年12月発売予定。",
+            articleUrl:"https://x.com/aoshimatsu_han/status/2086301443976478802",
+            reservationStart:"2026-08-04"
+        },
+
+        {
+            id:43,
+            title:"藤原とうふ店ハチロクの“動くティッシュケース”が買えるポップアップショップ開催",
+            date:"2026-08-08",
+            source:"電ファミニコゲーマー（X）",
+            tags:["イベント","グッズ"],
+            description:
+            "『頭文字D』「藤原とうふ店（自家用）ハチロク」をモチーフにした、車輪が動くティッシュケースなどが購入できるポップアップショップを、マンガの舞台・群馬の「イオンモール高崎」にて開催。藤原拓海の等身大パネルによるフォトスポットも設置。",
+            articleUrl:"https://x.com/denfaminicogame/status/2085897047820149136",
+            eventStart:"2026-08-11",
+            eventEnd:"2026-08-20"
+        },
+
+        {
+            id:44,
+            title:"庄司慎吾のシビックEG6・中里毅のスカイラインBNR32がトミカプレミアムunlimitedに登場",
+            date:"2026-08-07",
+            source:"電撃ホビーウェブ（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』より、庄司慎吾のホンダ シビック SiR-II（EG6）と中里毅の日産 スカイライン GT-R（BNR32）が「トミカプレミアムunlimited」に登場。Amazonにて予約受付中で、2026年9月19日発売予定。",
+            articleUrl:"https://x.com/hobby_magazine/status/2085593213239513153"
+        },
+
+        {
             id:3,
             title:"AE86＆RX-7の名シーンを立体刺繍で表現したTシャツ登場",
             date:"2026-08-05",

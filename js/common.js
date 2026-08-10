@@ -314,6 +314,32 @@ function isOngoingEvent(item){
 }
 
 // ==========================
+// カレンダー用：開催期間／予約期間の対象日判定
+// ==========================
+// item.eventStart（開催開始日・発売日）があればそれを起点とした開催期間、
+// なければitem.reservationStart（予約開始日）を起点とした予約期間として扱う。
+// 終了日（item.eventEnd）が未入力の場合は、isOngoingEvent()と同じルールで
+// 「終了日が判明するまで対象期間が続く」ものとみなす。
+// カレンダー機能（calendar.js）はこの関数を必ず経由して判定を行うことで、
+// 頭文字D情報ページ側の「終了日未定＝開催中」ルールと表示がズレないようにする。
+
+function getEventCalendarRangeStart(item){
+    return parseDateOnly(item.eventStart || item.reservationStart);
+}
+
+function isDateWithinEventRange(item, date){
+    const start = getEventCalendarRangeStart(item);
+
+    if(!start || date < start){
+        return false;
+    }
+
+    const end = parseDateOnly(item.eventEnd);
+
+    return !end || date <= end;
+}
+
+// ==========================
 // ステータス絞り込み（発売前／予約開始／開催中／終了済み）
 // ==========================
 // item.reservationStart（予約開始日）／item.eventStart（発売日・開催開始日）／
@@ -376,15 +402,24 @@ function getDaysUntilEventEnd(item){
 }
 
 function getEventPeriodLabel(item){
-    if(!item.eventStart){
-        return "";
+    if(item.eventStart){
+        if(item.eventEnd && item.eventEnd !== item.eventStart){
+            return `開催期間：${item.eventStart} 〜 ${item.eventEnd}`;
+        }
+
+        if(item.eventEnd){
+            return `開催期間：${item.eventStart}`;
+        }
+
+        // 終了日が未入力の場合は、いつまで続くか分からない状態であることを明示する
+        return `開催期間：${item.eventStart}〜（終了日未定）`;
     }
 
-    if(item.eventEnd && item.eventEnd !== item.eventStart){
-        return `開催期間：${item.eventStart} 〜 ${item.eventEnd}`;
+    if(item.reservationStart){
+        return `予約開始：${item.reservationStart}〜`;
     }
 
-    return `開催期間：${item.eventStart}〜`;
+    return "";
 }
 
 function createShareButtons(item){

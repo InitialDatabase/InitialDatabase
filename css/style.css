@@ -546,6 +546,11 @@ nav a:hover{
     justify-content:center;
 }
 
+.eventCalendarLegendSwatch--reservation{
+    background:#fff3e0;
+    border:1px solid #c77700;
+}
+
 .eventCalendarHeader{
     display:flex;
     align-items:center;
@@ -581,6 +586,23 @@ nav a:hover{
 .eventCalendarTodayButton{
     margin-left:4px;
     font-size:.85em !important;
+}
+
+.eventCalendarJump{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.eventCalendarJumpSelect{
+    padding:4px 8px;
+    color:#202122;
+    background:white;
+    border:1px solid #a2a9b1;
+    border-radius:6px;
+    font:inherit;
+    font-size:.85em;
 }
 
 .eventCalendarWeekdays{
@@ -635,6 +657,13 @@ nav a:hover{
     color:#2a4b8d;
 }
 
+.eventCalendarDay--reservation{
+    background:#fff3e0;
+    border-color:#c77700;
+    font-weight:bold;
+    color:#8a5300;
+}
+
 .eventCalendarDay--connectRight{
     border-top-right-radius:0;
     border-bottom-right-radius:0;
@@ -671,6 +700,17 @@ nav a:hover{
     display:flex;
     align-items:center;
     justify-content:center;
+}
+
+.eventCalendarListHeading{
+    margin-top:18px;
+    margin-bottom:8px;
+    font-size:1em;
+}
+
+.eventCalendarControls{
+    margin-top:14px;
+    margin-bottom:0;
 }
 
 .eventCalendarList{
@@ -2136,6 +2176,23 @@ html.theme-dark .eventCalendarDay--event{
     background:#1c2b4d;
     border-color:#8ab4ff;
     color:#a9c4ff;
+}
+
+html.theme-dark .eventCalendarDay--reservation{
+    background:#3d2b12;
+    border-color:#ffb84d;
+    color:#ffcf8a;
+}
+
+html.theme-dark .eventCalendarLegendSwatch--reservation{
+    background:#3d2b12;
+    border-color:#ffb84d;
+}
+
+html.theme-dark .eventCalendarJumpSelect{
+    background:#101112;
+    border-color:#444;
+    color:#e8e8e8;
 }
 
 html.theme-dark .eventCalendarDay--today{

@@ -86,20 +86,52 @@ gtag("config", "G-19K4474718");
 
     <ul class="eventCalendarLegend">
         <li><span class="eventCalendarLegendSwatch eventCalendarLegendSwatch--event" aria-hidden="true"></span>開催中</li>
+        <li><span class="eventCalendarLegendSwatch eventCalendarLegendSwatch--reservation" aria-hidden="true"></span>予約中</li>
         <li><span class="eventCalendarLegendSwatch eventCalendarLegendSwatch--today" aria-hidden="true"></span>今日</li>
         <li><span class="eventCalendarLegendSwatch eventCalendarLegendSwatch--multi" aria-hidden="true">2</span>複数件</li>
     </ul>
 
     <div class="eventCalendarHeader">
         <button type="button" id="calendarPrevMonth" aria-label="前の月へ">‹</button>
-        <span id="calendarMonthLabel"></span>
+        <span id="calendarMonthLabel" aria-live="polite"></span>
         <button type="button" id="calendarNextMonth" aria-label="次の月へ">›</button>
         <button type="button" id="calendarTodayButton" class="eventCalendarTodayButton" aria-label="今日の月へ戻る">今日</button>
     </div>
 
+    <div class="eventCalendarJump">
+        <label for="calendarYearSelect" class="visually-hidden">表示する年を選択</label>
+        <select id="calendarYearSelect" class="eventCalendarJumpSelect" aria-label="表示する年"></select>
+        <label for="calendarMonthSelect" class="visually-hidden">表示する月を選択</label>
+        <select id="calendarMonthSelect" class="eventCalendarJumpSelect" aria-label="表示する月"></select>
+    </div>
+
     <div class="eventCalendarGrid" id="eventCalendarGrid"></div>
 
+    <div class="infoControls eventCalendarControls" id="eventCalendarControls">
+
+        <div class="infoControlRow infoSearchRow">
+            <input
+                type="search"
+                id="calendarKeywordInput"
+                class="infoSearchInput"
+                placeholder="キーワードで絞り込み（例：コラボ、グッズ）"
+                aria-label="カレンダーのイベントをキーワードで絞り込み"
+                autocomplete="off">
+        </div>
+
+        <div class="infoControlRow infoTagFilters" id="calendarTagFilters" aria-label="タグで絞り込み"></div>
+
+        <div class="infoControlRow">
+            <button type="button" id="calendarFilterClear" class="infoFilterButton" hidden>✕ 絞り込みをクリア</button>
+        </div>
+
+    </div>
+
+    <h3 class="eventCalendarListHeading">選択した日のイベント</h3>
     <ul class="eventCalendarList" id="eventCalendarList"></ul>
+
+    <h3 class="eventCalendarListHeading" id="calendarMonthListHeading">この月のイベント一覧</h3>
+    <ul class="eventCalendarList" id="eventCalendarMonthList"></ul>
 
 </section>
 
