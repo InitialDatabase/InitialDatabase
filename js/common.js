@@ -292,15 +292,25 @@ function isWithinCurrentMonth(dateStr){
 
 function isOngoingEvent(item){
     const start = parseDateOnly(item.eventStart);
-    const end = parseDateOnly(item.eventEnd || item.eventStart);
 
-    if(!start || !end){
+    if(!start){
         return false;
     }
 
     const today = getTodayDateOnly();
 
-    return today >= start && today <= end;
+    if(today < start){
+        return false;
+    }
+
+    // 終了日が未入力の場合は「終了時期未定でまだ開催中」として扱う
+    const end = parseDateOnly(item.eventEnd);
+
+    if(end && today > end){
+        return false;
+    }
+
+    return true;
 }
 
 // ==========================
@@ -313,7 +323,8 @@ function isOngoingEvent(item){
 function getItemEventStatus(item){
     const reservationStart = parseDateOnly(item.reservationStart);
     const eventStart = parseDateOnly(item.eventStart);
-    const eventEnd = parseDateOnly(item.eventEnd || item.eventStart);
+    // 終了日が未入力の場合は「終了済み」と判定しない（終了時期未定として開催中扱い）
+    const eventEnd = parseDateOnly(item.eventEnd);
 
     if(!reservationStart && !eventStart){
         return null;
@@ -352,7 +363,8 @@ function getEventStatusLabel(status){
 }
 
 function getDaysUntilEventEnd(item){
-    const end = parseDateOnly(item.eventEnd || item.eventStart);
+    // 終了日が未入力の場合は残り日数を計算しない（未定のため）
+    const end = parseDateOnly(item.eventEnd);
 
     if(!end){
         return null;
