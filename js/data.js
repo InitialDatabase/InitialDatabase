@@ -37,7 +37,9 @@ const database = {
             description:
             "藤原とうふ店・店主 藤原文太のGC8インプレッサを商品化した「楽プラ スナップキット No.CM-6 頭文字D 文太のインプレッサ」が予約受付中。塗装不要・接着剤不要で、2026年12月発売予定。",
             articleUrl:"https://x.com/aoshimatsu_han/status/2086301443976478802",
-            reservationStart:"2026-08-04"
+            reservationStart:"2026-08-04",
+            dateTBD:true,
+            expectedDate:"2026-12"
         },
 
         {
@@ -312,7 +314,9 @@ const database = {
             description:
             "アオシマの新製品「楽プラ スナップキット No.CM-6 頭文字D 文太のインプレッサ」が2026年12月発売予定で登場。受注予約は8月4日14時より開始。",
             articleUrl:"https://x.com/aoshima_PR/status/2082284980944728119",
-            reservationStart:"2026-08-04"
+            reservationStart:"2026-08-04",
+            dateTBD:true,
+            expectedDate:"2026-12"
         },
 
         {
@@ -449,7 +453,9 @@ const database = {
             tags:["グッズ"],
             description:
             "『頭文字D』の北条豪と高橋啓介の対決をテーマにした1/64スケールのHonda NSXミニカーが登場。ジオラマシート2枚入り。発売予定は2026年11月。",
-            articleUrl:"https://x.com/HJ_Minicar/status/2078009689330364587"
+            articleUrl:"https://x.com/HJ_Minicar/status/2078009689330364587",
+            dateTBD:true,
+            expectedDate:"2026-11"
         },
 
         {
@@ -668,7 +674,9 @@ const database = {
             description:
             "ターマックワークスの1/64ミニカー「Mercedes-AMG GT3 Bathurst 12h 2026 Craft-Bamboo Racing」の予約受付を開始。今年のバサースト12時間に参戦した頭文字Dカラーのパンダカラーに、コミックのようなラインが入ったデザイン。2026年12月発売予定。",
             articleUrl:"https://x.com/hobbysearch_mc/status/2071815784272482508",
-            reservationStart:"2026-06-30"
+            reservationStart:"2026-06-30",
+            dateTBD:true,
+            expectedDate:"2026-12"
         },
 
         {
@@ -726,7 +734,9 @@ const database = {
             description:
             "原作『頭文字D』より「トレーディング原作コマ缶バッジ」「トレーディング原作コマイラストカード」など全8種の予約受付をAMNIBUSにて開始。当ショップ限定特典もあり。2026年10月上旬発売予定。",
             articleUrl:"https://x.com/AMNIBUS/status/2070342867638448599",
-            reservationStart:"2026-06-26"
+            reservationStart:"2026-06-26",
+            dateTBD:true,
+            expectedDate:"2026-10"
         },
 
         {
@@ -760,7 +770,9 @@ const database = {
             description:
             "『頭文字D』より、東堂塾現役ナンバーワンの実力者・二宮大輝の愛車「EK9 シビック タイプR」が「1/24 頭文字D No.23」としてプラモデル化。2026年11月発売予定で、受注予約は6月30日14時より開始。",
             articleUrl:"https://x.com/aoshima_PR/status/2069239017451786632",
-            reservationStart:"2026-06-30"
+            reservationStart:"2026-06-30",
+            dateTBD:true,
+            expectedDate:"2026-11"
         },
 
         {
@@ -817,7 +829,9 @@ const database = {
             description:
             "GSIクレオスより『頭文字D』キット向け塗料「Mr.カラーGGX」シリーズが登場。GXD01拓海ホワイト・GXD02啓介イエロー・GXD03涼介ホワイト・GXD04文太ブルーの4色展開で、2026年9月発売予定。予約受付中。",
             articleUrl:"https://x.com/hobbysearch_mc/status/2067889245206016158",
-            reservationStart:"2026-06-19"
+            reservationStart:"2026-06-19",
+            dateTBD:true,
+            expectedDate:"2026-09"
         },
 
         {
