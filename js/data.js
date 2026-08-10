@@ -24,7 +24,8 @@ const database = {
             description:
             "連載30周年記念コラボウォッチの新作、藤原文太 SUBARU IMPREZA WRX(GC8) type R STiモデル（自動巻き）のデザイン詳細を紹介。12時位置にGC8を象徴する「8」のインデックスを配置し、車載メーターをイメージしたサブダイヤルを採用。7月30日より予約受付中で、9月30日発売予定。",
             articleUrl:"https://x.com/ANGELCLOVER_JP/status/2086376948218081313",
-            reservationStart:"2026-07-30"
+            reservationStart:"2026-07-30",
+            eventStart:"2026-09-30"
         },
 
         {
@@ -251,7 +252,8 @@ const database = {
             description:
             "『頭文字D』連載30周年記念コラボ腕時計に、藤原拓海のハチロクと藤原文太のインプレッサをモチーフにした新モデルが登場。愛車を象徴するデザインや車載メーター風のサブダイヤル、スケルトン部から内部機構が見える自動巻き腕時計で、予約受付を開始。発売日は2026年9月30日。",
             articleUrl:"https://x.com/denfaminicogame/status/2082680125636870327",
-            reservationStart:"2026-07-30"
+            reservationStart:"2026-07-30",
+            eventStart:"2026-09-30"
         },
 
         {
@@ -286,7 +288,8 @@ const database = {
             description:
             "ANGEL CLOVERと『頭文字D』のコラボ腕時計に、藤原拓海の86と藤原文太のインプレッサを表現した自動巻きモデルが登場。『頭文字D』連載30周年の締めくくりとして予約開始。発売日は2026年9月30日。",
             articleUrl:"https://x.com/ANGELCLOVER_JP/status/2082659347264651669",
-            reservationStart:"2026-07-30"
+            reservationStart:"2026-07-30",
+            eventStart:"2026-09-30"
         },
 
         {
@@ -724,6 +727,121 @@ const database = {
             "原作『頭文字D』より「トレーディング原作コマ缶バッジ」「トレーディング原作コマイラストカード」など全8種の予約受付をAMNIBUSにて開始。当ショップ限定特典もあり。2026年10月上旬発売予定。",
             articleUrl:"https://x.com/AMNIBUS/status/2070342867638448599",
             reservationStart:"2026-06-26"
+        },
+
+        {
+            id:64,
+            title:"AE85に720馬力の7M-GTEUを搭載したドラッグ仕様「ハチゴー」が話題に",
+            date:"2026-06-23",
+            source:"チューンドカーズJAPAN（X）",
+            tags:["特集"],
+            description:
+            "軽量なAE85トレノに、雨漏りで引退したMA70スープラから移植した720馬力仕様の7M-GTEUエンジンを搭載したドラッグレース仕様車を紹介する特集記事。ハチロクならぬ“ハチゴー”への進化の過程を伝える。",
+            articleUrl:"https://x.com/TunedCarsJapan/status/2069555348407513489"
+        },
+
+        {
+            id:65,
+            title:"母の“頭文字D”推し活がきっかけの藤原拓海仕様AE86、年間2万km走る現役ストリートマシンに",
+            date:"2026-06-23",
+            source:"チューンドカーズJAPAN（X）",
+            tags:["特集"],
+            description:
+            "頭文字Dファンの母親のひと言をきっかけに製作された、藤原拓海仕様のAE86を紹介する特集記事。イベント専用のレプリカではなく、年間約2万kmを走行する現役のストリートマシンとして活躍する様子を伝える。",
+            articleUrl:"https://x.com/TunedCarsJapan/status/2069254869387501661"
+        },
+
+        {
+            id:66,
+            title:"アオシマ「1/24 頭文字D No.23 二宮大輝 EK9シビックタイプR」6月30日より受注予約開始",
+            date:"2026-06-23",
+            source:"アオシマPR（X）",
+            tags:["グッズ","予約開始"],
+            description:
+            "『頭文字D』より、東堂塾現役ナンバーワンの実力者・二宮大輝の愛車「EK9 シビック タイプR」が「1/24 頭文字D No.23」としてプラモデル化。2026年11月発売予定で、受注予約は6月30日14時より開始。",
+            articleUrl:"https://x.com/aoshima_PR/status/2069239017451786632",
+            reservationStart:"2026-06-30"
+        },
+
+        {
+            id:67,
+            title:"Zippo『頭文字D』Ultimate Drift ブルーチタン、50個限定で登場",
+            date:"2026-06-22",
+            source:"CAMSHOP（キャムショップ）（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』とのコラボレーションZippo「Ultimate Drift ブルーチタン」を紹介。講談社公認ライセンスを取得した50個限定・シリアルナンバー入りの特別仕様で、ブルーチタニウムボディに名シーンをレーザー彫刻で再現。6月26日より一般販売を開始。",
+            articleUrl:"https://x.com/CAMSHOP_byFaith/status/2068860890032816591",
+            eventStart:"2026-06-26"
+        },
+
+        {
+            id:68,
+            title:"『昴と彗星』第37話「クルサード 動く」がヤングマガジンに掲載",
+            date:"2026-06-22",
+            source:"【公式】昴と彗星（X）",
+            tags:["連載"],
+            description:
+            "本日発売のヤングマガジンに『昴と彗星』第37話「クルサード 動く」が掲載。妨害を受ける昴に対し、先頭集団ではクルサードが先に仕掛ける展開。",
+            articleUrl:"https://x.com/SubaruandSubaru/status/2068880986046451866"
+        },
+
+        {
+            id:69,
+            title:"頭文字Dの名車ラジコンなど、父の日グッズをA PIT AUTOBACS KYOTO SHIJOで展開",
+            date:"2026-06-21",
+            source:"A PIT AUTOBACS KYOTO SHIJO（X）",
+            tags:["グッズ","イベント"],
+            description:
+            "父の日のプレゼント向けに、『頭文字D』のAE86・FD3S・FC3Sなど人気マシンのラジコンをはじめとしたグッズを店頭で展開。ミニカーやクルマグッズも多数入荷し、飾って良し走らせて良しのアイテムを紹介。",
+            articleUrl:"https://x.com/APIT_KyotoShijo/status/2068510360462905454"
+        },
+
+        {
+            id:70,
+            title:"GRANUP、『頭文字D』新商品を発表 総勢12名が登場する全3アイテムを展開",
+            date:"2026-06-19",
+            source:"GRANUP（X）",
+            tags:["グッズ"],
+            description:
+            "漫画『頭文字D』より、総勢12名のキャラクターが登場する新商品全3アイテムが発表された。商品ページとECサイトが公開されている。",
+            articleUrl:"https://x.com/GRANUP_PR/status/2067880063744504017"
+        },
+
+        {
+            id:71,
+            title:"GSIクレオス、『頭文字D』キット向け塗料「Mr.カラーGGX」4色を9月発売、予約受付中",
+            date:"2026-06-19",
+            source:"ホビーサーチ カーモデル（X）",
+            tags:["グッズ","予約開始"],
+            description:
+            "GSIクレオスより『頭文字D』キット向け塗料「Mr.カラーGGX」シリーズが登場。GXD01拓海ホワイト・GXD02啓介イエロー・GXD03涼介ホワイト・GXD04文太ブルーの4色展開で、2026年9月発売予定。予約受付中。",
+            articleUrl:"https://x.com/hobbysearch_mc/status/2067889245206016158",
+            reservationStart:"2026-06-19"
+        },
+
+        {
+            id:72,
+            title:"『頭文字D』拓海・啓介・涼介が「ぬいぴ〜すびっぐ」になって登場、通常の2.5倍サイズ",
+            date:"2026-06-19",
+            source:"GRANUP（X）",
+            tags:["グッズ"],
+            description:
+            "漫画『頭文字D』より、藤原拓海・高橋啓介・高橋涼介の3人が通常の「ぬいぴ〜す」の2.5倍サイズとなる「ぬいぴ〜すびっぐ」になって登場。3体コンプリートセット購入特典としてブロマイドをプレゼント。",
+            articleUrl:"https://x.com/GRANUP_PR/status/2067880311632081152"
+        },
+
+        {
+            id:73,
+            title:"『頭文字D』伝説をアートとして、GAAATのメタルキャンバスアート展が大阪・心斎橋で開催",
+            date:"2026-06-16",
+            source:"GAAAT（X）",
+            tags:["イベント","グッズ"],
+            description:
+            "『頭文字D』のキャラクターや名車たちをGAAATオリジナルのメタルキャンバスアートとして表現した展示会が、6月18日より大阪・心斎橋にて開催。金属の光沢感と32層の立体表現でリアルな作品を展示・販売。",
+            articleUrl:"https://x.com/gaaat_art/status/2066823095483236769",
+            eventStart:"2026-06-18",
+            eventEnd:"2026-06-22"
         }
 
     ]
