@@ -144,6 +144,11 @@
   [https://giscus.app](https://giscus.app) で発行される値に置き換えてください。
   （リポジトリでGitHub Discussionsを有効にする必要があります）
   コメント欄自体が不要であれば、`commentsSection` ごと削除してください。
+  コメントの表示順（デフォルトで新しい順）は、リポジトリのルートに配置した
+  `giscus.json`（`data-repo`で指定したリポジトリのデフォルトブランチ直下）
+  で制御しています。giscusはこのファイルをリポジトリから読み込むため、
+  リポジトリ名やブランチを変更した場合は`giscus.json`もその場所に
+  配置し直してください。
 
 - **GitHub Actionsのブランチ名**：`generate-feed.yml` は
   `main` ブランチへのpushを想定しています。実際の公開ブランチ名が違う場合は
