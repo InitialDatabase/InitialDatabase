@@ -1863,6 +1863,17 @@ footer .disclaimer{
     text-decoration:underline;
 }
 
+.discordLink{
+    color:#5865f2;
+    font-size:.9em;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.discordLink:hover{
+    text-decoration:underline;
+}
+
 /* ==========================
    お気に入り：インポートボタン
    ========================== */
@@ -2121,6 +2132,10 @@ html.theme-dark .infoSearchSuggestionMeta{
 
 html.theme-dark .rssLink{
     color:#8ab4ff;
+}
+
+html.theme-dark .discordLink{
+    color:#8992ff;
 }
 
 html.theme-dark footer{
