@@ -47,6 +47,21 @@
    `hero-mobile.png`（900px以下）または `ogp.png`（901px以上）を優先読み込みするようにしました。
    実際に表示に使われない方の画像を先読みしないよう、`media` 属性で出し分けています。
 
+8. **ヒーロー画像の二重ダウンロード解消＋モバイル版のWebP化**（index.html / pages/*.html / offline.html / css/style.css / sw.js）
+   PC用・モバイル用の画像を2つの`<img>`タグとして両方DOMに置き、CSSの`display:none`/`block`で
+   出し分けていた実装を`<picture><source media="...">...</picture>`に置き換えました。
+   `<img>`タグは常にプリロードスキャナに読まれるため、旧実装ではCSSの評価を待たずに
+   PC・モバイル両方の画像（合計約2.7MB）を毎回フェッチしてしまっていました。`<picture>`化により、
+   実際に表示される1枚だけがフェッチされるようになります。
+   あわせて`hero-mobile.png`（1672×941px・約1.4MB）をWebP化し、`hero-mobile.webp`
+   （同解像度・約95KB、PNG比93%減）を追加。`<picture>`内で`type="image/webp"`の`<source>`を
+   優先させ、非対応ブラウザ向けに従来のPNGを`<source>`のフォールバックとして残しています。
+   解像度はそのまま維持しているため、900px幅ブレークポイント付近の高DPR端末でも
+   画質の劣化はありません。
+   なお、リポジトリ直下に残っていた未参照の重複ファイル`ogp.png`（`images/ogp.png`と同一・約1.3MB）は削除しました。
+   Service Worker（`sw.js`）のキャッシュ対象に`hero-mobile.webp`を追加し、
+   `CACHE_VERSION`を`v5`に上げて古いキャッシュ（PNGのみを含むv4以前）を確実に入れ替えるようにしています。
+
 ### 今回、あえて実装を見送った項目（判断理由）
 
 - **英単語⇔カタカナの用語対応辞書**（例：「Java」⇔「ジャバ」）：

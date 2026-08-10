@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="css/style.css">
 
 <!-- ファーストビュー（ヒーロー画像）のプリロード：LCP改善用 -->
-<link rel="preload" as="image" href="images/hero-mobile.png" media="(max-width:900px)">
+<link rel="preload" as="image" href="images/hero-mobile.webp" media="(max-width:900px)" type="image/webp">
 <link rel="preload" as="image" href="images/ogp.png" media="(min-width:901px)">
 
 <!-- X投稿埋め込みの表示速度改善：接続を先に確立しておく -->
@@ -88,15 +88,14 @@ gtag("config", "G-19K4474718");
 
 <div class="heroImageWrap">
 
-<img
-    src="images/ogp.png"
-    alt="頭文字Database 頭文字Dデータベースサイト 最新情報・お気に入り"
-    class="heroImage">
-
-<img
-    src="images/hero-mobile.png"
-    alt="頭文字Database 頭文字Dデータベースサイト 最新情報・お気に入り"
-    class="heroImageMobile">
+<picture>
+    <source media="(max-width:900px)" srcset="images/hero-mobile.webp" type="image/webp">
+    <source media="(max-width:900px)" srcset="images/hero-mobile.png">
+    <img
+        src="images/ogp.png"
+        alt="頭文字Database 頭文字Dデータベースサイト 最新情報・お気に入り"
+        class="heroImage">
+</picture>
 
 </div>
 

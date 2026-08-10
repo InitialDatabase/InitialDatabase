@@ -8,7 +8,7 @@
 // ・完全にオフラインでキャッシュも無いページ遷移
 //   → offline.html を表示
 
-const CACHE_VERSION = "v4";
+const CACHE_VERSION = "v5";
 const STATIC_CACHE_NAME = `initial-d-database-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE_NAME = `initial-d-database-dynamic-${CACHE_VERSION}`;
 const CURRENT_CACHES = [STATIC_CACHE_NAME, DYNAMIC_CACHE_NAME];
@@ -23,6 +23,7 @@ const STATIC_ASSETS = [
     "js/archive.js",
     "manifest.json",
     "images/ogp.png",
+    "images/hero-mobile.webp",
     "images/hero-mobile.png",
     "images/icon-192.png",
     "images/icon-512.png",

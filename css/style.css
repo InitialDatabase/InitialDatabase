@@ -73,12 +73,6 @@ header h1{
     margin:0 auto;
 }
 
-.heroImageMobile{
-    display:none;
-    width:100%;
-    height:auto;
-}
-
 /* ==========================
    Navigation
    ========================== */
@@ -1645,15 +1639,6 @@ footer .disclaimer{
         text-align:center;
         padding:12px 8px;
         font-size:0.9rem;
-    }
-
-    /* スマホ版ヒーロー画像に切り替え */
-    .heroImage{
-        display:none;
-    }
-
-    .heroImageMobile{
-        display:block;
     }
 
 }
