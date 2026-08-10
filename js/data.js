@@ -619,6 +619,111 @@ const database = {
             articleUrl:"https://x.com/marimocraft_eve/status/2072168321240498254",
             eventStart:"2026-07-01",
             eventEnd:"2026-08-01"
+        },
+
+        {
+            id:55,
+            title:"イグニッションモデル×頭文字D 高橋啓介のRX-7（FD3S）30周年記念モデルが入荷",
+            date:"2026-07-04",
+            source:"A PIT AUTOBACS KYOTO SHIJO（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』とイグニッションモデルのコラボより、高橋啓介の愛車「RX-7（FD3S）」30周年記念モデルが入荷。フィギュアや特製バックボードが付属した豪華仕様。AE86・FC3S・BNR32など人気車種のミニカーも多数展開中。",
+            articleUrl:"https://x.com/APIT_KyotoShijo/status/2073328224709578791"
+        },
+
+        {
+            id:56,
+            title:"頭文字Dドリーミーくじ第4弾、一部グッズ写真を先行公開",
+            date:"2026-07-03",
+            source:"GRANUPくじ公式（X）",
+            tags:["グッズ"],
+            description:
+            "漫画『頭文字D』より「ドリーミーくじ」第4弾の一部グッズ写真を先行公開。メッセージボード付きぬいぐるみは吸盤付きで車の窓などに貼り付け可能。普段使いしやすいハンガーや自立して飾れるミニフィギュアもラインナップ予定で、全ラインナップは後日公開。",
+            articleUrl:"https://x.com/grakuji_PR/status/2072953496857416002"
+        },
+
+        {
+            id:57,
+            title:"マツダファンフェスタ2026、頭文字Dとのコラボコンテンツ情報を公開",
+            date:"2026-07-02",
+            source:"MAZDA SPIRIT RACING（X）",
+            tags:["イベント","コラボ"],
+            description:
+            "10月3日（土）～4日（日）に富士スピードウェイで開催される「MAZDA FAN FESTA 2026 at FUJI SPEEDWAY」のコンテンツ情報を公開。史上初となる2台のMAZDA 787Bによる同時走行に加え、高橋涼介・高橋啓介のRX-7（FD3S／FC3S）レプリカ展示やしげの秀一氏の原画展など、『頭文字D』とのコラボイベントを実施予定。",
+            articleUrl:"https://x.com/MAZDA_SPIRIT_R/status/2072508055577559443",
+            eventStart:"2026-10-03",
+            eventEnd:"2026-10-04"
+        },
+
+        {
+            id:58,
+            title:"Tarmac Works 1/64 頭文字Dカラー「Mercedes-AMG GT3 Bathurst 12h」予約開始",
+            date:"2026-06-30",
+            source:"ホビーサーチ カーモデル（X）",
+            tags:["グッズ","予約開始"],
+            description:
+            "ターマックワークスの1/64ミニカー「Mercedes-AMG GT3 Bathurst 12h 2026 Craft-Bamboo Racing」の予約受付を開始。今年のバサースト12時間に参戦した頭文字Dカラーのパンダカラーに、コミックのようなラインが入ったデザイン。2026年12月発売予定。",
+            articleUrl:"https://x.com/hobbysearch_mc/status/2071815784272482508",
+            reservationStart:"2026-06-30"
+        },
+
+        {
+            id:59,
+            title:"『頭文字D』の名シーンや名車をアートとして再構築、GAAATのMetal Canvas Art",
+            date:"2026-06-30",
+            source:"GAAAT（X）",
+            tags:["グッズ","イベント"],
+            description:
+            "『頭文字D』の名シーンや名車たちを、GAAATならではのMetal Canvas Artとして再構築。金属の光沢感と32層の立体表現によって作品の世界を新たな形で届ける。東京・大阪・福岡に続き、8月には名古屋・横浜へも巡回予定の展示販売会。",
+            articleUrl:"https://x.com/gaaat_art/status/2071896527027806327"
+        },
+
+        {
+            id:60,
+            title:"しまむらパークにて『頭文字D』メンズボクサーブリーフが販売中",
+            date:"2026-06-30",
+            source:"ファッションセンターしまむら（X）",
+            tags:["グッズ"],
+            description:
+            "しまむらパーク（オンラインストア）にて『頭文字D』のメンズボクサーブリーフが販売中。ウエストのロゴやAE86プリントがデザインされたアイテム。売り切れの際はご容赦を。",
+            articleUrl:"https://x.com/shimamura_gr/status/2072092825357820321"
+        },
+
+        {
+            id:61,
+            title:"『昴と彗星』第38話「工藤彗星の思考」がヤングマガジンに掲載",
+            date:"2026-06-29",
+            source:"【公式】昴と彗星（X）",
+            tags:["連載"],
+            description:
+            "本日発売のヤングマガジンに『昴と彗星』第38話「工藤彗星の思考」が掲載。現在9位の工藤彗星が、石川の背後に鋭く喰らいついてオーバーテイクを狙う展開。",
+            articleUrl:"https://x.com/SubaruandSubaru/status/2071421206029631491"
+        },
+
+        {
+            id:62,
+            title:"『頭文字D』Kindle版が全巻50%ポイント還元セール、本日まで開催",
+            date:"2026-06-28",
+            source:"電ファミニコゲーマー（X）",
+            tags:["キャンペーン"],
+            description:
+            "マンガ『頭文字D』Kindle版が全巻50%ポイント還元となるセール「Amazonマンガ週末祭」第4弾を開催。全48巻購入で3万8016円→1万9008ポイントが還元される。最速を目指す走り屋たちの姿を描く、しげの秀一氏によるマンガ作品。",
+            articleUrl:"https://x.com/denfaminicogame/status/2071131231773929532",
+            eventStart:"2026-06-26",
+            eventEnd:"2026-06-28"
+        },
+
+        {
+            id:63,
+            title:"原作『頭文字D』トレーディング原作コマ缶バッジ・イラストカードなど予約開始",
+            date:"2026-06-26",
+            source:"AMNIBUS（アムニバス）（X）",
+            tags:["グッズ","予約開始"],
+            description:
+            "原作『頭文字D』より「トレーディング原作コマ缶バッジ」「トレーディング原作コマイラストカード」など全8種の予約受付をAMNIBUSにて開始。当ショップ限定特典もあり。2026年10月上旬発売予定。",
+            articleUrl:"https://x.com/AMNIBUS/status/2070342867638448599",
+            reservationStart:"2026-06-26"
         }
 
     ]
