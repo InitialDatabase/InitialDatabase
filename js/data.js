@@ -83,7 +83,7 @@ const database = {
             description:
             "『頭文字D』とカラオケの鉄人のコラボが実施中。原作イラストを使用した限定オリジナルグッズを、期間限定で販売。",
             articleUrl:"https://x.com/animateonline/status/2084580156362903824",
-            eventStart:"2026-08-04",
+            eventStart:"2026-07-30",
             eventEnd:"2026-08-16"
         },
 
@@ -107,7 +107,7 @@ const database = {
             description:
             "『頭文字DAC』にて「東方Project」コラボ第3弾のEX復刻スペシャルモード「VS.東京から来た二人」を開催中。",
             articleUrl:"https://x.com/initialD_AS/status/2084587650703393274",
-            eventStart:"2026-08-04",
+            eventStart:"2026-07-30",
             eventEnd:"2026-10-07"
         },
 
@@ -118,8 +118,10 @@ const database = {
             source:"カーセブン【公式アカウント】（X）",
             tags:["コラボ","キャンペーン"],
             description:
-            "『頭文字D』とカーセブンのコラボキャンペーンを実施中。車の売却・購入を検討中の方や頭文字Dファン向けに、期間限定の特別企画を展開。",
-            articleUrl:"https://x.com/carseven/status/2084551906605834262"
+            "『頭文字D』とカーセブンのコラボキャンペーン第3弾を実施中。車の売却・購入を検討中の方や頭文字Dファン向けに、来店査定特典や抽選プレゼントなどの特別企画を展開。",
+            articleUrl:"https://x.com/carseven/status/2084551906605834262",
+            eventStart:"2026-08-01",
+            eventEnd:"2026-09-30"
         },
 
         {
@@ -153,7 +155,8 @@ const database = {
             tags:["コラボ","キャンペーン","ゲーム"],
             description:
             "『レーシングマスター』と『MFゴースト』のコラボが8月20日よりスタート。応募条件を満たすと、抽選5名に「トヨタ 86 GT MFゴースト 第3戦Ver.」がプレゼントされるキャンペーンも実施。",
-            articleUrl:"https://x.com/RacingMasterJP/status/2085289780821041611"
+            articleUrl:"https://x.com/RacingMasterJP/status/2085289780821041611",
+            eventStart:"2026-08-20"
         },
 
         {
@@ -175,7 +178,8 @@ const database = {
             tags:["イベント","コラボ"],
             description:
             "『MFゴースト』とのコラボで市内に実際に設置されていたデザインマンホール蓋を、「三の丸売店」にて展示中。",
-            articleUrl:"https://x.com/odawara_kanko/status/2084847729709367296"
+            articleUrl:"https://x.com/odawara_kanko/status/2084847729709367296",
+            eventStart:"2026-08-03"
         },
 
         {
@@ -208,7 +212,9 @@ const database = {
             tags:["コラボ","キャンペーン"],
             description:
             "陳麻婆豆腐×頭文字Dコラボが本日開始。対象10店舗(京王モール店・ららぽーと堺店を除く)にて、限定メニュー「拓海86黒麻婆」「啓介FD黄麻婆」「レッドサンズ赤麻婆」を提供。",
-            articleUrl:"https://x.com/chenmapo_doufu/status/2083372144705380699"
+            articleUrl:"https://x.com/chenmapo_doufu/status/2083372144705380699",
+            eventStart:"2026-08-01",
+            eventEnd:"2026-10-31"
         },
 
         {
@@ -231,7 +237,8 @@ const database = {
             description:
             "8月1日開始の「陳麻婆豆腐×頭文字Ｄ」コラボにて、頭文字Dの主要キャラクター10名とそれぞれをイメージした四川料理の紹介が裏面に入った限定トレカ全10種（ランダム）を、コラボメニュー購入者にプレゼント。",
             articleUrl:"https://x.com/chenmapo_doufu/status/2083009758735524173",
-            eventStart:"2026-08-01"
+            eventStart:"2026-08-01",
+            eventEnd:"2026-10-31"
         },
 
         {
@@ -241,8 +248,9 @@ const database = {
             source:"電ファミニコゲーマー（X）",
             tags:["コラボ","グッズ","予約開始"],
             description:
-            "『頭文字D』連載30周年記念コラボ腕時計に、藤原拓海のハチロクと藤原文太のインプレッサをモチーフにした新モデルが登場。愛車を象徴するデザインや車載メーター風のサブダイヤル、スケルトン部から内部機構が見える自動巻き腕時計で、予約受付を開始。",
-            articleUrl:"https://x.com/denfaminicogame/status/2082680125636870327"
+            "『頭文字D』連載30周年記念コラボ腕時計に、藤原拓海のハチロクと藤原文太のインプレッサをモチーフにした新モデルが登場。愛車を象徴するデザインや車載メーター風のサブダイヤル、スケルトン部から内部機構が見える自動巻き腕時計で、予約受付を開始。発売日は2026年9月30日。",
+            articleUrl:"https://x.com/denfaminicogame/status/2082680125636870327",
+            reservationStart:"2026-07-30"
         },
 
         {
@@ -356,7 +364,8 @@ const database = {
             tags:["グッズ"],
             description:
             "漫画『頭文字D』の人気立体シール「つやぷくシール」のくじが登場。くじをめくるとシールが1枚、「あたり」でさらに2枚獲得でき、ラスト賞はコンプリートセット。2026年8月29日発売予定。",
-            articleUrl:"https://x.com/grakuji_PR/status/2080488145338966408"
+            articleUrl:"https://x.com/grakuji_PR/status/2080488145338966408",
+            eventStart:"2026-08-29"
         },
 
         {
@@ -378,7 +387,9 @@ const database = {
             tags:["コラボ","グッズ"],
             description:
             "8月1日開始の陳麻婆豆腐×頭文字Dコラボにて、前面に「PROJECT.M.D」ロゴ、背面にAE86のイラストが入ったコラボ限定オリジナルTシャツの販売を予告。",
-            articleUrl:"https://x.com/chenmapo_doufu/status/2080110652928958834"
+            articleUrl:"https://x.com/chenmapo_doufu/status/2080110652928958834",
+            eventStart:"2026-08-01",
+            eventEnd:"2026-10-31"
         },
 
         {
@@ -410,8 +421,9 @@ const database = {
             source:"ヤマダデンキ LABI1 LIFE SELECT なんば（X）",
             tags:["グッズ"],
             description:
-            "ヤングマガジン連載中の『昴と彗星』より、トミカプレミアムunlimited 14 昴と彗星 SUBARU BRZ（佐藤昴）が登場。2026年8月発売予定で、LABI1 LIFE SELECTなんば地下1階玩具コーナーにて予約・購入可能。",
-            articleUrl:"https://x.com/labi1_namba/status/2079129183469687231"
+            "ヤングマガジン連載中の『昴と彗星』より、トミカプレミアムunlimited 14 昴と彗星 SUBARU BRZ（佐藤昴）が登場。2026年8月15日発売予定で、LABI1 LIFE SELECTなんば地下1階玩具コーナーにて予約・購入可能。",
+            articleUrl:"https://x.com/labi1_namba/status/2079129183469687231",
+            eventStart:"2026-08-15"
         },
 
         {
