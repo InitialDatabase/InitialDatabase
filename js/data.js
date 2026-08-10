@@ -60,7 +60,8 @@ const database = {
             tags:["グッズ"],
             description:
             "『頭文字D』より、庄司慎吾のホンダ シビック SiR-II（EG6）と中里毅の日産 スカイライン GT-R（BNR32）が「トミカプレミアムunlimited」に登場。Amazonにて予約受付中で、2026年9月19日発売予定。",
-            articleUrl:"https://x.com/hobby_magazine/status/2085593213239513153"
+            articleUrl:"https://x.com/hobby_magazine/status/2085593213239513153",
+            eventStart:"2026-09-19"
         },
 
         {
@@ -502,6 +503,63 @@ const database = {
             description:
             "「藤原とうふ店の集金袋」風ポーチや、たばこサイズのカラビナポーチなど『頭文字D』グッズがセブンネットショッピングで予約受付中。",
             articleUrl:"https://x.com/7_netshopping/status/2076592476060889394"
+        },
+
+        {
+            id:45,
+            title:"『頭文字D』が麻婆豆腐発祥の店「陳麻婆豆腐」とコラボ決定、8月1日より開催",
+            date:"2026-07-13",
+            source:"電ファミニコゲーマー（X）",
+            tags:["コラボ","イベント"],
+            description:
+            "『頭文字D』が麻婆豆腐発祥の店「陳麻婆豆腐」と“豆腐繋がり”でコラボすることを発表。藤原拓海のAE86をイメージした「拓海86黒麻婆」など、作品の世界観を落とし込んだコラボメニューを展開する。東京・神奈川・愛知・大阪の「陳麻婆豆腐」10店舗にて8月1日から10月31日まで開催予定で、コラボグッズも販売される。",
+            articleUrl:"https://x.com/denfaminicogame/status/2076530593630986249",
+            eventStart:"2026-08-01",
+            eventEnd:"2026-10-31"
+        },
+
+        {
+            id:46,
+            title:"『昴と彗星』第40話「ファイナルラップ」がヤングマガジンに掲載",
+            date:"2026-07-13",
+            source:"【公式】昴と彗星（X）",
+            tags:["連載"],
+            description:
+            "本日発売のヤングマガジンに『昴と彗星』第40話「ファイナルラップ」が掲載。フレッシュマンシリーズ第一戦、ついにファイナルラップへ突入。速度と駆け引きが加速していくなか、デスエリアが目前に迫る展開。",
+            articleUrl:"https://x.com/SubaruandSubaru/status/2076467736616771849"
+        },
+
+        {
+            id:47,
+            title:"『頭文字D』×SHIBUKAWAコラボグッズ第2弾「マンホールクッキー」登場",
+            date:"2026-07-11",
+            source:"伊香保グリーン牧場SHOP（X）",
+            tags:["グッズ","コラボ"],
+            description:
+            "群馬県渋川市との『頭文字D』×SHIBUKAWAコラボグッズ第2弾として「マンホールクッキー」が登場。渋川市内に設置されたデザインマンホールをモチーフにしたプリントクッキーで、7絵柄がランダムに14枚封入。伊香保グリーン牧場にて販売。",
+            articleUrl:"https://x.com/greenbokujoshop/status/2075789719942861102"
+        },
+
+        {
+            id:48,
+            title:"『頭文字D』×ANGEL CLOVERコラボウォッチがアニメイトに再登場",
+            date:"2026-07-10",
+            source:"アニメイト商品情報局（X）",
+            tags:["グッズ","コラボ"],
+            description:
+            "30周年記念ロゴを刻印した『頭文字D』×ANGEL CLOVERのコラボレーションウォッチがアニメイトに再登場。藤原拓海のAE86モデル、高橋涼介のRX-7（FC3S）モデル、高橋啓介のRX-7（FD3S）モデル、藤原文太のSUBARU IMPREZA WRX(GC8) type R STiモデルがラインナップ。",
+            articleUrl:"https://x.com/animateonline/status/2075490260511826145"
+        },
+
+        {
+            id:49,
+            title:"『MFゴースト』ミハイル・ベッケンバウアーをイメージしたオードトワレをマイファボが紹介",
+            date:"2026-07-09",
+            source:"マイファボ（X）",
+            tags:["グッズ"],
+            description:
+            "マイファボが『MFゴースト』のキャラクター香水「オードトワレ ミハイル・ベッケンバウアー」を紹介。フローラルアンバー調の香りに仕上げられており、片桐夏向・沢渡光輝をイメージしたオードトワレとあわせて全3種を展開中。",
+            articleUrl:"https://x.com/myfav_info/status/2075188218371469568"
         }
 
     ]
