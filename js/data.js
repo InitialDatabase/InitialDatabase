@@ -16,6 +16,19 @@ const database = {
         },
 
         {
+            id:79,
+            title:"ミッドナイトボートレース下関で『MFゴースト』コラボ、デジタルギフトが当たるキャンペーン実施",
+            date:"2026-08-11",
+            source:"DYNAMITE BOATRACE（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            description:
+            "山口県のBR下関にて開催の「ミッドナイトボートレース下関4th ふく～る下関オープン14周年記念 日本トーター杯 お盆特選」にて『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2086829947176530309",
+            eventStart:"2026-08-11",
+            eventEnd:"2026-08-16"
+        },
+
+        {
             id:78,
             title:"頭文字DAC公式YouTubeチャンネル、頭文字D THE ARCADEの動画を配信中",
             date:"2026-08-10",
@@ -204,6 +217,17 @@ const database = {
         },
 
         {
+            id:80,
+            title:"A PIT AUTOBACS SHINONOME、BLITZ×MFゴーストコーナーの展示を拡充",
+            date:"2026-08-07",
+            source:"【公式】BLITZ（X）",
+            tags:["イベント","グッズ"],
+            description:
+            "A PIT AUTOBACS SHINONOME内のBLITZ×MFゴーストコーナーで、アクセサリーなどの展示がさらに充実。86/GR86やBRZに対応するアクセサリーを展示・在庫しており、人気のエンジンフードダンパーも取り扱う。",
+            articleUrl:"https://x.com/BLITZ_PR/status/2085686510733422823"
+        },
+
+        {
             id:8,
             title:"『レーシングマスター』2周年予告第2弾「400」ガチャ400連相当の報酬を予告",
             date:"2026-08-08",
@@ -224,6 +248,31 @@ const database = {
             "『レーシングマスター』と『MFゴースト』のコラボが8月20日よりスタート。応募条件を満たすと、抽選5名に「トヨタ 86 GT MFゴースト 第3戦Ver.」がプレゼントされるキャンペーンも実施。",
             articleUrl:"https://x.com/RacingMasterJP/status/2085289780821041611",
             eventStart:"2026-08-20"
+        },
+
+        {
+            id:81,
+            title:"アルマビアンカより『頭文字D』デスクマット3種、11月上旬発売決定・予約受付開始",
+            date:"2026-08-06",
+            source:"プロジェクトコア1号店/あべの店（X）",
+            tags:["グッズ","予約開始"],
+            description:
+            "アルマビアンカより、原作『頭文字D』のデスクマット全3種が11月上旬発売決定。カードサプライの予約はAmazon Pay対応のプロジェクトコアにて受付中。",
+            articleUrl:"https://x.com/project_core01/status/2085283355415986324",
+            reservationStart:"2026-08-06",
+            dateTBD:true,
+            expectedDate:"2026-11"
+        },
+
+        {
+            id:82,
+            title:"NOISEANDKISSESで『頭文字D』グッズなど今週の再入荷アイテムを紹介",
+            date:"2026-08-06",
+            source:"NOISEANDKISSES（X）",
+            tags:["グッズ"],
+            description:
+            "アパレルブランドNOISEANDKISSESが、今週の再入荷アイテムとして『頭文字D』関連グッズをはじめ、Pちゃん、アラレちゃん、ワンカップ大関とのコラボアイテムを紹介。",
+            articleUrl:"https://x.com/NAKapparel/status/2085303114660516170"
         },
 
         {
@@ -282,6 +331,17 @@ const database = {
             articleUrl:"https://x.com/chenmapo_doufu/status/2083372144705380699",
             eventStart:"2026-08-01",
             eventEnd:"2026-10-31"
+        },
+
+        {
+            id:83,
+            title:"「レーシングマスター」にトヨタ GR Supra MFゴースト第3戦Ver.が登場",
+            date:"2026-08-01",
+            source:"レーシングマスター🏎️💨【公式】（X）",
+            tags:["コラボ","ゲーム"],
+            description:
+            "『MFゴースト』とのコラボレーシングゲーム「レーシングマスター」に、レジェンド「トヨタ GR Supra MFゴースト 第3戦Ver.」が登場。受け継がれたカラーだけでなく、師の背中から学んだ走りを継承し、その先を目指す成長を表現。",
+            articleUrl:"https://x.com/RacingMasterJP/status/2083477849219146160"
         },
 
         {
@@ -919,6 +979,51 @@ const database = {
             articleUrl:"https://x.com/gaaat_art/status/2066823095483236769",
             eventStart:"2026-06-18",
             eventEnd:"2026-06-22"
+        },
+
+        {
+            id:84,
+            title:"るるぶトラベルで『頭文字Dコラボ企画プラン』を今年も販売中、伊香保の宿泊プラン",
+            date:"2026-06-16",
+            source:"横手館（X）",
+            tags:["グッズ","コラボ"],
+            description:
+            "群馬県伊香保温泉の宿「横手館」が、るるぶトラベルにて『頭文字Dコラボ企画プラン』を今年も販売中と紹介。伊香保を含む市内7ヶ所のデザインマンホールをモチーフにした「イニDオリジナルコースター」が付き、夕食は部屋食で楽しめる。",
+            articleUrl:"https://x.com/yokotekan/status/2066787325506633841"
+        },
+
+        {
+            id:85,
+            title:"TOYOTA GAZOO Racing ラリーチャレンジ in 渋川伊香保、6月28日開催",
+            date:"2026-06-16",
+            source:"横手館（X）",
+            tags:["イベント"],
+            description:
+            "伊香保温泉の宿「横手館」が、群馬県渋川市で開催される「TOYOTA GAZOO Racing ラリーチャレンジ in 渋川伊香保」を紹介。渋川市は『頭文字D』作中の重要な舞台の一つで、2026年シリーズ第5戦目として最大90台のラリーカーが渋川市総合公園（入場無料）を舞台に激走する。6月28日（日）9:00〜16:30開催。",
+            articleUrl:"https://x.com/yokotekan/status/2066667737859149893",
+            eventStart:"2026-06-28"
+        },
+
+        {
+            id:86,
+            title:"CAMSHOPより『頭文字D』スカジャンが登場",
+            date:"2026-06-15",
+            source:"CAMSHOP（キャムショップ）（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』をモチーフにしたスカジャンがCAMSHOPより登場。商品ページにて紹介。",
+            articleUrl:"https://x.com/CAMSHOP_byFaith/status/2066316827064668249"
+        },
+
+        {
+            id:87,
+            title:"しまむらより『頭文字D』トートバッグが登場",
+            date:"2026-06-13",
+            source:"ファッションセンターしまむら（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』のデザインを使用したトートバッグがファッションセンターしまむらに登場。たっぷり入る大容量サイズで、お出かけシーンにも活躍。",
+            articleUrl:"https://x.com/shimamura_gr/status/2065645446370877795"
         }
 
     ]
