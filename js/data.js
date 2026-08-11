@@ -1048,6 +1048,67 @@ const database = {
             description:
             "『頭文字D』のデザインを使用したトートバッグがファッションセンターしまむらに登場。たっぷり入る大容量サイズで、お出かけシーンにも活躍。",
             articleUrl:"https://x.com/shimamura_gr/status/2065645446370877795"
+        },
+
+        {
+            id:90,
+            title:"ファッションセンターしまむら、『頭文字D』コラボアイテムが6月13日より登場",
+            date:"2026-06-10",
+            source:"ファッションセンターしまむら（X）",
+            tags:["コラボ","グッズ"],
+            description:
+            "全国のファッションセンターしまむらにて『頭文字D』コラボアイテムが登場。しまむらパーク（オンラインストア）では15時より販売開始（売り切れの際はご容赦）。",
+            articleUrl:"https://x.com/shimamura_gr/status/2064618569220944084",
+            eventStart:"2026-06-13"
+        },
+
+        {
+            id:91,
+            title:"『頭文字DAC』スペシャルウィークTTイベント「土坂/往路」開催",
+            date:"2026-06-10",
+            source:"頭文字DAC公式（X）",
+            tags:["ゲーム","コラボ","キャンペーン"],
+            description:
+            "『頭文字D THE ARCADE』にて、『ウマ娘プリティーダービー』とのコラボによるスペシャルウィークTTイベントを開催。舞台は「土坂/往路」で、ポイントを貯めると車内キーホルダー・バイナル・メーターなどのコラボアイテムが入手できる。期間は6月11日(木)〜7月8日(水)。",
+            articleUrl:"https://x.com/initialD_AS/status/2064648777148125247",
+            eventStart:"2026-06-11",
+            eventEnd:"2026-07-08"
+        },
+
+        {
+            id:92,
+            title:"『MFゴースト 3rd Season』LINEスタンプ&着せかえが配信開始",
+            date:"2026-06-09",
+            source:"Creative Plus（X）",
+            tags:["グッズ"],
+            description:
+            "TVアニメ『MFゴースト 3rd Season』のLINEスタンプ＆LINE着せかえが配信開始。夏向や恋のイラストでトークを彩るアイテム。",
+            articleUrl:"https://x.com/mup_contents/status/2064286390041342191",
+            eventStart:"2026-06-09"
+        },
+
+        {
+            id:93,
+            title:"A PIT AUTOBACS 京都四条店、『頭文字D』など日本カルチャー関連グッズを豊富に展開",
+            date:"2026-06-09",
+            source:"A PIT AUTOBACS KYOTO SHIJO（X）",
+            tags:["グッズ"],
+            description:
+            "『頭文字D』『湾岸ミッドナイト』『MFゴースト』をはじめとする人気マンガ・関連書籍・ミニカー・キーホルダーなど、日本ならではのアイテムを豊富に展開中。",
+            articleUrl:"https://x.com/APIT_KyotoShijo/status/2064257262336778306"
+        },
+
+        {
+            id:94,
+            title:"『頭文字D』ハチロク実車、名古屋のCAMSHOPポップアップストアに展示",
+            date:"2026-06-08",
+            source:"ライブドアニュース（X）",
+            tags:["イベント","グッズ"],
+            description:
+            "『頭文字D』公式ライセンスグッズを中心としたCAMSHOPポップアップストアが、名古屋駅直結のタカシマヤ ゲートタワーモール7階ローズテラスにて開催。TOYOTA スプリンタートレノAE86（ハチロク）の実車が展示されている。",
+            articleUrl:"https://x.com/livedoornews/status/2063958397280808970",
+            eventStart:"2026-06-01",
+            eventEnd:"2026-06-24"
         }
 
     ]
