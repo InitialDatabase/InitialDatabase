@@ -3,6 +3,43 @@ const database = {
     infos:[
 
         {
+            id:77,
+            title:"「頭文字D」夏祭り、アニメタイムズ公式YouTubeで期間限定本編配信中",
+            date:"2026-08-11",
+            source:"涼介@YouTube（X）",
+            tags:["キャンペーン"],
+            description:
+            "『頭文字D』が、Amazon Prime Videoのアニメ専門チャンネル「アニメタイムズ」公式YouTubeにて「頭文字D 夏祭り！【期間限定本編配信】」として無料配信中（全9本）。",
+            articleUrl:"https://x.com/Ryosuke_FC13137/status/2086985892921774503",
+            eventStart:"2026-08-10",
+            eventEnd:"2026-08-23"
+        },
+
+        {
+            id:78,
+            title:"頭文字DAC公式YouTubeチャンネル、頭文字D THE ARCADEの動画を配信中",
+            date:"2026-08-10",
+            source:"頭文字DAC公式（X）",
+            tags:["ゲーム"],
+            description:
+            "『頭文字D THE ARCADE』の公式YouTubeチャンネル「頭文字DAC」が、過去の動画をまとめて視聴しやすく整理して配信していることを紹介。チャンネル登録と通知設定を呼びかけている。",
+            articleUrl:"https://x.com/initialD_AS/status/2086769529368285580"
+        },
+
+        {
+            id:74,
+            title:"「頭文字D」Art Exhibition by GAAAT、名古屋で開催",
+            date:"2026-08-10",
+            source:"GAAAT（X）",
+            tags:["イベント"],
+            description:
+            "『頭文字D』の世界観を特殊な金属印刷技術による「メタルキャンバスアート」として表現した展示販売イベント「頭文字D Art Exhibition」が、名古屋・RAYARD Hisaya-odori Parkで開催。しげの秀一氏の原作イラストを用いた限定エディションのアート作品を、新作を含め多数展示・販売。",
+            articleUrl:"https://x.com/gaaat_art/status/2086739332594045016",
+            eventStart:"2026-08-11",
+            eventEnd:"2026-08-16"
+        },
+
+        {
             id:40,
             title:"AE86実車＆1/18スケールモデルが高崎に集結、ポップアップショップ開催",
             date:"2026-08-10",
@@ -11,6 +48,32 @@ const database = {
             description:
             "『頭文字D』のAE86実車と、連載30周年記念のAUTOart製1/18スケールモデルが、イオンモール高崎に集結。ミニカーの展示・販売や関連グッズの販売を行うポップアップショップを開催。",
             articleUrl:"https://x.com/AnimeAnime_jp/status/2086656335819813198",
+            eventStart:"2026-08-11",
+            eventEnd:"2026-08-20"
+        },
+
+        {
+            id:75,
+            title:"『頭文字D』ポップアップストア、イオンモール高崎に期間限定オープン",
+            date:"2026-08-10",
+            source:"レスポンス（X）",
+            tags:["イベント","グッズ"],
+            description:
+            "株式会社フェイスが、『頭文字D』公式ライセンスグッズを中心としたCAMSHOP.JPのポップアップストアを、イオンモール高崎1階イーストコート広場にて開催。AE86（ハチロク）の実車展示や藤原拓海の等身大パネルによるフォトスポットも設置。2026年6月に名古屋で開催し好評だった巡回展の一環。",
+            articleUrl:"https://x.com/responsejp/status/2086701636341395797",
+            eventStart:"2026-08-11",
+            eventEnd:"2026-08-20"
+        },
+
+        {
+            id:76,
+            title:"伊香保温泉の宿が紹介、イオンモール高崎『頭文字D』ポップアップストア",
+            date:"2026-08-10",
+            source:"横手館（X）",
+            tags:["イベント","グッズ"],
+            description:
+            "群馬県渋川市・伊香保温泉の旅館「横手館」が、車で約30分の距離にあるイオンモール高崎で開催される『頭文字D』ポップアップストアを紹介。ハチロク（AE86）の実車展示や公式ライセンスグッズの販売が行われる。渋川市は作中の重要な舞台の一つ。",
+            articleUrl:"https://x.com/yokotekan/status/2086768373996851513",
             eventStart:"2026-08-11",
             eventEnd:"2026-08-20"
         },
