@@ -3,6 +3,30 @@ const database = {
     infos:[
 
         {
+            id:89,
+            title:"アニメ『頭文字D』シリーズ全話がYouTubeで無料公開スタート、劇場版や『MFゴースト』第1期も網羅",
+            date:"2026-08-11",
+            source:"電ファミニコゲーマー（X）",
+            tags:["キャンペーン"],
+            description:
+            "「アニメタイムズ」公式YouTubeチャンネルにて、アニメ『頭文字D』のTVシリーズ5作品と劇場版（3rd Stage）、および『MFゴースト』第1期を含むTVシリーズ93話+劇場版4作分を無料配信。",
+            articleUrl:"https://x.com/denfaminicogame/status/2087087655142260936",
+            eventStart:"2026-08-10",
+            eventEnd:"2026-08-23"
+        },
+
+        {
+            id:88,
+            title:"『頭文字DAC』走り屋デビューミッションで最大5プレイ無料に",
+            date:"2026-08-11",
+            source:"頭文字DAC公式（X）",
+            tags:["キャンペーン","ゲーム"],
+            description:
+            "『頭文字D THE ARCADE』にて、DACデビューしたばかりのプレイヤー向けに最大5プレイが無料になる「走り屋デビューミッション」を実施中。",
+            articleUrl:"https://x.com/initialD_AS/status/2087011132779237746"
+        },
+
+        {
             id:77,
             title:"「頭文字D」夏祭り、アニメタイムズ公式YouTubeで期間限定本編配信中",
             date:"2026-08-11",
