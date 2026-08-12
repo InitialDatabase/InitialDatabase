@@ -136,11 +136,15 @@
     }
 
     function getSortedItems(filteredItems){
-        const sorted = [...filteredItems].sort((a, b) =>
-            String(a.date || "").localeCompare(String(b.date || ""))
+        // 日付が同じ項目が複数ある場合、Array.sortは安定ソートのため、
+        // 昇順に並べてからreverse()すると同日内の順序まで反転してしまい、
+        // 「新しい順」で同日の項目の前後関係が意図と逆になる不具合があった。
+        // そのため常に「新しい順」を直接ソートし、「古い順」はそれを丸ごと反転して作る。
+        const sortedNewFirst = [...filteredItems].sort((a, b) =>
+            String(b.date || "").localeCompare(String(a.date || ""))
         );
 
-        return state.sort === "old" ? sorted : sorted.reverse();
+        return state.sort === "old" ? sortedNewFirst.reverse() : sortedNewFirst;
     }
 
     function renderCount(filteredItems){

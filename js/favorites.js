@@ -75,11 +75,13 @@
             return resolvedFavorites;
         }
 
-        const sorted = [...resolvedFavorites].sort((a, b) =>
-            String(a.item.date || "").localeCompare(String(b.item.date || ""))
+        // info.jsと同じ理由（安定ソート後のreverse()による同日項目の順序反転）で
+        // 「新しい順」を直接ソートし、「古い順」はそれを丸ごと反転して作る。
+        const sortedNewFirst = [...resolvedFavorites].sort((a, b) =>
+            String(b.item.date || "").localeCompare(String(a.item.date || ""))
         );
 
-        return state.sort === "old" ? sorted : sorted.reverse();
+        return state.sort === "old" ? sortedNewFirst.reverse() : sortedNewFirst;
     }
 
     function renderTagFilters(resolvedFavorites){
