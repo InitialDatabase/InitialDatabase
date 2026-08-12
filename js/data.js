@@ -3,6 +3,67 @@ const database = {
     infos:[
 
         {
+            id:98,
+            title:"ミッドナイトボートレース下関2日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
+            date:"2026-08-11",
+            source:"DYNAMITE BOATRACE（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            description:
+            "BR下関にて開催中の「ミッドナイトボートレース」2日目も『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを引き続き実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2087192336271126934",
+            eventStart:"2026-08-11",
+            eventEnd:"2026-08-16"
+        },
+
+        {
+            id:99,
+            title:"『頭文字D』Art Exhibition名古屋会場、本日8月11日よりスタート",
+            date:"2026-08-11",
+            source:"GAAAT（X）",
+            tags:["イベント"],
+            description:
+            "『頭文字D』Art Exhibition名古屋会場が本日8月11日よりスタート。会期は2026年8月11日（火・祝）〜16日（日）、営業時間12:00〜18:00（最終日は14:00閉場）。会場はRAYARD Hisaya-odori Park ZONE3。",
+            articleUrl:"https://x.com/gaaat_art/status/2087131926905958723",
+            eventStart:"2026-08-11",
+            eventEnd:"2026-08-16"
+        },
+
+        {
+            id:95,
+            title:"陳麻婆豆腐×頭文字Dコラボ限定「陳麻婆豆腐の素」頭文字Dパッケージが登場",
+            date:"2026-08-12",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","グッズ"],
+            description:
+            "陳麻婆豆腐×頭文字Dコラボの限定商品として、コミックス1巻のデザインを再現した特別パッケージの「陳麻婆豆腐の素」が登場。おうちで陳麻婆豆腐が作れる調味料3袋入りで、今回のコラボのために生産した完全限定品。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2087358408219336804",
+            eventStart:"2026-08-01",
+            eventEnd:"2026-10-31"
+        },
+
+        {
+            id:96,
+            title:"『頭文字DAC』初心者ドライバー応援ガイドを公開",
+            date:"2026-08-12",
+            source:"頭文字DAC公式（X）",
+            tags:["ゲーム"],
+            description:
+            "『頭文字D THE ARCADE』にて、どのモードから遊べばいいか、どの車を選べばいいかで迷うプレイヤー向けに「初心者ドライバー応援ガイド」を公開。基本情報・速くなるコツ・お得に遊ぶ方法などをまとめている。",
+            articleUrl:"https://x.com/initialD_AS/status/2087373518438629623"
+        },
+
+        {
+            id:97,
+            title:"道の駅しもつまで『頭文字D』『昴と彗星』オリジナル御朱印帳を販売中",
+            date:"2026-08-11",
+            source:"culcolle公式（X）",
+            tags:["グッズ"],
+            description:
+            "茨城県の「道の駅しもつま」にて『頭文字D』『昴と彗星』オリジナル御朱印帳を好評販売中。大宝八幡宮でも引き続き販売しているほか、オンラインでも購入可能。",
+            articleUrl:"https://x.com/culcolle/status/2087020173618459034"
+        },
+
+        {
             id:89,
             title:"アニメ『頭文字D』シリーズ全話がYouTubeで無料公開スタート、劇場版や『MFゴースト』第1期も網羅",
             date:"2026-08-11",
