@@ -6,6 +6,7 @@
     const summaryElement = document.getElementById("archiveSummary");
     const monthListElement = document.getElementById("archiveMonthList");
     const archiveSearchInput = document.getElementById("archiveSearchInput");
+    const clearFiltersButton = document.getElementById("archiveFilterClear");
     const tagStatsElement = document.getElementById("tagStatsList");
     const monthStatsElement = document.getElementById("monthStatsList");
     const monthStatsToggle = document.getElementById("monthStatsToggle");
@@ -155,6 +156,10 @@
         monthListElement.innerHTML = groupsHtml
             || `<p class="emptyMessage">条件に一致する情報がありませんでした。</p>`;
 
+        if(clearFiltersButton){
+            clearFiltersButton.hidden = !normalizedKeyword;
+        }
+
         updateSummary();
     }
 
@@ -169,6 +174,18 @@
         searchMode = mode;
         renderMonthList();
     });
+
+    if(clearFiltersButton){
+        clearFiltersButton.addEventListener("click", () => {
+            searchKeyword = "";
+
+            if(archiveSearchInput){
+                archiveSearchInput.value = "";
+            }
+
+            renderMonthList();
+        });
+    }
 
     renderMonthList();
 

@@ -9,6 +9,7 @@
     const searchInput = document.getElementById("infoSearchInput");
     const suggestionsElement = document.getElementById("infoSearchSuggestions");
     const tagFilterContainer = document.getElementById("infoTagFilters");
+    const clearFiltersButton = document.getElementById("infoFilterClear");
 
     if(!listElement){
         return;
@@ -107,6 +108,21 @@
 
     function matchesUnread(item){
         return state.unreadOnly ? !isItemRead("infos", item.id) : true;
+    }
+
+    function hasActiveFilters(){
+        return Boolean(state.keyword)
+            || state.activeTags.size > 0
+            || state.period !== "all"
+            || state.status !== "all"
+            || state.unreadOnly
+            || state.sort !== "new";
+    }
+
+    function updateClearButtonVisibility(){
+        if(clearFiltersButton){
+            clearFiltersButton.hidden = !hasActiveFilters();
+        }
     }
 
     function getFilteredItems(){
@@ -252,6 +268,10 @@
             return;
         }
 
+        controlsElement.querySelectorAll("[data-sort]").forEach(b =>
+            b.classList.toggle("is-active", b.dataset.sort === state.sort)
+        );
+
         controlsElement.querySelectorAll("[data-period]").forEach(b =>
             b.classList.toggle("is-active", b.dataset.period === state.period)
         );
@@ -374,6 +394,7 @@
         const sortedItems = getSortedItems(filteredItems);
 
         renderCount(filteredItems);
+        updateClearButtonVisibility();
 
         if(sortedItems.length === 0){
             renderNoResults();
@@ -663,6 +684,27 @@
         filterToggle.addEventListener("click", () => {
             const isOpen = filterPanel.classList.toggle("is-open");
             filterToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+    }
+
+    if(clearFiltersButton){
+        clearFiltersButton.addEventListener("click", () => {
+            state.keyword = "";
+            state.activeTags.clear();
+            state.sort = "new";
+            state.period = "all";
+            state.status = "all";
+            state.unreadOnly = false;
+            state.customMonth = "";
+            state.page = 1;
+
+            if(searchInput){
+                searchInput.value = "";
+            }
+
+            closeSuggestions();
+            syncControlButtons();
+            render();
         });
     }
 

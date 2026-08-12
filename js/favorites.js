@@ -10,6 +10,7 @@
     const searchInput = document.getElementById("favoriteSearchInput");
     const suggestionsElement = document.getElementById("favoriteSearchSuggestions");
     const tagFilterContainer = document.getElementById("favoriteTagFilters");
+    const clearFiltersButton = document.getElementById("favoriteFilterClear");
 
     const state = {
         sort: "added",
@@ -134,7 +135,11 @@
             matchesKeyword(item) && matchesTags(item)
         );
 
-        const isFiltered = Boolean(state.keyword) || state.activeTags.size > 0;
+        const isFiltered = Boolean(state.keyword) || state.activeTags.size > 0 || state.sort !== "added";
+
+        if(clearFiltersButton){
+            clearFiltersButton.hidden = !isFiltered;
+        }
 
         favoriteCount.textContent = isFiltered
             ? `お気に入り：${filteredFavorites.length}件（全${resolvedFavorites.length}件中）`
@@ -347,6 +352,28 @@
         filterToggle.addEventListener("click", () => {
             const isOpen = filterPanel.classList.toggle("is-open");
             filterToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+    }
+
+    if(clearFiltersButton){
+        clearFiltersButton.addEventListener("click", () => {
+            state.keyword = "";
+            state.activeTags.clear();
+            state.sort = "added";
+            state.page = 1;
+
+            if(searchInput){
+                searchInput.value = "";
+            }
+
+            if(toolbar){
+                toolbar.querySelectorAll("[data-favsort]").forEach(b =>
+                    b.classList.toggle("is-active", b.dataset.favsort === "added")
+                );
+            }
+
+            closeSuggestions();
+            renderFavorites();
         });
     }
 
