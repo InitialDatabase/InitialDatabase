@@ -2,7 +2,7 @@
 
 (function(){
 
-    const items = Array.isArray(window.siteUpdates) ? window.siteUpdates : [];
+    const items = Array.isArray(siteUpdates) ? siteUpdates : [];
     const summaryElement = document.getElementById("updateSummary");
     const groupListElement = document.getElementById("updateGroupList");
     const filterGroupElement = document.getElementById("updateTypeFilter");
