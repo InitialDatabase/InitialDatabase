@@ -4,6 +4,22 @@
 <head>
 
 <meta charset="UTF-8">
+
+<!-- ページ遷移直後のヒーロー画像チラつき対策
+     ナビメニュー経由の遷移で復元すべきスクロール位置がsessionStorageにある場合のみ、
+     <html>にscrollRestorePendingクラスを付け、本文をCSSで一時的に非表示にする。
+     （復元後はjs/common.js側でこのクラスを外す。sessionStorageが使えない環境や
+     直接URLを開いた場合・戻る/進むボタンの場合は何もしないため通常通り表示される） -->
+<script>
+(function(){
+    try{
+        if(sessionStorage.getItem("initialDDatabaseNavScrollY")){
+            document.documentElement.classList.add("scrollRestorePending");
+        }
+    }catch(error){}
+})();
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="MVNvT0mgJ44mn5_F9MtYCspXtcR8zpGHSOoUNdlCISg" />
 
@@ -111,6 +127,7 @@ gtag("config", "G-19K4474718");
 <li><a href="pages/calendar.html">イベントカレンダー</a></li>
 <li><a href="pages/archive.html">アーカイブ・統計</a></li>
 <li><a href="pages/comments.html">コメント</a></li>
+<li><a href="pages/updates.html">更新情報</a></li>
 </ul>
 </nav>
 
@@ -154,6 +171,8 @@ gtag("config", "G-19K4474718");
             hidden>
         </ul>
     </div>
+
+    <div class="infoFilterGroup" id="infoSearchModeToggle" role="group" aria-label="検索方法"></div>
 
     <button
         type="button"

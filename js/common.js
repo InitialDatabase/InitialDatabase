@@ -1,5 +1,21 @@
 // 複数ページ（頭文字D情報／お気に入り）で使用する共通関数
 
+// ページ遷移時のヒーロー画像チラつき対策（保険処理）
+// head内のインラインscriptがsessionStorageに復元対象のスクロール値がある場合のみ
+// <html>に"scrollRestorePending"クラスを付与し、本文を一時的に非表示にしている。
+// 復元処理自体はこのファイル内の別の場所（restoreNavScrollPosition）で行うが、
+// 万一その手前の処理（setupNavToggleなど）でエラーが起きて到達できなかった場合に
+// 備え、ここで独立して「読み込み完了時」「一定時間経過後」の両方で必ずクラスを
+// 外すようにし、本文が非表示のまま固まらないようにする。
+if(typeof document !== "undefined" && typeof window !== "undefined"){
+    const revealBodyFailSafe = () => {
+        document.documentElement.classList.remove("scrollRestorePending");
+    };
+
+    window.addEventListener("load", revealBodyFailSafe);
+    window.setTimeout(revealBodyFailSafe, 1500);
+}
+
 function escapeHTML(value){
     return String(value ?? "")
         .replace(/&/g, "&amp;")
@@ -122,16 +138,95 @@ function fuzzyIncludes(normalizedHaystack, normalizedNeedle){
     return false;
 }
 
-function matchesSearchKeyword(fieldValues, keyword){
+// mode省略時・"partial"時は部分一致（表記ゆれ・タイプミス許容）で判定する。
+// mode="exact"の場合は、タイトル・タグなど項目のいずれかが検索語と完全に
+// 一致した場合のみヒットとする（表記ゆれの吸収のみ行い、タイプミスは許容しない）。
+function matchesSearchKeyword(fieldValues, keyword, mode){
     const normalizedKeyword = normalizeForSearch(keyword);
 
     if(!normalizedKeyword){
         return true;
     }
 
-    const normalizedHaystack = normalizeForSearch(fieldValues.filter(Boolean).join(" "));
+    const normalizedFields = fieldValues.filter(Boolean).map(normalizeForSearch);
 
-    return fuzzyIncludes(normalizedHaystack, normalizedKeyword);
+    if(mode === "exact"){
+        return normalizedFields.some(value => value === normalizedKeyword);
+    }
+
+    return fuzzyIncludes(normalizedFields.join(" "), normalizedKeyword);
+}
+
+// ==========================
+// 検索モード（部分一致／完全一致）の切り替えUI
+// ==========================
+// キーワード検索ボックスのそばに「部分一致／完全一致」の切り替えボタンを描画する。
+// 選択状態はサイト内共通でlocalStorageに保存し、どのページでも直前の選択を引き継ぐ。
+
+const searchModeStorageKey = "initialDDatabaseSearchMode";
+
+function getStoredSearchMode(){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return "partial";
+    }
+
+    try{
+        return storage.getItem(searchModeStorageKey) === "exact" ? "exact" : "partial";
+    }catch(error){
+        return "partial";
+    }
+}
+
+function setStoredSearchMode(mode){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return;
+    }
+
+    try{
+        storage.setItem(searchModeStorageKey, mode);
+    }catch(error){
+        // 保存できない場合は無視（切り替え自体は継続）
+    }
+}
+
+// containerId要素の中に切り替えボタンを描画し、初期モードを返す。
+// onChangeにはボタン操作で選択されたモード（"partial" | "exact"）が渡される。
+function setupSearchModeToggle(containerId, onChange){
+    const initialMode = getStoredSearchMode();
+    const container = document.getElementById(containerId);
+
+    if(!container){
+        return initialMode;
+    }
+
+    container.innerHTML = `
+        <span class="infoFilterLabel">検索方法：</span>
+        <button type="button" class="infoFilterButton${initialMode === "partial" ? " is-active" : ""}" data-searchmode="partial">部分一致</button>
+        <button type="button" class="infoFilterButton${initialMode === "exact" ? " is-active" : ""}" data-searchmode="exact">完全一致</button>
+    `;
+
+    container.querySelectorAll("[data-searchmode]").forEach(button => {
+        button.addEventListener("click", () => {
+            const mode = button.dataset.searchmode;
+
+            if(button.classList.contains("is-active")){
+                return;
+            }
+
+            container.querySelectorAll("[data-searchmode]").forEach(b =>
+                b.classList.toggle("is-active", b === button)
+            );
+
+            setStoredSearchMode(mode);
+            onChange(mode);
+        });
+    });
+
+    return initialMode;
 }
 
 // ==========================
@@ -1226,12 +1321,113 @@ function setupNavToggle(){
     });
 }
 
+// ==========================
+// ページ遷移時のスクロール位置維持
+// ==========================
+// ヘッダーメニュー（#navMenu）のリンクからページを移動する際、
+// 遷移先ページの先頭に戻ってしまわないよう、移動前のスクロール位置を
+// sessionStorageに保存し、遷移先ページの読み込み時に復元する。
+// （直接URLを開いた場合やブラウザの戻る/進むボタンでは適用しない。
+// 　戻る/進むはブラウザ自身のスクロール位置復元に任せる）
+
+const navScrollStorageKey = "initialDDatabaseNavScrollY";
+
+function getSessionStorageSafe(){
+    if(typeof window === "undefined"){
+        return null;
+    }
+
+    try{
+        const storage = window.sessionStorage;
+        const testKey = "__initialDDatabaseSessionTest__";
+
+        storage.setItem(testKey, "1");
+        storage.removeItem(testKey);
+
+        return storage;
+    }catch(error){
+        return null;
+    }
+}
+
+// ページ遷移直後のヒーロー画像チラつき対策
+// head内の早い段階のインラインscriptが、復元対象のスクロール値がある場合のみ
+// <html>に"scrollRestorePending"クラスを付与し、本文を非表示にしている。
+// スクロール位置の復元が終わった（または復元の必要がなかった）タイミングで
+// このクラスを外し、本文を表示する。
+const scrollRestorePendingClass = "scrollRestorePending";
+
+function revealBodyAfterScrollRestore(){
+    document.documentElement.classList.remove(scrollRestorePendingClass);
+}
+
+function restoreNavScrollPosition(storage){
+    if(!storage){
+        revealBodyAfterScrollRestore();
+        return;
+    }
+
+    let savedValue = null;
+
+    try{
+        savedValue = storage.getItem(navScrollStorageKey);
+        storage.removeItem(navScrollStorageKey);
+    }catch(error){
+        revealBodyAfterScrollRestore();
+        return;
+    }
+
+    if(savedValue === null){
+        revealBodyAfterScrollRestore();
+        return;
+    }
+
+    const targetY = Number(savedValue);
+
+    if(!Number.isFinite(targetY) || targetY <= 0){
+        revealBodyAfterScrollRestore();
+        return;
+    }
+
+    const applyScroll = () => window.scrollTo(0, targetY);
+
+    applyScroll();
+    revealBodyAfterScrollRestore();
+
+    // 画像などの読み込みで直後にレイアウトが変わることがあるため、次フレームでも再適用する
+    window.requestAnimationFrame(applyScroll);
+}
+
+function setupNavScrollPersistence(){
+    const storage = getSessionStorageSafe();
+    const navLinks = document.querySelectorAll("#navMenu a");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", event => {
+            // 新しいタブで開く操作（Ctrl/Cmd/Shift/中クリックなど）は対象外
+            if(!storage || event.defaultPrevented || event.button !== 0
+                || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey){
+                return;
+            }
+
+            try{
+                storage.setItem(navScrollStorageKey, String(window.scrollY || 0));
+            }catch(error){
+                // 保存できない場合は無視（通常通り先頭からの表示になる）
+            }
+        });
+    });
+
+    restoreNavScrollPosition(storage);
+}
+
 function initializeCommonUI(){
     highlightCurrentNav();
     setupNavToggle();
     setupBackToTopButton();
     setupThemeToggle();
     setupCalendarDownloadDelegation();
+    setupNavScrollPersistence();
     registerServiceWorker();
     trackSiteVisit();
 }

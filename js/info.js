@@ -31,6 +31,7 @@
 
     const state = {
         keyword: "",
+        searchMode: "partial", // "partial"（部分一致）または "exact"（完全一致）
         activeTags: new Set(),
         sort: "new",
         period: "all",
@@ -47,6 +48,12 @@
     let activeSuggestionIndex = -1;
     let currentSuggestions = [];
 
+    state.searchMode = setupSearchModeToggle("infoSearchModeToggle", mode => {
+        state.searchMode = mode;
+        state.page = 1;
+        render();
+    });
+
     function matchesKeyword(item){
         if(!state.keyword){
             return true;
@@ -57,7 +64,7 @@
             item.description || "",
             item.source || "",
             ...(Array.isArray(item.tags) ? item.tags : [])
-        ], state.keyword);
+        ], state.keyword, state.searchMode);
     }
 
     function matchesTags(item){

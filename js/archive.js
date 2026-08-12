@@ -17,6 +17,7 @@
     const MONTH_STATS_DEFAULT_COUNT = 12;
     let showAllMonthStats = false;
     let searchKeyword = "";
+    let searchMode = "partial"; // "partial"（部分一致）または "exact"（完全一致）
 
     // ==========================
     // サイト累計訪問者数バッジ
@@ -66,7 +67,7 @@
             item.description || "",
             item.source || "",
             ...(Array.isArray(item.tags) ? item.tags : [])
-        ], keyword);
+        ], keyword, searchMode);
     }
 
     // ==========================
@@ -163,6 +164,11 @@
             renderMonthList();
         });
     }
+
+    searchMode = setupSearchModeToggle("archiveSearchModeToggle", mode => {
+        searchMode = mode;
+        renderMonthList();
+    });
 
     renderMonthList();
 

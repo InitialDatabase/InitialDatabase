@@ -9,6 +9,19 @@
     box-sizing:border-box;
 }
 
+/* ==========================
+   ページ遷移時のスクロール位置復元中の表示隠し
+   ========================== */
+/* ナビメニュー経由でページ遷移した直後、common.js側でスクロール位置を
+   復元し終えるまでの間だけ本文を非表示にする。<html>にこのクラスが
+   付いている間だけ有効なので、通常のページ読み込み（トップページ表示・
+   直接URLアクセス・戻る/進むボタン）には一切影響しない。
+   復元後またはJSでの取得に失敗した場合は必ずcommon.js側でこのクラスを
+   外すため、表示されないまま固まることはない。 */
+html.scrollRestorePending body{
+    visibility:hidden;
+}
+
 body{
     background:#f6f6f6;
     color:#202122;
@@ -912,6 +925,10 @@ a.statsBarLink:focus-visible{
 .archiveSearchInput:focus{
     outline:2px solid #36c;
     outline-offset:1px;
+}
+
+.archiveSearchModeToggle{
+    margin-bottom:16px;
 }
 
 .statsBarLabel{
@@ -1957,6 +1974,101 @@ nav ul{
 }
 
 /* ==========================
+   更新情報
+   ========================== */
+
+.updateSummary{
+    color:#54595d;
+    margin-bottom:16px;
+}
+
+.updateGroup{
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+    padding:14px 18px;
+    margin-bottom:12px;
+}
+
+.updateGroup summary{
+    cursor:pointer;
+    font-weight:bold;
+    list-style:revert;
+}
+
+.updateGroup summary:focus-visible{
+    outline:2px solid #36c;
+    outline-offset:2px;
+}
+
+.updateList{
+    list-style:none;
+    margin-top:12px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.updateItem{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:10px;
+    font-size:.95em;
+}
+
+.updateItemDate{
+    flex:0 0 90px;
+    color:#72777d;
+}
+
+.updateItemBody{
+    flex:1;
+    min-width:200px;
+}
+
+.updateItemTitle{
+    font-weight:bold;
+}
+
+.updateItemDesc{
+    color:#54595d;
+    font-size:.92em;
+    margin-top:2px;
+}
+
+.updateItemBadge{
+    display:inline-block;
+    flex:0 0 auto;
+    padding:3px 10px;
+    border-radius:12px;
+    font-size:.78em;
+    font-weight:bold;
+    line-height:1.6;
+    color:white;
+}
+
+.updateItemBadge--added{
+    background:#2e8540;
+}
+
+.updateItemBadge--fixed{
+    background:#2a7de1;
+}
+
+.updateItemBadge--changed{
+    background:#8a5cd6;
+}
+
+.updateItemBadge--removed{
+    background:#b3261e;
+}
+
+.updateItemBadge--other{
+    background:#767676;
+}
+
+/* ==========================
    ダークモード配色
    ========================== */
 
@@ -2286,4 +2398,16 @@ html.theme-dark .archiveSearchInput{
     background:#1c1d1e;
     color:#e8e8e8;
     border-color:#3a3b3c;
+}
+
+html.theme-dark .updateGroup{
+    background:#1b1b1d;
+    border-color:#333;
+    color:#e8e8e8;
+}
+
+html.theme-dark .updateSummary,
+html.theme-dark .updateItemDate,
+html.theme-dark .updateItemDesc{
+    color:#b7b7b7;
 }
