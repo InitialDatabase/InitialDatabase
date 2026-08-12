@@ -81,8 +81,23 @@
         return Boolean(state.keyword) || state.activeTags.size > 0;
     }
 
+    // renderGrid()は月内の日ごと（前後日との連結判定を含めると実質1日あたり最大3回）に
+    // getEventsOnDate() 経由でこの関数を呼び出す。キーワード検索はあいまい検索
+    // （表記ゆれ吸収・タイプミス許容のLevenshtein距離計算）を含み全件に対して行うと重いため、
+    // 絞り込み条件（キーワード・検索モード・タグ）が変わらない間は結果をキャッシュし、
+    // 1回の描画で何十回も同じ絞り込みを再計算しないようにする。
+    let filteredEventItemsCacheKey = null;
+    let filteredEventItemsCache = [];
+
     function getFilteredEventItems(){
-        return eventItems.filter(item => matchesKeyword(item) && matchesTags(item));
+        const cacheKey = `${state.keyword}\u0001${state.searchMode}\u0001${Array.from(state.activeTags).sort().join(",")}`;
+
+        if(cacheKey !== filteredEventItemsCacheKey){
+            filteredEventItemsCacheKey = cacheKey;
+            filteredEventItemsCache = eventItems.filter(item => matchesKeyword(item) && matchesTags(item));
+        }
+
+        return filteredEventItemsCache;
     }
 
     function updateClearButtonVisibility(){
