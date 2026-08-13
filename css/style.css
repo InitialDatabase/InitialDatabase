@@ -1886,6 +1886,15 @@ footer .disclaimer{
     cursor:pointer;
 }
 
+.favoriteClearAllButton{
+    color:#d33;
+    border-color:#e3b3b3;
+}
+
+.favoriteClearAllButton:hover{
+    background:#fdecec;
+}
+
 /* ==========================
    ダークモード切り替えボタン（ナビゲーションバー内）
    ========================== */
@@ -2159,6 +2168,15 @@ html.theme-dark .infoFilterButton.is-active{
     background:#36c;
     border-color:#36c;
     color:white;
+}
+
+html.theme-dark .favoriteClearAllButton{
+    color:#ff8f8f;
+    border-color:#6b3636;
+}
+
+html.theme-dark .favoriteClearAllButton:hover{
+    background:#3a1f1f;
 }
 
 html.theme-dark .infoBadge--source{

@@ -7,6 +7,7 @@
     const toolbar = document.getElementById("favoriteToolbar");
     const exportButton = document.getElementById("favoriteExportButton");
     const importInput = document.getElementById("favoriteImportInput");
+    const clearAllButton = document.getElementById("favoriteClearAllButton");
     const searchInput = document.getElementById("favoriteSearchInput");
     const suggestionsElement = document.getElementById("favoriteSearchSuggestions");
     const tagFilterContainer = document.getElementById("favoriteTagFilters");
@@ -407,6 +408,44 @@
             link.click();
             link.remove();
             URL.revokeObjectURL(url);
+        });
+    }
+
+    if(clearAllButton){
+        clearAllButton.addEventListener("click", () => {
+            if(getFavorites().length === 0){
+                alert("お気に入りはまだ登録されていません。");
+                return;
+            }
+
+            const confirmed = confirm(
+                "お気に入りを全件削除します。この操作は取り消せません。\nよろしいですか？"
+            );
+
+            if(!confirmed){
+                return;
+            }
+
+            saveFavorites([]);
+
+            state.keyword = "";
+            state.activeTags.clear();
+            state.sort = "added";
+            state.page = 1;
+
+            if(searchInput){
+                searchInput.value = "";
+            }
+
+            if(toolbar){
+                toolbar.querySelectorAll("[data-favsort]").forEach(b =>
+                    b.classList.toggle("is-active", b.dataset.favsort === "added")
+                );
+            }
+
+            closeSuggestions();
+            renderFavorites();
+            alert("お気に入りを全件削除しました。");
         });
     }
 
