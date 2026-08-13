@@ -3,6 +3,17 @@ const database = {
     infos:[
 
         {
+            id:105,
+            title:"ヨーヨー「Adrenaline」に『頭文字D』インスパイアの新色2種が登場、人気カラー2種も復活",
+            date:"2026-08-12",
+            source:"W1LD（X）",
+            tags:["グッズ"],
+            description:
+            "トライマテリアルモデルのヨーヨー「Adrenaline」のアップグレードモデルに、『頭文字D』にインスパイアされた新色2種（黄×赤のRedSuns、黒×白のLegendary AE86 Panda Trueno）が登場。あわせて人気カラーの「Shanks Edition」（赤×白）と、紫リムの「Galaxy Wash」も復活する。",
+            articleUrl:"https://x.com/W1LD_44/status/2087378134803038552"
+        },
+
+        {
             id:100,
             title:"『頭文字DAC』バトルギフトイベントが終了間近、8月19日まで",
             date:"2026-08-13",
