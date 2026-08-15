@@ -403,6 +403,23 @@ function getItemRegions(item){
 }
 
 // ==========================
+// グッズのサブカテゴリ
+// ==========================
+//
+// tags:["グッズ"] が付いた情報のうち、さらに細かい種類がわかっているものには
+// goodsCategory:"ミニカー" のように1つだけ値を持たせる（該当なしはフィールド自体を省略）。
+// 「グッズ」タグを選んだ時だけ、このサブカテゴリで絞り込めるボタン群を表示する。
+
+const GOODS_CATEGORY_LIST = ["フィギュア","ミニカー","アパレル","時計","書籍","食品","雑貨"];
+
+// itemのグッズサブカテゴリ（未設定ならnull）
+function getItemGoodsCategory(item){
+    return typeof item.goodsCategory === "string" && GOODS_CATEGORY_LIST.includes(item.goodsCategory)
+        ? item.goodsCategory
+        : null;
+}
+
+// ==========================
 // タグ・日付・出典（情報カード共通表示）
 // ==========================
 

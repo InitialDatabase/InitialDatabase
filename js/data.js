@@ -20,6 +20,7 @@ const database = {
             date:"2026-08-14",
             source:"ignitionmodel（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "IGモデル公式オンラインショップが週末のおすすめモデルを紹介。「蔵出しモデル」「訳ありアウトレット」ページに掲載中の製品はいずれも極少量のレアモデルで、週替わり更新の「今週のおすすめ」ページも合わせてチェックできる。",
@@ -130,6 +131,7 @@ const database = {
             date:"2026-08-12",
             source:"W1LD（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "トライマテリアルモデルのヨーヨー「Adrenaline」のアップグレードモデルに、『頭文字D』にインスパイアされた新色2種（黄×赤のRedSuns、黒×白のLegendary AE86 Panda Trueno）が登場。あわせて人気カラーの「Shanks Edition」（赤×白）と、紫リムの「Galaxy Wash」も復活する。",
@@ -240,6 +242,7 @@ const database = {
             date:"2026-08-12",
             source:"陳麻婆豆腐🌶【公式】（X）",
             tags:["コラボ","グッズ"],
+            goodsCategory:"食品",
             series:["頭文字D"],
             description:
             "陳麻婆豆腐×頭文字Dコラボの限定商品として、コミックス1巻のデザインを再現した特別パッケージの「陳麻婆豆腐の素」が登場。おうちで陳麻婆豆腐が作れる調味料3袋入りで、今回のコラボのために生産した完全限定品。",
@@ -268,6 +271,7 @@ const database = {
             date:"2026-08-11",
             source:"culcolle公式（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D","昴と彗星"],
             description:
             "茨城県の「道の駅しもつま」にて『頭文字D』『昴と彗星』オリジナル御朱印帳を好評販売中。大宝八幡宮でも引き続き販売しているほか、オンラインでも購入可能。",
@@ -366,6 +370,7 @@ const database = {
             date:"2026-08-10",
             source:"アニメ！アニメ！（X）",
             tags:["イベント","グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "『頭文字D』のAE86実車と、連載30周年記念のAUTOart製1/18スケールモデルが、イオンモール高崎に集結。ミニカーの展示・販売や関連グッズの販売を行うポップアップショップを開催。",
@@ -382,6 +387,7 @@ const database = {
             date:"2026-08-10",
             source:"レスポンス（X）",
             tags:["イベント","グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "株式会社フェイスが、『頭文字D』公式ライセンスグッズを中心としたCAMSHOP.JPのポップアップストアを、イオンモール高崎1階イーストコート広場にて開催。AE86（ハチロク）の実車展示や藤原拓海の等身大パネルによるフォトスポットも設置。2026年6月に名古屋で開催し好評だった巡回展の一環。",
@@ -398,6 +404,7 @@ const database = {
             date:"2026-08-10",
             source:"横手館（X）",
             tags:["イベント","グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "群馬県渋川市・伊香保温泉の旅館「横手館」が、車で約30分の距離にあるイオンモール高崎で開催される『頭文字D』ポップアップストアを紹介。ハチロク（AE86）の実車展示や公式ライセンスグッズの販売が行われる。渋川市は作中の重要な舞台の一つ。",
@@ -412,6 +419,7 @@ const database = {
             date:"2026-08-09",
             source:"ANGEL CLOVER（X）",
             tags:["グッズ","コラボ"],
+            goodsCategory:"時計",
             series:["頭文字D"],
             description:
             "連載30周年記念コラボウォッチの新作、藤原文太 SUBARU IMPREZA WRX(GC8) type R STiモデル（自動巻き）のデザイン詳細を紹介。12時位置にGC8を象徴する「8」のインデックスを配置し、車載メーターをイメージしたサブダイヤルを採用。7月30日より予約受付中で、9月30日発売予定。",
@@ -426,6 +434,7 @@ const database = {
             date:"2026-08-09",
             source:"アオシマ online shop（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "藤原とうふ店・店主 藤原文太のGC8インプレッサを商品化した「楽プラ スナップキット No.CM-6 頭文字D 文太のインプレッサ」が予約受付中。塗装不要・接着剤不要で、2026年12月発売予定。",
@@ -443,6 +452,7 @@ const database = {
             date:"2026-08-08",
             source:"電ファミニコゲーマー（X）",
             tags:["イベント","グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』「藤原とうふ店（自家用）ハチロク」をモチーフにした、車輪が動くティッシュケースなどが購入できるポップアップショップを、マンガの舞台・群馬の「イオンモール高崎」にて開催。藤原拓海の等身大パネルによるフォトスポットも設置。",
@@ -457,6 +467,7 @@ const database = {
             date:"2026-08-07",
             source:"電撃ホビーウェブ（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "『頭文字D』より、庄司慎吾のホンダ シビック SiR-II（EG6）と中里毅の日産 スカイライン GT-R（BNR32）が「トミカプレミアムunlimited」に登場。Amazonにて予約受付中で、2026年9月19日発売予定。",
@@ -470,6 +481,7 @@ const database = {
             date:"2026-08-05",
             source:"アニメ！アニメ！（X）",
             tags:["グッズ"],
+            goodsCategory:"アパレル",
             series:["頭文字D"],
             description:
             "『頭文字D』の名シーン“ギャンギャン”をモチーフに、AE86とRX-7を立体刺繍で表現したTシャツが登場。",
@@ -482,6 +494,7 @@ const database = {
             date:"2026-08-04",
             source:"アニメイト商品情報局（X）",
             tags:["コラボ","グッズ","イベント"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』とカラオケの鉄人のコラボが実施中。原作イラストを使用した限定オリジナルグッズを、期間限定で販売。",
@@ -496,6 +509,7 @@ const database = {
             date:"2026-08-04",
             source:"アニメストア.JP（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』の新作グッズが登場。免許証風カードやドアプレート風チャーム、ブロマイドなど、藤原拓海・高橋涼介・高橋啓介・中里毅・庄司慎吾・秋山渉ら人気キャラクターのグッズがラインナップ。",
@@ -536,6 +550,7 @@ const database = {
             date:"2026-08-07",
             source:"ホビーサーチ カーモデル（X）",
             tags:["グッズ","予約開始"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』に登場する藤原とうふ店を1/64スケールで再現したATS MODELSのディオラマ組立キットが予約開始。パーツは塗装不要で、USB給電によるライト点灯も楽しめる。",
@@ -551,6 +566,7 @@ const database = {
             date:"2026-08-07",
             source:"【公式】BLITZ（X）",
             tags:["イベント","グッズ"],
+            goodsCategory:"雑貨",
             series:["MFゴースト"],
             description:
             "A PIT AUTOBACS SHINONOME内のBLITZ×MFゴーストコーナーで、アクセサリーなどの展示がさらに充実。86/GR86やBRZに対応するアクセサリーを展示・在庫しており、人気のエンジンフードダンパーも取り扱う。",
@@ -588,6 +604,7 @@ const database = {
             date:"2026-08-06",
             source:"プロジェクトコア1号店/あべの店（X）",
             tags:["グッズ","予約開始"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "アルマビアンカより、原作『頭文字D』のデスクマット全3種が11月上旬発売決定。カードサプライの予約はAmazon Pay対応のプロジェクトコアにて受付中。",
@@ -603,6 +620,7 @@ const database = {
             date:"2026-08-06",
             source:"NOISEANDKISSES（X）",
             tags:["グッズ"],
+            goodsCategory:"アパレル",
             series:["頭文字D"],
             description:
             "アパレルブランドNOISEANDKISSESが、今週の再入荷アイテムとして『頭文字D』関連グッズをはじめ、Pちゃん、アラレちゃん、ワンカップ大関とのコラボアイテムを紹介。",
@@ -694,6 +712,7 @@ const database = {
             date:"2026-07-31",
             source:"GRANUP（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』のキャラクターたちの愛車デザインを使用した、全31種類のインテリアプレートが登場。商品写真が公開された。",
@@ -706,6 +725,7 @@ const database = {
             date:"2026-07-31",
             source:"陳麻婆豆腐🌶【公式】（X）",
             tags:["コラボ","キャンペーン","グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "8月1日開始の「陳麻婆豆腐×頭文字Ｄ」コラボにて、頭文字Dの主要キャラクター10名とそれぞれをイメージした四川料理の紹介が裏面に入った限定トレカ全10種（ランダム）を、コラボメニュー購入者にプレゼント。",
@@ -720,6 +740,7 @@ const database = {
             date:"2026-07-30",
             source:"電ファミニコゲーマー（X）",
             tags:["コラボ","グッズ","予約開始"],
+            goodsCategory:"時計",
             series:["頭文字D"],
             description:
             "『頭文字D』連載30周年記念コラボ腕時計に、藤原拓海のハチロクと藤原文太のインプレッサをモチーフにした新モデルが登場。愛車を象徴するデザインや車載メーター風のサブダイヤル、スケルトン部から内部機構が見える自動巻き腕時計で、予約受付を開始。発売日は2026年9月30日。",
@@ -748,6 +769,7 @@ const database = {
             date:"2026-07-30",
             source:"しぶさん(渋川地区名産品センター)（X）",
             tags:["コラボ","グッズ","キャンペーン"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』×SHIBUKAWAコラボグッズの新商品を、群馬県渋川市の渋川地区名産品センター（しぶさん）にて8月6日午前9時より販売開始。状況により購入数を制限する場合あり。",
@@ -761,6 +783,7 @@ const database = {
             date:"2026-07-30",
             source:"ANGEL CLOVER（X）",
             tags:["グッズ","コラボ","予約開始"],
+            goodsCategory:"時計",
             series:["頭文字D"],
             description:
             "ANGEL CLOVERと『頭文字D』のコラボ腕時計に、藤原拓海の86と藤原文太のインプレッサを表現した自動巻きモデルが登場。『頭文字D』連載30周年の締めくくりとして予約開始。発売日は2026年9月30日。",
@@ -787,6 +810,7 @@ const database = {
             date:"2026-07-29",
             source:"アオシマPR（X）",
             tags:["グッズ","予約開始"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "アオシマの新製品「楽プラ スナップキット No.CM-6 頭文字D 文太のインプレッサ」が2026年12月発売予定で登場。受注予約は8月4日14時より開始。",
@@ -802,6 +826,7 @@ const database = {
             date:"2026-07-28",
             source:"AMNIBUS（アムニバス）（X）",
             tags:["グッズ","予約開始"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』の「トレーディング原作コマプラスチック免許証風カード」「トレーディング原作コマアクリルドアプレート風チャーム」などの予約受付をAMNIBUSにて開始。ショップ限定特典もあり。",
@@ -815,6 +840,7 @@ const database = {
             date:"2026-07-27",
             source:"アオシマPR（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "アオシマのプラモデル「1/24 頭文字D」シリーズより、高橋啓介 FD3S RX-7（プロジェクトD仕様／ドライバーフィギュア付）と18巻SSR戦仕様の出荷がスタート。",
@@ -839,6 +865,7 @@ const database = {
             date:"2026-07-24",
             source:"アオシマ online shop（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "アオシマのプラモデル「1/24 頭文字D 藤原拓海 AE86トレノ（ドライバーフィギュア付）」の再生産情報を公開。アオシマ online shopにて注文受付中。",
@@ -851,6 +878,7 @@ const database = {
             date:"2026-07-24",
             source:"GRANUPくじ公式（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "漫画『頭文字D』の人気立体シール「つやぷくシール」のくじが登場。くじをめくるとシールが1枚、「あたり」でさらに2枚獲得でき、ラスト賞はコンプリートセット。2026年8月29日発売予定。",
@@ -864,6 +892,7 @@ const database = {
             date:"2026-07-24",
             source:"GRANUP（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "漫画『頭文字D』のキャラクターたちの愛車デザインを使用した全31種類のインテリアプレートが登場。商品ページとECサイトが公開された。",
@@ -876,6 +905,7 @@ const database = {
             date:"2026-07-23",
             source:"陳麻婆豆腐🌶【公式】（X）",
             tags:["コラボ","グッズ"],
+            goodsCategory:"アパレル",
             series:["頭文字D"],
             description:
             "8月1日開始の陳麻婆豆腐×頭文字Dコラボにて、前面に「PROJECT.M.D」ロゴ、背面にAE86のイラストが入ったコラボ限定オリジナルTシャツの販売を予告。",
@@ -890,6 +920,7 @@ const database = {
             date:"2026-07-21",
             source:"DMM通販【公式】（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "カーボンボンネットの質感やホイール、フォグランプ、「藤原とうふ店」ロゴまで細部を再現した1/64スケールのAE86が登場。透明ケース＆台座付き。",
@@ -902,6 +933,7 @@ const database = {
             date:"2026-07-22",
             source:"AMNIBUS（アムニバス）（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "「トレーディング原作コマ缶バッジ」「トレーディング原作コマイラストカード」などの予約受付がAMNIBUSにて7月29日まで。当ショップ限定特典もあり。",
@@ -916,6 +948,7 @@ const database = {
             date:"2026-07-20",
             source:"ヤマダデンキ LABI1 LIFE SELECT なんば（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["昴と彗星"],
             description:
             "ヤングマガジン連載中の『昴と彗星』より、トミカプレミアムunlimited 14 昴と彗星 SUBARU BRZ（佐藤昴）が登場。2026年8月15日発売予定で、LABI1 LIFE SELECTなんば地下1階玩具コーナーにて予約・購入可能。",
@@ -929,6 +962,7 @@ const database = {
             date:"2026-07-20",
             source:"コミックナタリー（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』のハチロクをマンガ風に再現したキーチェーンが登場。背景台紙付きのボックス入り。",
@@ -941,6 +975,7 @@ const database = {
             date:"2026-07-17",
             source:"Hobby JAPAN Minicar Project（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "『頭文字D』の北条豪と高橋啓介の対決をテーマにした1/64スケールのHonda NSXミニカーが登場。ジオラマシート2枚入り。発売予定は2026年11月。",
@@ -955,6 +990,7 @@ const database = {
             date:"2026-07-17",
             source:"GRANUP（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』に登場するキャラクターたちの愛車をデザインしたインテリアプレートが、全31種のラインナップで登場。",
@@ -967,6 +1003,7 @@ const database = {
             date:"2026-07-17",
             source:"GRANUP（X）",
             tags:["グッズ"],
+            goodsCategory:"フィギュア",
             series:["頭文字D"],
             description:
             "『頭文字D』のぬいぐるみマスコットシリーズ「ぬいぴ〜す＋」と、新規描き起こしの「ぬいぴ〜すふれんず」が同時に登場。",
@@ -979,6 +1016,7 @@ const database = {
             date:"2026-07-15",
             source:"GRANUPくじ公式（X）",
             tags:["グッズ"],
+            goodsCategory:"フィギュア",
             series:["頭文字D"],
             eventStart:"2026-11-14",
             description:
@@ -992,6 +1030,7 @@ const database = {
             date:"2026-07-14",
             source:"アオシマPR（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "アオシマの頭文字Dプラモデルシリーズより、No.21「秋山渉 AE86レビン（第25巻仕様）」とNo.22「健二 RPS13 180SX」の出荷がスタート。",
@@ -1004,6 +1043,7 @@ const database = {
             date:"2026-07-13",
             source:"セブンネットショッピング（X）",
             tags:["グッズ", "予約開始"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "「藤原とうふ店の集金袋」風ポーチや、たばこサイズのカラビナポーチなど『頭文字D』グッズがセブンネットショッピングで予約受付中。",
@@ -1046,6 +1086,7 @@ const database = {
             date:"2026-07-11",
             source:"伊香保グリーン牧場SHOP（X）",
             tags:["グッズ","コラボ"],
+            goodsCategory:"食品",
             series:["頭文字D"],
             description:
             "群馬県渋川市との『頭文字D』×SHIBUKAWAコラボグッズ第2弾として「マンホールクッキー」が登場。渋川市内に設置されたデザインマンホールをモチーフにしたプリントクッキーで、7絵柄がランダムに14枚封入。伊香保グリーン牧場にて販売。",
@@ -1058,6 +1099,7 @@ const database = {
             date:"2026-07-10",
             source:"アニメイト商品情報局（X）",
             tags:["グッズ","コラボ"],
+            goodsCategory:"時計",
             series:["頭文字D"],
             description:
             "30周年記念ロゴを刻印した『頭文字D』×ANGEL CLOVERのコラボレーションウォッチがアニメイトに再登場。藤原拓海のAE86モデル、高橋涼介のRX-7（FC3S）モデル、高橋啓介のRX-7（FD3S）モデル、藤原文太のSUBARU IMPREZA WRX(GC8) type R STiモデルがラインナップ。",
@@ -1070,6 +1112,7 @@ const database = {
             date:"2026-07-09",
             source:"マイファボ（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["MFゴースト"],
             description:
             "マイファボが『MFゴースト』のキャラクター香水「オードトワレ ミハイル・ベッケンバウアー」を紹介。フローラルアンバー調の香りに仕上げられており、片桐夏向・沢渡光輝をイメージしたオードトワレとあわせて全3種を展開中。",
@@ -1084,6 +1127,7 @@ const database = {
             date:"2026-07-07",
             source:"カラオケの鉄人コラボ公式（X）",
             tags:["コラボ","グッズ","イベント"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "大好評開催中の『頭文字D』×カラオケの鉄人コラボミックスに、7月16日グランドオープンの札幌すすきの店が追加開催決定。コラボ全体の開催期間は2026年6月25日から8月9日まで。",
@@ -1100,6 +1144,7 @@ const database = {
             date:"2026-07-06",
             source:"A PIT AUTOBACS KYOTO SHIJO（X）",
             tags:["グッズ"],
+            goodsCategory:"書籍",
             series:["頭文字D","MFゴースト","昴と彗星"],
             description:
             "京都のA PIT AUTOBACS KYOTO SHIJOに『昴と彗星』最新第3巻が入荷、購入特典イラストカード付き。『頭文字D』『MFゴースト』など車・バイク関連コミックやミニカー・グッズを豊富に展開するほか、MFゴースト特設ブースも設置。",
@@ -1138,6 +1183,7 @@ const database = {
             date:"2026-07-01",
             source:"マリモクラフト_イベント用アカウント（X）",
             tags:["グッズ","イベント"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』オリジナルグッズのPOP UP SHOP「～一万一千店舗までキッチリ回せ！！～」を三省堂書店 池袋本店にて開催。バンダナや箸などの新商品を先行発売。開催期間は7月1日から8月1日まで。",
@@ -1154,6 +1200,7 @@ const database = {
             date:"2026-07-04",
             source:"A PIT AUTOBACS KYOTO SHIJO（X）",
             tags:["グッズ"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "『頭文字D』とイグニッションモデルのコラボより、高橋啓介の愛車「RX-7（FD3S）」30周年記念モデルが入荷。フィギュアや特製バックボードが付属した豪華仕様。AE86・FC3S・BNR32など人気車種のミニカーも多数展開中。",
@@ -1166,6 +1213,7 @@ const database = {
             date:"2026-07-03",
             source:"GRANUPくじ公式（X）",
             tags:["グッズ"],
+            goodsCategory:"フィギュア",
             series:["頭文字D"],
             description:
             "漫画『頭文字D』より「ドリーミーくじ」第4弾の一部グッズ写真を先行公開。メッセージボード付きぬいぐるみは吸盤付きで車の窓などに貼り付け可能。普段使いしやすいハンガーや自立して飾れるミニフィギュアもラインナップ予定で、全ラインナップは後日公開。",
@@ -1194,6 +1242,7 @@ const database = {
             date:"2026-06-30",
             source:"ホビーサーチ カーモデル（X）",
             tags:["グッズ","予約開始"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "ターマックワークスの1/64ミニカー「Mercedes-AMG GT3 Bathurst 12h 2026 Craft-Bamboo Racing」の予約受付を開始。今年のバサースト12時間に参戦した頭文字Dカラーのパンダカラーに、コミックのようなラインが入ったデザイン。2026年12月発売予定。",
@@ -1211,6 +1260,7 @@ const database = {
             date:"2026-06-30",
             source:"GAAAT（X）",
             tags:["グッズ","イベント"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』の名シーンや名車たちを、GAAATならではのMetal Canvas Artとして再構築。金属の光沢感と32層の立体表現によって作品の世界を新たな形で届ける。東京・大阪・福岡に続き、8月には名古屋・横浜へも巡回予定の展示販売会。",
@@ -1223,6 +1273,7 @@ const database = {
             date:"2026-06-30",
             source:"ファッションセンターしまむら（X）",
             tags:["グッズ"],
+            goodsCategory:"アパレル",
             series:["頭文字D"],
             description:
             "しまむらパーク（オンラインストア）にて『頭文字D』のメンズボクサーブリーフが販売中。ウエストのロゴやAE86プリントがデザインされたアイテム。売り切れの際はご容赦を。",
@@ -1261,6 +1312,7 @@ const database = {
             date:"2026-06-26",
             source:"AMNIBUS（アムニバス）（X）",
             tags:["グッズ","予約開始"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "原作『頭文字D』より「トレーディング原作コマ缶バッジ」「トレーディング原作コマイラストカード」など全8種の予約受付をAMNIBUSにて開始。当ショップ限定特典もあり。2026年10月上旬発売予定。",
@@ -1300,6 +1352,7 @@ const database = {
             date:"2026-06-23",
             source:"アオシマPR（X）",
             tags:["グッズ","予約開始"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "『頭文字D』より、東堂塾現役ナンバーワンの実力者・二宮大輝の愛車「EK9 シビック タイプR」が「1/24 頭文字D No.23」としてプラモデル化。2026年11月発売予定で、受注予約は6月30日14時より開始。",
@@ -1315,6 +1368,7 @@ const database = {
             date:"2026-06-22",
             source:"CAMSHOP（キャムショップ）（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』とのコラボレーションZippo「Ultimate Drift ブルーチタン」を紹介。講談社公認ライセンスを取得した50個限定・シリアルナンバー入りの特別仕様で、ブルーチタニウムボディに名シーンをレーザー彫刻で再現。6月26日より一般販売を開始。",
@@ -1342,6 +1396,7 @@ const database = {
             date:"2026-06-21",
             source:"A PIT AUTOBACS KYOTO SHIJO（X）",
             tags:["グッズ","イベント"],
+            goodsCategory:"ミニカー",
             series:["頭文字D"],
             description:
             "父の日のプレゼント向けに、『頭文字D』のAE86・FD3S・FC3Sなど人気マシンのラジコンをはじめとしたグッズを店頭で展開。ミニカーやクルマグッズも多数入荷し、飾って良し走らせて良しのアイテムを紹介。",
@@ -1354,6 +1409,7 @@ const database = {
             date:"2026-06-19",
             source:"GRANUP（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "漫画『頭文字D』より、総勢12名のキャラクターが登場する新商品全3アイテムが発表された。商品ページとECサイトが公開されている。",
@@ -1366,6 +1422,7 @@ const database = {
             date:"2026-06-19",
             source:"ホビーサーチ カーモデル（X）",
             tags:["グッズ","予約開始"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "GSIクレオスより『頭文字D』キット向け塗料「Mr.カラーGGX」シリーズが登場。GXD01拓海ホワイト・GXD02啓介イエロー・GXD03涼介ホワイト・GXD04文太ブルーの4色展開で、2026年9月発売予定。予約受付中。",
@@ -1381,6 +1438,7 @@ const database = {
             date:"2026-06-19",
             source:"GRANUP（X）",
             tags:["グッズ"],
+            goodsCategory:"フィギュア",
             series:["頭文字D"],
             description:
             "漫画『頭文字D』より、藤原拓海・高橋啓介・高橋涼介の3人が通常の「ぬいぴ〜す」の2.5倍サイズとなる「ぬいぴ〜すびっぐ」になって登場。3体コンプリートセット購入特典としてブロマイドをプレゼント。",
@@ -1395,6 +1453,7 @@ const database = {
             date:"2026-06-16",
             source:"GAAAT（X）",
             tags:["イベント","グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』のキャラクターや名車たちをGAAATオリジナルのメタルキャンバスアートとして表現した展示会が、6月18日より大阪・心斎橋にて開催。金属の光沢感と32層の立体表現でリアルな作品を展示・販売。",
@@ -1411,6 +1470,7 @@ const database = {
             date:"2026-06-16",
             source:"横手館（X）",
             tags:["グッズ","コラボ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "群馬県伊香保温泉の宿「横手館」が、るるぶトラベルにて『頭文字Dコラボ企画プラン』を今年も販売中と紹介。伊香保を含む市内7ヶ所のデザインマンホールをモチーフにした「イニDオリジナルコースター」が付き、夕食は部屋食で楽しめる。",
@@ -1438,6 +1498,7 @@ const database = {
             date:"2026-06-15",
             source:"CAMSHOP（キャムショップ）（X）",
             tags:["グッズ"],
+            goodsCategory:"アパレル",
             series:["頭文字D"],
             description:
             "『頭文字D』をモチーフにしたスカジャンがCAMSHOPより登場。商品ページにて紹介。",
@@ -1450,6 +1511,7 @@ const database = {
             date:"2026-06-13",
             source:"ファッションセンターしまむら（X）",
             tags:["グッズ"],
+            goodsCategory:"アパレル",
             series:["頭文字D"],
             description:
             "『頭文字D』のデザインを使用したトートバッグがファッションセンターしまむらに登場。たっぷり入る大容量サイズで、お出かけシーンにも活躍。",
@@ -1462,6 +1524,7 @@ const database = {
             date:"2026-06-10",
             source:"ファッションセンターしまむら（X）",
             tags:["コラボ","グッズ"],
+            goodsCategory:"アパレル",
             series:["頭文字D"],
             description:
             "全国のファッションセンターしまむらにて『頭文字D』コラボアイテムが登場。しまむらパーク（オンラインストア）では15時より販売開始（売り切れの際はご容赦）。",
@@ -1489,6 +1552,7 @@ const database = {
             date:"2026-06-09",
             source:"Creative Plus（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["MFゴースト"],
             description:
             "TVアニメ『MFゴースト 3rd Season』のLINEスタンプ＆LINE着せかえが配信開始。夏向や恋のイラストでトークを彩るアイテム。",
@@ -1504,6 +1568,7 @@ const database = {
             date:"2026-06-09",
             source:"A PIT AUTOBACS KYOTO SHIJO（X）",
             tags:["グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D","MFゴースト"],
             description:
             "『頭文字D』『湾岸ミッドナイト』『MFゴースト』をはじめとする人気マンガ・関連書籍・ミニカー・キーホルダーなど、日本ならではのアイテムを豊富に展開中。",
@@ -1518,6 +1583,7 @@ const database = {
             date:"2026-06-08",
             source:"ライブドアニュース（X）",
             tags:["イベント","グッズ"],
+            goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
             "『頭文字D』公式ライセンスグッズを中心としたCAMSHOPポップアップストアが、名古屋駅直結のタカシマヤ ゲートタワーモール7階ローズテラスにて開催。TOYOTA スプリンタートレノAE86（ハチロク）の実車が展示されている。",

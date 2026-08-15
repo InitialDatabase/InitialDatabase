@@ -14,6 +14,7 @@
     const regionFilterContainer = document.getElementById("infoRegionFilters");
     const prefectureFilterContainer = document.getElementById("infoPrefectureFilters");
     const prefectureToggle = document.getElementById("infoPrefectureToggle");
+    const goodsCategoryFilterContainer = document.getElementById("infoGoodsCategoryFilters");
 
     // 作品（シリーズ）で絞り込むタブ。「すべて」を含め固定の並び順で表示する
     const SERIES_LIST = ["頭文字D", "MFゴースト", "昴と彗星", "頭文字DAC", "その他コラボ"];
@@ -47,6 +48,7 @@
         keyword: "",
         searchMode: "partial", // "partial"（部分一致）または "exact"（完全一致）
         activeTags: new Set(),
+        activeGoodsCategories: new Set(), // 「グッズ」タグ選択時のみ表示されるサブカテゴリ絞り込み（複数選択・OR条件）
         activeLocations: new Set(), // 「📍開催地」フィルター（地方名・都道府県名の両方を格納。複数選択・OR条件）
         activeSeries: "all", // "all"または頭文字D／MFゴースト／昴と彗星／頭文字DAC／その他コラボ
         sort: "new",
@@ -91,6 +93,16 @@
         const itemTags = Array.isArray(item.tags) ? item.tags : [];
 
         return Array.from(state.activeTags).every(tag => itemTags.includes(tag));
+    }
+
+    function matchesGoodsCategory(item){
+        if(state.activeGoodsCategories.size === 0){
+            return true;
+        }
+
+        const category = getItemGoodsCategory(item);
+
+        return category ? state.activeGoodsCategories.has(category) : false;
     }
 
     function matchesLocation(item){
@@ -152,6 +164,7 @@
     function hasActiveFilters(){
         return Boolean(state.keyword)
             || state.activeTags.size > 0
+            || state.activeGoodsCategories.size > 0
             || state.activeLocations.size > 0
             || state.activeSeries !== "all"
             || state.period !== "all"
@@ -170,6 +183,7 @@
         return items.filter(item =>
             matchesKeyword(item)
             && matchesTags(item)
+            && matchesGoodsCategory(item)
             && matchesLocation(item)
             && matchesSeries(item)
             && matchesPeriod(item)
@@ -351,6 +365,30 @@
                 b.classList.toggle("is-active", b.dataset.series === state.activeSeries)
             );
         }
+
+        if(goodsCategoryFilterContainer){
+            goodsCategoryFilterContainer.querySelectorAll("[data-goods-category]").forEach(b =>
+                b.classList.toggle("is-active", state.activeGoodsCategories.has(b.dataset.goodsCategory))
+            );
+        }
+
+        updateGoodsCategoryPanelVisibility();
+    }
+
+    // 「グッズ」タグが選択されている時だけ、サブカテゴリの絞り込みボタン群を表示する。
+    // タグを解除した場合はパネルを閉じ、選択済みのサブカテゴリもクリアする
+    function updateGoodsCategoryPanelVisibility(){
+        if(!goodsCategoryFilterContainer){
+            return;
+        }
+
+        const isGoodsActive = state.activeTags.has("グッズ");
+
+        if(!isGoodsActive && state.activeGoodsCategories.size > 0){
+            state.activeGoodsCategories.clear();
+        }
+
+        goodsCategoryFilterContainer.hidden = !isGoodsActive;
     }
 
     // アーカイブページの統計バー（タグ／月／出典／ステータス）からのリンクを反映し、
@@ -360,6 +398,7 @@
     function applyStateFromUrlParams(){
         const params = new URLSearchParams(window.location.search);
         const tagParam = params.get("tag");
+        const goodsCategoryParam = params.get("goods");
         const regionParam = params.get("location");
         const seriesParam = params.get("series");
         const monthParam = params.get("month");
@@ -373,6 +412,17 @@
                 ? tagParam.split(",").map(tag => tag.trim()).filter(tag => allTags.includes(tag))
                 : []
         );
+
+        state.activeGoodsCategories = new Set(
+            goodsCategoryParam
+                ? goodsCategoryParam.split(",").map(category => category.trim()).filter(category => GOODS_CATEGORY_LIST.includes(category))
+                : []
+        );
+
+        // サブカテゴリが指定されている場合は「グッズ」タグも自動でONにし、パネルを表示する
+        if(state.activeGoodsCategories.size > 0){
+            state.activeTags.add("グッズ");
+        }
 
         state.activeLocations = new Set(
             regionParam
@@ -433,6 +483,10 @@
 
         if(state.activeTags.size > 0){
             params.set("tag", Array.from(state.activeTags).join(","));
+        }
+
+        if(state.activeGoodsCategories.size > 0){
+            params.set("goods", Array.from(state.activeGoodsCategories).join(","));
         }
 
         if(state.activeLocations.size > 0){
@@ -765,6 +819,40 @@
                 }
 
                 state.page = 1;
+                updateGoodsCategoryPanelVisibility();
+                render();
+            });
+        });
+    }
+
+    // 「グッズ」タグを選んだ時だけ表示するサブカテゴリボタン群
+    // （フィギュア／ミニカー／アパレル／時計／書籍／食品／雑貨）
+    function renderGoodsCategoryFilters(){
+        if(!goodsCategoryFilterContainer){
+            return;
+        }
+
+        const labelHtml = `<span class="infoFilterLabel">グッズの種類：</span>`;
+
+        goodsCategoryFilterContainer.innerHTML = labelHtml + GOODS_CATEGORY_LIST.map(category => `
+            <button type="button" class="infoFilterButton infoFilterButton--small" data-goods-category="${escapeHTML(category)}">
+                ${escapeHTML(category)}
+            </button>
+        `).join("");
+
+        goodsCategoryFilterContainer.querySelectorAll("[data-goods-category]").forEach(button => {
+            button.addEventListener("click", () => {
+                const category = button.dataset.goodsCategory;
+
+                if(state.activeGoodsCategories.has(category)){
+                    state.activeGoodsCategories.delete(category);
+                    button.classList.remove("is-active");
+                }else{
+                    state.activeGoodsCategories.add(category);
+                    button.classList.add("is-active");
+                }
+
+                state.page = 1;
                 render();
             });
         });
@@ -998,6 +1086,7 @@
         clearFiltersButton.addEventListener("click", () => {
             state.keyword = "";
             state.activeTags.clear();
+            state.activeGoodsCategories.clear();
             state.activeLocations.clear();
             state.activeSeries = "all";
             state.sort = "new";
@@ -1018,6 +1107,7 @@
     }
 
     renderTagFilters();
+    renderGoodsCategoryFilters();
     renderRegionFilters();
     renderPrefectureFilters();
     renderSeriesFilters();

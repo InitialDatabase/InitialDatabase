@@ -1434,6 +1434,26 @@ a.statsBarLink:focus-visible{
     color:white;
 }
 
+.infoGoodsCategoryFilters{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    margin-top:8px;
+    padding:10px 12px;
+    background:#f8f9fa;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+}
+
+.infoGoodsCategoryFilters[hidden]{
+    display:none;
+}
+
+.infoGoodsCategoryFilters .infoFilterLabel{
+    flex:0 0 auto;
+}
+
 .infoPrefectureToggle{
     width:100%;
     justify-content:center;
@@ -2656,6 +2676,11 @@ html.theme-dark .seriesFilterButton.is-active{
 }
 
 html.theme-dark .infoPrefectureFilters{
+    background:#181818;
+    border-color:#444;
+}
+
+html.theme-dark .infoGoodsCategoryFilters{
     background:#181818;
     border-color:#444;
 }
