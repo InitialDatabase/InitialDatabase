@@ -11,9 +11,18 @@
     const tagFilterContainer = document.getElementById("infoTagFilters");
     const clearFiltersButton = document.getElementById("infoFilterClear");
     const seriesFilterContainer = document.getElementById("seriesFilterBar");
+    const regionFilterContainer = document.getElementById("infoRegionFilters");
+    const prefectureFilterContainer = document.getElementById("infoPrefectureFilters");
+    const prefectureToggle = document.getElementById("infoPrefectureToggle");
 
     // 作品（シリーズ）で絞り込むタブ。「すべて」を含め固定の並び順で表示する
     const SERIES_LIST = ["頭文字D", "MFゴースト", "昴と彗星", "頭文字DAC", "その他コラボ"];
+
+    // 開催地フィルターで指定できる値（地方名＋都道府県名）。URLパラメータの検証にも使う
+    const ALL_LOCATION_VALUES = [
+        ...REGION_LIST,
+        ...Object.values(PREFECTURES_BY_REGION).flat()
+    ];
 
     if(!listElement){
         return;
@@ -38,6 +47,7 @@
         keyword: "",
         searchMode: "partial", // "partial"（部分一致）または "exact"（完全一致）
         activeTags: new Set(),
+        activeLocations: new Set(), // 「📍開催地」フィルター（地方名・都道府県名の両方を格納。複数選択・OR条件）
         activeSeries: "all", // "all"または頭文字D／MFゴースト／昴と彗星／頭文字DAC／その他コラボ
         sort: "new",
         period: "all",
@@ -81,6 +91,20 @@
         const itemTags = Array.isArray(item.tags) ? item.tags : [];
 
         return Array.from(state.activeTags).every(tag => itemTags.includes(tag));
+    }
+
+    function matchesLocation(item){
+        if(state.activeLocations.size === 0){
+            return true;
+        }
+
+        // 都道府県レベルでも地方レベルでも、どちらの絞り込み値にも一致すればOKとする
+        const itemRegions = getItemRegions(item);
+        const itemPrefectures = getItemPrefectures(item);
+
+        return Array.from(state.activeLocations).some(location =>
+            itemRegions.includes(location) || itemPrefectures.includes(location)
+        );
     }
 
     function matchesSeries(item){
@@ -128,6 +152,7 @@
     function hasActiveFilters(){
         return Boolean(state.keyword)
             || state.activeTags.size > 0
+            || state.activeLocations.size > 0
             || state.activeSeries !== "all"
             || state.period !== "all"
             || state.status !== "all"
@@ -145,6 +170,7 @@
         return items.filter(item =>
             matchesKeyword(item)
             && matchesTags(item)
+            && matchesLocation(item)
             && matchesSeries(item)
             && matchesPeriod(item)
             && matchesStatus(item)
@@ -312,6 +338,14 @@
             );
         }
 
+        controlsElement.querySelectorAll("[data-region]").forEach(b =>
+            b.classList.toggle("is-active", state.activeLocations.has(b.dataset.region))
+        );
+
+        controlsElement.querySelectorAll("[data-prefecture]").forEach(b =>
+            b.classList.toggle("is-active", state.activeLocations.has(b.dataset.prefecture))
+        );
+
         if(seriesFilterContainer){
             seriesFilterContainer.querySelectorAll("[data-series]").forEach(b =>
                 b.classList.toggle("is-active", b.dataset.series === state.activeSeries)
@@ -326,6 +360,7 @@
     function applyStateFromUrlParams(){
         const params = new URLSearchParams(window.location.search);
         const tagParam = params.get("tag");
+        const regionParam = params.get("location");
         const seriesParam = params.get("series");
         const monthParam = params.get("month");
         const statusParam = params.get("status");
@@ -336,6 +371,12 @@
         state.activeTags = new Set(
             tagParam
                 ? tagParam.split(",").map(tag => tag.trim()).filter(tag => allTags.includes(tag))
+                : []
+        );
+
+        state.activeLocations = new Set(
+            regionParam
+                ? regionParam.split(",").map(location => location.trim()).filter(location => ALL_LOCATION_VALUES.includes(location))
                 : []
         );
 
@@ -368,12 +409,21 @@
         syncControlButtons();
 
         const hasActiveFilter = state.activeTags.size > 0
+            || state.activeLocations.size > 0
             || state.period === "custom-month"
             || state.status !== "all";
 
         if(filterPanel && filterToggle){
             filterPanel.classList.toggle("is-open", hasActiveFilter);
             filterToggle.setAttribute("aria-expanded", hasActiveFilter ? "true" : "false");
+        }
+
+        // 都道府県単位の絞り込みが復元された場合は、都道府県パネルも開いておく
+        const hasActivePrefecture = Array.from(state.activeLocations).some(location => !REGION_LIST.includes(location));
+
+        if(prefectureFilterContainer && prefectureToggle && hasActivePrefecture){
+            prefectureFilterContainer.hidden = false;
+            prefectureToggle.setAttribute("aria-expanded", "true");
         }
     }
 
@@ -383,6 +433,10 @@
 
         if(state.activeTags.size > 0){
             params.set("tag", Array.from(state.activeTags).join(","));
+        }
+
+        if(state.activeLocations.size > 0){
+            params.set("location", Array.from(state.activeLocations).join(","));
         }
 
         if(state.activeSeries !== "all"){
@@ -623,6 +677,66 @@
                 syncControlButtons();
                 render();
                 listElement.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
+    }
+
+    function toggleLocationValue(value, button){
+        if(state.activeLocations.has(value)){
+            state.activeLocations.delete(value);
+            button.classList.remove("is-active");
+        }else{
+            state.activeLocations.add(value);
+            button.classList.add("is-active");
+        }
+
+        state.page = 1;
+        render();
+    }
+
+    function renderRegionFilters(){
+        if(!regionFilterContainer){
+            return;
+        }
+
+        const labelHtml = `<span class="infoFilterLabel">📍 開催地：</span>`;
+
+        regionFilterContainer.innerHTML = labelHtml + REGION_LIST.map(region => `
+            <button type="button" class="infoFilterButton" data-region="${escapeHTML(region)}">
+                ${escapeHTML(region)}
+            </button>
+        `).join("");
+
+        regionFilterContainer.querySelectorAll("[data-region]").forEach(button => {
+            button.addEventListener("click", () => {
+                toggleLocationValue(button.dataset.region, button);
+            });
+        });
+    }
+
+    // 都道府県ボタンは地方ごとに小見出し付きでまとめ、47個並んでいても
+    // どの地方の都道府県かひと目で分かるようにする。パネル自体は既定で閉じておく
+    function renderPrefectureFilters(){
+        if(!prefectureFilterContainer){
+            return;
+        }
+
+        prefectureFilterContainer.innerHTML = REGION_LIST.map(region => `
+            <div class="infoPrefectureGroup">
+                <span class="infoPrefectureGroupLabel">${escapeHTML(region)}</span>
+                <div class="infoPrefectureButtons">
+                    ${PREFECTURES_BY_REGION[region].map(pref => `
+                        <button type="button" class="infoFilterButton infoFilterButton--small" data-prefecture="${escapeHTML(pref)}">
+                            ${escapeHTML(pref)}
+                        </button>
+                    `).join("")}
+                </div>
+            </div>
+        `).join("");
+
+        prefectureFilterContainer.querySelectorAll("[data-prefecture]").forEach(button => {
+            button.addEventListener("click", () => {
+                toggleLocationValue(button.dataset.prefecture, button);
             });
         });
     }
@@ -872,10 +986,19 @@
         });
     }
 
+    if(prefectureToggle && prefectureFilterContainer){
+        prefectureToggle.addEventListener("click", () => {
+            const isOpen = prefectureFilterContainer.hidden;
+            prefectureFilterContainer.hidden = !isOpen;
+            prefectureToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+    }
+
     if(clearFiltersButton){
         clearFiltersButton.addEventListener("click", () => {
             state.keyword = "";
             state.activeTags.clear();
+            state.activeLocations.clear();
             state.activeSeries = "all";
             state.sort = "new";
             state.period = "all";
@@ -895,6 +1018,8 @@
     }
 
     renderTagFilters();
+    renderRegionFilters();
+    renderPrefectureFilters();
     renderSeriesFilters();
     renderEndingSoon();
     applyStateFromUrlParams();

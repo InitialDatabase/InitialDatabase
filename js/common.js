@@ -359,6 +359,50 @@ function loadTweetEmbeds(container){
 }
 
 // ==========================
+// 開催地（都道府県・地方）
+// ==========================
+//
+// 47都道府県すべてを個別にタグ付けできるようにしつつ、フィルターUIが
+// かさばらないよう「地方」単位の少ないボタン数をデフォルト表示にし、
+// 都道府県まで指定したい場合だけ展開できるようにするための対応表。
+// itemには prefecture:["群馬県"] のように都道府県名（配列）だけを持たせれば、
+// 地方（例：関東）は下記のマップから自動的に導き出される。
+
+const PREFECTURES_BY_REGION = {
+    "北海道":["北海道"],
+    "東北":["青森県","岩手県","宮城県","秋田県","山形県","福島県"],
+    "関東":["茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県"],
+    "甲信越":["新潟県","山梨県","長野県"],
+    "北陸":["富山県","石川県","福井県"],
+    "東海":["岐阜県","静岡県","愛知県","三重県"],
+    "関西":["滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県"],
+    "中国":["鳥取県","島根県","岡山県","広島県","山口県"],
+    "四国":["徳島県","香川県","愛媛県","高知県"],
+    "九州・沖縄":["福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"]
+};
+
+const REGION_LIST = Object.keys(PREFECTURES_BY_REGION);
+
+const PREFECTURE_TO_REGION = Object.entries(PREFECTURES_BY_REGION).reduce((map, [region, prefs]) => {
+    prefs.forEach(pref => { map[pref] = region; });
+    return map;
+}, {});
+
+// itemが該当する都道府県一覧
+function getItemPrefectures(item){
+    return Array.isArray(item.prefecture) ? item.prefecture : [];
+}
+
+// itemが該当する地方一覧（都道府県から自動導出、重複除去）
+function getItemRegions(item){
+    const regions = getItemPrefectures(item)
+        .map(pref => PREFECTURE_TO_REGION[pref])
+        .filter(Boolean);
+
+    return Array.from(new Set(regions));
+}
+
+// ==========================
 // タグ・日付・出典（情報カード共通表示）
 // ==========================
 
@@ -854,6 +898,8 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
 
                     ${eventPeriodLabel ? `<p class="infoCardEventPeriod">${escapeHTML(eventPeriodLabel)}</p>` : ""}
 
+                    ${item.location ? `<p class="infoCardLocation">📍 ${escapeHTML(item.location)}</p>` : ""}
+
                     ${item.description ? `<p>${renderHighlightedText(item.description, highlightTerm)}</p>` : ""}
 
                     <div class="infoCardLinks">
@@ -893,6 +939,8 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
                 <h3>${renderHighlightedText(getItemTitle(item), highlightTerm)}</h3>
 
                 ${eventPeriodLabel ? `<p class="infoCardEventPeriod">${escapeHTML(eventPeriodLabel)}</p>` : ""}
+
+                ${item.location ? `<p class="infoCardLocation">📍 ${escapeHTML(item.location)}</p>` : ""}
 
                 ${item.description ? `<p>${renderHighlightedText(item.description, highlightTerm)}</p>` : ""}
 

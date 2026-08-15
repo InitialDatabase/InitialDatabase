@@ -27,7 +27,9 @@ const database = {
         },
 
         {
-            id:112,
+                        id:112,
+            prefecture:["山口県"],
+            location:"山口県下関市",
             title:"ミッドナイトボートレース下関5日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
             date:"2026-08-14",
             source:"DYNAMITE BOATRACE（X）",
@@ -79,7 +81,9 @@ const database = {
         },
 
         {
-            id:107,
+                        id:107,
+            prefecture:["東京都"],
+            location:"東京都（有明・お台場・湾岸エリア）",
             title:"陳麻婆豆腐×頭文字Dコラボ仕様のAE86が8月16日に有明・お台場・湾岸エリアを走行",
             date:"2026-08-14",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -105,7 +109,9 @@ const database = {
         },
 
         {
-            id:109,
+                        id:109,
+            prefecture:["山口県"],
+            location:"山口県下関市",
             title:"ミッドナイトボートレース下関4日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
             date:"2026-08-13",
             source:"DYNAMITE BOATRACE（X）",
@@ -169,7 +175,9 @@ const database = {
         },
 
         {
-            id:103,
+                        id:103,
+            prefecture:["山口県"],
+            location:"山口県下関市",
             title:"ミッドナイトボートレース下関3日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
             date:"2026-08-12",
             source:"DYNAMITE BOATRACE（X）",
@@ -195,7 +203,9 @@ const database = {
         },
 
         {
-            id:98,
+                        id:98,
+            prefecture:["山口県"],
+            location:"山口県下関市",
             title:"ミッドナイトボートレース下関2日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
             date:"2026-08-11",
             source:"DYNAMITE BOATRACE（X）",
@@ -209,7 +219,9 @@ const database = {
         },
 
         {
-            id:99,
+                        id:99,
+            prefecture:["愛知県"],
+            location:"愛知県名古屋市",
             title:"『頭文字D』Art Exhibition名古屋会場、本日8月11日よりスタート",
             date:"2026-08-11",
             source:"GAAAT（X）",
@@ -249,7 +261,9 @@ const database = {
         },
 
         {
-            id:97,
+                        id:97,
+            prefecture:["茨城県"],
+            location:"茨城県筑西市",
             title:"道の駅しもつまで『頭文字D』『昴と彗星』オリジナル御朱印帳を販売中",
             date:"2026-08-11",
             source:"culcolle公式（X）",
@@ -301,7 +315,9 @@ const database = {
         },
 
         {
-            id:79,
+                        id:79,
+            prefecture:["山口県"],
+            location:"山口県下関市",
             title:"ミッドナイトボートレース下関で『MFゴースト』コラボ、デジタルギフトが当たるキャンペーン実施",
             date:"2026-08-11",
             source:"DYNAMITE BOATRACE（X）",
@@ -327,7 +343,9 @@ const database = {
         },
 
         {
-            id:74,
+                        id:74,
+            prefecture:["愛知県"],
+            location:"愛知県名古屋市",
             title:"「頭文字D」Art Exhibition by GAAAT、名古屋で開催",
             date:"2026-08-10",
             source:"GAAAT（X）",
@@ -341,7 +359,9 @@ const database = {
         },
 
         {
-            id:40,
+                        id:40,
+            prefecture:["群馬県"],
+            location:"群馬県高崎市",
             title:"AE86実車＆1/18スケールモデルが高崎に集結、ポップアップショップ開催",
             date:"2026-08-10",
             source:"アニメ！アニメ！（X）",
@@ -355,7 +375,9 @@ const database = {
         },
 
         {
-            id:75,
+                        id:75,
+            prefecture:["群馬県"],
+            location:"群馬県高崎市",
             title:"『頭文字D』ポップアップストア、イオンモール高崎に期間限定オープン",
             date:"2026-08-10",
             source:"レスポンス（X）",
@@ -369,7 +391,9 @@ const database = {
         },
 
         {
-            id:76,
+                        id:76,
+            prefecture:["群馬県"],
+            location:"群馬県渋川市",
             title:"伊香保温泉の宿が紹介、イオンモール高崎『頭文字D』ポップアップストア",
             date:"2026-08-10",
             source:"横手館（X）",
@@ -412,7 +436,9 @@ const database = {
         },
 
         {
-            id:43,
+                        id:43,
+            prefecture:["群馬県"],
+            location:"群馬県高崎市",
             title:"藤原とうふ店ハチロクの“動くティッシュケース”が買えるポップアップショップ開催",
             date:"2026-08-08",
             source:"電ファミニコゲーマー（X）",
@@ -518,7 +544,9 @@ const database = {
         },
 
         {
-            id:80,
+                        id:80,
+            prefecture:["東京都"],
+            location:"東京都江東区",
             title:"A PIT AUTOBACS SHINONOME、BLITZ×MFゴーストコーナーの展示を拡充",
             date:"2026-08-07",
             source:"【公式】BLITZ（X）",
@@ -594,7 +622,9 @@ const database = {
         },
 
         {
-            id:11,
+                        id:11,
+            prefecture:["神奈川県"],
+            location:"神奈川県小田原市",
             title:"MFゴースト×小田原コラボのデザインマンホール蓋を「三の丸売店」で展示",
             date:"2026-08-05",
             source:"小田原✖️ポップカルチャー✖️エンタメ（X）",
@@ -607,7 +637,9 @@ const database = {
         },
 
         {
-            id:12,
+                        id:12,
+            prefecture:["東京都"],
+            location:"東京都新宿区",
             title:"陳麻婆豆腐×頭文字Dコラボ仕様のAE86が新宿を走行、以降毎週末に都内を走行予定",
             date:"2026-08-03",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -709,7 +741,9 @@ const database = {
         },
 
         {
-            id:19,
+                        id:19,
+            prefecture:["群馬県"],
+            location:"群馬県渋川市",
             title:"『頭文字D』×SHIBUKAWAコラボグッズ新商品、8/6より販売開始",
             date:"2026-07-30",
             source:"しぶさん(渋川地区名産品センター)（X）",
@@ -875,7 +909,9 @@ const database = {
         },
 
         {
-            id:32,
+                        id:32,
+            prefecture:["大阪府"],
+            location:"大阪府大阪市",
             title:"『昴と彗星』SUBARU BRZ（佐藤昴）のトミカプレミアムunlimited、2026年8月発売予定",
             date:"2026-07-20",
             source:"ヤマダデンキ LABI1 LIFE SELECT なんば（X）",
@@ -975,7 +1011,9 @@ const database = {
         },
 
         {
-            id:45,
+                        id:45,
+            prefecture:["東京都","神奈川県","愛知県","大阪府"],
+            location:"東京・神奈川・愛知・大阪（陳麻婆豆腐 全10店舗）",
             title:"『頭文字D』が麻婆豆腐発祥の店「陳麻婆豆腐」とコラボ決定、8月1日より開催",
             date:"2026-07-13",
             source:"電ファミニコゲーマー（X）",
@@ -1001,7 +1039,9 @@ const database = {
         },
 
         {
-            id:47,
+                        id:47,
+            prefecture:["群馬県"],
+            location:"群馬県渋川市",
             title:"『頭文字D』×SHIBUKAWAコラボグッズ第2弾「マンホールクッキー」登場",
             date:"2026-07-11",
             source:"伊香保グリーン牧場SHOP（X）",
@@ -1037,7 +1077,9 @@ const database = {
         },
 
         {
-            id:50,
+                        id:50,
+            prefecture:["北海道"],
+            location:"北海道札幌市",
             title:"『頭文字D』×カラオケの鉄人コラボ、7/16グランドオープンの札幌すすきの店で追加開催",
             date:"2026-07-07",
             source:"カラオケの鉄人コラボ公式（X）",
@@ -1051,7 +1093,9 @@ const database = {
         },
 
         {
-            id:51,
+                        id:51,
+            prefecture:["京都府"],
+            location:"京都府京都市",
             title:"『昴と彗星』最新第3巻が入荷、購入特典イラストカード付き（A PIT AUTOBACS KYOTO SHIJO）",
             date:"2026-07-06",
             source:"A PIT AUTOBACS KYOTO SHIJO（X）",
@@ -1087,7 +1131,9 @@ const database = {
         },
 
         {
-            id:54,
+                        id:54,
+            prefecture:["東京都"],
+            location:"東京都豊島区",
             title:"『頭文字D』POP UP SHOPが池袋・三省堂書店にて開催、新商品先行発売",
             date:"2026-07-01",
             source:"マリモクラフト_イベント用アカウント（X）",
@@ -1101,7 +1147,9 @@ const database = {
         },
 
         {
-            id:55,
+                        id:55,
+            prefecture:["京都府"],
+            location:"京都府京都市",
             title:"イグニッションモデル×頭文字D 高橋啓介のRX-7（FD3S）30周年記念モデルが入荷",
             date:"2026-07-04",
             source:"A PIT AUTOBACS KYOTO SHIJO（X）",
@@ -1125,7 +1173,9 @@ const database = {
         },
 
         {
-            id:57,
+                        id:57,
+            prefecture:["静岡県"],
+            location:"静岡県駿東郡小山町",
             title:"マツダファンフェスタ2026、頭文字Dとのコラボコンテンツ情報を公開",
             date:"2026-07-02",
             source:"MAZDA SPIRIT RACING（X）",
@@ -1154,7 +1204,9 @@ const database = {
         },
 
         {
-            id:59,
+                        id:59,
+            prefecture:["東京都","大阪府","福岡県","愛知県","神奈川県"],
+            location:"東京・大阪・福岡、8月には名古屋・横浜へも巡回",
             title:"『頭文字D』の名シーンや名車をアートとして再構築、GAAATのMetal Canvas Art",
             date:"2026-06-30",
             source:"GAAAT（X）",
@@ -1283,7 +1335,9 @@ const database = {
         },
 
         {
-            id:69,
+                        id:69,
+            prefecture:["京都府"],
+            location:"京都府京都市",
             title:"頭文字Dの名車ラジコンなど、父の日グッズをA PIT AUTOBACS KYOTO SHIJOで展開",
             date:"2026-06-21",
             source:"A PIT AUTOBACS KYOTO SHIJO（X）",
@@ -1334,7 +1388,9 @@ const database = {
         },
 
         {
-            id:73,
+                        id:73,
+            prefecture:["大阪府"],
+            location:"大阪府大阪市",
             title:"『頭文字D』伝説をアートとして、GAAATのメタルキャンバスアート展が大阪・心斎橋で開催",
             date:"2026-06-16",
             source:"GAAAT（X）",
@@ -1348,7 +1404,9 @@ const database = {
         },
 
         {
-            id:84,
+                        id:84,
+            prefecture:["群馬県"],
+            location:"群馬県渋川市",
             title:"るるぶトラベルで『頭文字Dコラボ企画プラン』を今年も販売中、伊香保の宿泊プラン",
             date:"2026-06-16",
             source:"横手館（X）",
@@ -1360,7 +1418,9 @@ const database = {
         },
 
         {
-            id:85,
+                        id:85,
+            prefecture:["群馬県"],
+            location:"群馬県渋川市",
             title:"TOYOTA GAZOO Racing ラリーチャレンジ in 渋川伊香保、6月28日開催",
             date:"2026-06-16",
             source:"横手館（X）",
@@ -1437,7 +1497,9 @@ const database = {
         },
 
         {
-            id:93,
+                        id:93,
+            prefecture:["京都府"],
+            location:"京都府京都市",
             title:"A PIT AUTOBACS 京都四条店、『頭文字D』など日本カルチャー関連グッズを豊富に展開",
             date:"2026-06-09",
             source:"A PIT AUTOBACS KYOTO SHIJO（X）",
@@ -1449,7 +1511,9 @@ const database = {
         },
 
         {
-            id:94,
+                        id:94,
+            prefecture:["愛知県"],
+            location:"愛知県名古屋市",
             title:"『頭文字D』ハチロク実車、名古屋のCAMSHOPポップアップストアに展示",
             date:"2026-06-08",
             source:"ライブドアニュース（X）",
