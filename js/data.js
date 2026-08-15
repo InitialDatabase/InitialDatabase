@@ -3,6 +3,48 @@ const database = {
     infos:[
 
         {
+            prefecture:["東京都"],
+            location:"東京都江東区",
+            id:117,
+            title:"陳麻婆豆腐 有明ガーデン店、C108コミックマーケット来場者に頭文字Dコラボの麻婆チャージをアピール",
+            date:"2026-08-15",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","イベント"],
+            series:["頭文字D"],
+            description:
+            "本日開催のコミックマーケット108（C108）参加者に向け、ビッグサイト近くの陳麻婆豆腐 有明ガーデン店で開催中の頭文字Dコラボと「麻婆チャージ」を紹介。熱中症に注意しつつ楽しんでほしいと呼びかけている。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2088430474611826761"
+        },
+
+        {
+            id:116,
+            title:"本日8月15日発売の新作トミカ4種を紹介、『昴と彗星』unlimited14 SUBARU BRZ（佐藤昴）も登場",
+            date:"2026-08-15",
+            source:"ホビーショップOMJ（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["昴と彗星"],
+            description:
+            "本日8月15日発売の新作トミカ4種（マツダCX-5、日産エクストレイルパトロールカー、トミカプレミアム24 トヨタマークX覆面パトロールカー）を紹介。その中には『昴と彗星』佐藤昴仕様のSUBARU BRZ「トミカプレミアムunlimited14」も含まれる。",
+            articleUrl:"https://x.com/HobbyShopOMJ/status/2088414262389813313"
+        },
+
+        {
+            prefecture:["東京都"],
+            location:"東京都江東区",
+            id:115,
+            title:"TSUTAYA BOOKSTORE APIT東雲店、ホビージャパン1/64頭文字Dディオラマシリーズが入荷",
+            date:"2026-08-15",
+            source:"TSUTAYABOOKSTORE APIT東雲店（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "ホビージャパンの1/64頭文字Dディオラマシリーズが入荷。「トレノAE86 藤原拓海AND茂木なつき」「RX-7 FC3S 高橋涼介VS須藤京一」「MR2 小柏カイVS藤原拓海」の3種で、各箱には対応するミニカー1台が封入されている。頭文字DやMFゴーストの関連グッズも店頭に取り揃えているとのこと。",
+            articleUrl:"https://x.com/TSUTAYAAPITSNNM/status/2088455512497230024"
+        },
+
+        {
             id:114,
             title:"『頭文字DAC』、コンフィグ機能を紹介 ステアリング強度やサウンド調整、戦績表示など",
             date:"2026-08-15",
