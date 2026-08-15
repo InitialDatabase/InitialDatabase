@@ -148,7 +148,10 @@ gtag("config", "G-19K4474718");
     <h3 class="eventCalendarListHeading">選択した日のイベント</h3>
     <ul class="eventCalendarList" id="eventCalendarList"></ul>
 
-    <h3 class="eventCalendarListHeading" id="calendarMonthListHeading">この月のイベント一覧</h3>
+    <div class="eventCalendarListHeadingRow">
+        <h3 class="eventCalendarListHeading" id="calendarMonthListHeading">この月のイベント一覧</h3>
+        <button type="button" id="calendarMonthIcsExport" class="infoFilterButton" hidden>🗓️ この月の開催中イベントを一括ダウンロード(.ics)</button>
+    </div>
     <ul class="eventCalendarList" id="eventCalendarMonthList"></ul>
 
 </section>

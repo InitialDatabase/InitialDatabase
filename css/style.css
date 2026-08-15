@@ -828,6 +828,24 @@ nav a:hover{
     font-size:1em;
 }
 
+.eventCalendarListHeadingRow{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+}
+
+.eventCalendarListHeadingRow .eventCalendarListHeading{
+    margin-top:18px;
+    margin-bottom:8px;
+}
+
+.eventCalendarListHeadingRow .infoFilterButton{
+    margin-bottom:8px;
+    font-size:.85em;
+}
+
 .eventCalendarControls{
     margin-top:14px;
     margin-bottom:0;

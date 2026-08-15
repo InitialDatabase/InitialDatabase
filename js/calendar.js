@@ -16,6 +16,7 @@
     const listElement = document.getElementById("eventCalendarList");
     const monthListElement = document.getElementById("eventCalendarMonthList");
     const monthListHeading = document.getElementById("calendarMonthListHeading");
+    const monthIcsExportButton = document.getElementById("calendarMonthIcsExport");
     const prevButton = document.getElementById("calendarPrevMonth");
     const nextButton = document.getElementById("calendarNextMonth");
     const todayButton = document.getElementById("calendarTodayButton");
@@ -212,6 +213,11 @@
         listElement.innerHTML = buildEventListEmptyHtml("日付を選択してください");
     }
 
+    function getMonthOngoingEvents(events){
+        // 「開催中」イベントのみが対象（eventStartを持たない予約中のみの情報は除く）
+        return events.filter(item => Boolean(item.eventStart));
+    }
+
     function renderMonthList(){
         if(!monthListElement){
             return;
@@ -222,6 +228,13 @@
         }
 
         const events = getMonthEvents();
+
+        if(monthIcsExportButton){
+            const ongoingEvents = getMonthOngoingEvents(events);
+
+            monthIcsExportButton.hidden = ongoingEvents.length === 0;
+            monthIcsExportButton.dataset.ongoingCount = String(ongoingEvents.length);
+        }
 
         if(events.length === 0){
             monthListElement.innerHTML = buildEventListEmptyHtml(
@@ -520,6 +533,20 @@
 
             refreshAll();
             updateClearButtonVisibility();
+        });
+    }
+
+    if(monthIcsExportButton){
+        monthIcsExportButton.addEventListener("click", () => {
+            const ongoingEvents = getMonthOngoingEvents(getMonthEvents());
+
+            if(ongoingEvents.length === 0){
+                return;
+            }
+
+            const filename = `initialdatabase-events-${state.year}${pad2(state.month + 1)}.ics`;
+
+            downloadIcsForItems(ongoingEvents, filename);
         });
     }
 

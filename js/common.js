@@ -712,7 +712,7 @@ function buildGoogleCalendarUrl(item){
     return `https://www.google.com/calendar/render?${params.toString()}`;
 }
 
-function buildIcsFileContent(item){
+function buildIcsEventLines(item){
     const start = toIcsDateValue(item.eventStart);
     const end = toExclusiveEndDateValue(item.eventEnd || item.eventStart);
     const now = new Date();
@@ -720,11 +720,7 @@ function buildIcsFileContent(item){
         + `T${pad2(now.getUTCHours())}${pad2(now.getUTCMinutes())}${pad2(now.getUTCSeconds())}Z`;
     const descriptionParts = [item.description || "", item.articleUrl || ""].filter(Boolean);
 
-    const lines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//InitialDatabase//EventCalendar//JA",
-        "CALSCALE:GREGORIAN",
+    return [
         "BEGIN:VEVENT",
         `UID:initialdatabase-info-${item.id}@initialdatabase.github.io`,
         `DTSTAMP:${stamp}`,
@@ -733,9 +729,36 @@ function buildIcsFileContent(item){
         `SUMMARY:${escapeIcsText(getItemTitle(item))}`,
         descriptionParts.length > 0 ? `DESCRIPTION:${escapeIcsText(descriptionParts.join("\n"))}` : "",
         item.articleUrl ? `URL:${escapeIcsText(item.articleUrl)}` : "",
-        "END:VEVENT",
-        "END:VCALENDAR"
+        "END:VEVENT"
     ].filter(Boolean);
+}
+
+function buildIcsFileContent(item){
+    const lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//InitialDatabase//EventCalendar//JA",
+        "CALSCALE:GREGORIAN",
+        ...buildIcsEventLines(item),
+        "END:VCALENDAR"
+    ];
+
+    return lines.join("\r\n");
+}
+
+// 複数イベントをまとめて1つの.icsファイルにする（カレンダーページの一括エクスポート用）。
+// eventStartを持たない情報（予約中のみの情報など）は対象外にする
+function buildIcsFileContentForItems(items){
+    const targetItems = items.filter(item => Boolean(item.eventStart));
+
+    const lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//InitialDatabase//EventCalendar//JA",
+        "CALSCALE:GREGORIAN",
+        ...targetItems.flatMap(buildIcsEventLines),
+        "END:VCALENDAR"
+    ];
 
     return lines.join("\r\n");
 }
@@ -765,18 +788,27 @@ function findInfoItemById(id){
     return database.infos.find(entry => entry.id === id) || null;
 }
 
-function downloadIcsForItem(item){
-    const icsContent = buildIcsFileContent(item);
+function downloadIcsBlob(icsContent, filename){
     const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
 
     link.href = url;
-    link.download = `initialdatabase-event-${item.id}.ics`;
+    link.download = filename;
     document.body.appendChild(link);
     link.click();
     link.remove();
     URL.revokeObjectURL(url);
+}
+
+function downloadIcsForItem(item){
+    downloadIcsBlob(buildIcsFileContent(item), `initialdatabase-event-${item.id}.ics`);
+}
+
+// 「今表示されている開催中イベント」をまとめて1つの.icsファイルでダウンロードする
+// （カレンダーページの一括エクスポートボタンから呼び出される）
+function downloadIcsForItems(items, filename){
+    downloadIcsBlob(buildIcsFileContentForItems(items), filename || "initialdatabase-events.ics");
 }
 
 function setupCalendarDownloadDelegation(){
