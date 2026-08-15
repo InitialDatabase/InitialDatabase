@@ -531,6 +531,7 @@
     function renderEndingSoon(){
         const section = document.getElementById("endingSoonSection");
         const container = document.getElementById("endingSoonList");
+        const toggleButton = document.getElementById("endingSoonToggle");
 
         if(!section || !container){
             return;
@@ -554,6 +555,28 @@
         }
 
         section.hidden = false;
+
+        // ユーザーが「非表示にする」を選んでいる場合は、見出し＋切り替えボタンだけ
+        // 残してリスト部分を畳んでおく（次回以降もlocalStorageの設定を引き継ぐ）
+        const isCollapsed = getStoredEndingSoonHidden();
+        container.hidden = isCollapsed;
+
+        if(toggleButton){
+            toggleButton.textContent = isCollapsed ? "表示する" : "非表示にする";
+            toggleButton.setAttribute("aria-expanded", String(!isCollapsed));
+
+            if(!toggleButton.dataset.bound){
+                toggleButton.dataset.bound = "1";
+                toggleButton.addEventListener("click", () => {
+                    const nextCollapsed = !container.hidden;
+
+                    container.hidden = nextCollapsed;
+                    setStoredEndingSoonHidden(nextCollapsed);
+                    toggleButton.textContent = nextCollapsed ? "表示する" : "非表示にする";
+                    toggleButton.setAttribute("aria-expanded", String(!nextCollapsed));
+                });
+            }
+        }
 
         container.innerHTML = endingItems.map(({ item, daysLeft }) => {
             const urgency = daysLeft === 0 ? "today" : daysLeft <= 1 ? "urgent" : daysLeft <= 3 ? "soon" : "later";

@@ -237,6 +237,49 @@ function setupSearchModeToggle(containerId, onChange){
 }
 
 // ==========================
+// 「🔥 まもなく終了」セクションの表示/非表示切り替え
+// ==========================
+// ユーザーが手動で閉じた状態をサイト内共通でlocalStorageに保存し、
+// 次回訪問時も非表示のままにする。
+
+const endingSoonHiddenStorageKey = "initialDDatabaseEndingSoonHidden";
+
+function getStoredEndingSoonHidden(){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return true;
+    }
+
+    try{
+        const saved = storage.getItem(endingSoonHiddenStorageKey);
+
+        // 未設定（初回訪問など）の場合はデフォルトで非表示にしておく
+        if(saved === null){
+            return true;
+        }
+
+        return saved === "1";
+    }catch(error){
+        return true;
+    }
+}
+
+function setStoredEndingSoonHidden(hidden){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return;
+    }
+
+    try{
+        storage.setItem(endingSoonHiddenStorageKey, hidden ? "1" : "0");
+    }catch(error){
+        // 保存できない場合は無視（切り替え自体は継続）
+    }
+}
+
+// ==========================
 // Xポスト埋め込み
 // ==========================
 

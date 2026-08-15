@@ -999,11 +999,40 @@ a.statsBarLink:focus-visible{
     display:none;
 }
 
+.endingSoonHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:10px;
+}
+
 .endingSoonTitle{
-    margin:0 0 10px;
+    margin:0;
     color:#c23b22;
     font-size:1em;
     font-weight:bold;
+}
+
+.endingSoonToggle{
+    flex:0 0 auto;
+    padding:4px 10px;
+    background:white;
+    border:1px solid #e0b400;
+    border-radius:999px;
+    color:#a85a00;
+    font-size:.78em;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.endingSoonToggle:hover{
+    background:#fff3d6;
+}
+
+.endingSoonList[hidden]{
+    display:none;
 }
 
 .endingSoonList{
@@ -2505,6 +2534,16 @@ html.theme-dark .endingSoonSection{
 
 html.theme-dark .endingSoonTitle{
     color:#ff8f6b;
+}
+
+html.theme-dark .endingSoonToggle{
+    background:#1a1b1c;
+    border-color:#a86a00;
+    color:#ff8f6b;
+}
+
+html.theme-dark .endingSoonToggle:hover{
+    background:#2a2412;
 }
 
 html.theme-dark .endingSoonCard{
