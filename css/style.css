@@ -412,16 +412,33 @@ nav a:hover{
 
 .infoCardRelatedList{
     display:flex;
-    flex-direction:column;
-    gap:4px;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    align-items:center;
     margin:0;
     padding:0;
     list-style:none;
+    overflow:hidden;
+}
+
+.infoCardRelatedList li{
+    display:flex;
+    align-items:center;
+    min-width:0;
+    flex:1 1 auto;
+}
+
+.infoCardRelatedList li:not(:first-child)::before{
+    content:"・";
+    flex:0 0 auto;
+    margin:0 6px;
+    color:#c0c4cc;
 }
 
 .infoCardRelatedLink{
     display:block;
     overflow:hidden;
+    min-width:0;
     color:#3366cc;
     font-size:.85em;
     text-decoration:none;

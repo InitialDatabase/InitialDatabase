@@ -953,6 +953,9 @@ function getRelatedItems(item, limit){
 // クリックすると、index.html上ではその情報だけに絞り込んだ表示に切り替わる（js/info.js側で処理）。
 // それ以外のページではindex.html?keyword=タイトルへの通常リンクとして機能する
 function buildRelatedItemsHtml(item){
+    // 「同じタグの他の情報」欄は廃止（常に非表示）
+    return "";
+
     const relatedItems = getRelatedItems(item, 3);
 
     if(relatedItems.length === 0){
