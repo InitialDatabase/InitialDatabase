@@ -1321,12 +1321,18 @@ a.statsBarLink:focus-visible{
     color:white;
 }
 
+.infoFilterToggleRow{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
 .infoFilterToggle{
     display:flex;
     align-items:center;
     justify-content:center;
     gap:6px;
-    width:100%;
+    flex:1;
     padding:10px 14px;
     background:#eaecf0;
     border:1px solid #a2a9b1;
@@ -1336,6 +1342,30 @@ a.statsBarLink:focus-visible{
     font-weight:bold;
     font-size:.9em;
     cursor:pointer;
+}
+
+.infoFilterClearButton{
+    flex-shrink:0;
+    padding:10px 14px;
+    background:#fff0f0;
+    border:1px solid #d33;
+    border-radius:18px;
+    color:#d33;
+    font:inherit;
+    font-weight:bold;
+    font-size:.85em;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:.2s;
+}
+
+.infoFilterClearButton:hover{
+    background:#d33;
+    color:white;
+}
+
+.infoFilterClearButton[hidden]{
+    display:none;
 }
 
 .infoFilterToggleIcon{
@@ -2556,6 +2586,17 @@ html.theme-dark .infoFilterButton.is-active{
 html.theme-dark .seriesFilterButton.is-active{
     background:#d63333;
     border-color:#d63333;
+    color:white;
+}
+
+html.theme-dark .infoFilterClearButton{
+    background:#2a1414;
+    border-color:#d33;
+    color:#ff8080;
+}
+
+html.theme-dark .infoFilterClearButton:hover{
+    background:#d33;
     color:white;
 }
 

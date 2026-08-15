@@ -185,14 +185,17 @@ gtag("config", "G-19K4474718");
 
     <div class="infoFilterGroup" id="infoSearchModeToggle" role="group" aria-label="検索方法"></div>
 
-    <button
-        type="button"
-        id="infoFilterToggle"
-        class="infoFilterToggle"
-        aria-expanded="false"
-        aria-controls="infoFilterPanel">
-        🔍 絞り込み・並び替え <span class="infoFilterToggleIcon" aria-hidden="true">▾</span>
-    </button>
+    <div class="infoFilterToggleRow">
+        <button
+            type="button"
+            id="infoFilterToggle"
+            class="infoFilterToggle"
+            aria-expanded="false"
+            aria-controls="infoFilterPanel">
+            🔍 絞り込み・並び替え <span class="infoFilterToggleIcon" aria-hidden="true">▾</span>
+        </button>
+        <button type="button" id="infoFilterClear" class="infoFilterClearButton" hidden>✕ クリア</button>
+    </div>
 
     <div class="infoFilterPanel" id="infoFilterPanel">
 
@@ -230,10 +233,6 @@ gtag("config", "G-19K4474718");
             <button type="button" class="infoFilterButton" data-readfilter="unread">未読のみ</button>
         </div>
 
-    </div>
-
-    <div class="infoControlRow">
-        <button type="button" id="infoFilterClear" class="infoFilterButton" hidden>✕ 絞り込みをクリア</button>
     </div>
 
     </div>
