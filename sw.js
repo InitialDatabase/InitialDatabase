@@ -1,27 +1,29 @@
 // 頭文字Database Service Worker
 //
+// 【2026-08-15 見直し】
+// 目的は「ホーム画面アプリ化（アイコンからアプリっぽく開ける状態）」を維持しつつ、
+// 「コードを直したのに、キャッシュのせいで古い挙動のまま」という事故のリスクを
+// なくすことです。そのため、内容がほぼ変わらない画像・manifest.jsonだけを
+// Cache First（表示は速いが、内容は多少古くても実害が小さいもの）で扱い、
+// JS本体・CSS・HTML・データ（js/data.js）は全てNetwork Firstに寄せました
+// （オンライン中は常に最新版を取りに行き、キャッシュはオフライン時の保険としてのみ使う）。
+//
 // キャッシュ戦略：
-// ・静的アセット（CSS/JS本体・画像・マニフェストなど、頻繁には変わらないもの）
+// ・静的アセット（画像・manifest.jsonなど、内容がほぼ変わらず、多少古くても実害が小さいもの）
 //   → Cache First（まずキャッシュを返し、裏で最新版を取得してキャッシュを更新＝Stale-While-Revalidate）
-// ・動的コンテンツ（HTMLページ・js/data.js・feed.xmlなど、内容が更新されうるもの）
-//   → Network First（まずネットワークを試し、失敗したときだけキャッシュを使う）
+// ・それ以外全部（HTMLページ・CSS・JS本体・js/data.js・feed.xmlなど、内容が更新されうるもの）
+//   → Network First（まずネットワークを試し、オンライン中は常に最新版を表示。失敗したときだけキャッシュを使う）
 // ・完全にオフラインでキャッシュも無いページ遷移
 //   → offline.html を表示
 
-const CACHE_VERSION = "v6";
+const CACHE_VERSION = "v7";
 const STATIC_CACHE_NAME = `initial-d-database-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE_NAME = `initial-d-database-dynamic-${CACHE_VERSION}`;
 const CURRENT_CACHES = [STATIC_CACHE_NAME, DYNAMIC_CACHE_NAME];
 
 // 静的アセット：Cache First（Stale-While-Revalidate）
+// ※ ここに含めるのは「多少古い内容が一瞬表示されても実害がほぼ無いもの」だけに限定する
 const STATIC_ASSETS = [
-    "css/style.css",
-    "js/common.js",
-    "js/calendar.js",
-    "js/info.js",
-    "js/favorites.js",
-    "js/archive.js",
-    "js/updates.js",
     "manifest.json",
     "images/ogp.png",
     "images/hero-mobile.webp",
@@ -32,6 +34,7 @@ const STATIC_ASSETS = [
 ];
 
 // 動的コンテンツ：Network First
+// ※ JS本体・CSSはここに含める（コード修正が即座に反映されるようにするため）
 const DYNAMIC_ASSETS = [
     "./",
     "index.html",
@@ -40,6 +43,13 @@ const DYNAMIC_ASSETS = [
     "pages/calendar.html",
     "pages/comments.html",
     "pages/updates.html",
+    "css/style.css",
+    "js/common.js",
+    "js/calendar.js",
+    "js/info.js",
+    "js/favorites.js",
+    "js/archive.js",
+    "js/updates.js",
     "js/data.js",
     "js/updates-data.js",
     "feed.xml"

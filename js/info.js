@@ -616,6 +616,41 @@
             });
         });
 
+        // カード内の「同じタグの他の情報」をクリックしたら、その情報だけに絞り込んで詳細を表示する
+        // （「🔥 まもなく終了」カードのクリック挙動と同じく、タイトルをキーワードとして使い1件に絞り込む）
+        listElement.querySelectorAll("[data-related-id]").forEach(link => {
+            link.addEventListener("click", event => {
+                const id = Number(link.dataset.relatedId);
+                const target = items.find(candidate => candidate.id === id);
+
+                if(!target){
+                    return;
+                }
+
+                event.preventDefault();
+
+                state.keyword = getItemTitle(target);
+                state.activeTags.clear();
+                state.activeGoodsCategories.clear();
+                state.activeLocations.clear();
+                state.activeSeries = "all";
+                state.activeSource = "";
+                state.period = "all";
+                state.status = "all";
+                state.unreadOnly = false;
+                state.page = 1;
+
+                if(searchInput){
+                    searchInput.value = state.keyword;
+                }
+
+                closeSuggestions();
+                syncControlButtons();
+                render(true);
+                listElement.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
+
         setupReadTrackingByView(listElement);
         loadTweetEmbeds(listElement);
 

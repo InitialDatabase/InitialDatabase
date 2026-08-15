@@ -908,6 +908,83 @@ function buildSourceLinkHtml(item){
     return `<a class="infoCardSourceLink" href="${href}" data-source-filter="${escapeHTML(item.source)}" title="この出典の情報だけを表示">${escapeHTML(item.source)}</a>`;
 }
 
+// 「同じタグの他の情報」を求める。タグ・作品（series）・グッズカテゴリの一致数が
+// 多いものほど関連度が高いとみなし、同数の場合は日付が新しい順に並べる
+function getRelatedItems(item, limit){
+    const allItems = (typeof database !== "undefined" && Array.isArray(database.infos)) ? database.infos : [];
+    const itemTags = Array.isArray(item.tags) ? item.tags : [];
+
+    if(itemTags.length === 0){
+        return [];
+    }
+
+    const itemSeries = Array.isArray(item.series) ? item.series : [];
+
+    return allItems
+        .filter(candidate => candidate.id !== item.id)
+        .map(candidate => {
+            const candidateTags = Array.isArray(candidate.tags) ? candidate.tags : [];
+            const sharedTagCount = candidateTags.filter(tag => itemTags.includes(tag)).length;
+
+            if(sharedTagCount === 0){
+                return null;
+            }
+
+            const candidateSeries = Array.isArray(candidate.series) ? candidate.series : [];
+            const sharedSeriesCount = candidateSeries.filter(series => itemSeries.includes(series)).length;
+            const sameGoodsCategory = item.goodsCategory && candidate.goodsCategory === item.goodsCategory ? 1 : 0;
+            const relevanceScore = sharedTagCount + sharedSeriesCount + sameGoodsCategory;
+
+            return { candidate, relevanceScore };
+        })
+        .filter(Boolean)
+        .sort((a, b) => {
+            if(b.relevanceScore !== a.relevanceScore){
+                return b.relevanceScore - a.relevanceScore;
+            }
+
+            return String(b.candidate.date || "").localeCompare(String(a.candidate.date || ""));
+        })
+        .slice(0, limit)
+        .map(entry => entry.candidate);
+}
+
+// カード下部に表示する「同じタグの他の情報」ブロックを組み立てる。
+// クリックすると、index.html上ではその情報だけに絞り込んだ表示に切り替わる（js/info.js側で処理）。
+// それ以外のページではindex.html?keyword=タイトルへの通常リンクとして機能する
+function buildRelatedItemsHtml(item){
+    const relatedItems = getRelatedItems(item, 3);
+
+    if(relatedItems.length === 0){
+        return "";
+    }
+
+    const rootPrefix = getSiteRootPrefix();
+
+    const listItemsHtml = relatedItems.map(related => {
+        const title = getItemTitle(related);
+        const truncatedTitle = title.length > 32 ? `${title.slice(0, 32)}…` : title;
+        const href = `${rootPrefix}index.html?keyword=${encodeURIComponent(title)}`;
+
+        return `
+            <li>
+                <a class="infoCardRelatedLink" href="${href}" data-related-id="${related.id}" title="${escapeHTML(title)}">
+                    ${escapeHTML(truncatedTitle)}
+                </a>
+            </li>
+        `;
+    }).join("");
+
+    return `
+        <div class="infoCardRelated">
+            <p class="infoCardRelatedLabel">🔗 同じタグの他の情報</p>
+            <ul class="infoCardRelatedList">
+                ${listItemsHtml}
+            </ul>
+        </div>
+    `;
+}
+
 function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, category){
     const cardCategory = category || "infos";
     const isTweet = isTweetUrl(item.articleUrl);
@@ -949,6 +1026,8 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
                         ${shareButtonsHtml}
                         ${actionsHtml}
                     </div>
+
+                    ${buildRelatedItemsHtml(item)}
 
                 </div>
 
@@ -996,6 +1075,8 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
                     ${shareButtonsHtml}
                     ${actionsHtml}
                 </div>
+
+                ${buildRelatedItemsHtml(item)}
 
             </div>
 

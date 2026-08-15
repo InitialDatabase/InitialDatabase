@@ -393,6 +393,51 @@ nav a:hover{
     background:#dde1e8;
 }
 
+/* ==========================
+   情報カード：関連情報（同じタグの他の情報）
+   ========================== */
+
+.infoCardRelated{
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px solid #eaecf0;
+}
+
+.infoCardRelatedLabel{
+    margin:0 0 6px;
+    color:#72777d;
+    font-size:.85em;
+    font-weight:bold;
+}
+
+.infoCardRelatedList{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.infoCardRelatedLink{
+    display:block;
+    overflow:hidden;
+    color:#3366cc;
+    font-size:.85em;
+    text-decoration:none;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.infoCardRelatedLink:hover,
+.infoCardRelatedLink:focus-visible{
+    text-decoration:underline;
+}
+
+.tweetCard .infoCardRelated{
+    text-align:left;
+}
+
 @media (max-width:640px){
     .infoCard{
         flex-direction:column;
@@ -2650,6 +2695,18 @@ html.theme-dark .infoCardDate,
 html.theme-dark .lastUpdated,
 html.theme-dark .databaseOverview p{
     color:#b7b7b7;
+}
+
+html.theme-dark .infoCardRelated{
+    border-top-color:#3a3a3f;
+}
+
+html.theme-dark .infoCardRelatedLabel{
+    color:#b7b7b7;
+}
+
+html.theme-dark .infoCardRelatedLink{
+    color:#8ab4ff;
 }
 
 html.theme-dark .infoCardBody mark{
