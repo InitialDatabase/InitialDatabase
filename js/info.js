@@ -277,6 +277,7 @@
 
                 toggleFavorite(category, id);
                 updateFavoriteButton(button, category, id);
+                updateFavoriteBadgeInCard(button, category, id);
             });
         });
 
@@ -463,6 +464,7 @@
 
                 toggleFavorite(category, id);
                 updateFavoriteButton(button, category, id);
+                updateFavoriteBadgeInCard(button, category, id);
             });
         });
 

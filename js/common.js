@@ -762,9 +762,21 @@ function getSourceTypeLabel(url){
     }
 }
 
-function buildInfoCardBadges(item){
+function buildInfoCardBadges(item, category, options){
+    const opts = options || {};
     const badges = [];
     const primaryTag = getPrimaryTag(item);
+
+    // お気に入り／未読は「カードを見た瞬間に情報の性質が分かる」ことを目的に、
+    // 最も目につきやすい先頭に表示する。お気に入り一覧ページ（全件お気に入り済み）
+    // では冗長なので、hideFavoriteBadgeで非表示にできる。
+    if(!opts.hideFavoriteBadge && category && isFavorite(category, item.id)){
+        badges.push(`<span class="infoBadge infoBadge--favorite" data-favorite-badge>⭐ お気に入り</span>`);
+    }
+
+    if(category && !isItemRead(category, item.id)){
+        badges.push(`<span class="infoBadge infoBadge--unread">👀 未読</span>`);
+    }
 
     if(primaryTag){
         badges.push(`<span class="infoBadge infoBadge--tag">${escapeHTML(primaryTag)}</span>`);
@@ -774,26 +786,31 @@ function buildInfoCardBadges(item){
         badges.push(`<span class="infoBadge infoBadge--new">NEW</span>`);
     }
 
+    // 発売前／予約開始／開催中／終了済みの4区分すべてに📅アイコン付きバッジを表示する
+    // （従来は「開催中」だけバッジが出ず、イベント系情報であることが分かりにくかった）
+    const eventStatus = getItemEventStatus(item);
+
+    if(eventStatus){
+        badges.push(`
+            <span class="infoBadge infoBadge--status infoBadge--status-${eventStatus}">
+                📅 ${escapeHTML(getEventStatusLabel(eventStatus))}
+            </span>
+        `);
+    }
+
     if(isOngoingEvent(item)){
         const daysLeft = getDaysUntilEventEnd(item);
 
         if(daysLeft !== null && daysLeft >= 0 && daysLeft <= 7){
+            // 残り3日以内は特に見逃してほしくないため、色とアニメーションで強調する
+            const isUrgent = daysLeft <= 3;
+
             badges.push(`
-                <span class="infoBadge infoBadge--ending">
-                    ${daysLeft === 0 ? "本日終了" : `あと${daysLeft}日で終了`}
+                <span class="infoBadge infoBadge--ending${isUrgent ? " infoBadge--ending-urgent" : ""}">
+                    ⏰ ${daysLeft === 0 ? "本日終了" : `あと${daysLeft}日で終了`}
                 </span>
             `);
         }
-    }
-
-    const eventStatus = getItemEventStatus(item);
-
-    if(eventStatus === "before" || eventStatus === "reservation" || eventStatus === "ended"){
-        badges.push(`
-            <span class="infoBadge infoBadge--status infoBadge--status-${eventStatus}">
-                ${escapeHTML(getEventStatusLabel(eventStatus))}
-            </span>
-        `);
     }
 
     const sourceTypeLabel = getSourceTypeLabel(item.articleUrl);
@@ -812,7 +829,11 @@ function buildInfoCardBadges(item){
 function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, category){
     const cardCategory = category || "infos";
     const isTweet = isTweetUrl(item.articleUrl);
-    const badgesHtml = buildInfoCardBadges(item);
+    const badgesHtml = buildInfoCardBadges(item, cardCategory, {
+        // お気に入り一覧ページ（extraClassName === "favoriteCard"）では
+        // 全カードが必ずお気に入りなので、⭐バッジは表示しない
+        hideFavoriteBadge: extraClassName === "favoriteCard"
+    });
     const eventPeriodLabel = getEventPeriodLabel(item);
     const shareButtonsHtml = createShareButtons(item);
     const calendarActionsHtml = createCalendarActionsHtml(item);
@@ -1093,6 +1114,50 @@ function updateFavoriteButton(button, category, id){
     button.classList.toggle("is-favorite", active);
 }
 
+// お気に入りボタンをクリックした際、カード上部の「⭐ お気に入り」バッジも
+// その場で追加／削除する（再描画なしで即時反映するため）
+function updateFavoriteBadgeInCard(button, category, id){
+    const card = button.closest(".infoCard");
+
+    if(!card){
+        return;
+    }
+
+    const active = isFavorite(category, id);
+    const existingBadge = card.querySelector("[data-favorite-badge]");
+
+    if(!active){
+        if(existingBadge){
+            existingBadge.remove();
+        }
+
+        return;
+    }
+
+    if(existingBadge){
+        return;
+    }
+
+    let badgesContainer = card.querySelector(".infoBadges");
+
+    if(!badgesContainer){
+        badgesContainer = document.createElement("div");
+        badgesContainer.className = "infoBadges";
+
+        const isTweet = card.classList.contains("tweetCard");
+        const anchor = isTweet ? card : (card.querySelector(".infoCardBody") || card);
+
+        anchor.prepend(badgesContainer);
+    }
+
+    const badge = document.createElement("span");
+
+    badge.className = "infoBadge infoBadge--favorite";
+    badge.setAttribute("data-favorite-badge", "");
+    badge.textContent = "⭐ お気に入り";
+    badgesContainer.prepend(badge);
+}
+
 // ==========================
 // 既読/未読管理
 // ==========================
@@ -1189,6 +1254,18 @@ function setupReadTrackingByView(container){
 
             if(newBadge){
                 newBadge.remove();
+            }
+
+            const unreadBadge = card.querySelector(".infoBadge--unread");
+
+            if(unreadBadge){
+                unreadBadge.remove();
+            }
+
+            const badgesContainer = card.querySelector(".infoBadges");
+
+            if(badgesContainer && badgesContainer.children.length === 0){
+                badgesContainer.remove();
             }
 
             observer.unobserve(card);
