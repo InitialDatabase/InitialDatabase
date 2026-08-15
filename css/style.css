@@ -984,6 +984,61 @@ a.statsBarLink:focus-visible{
 }
 
 /* ==========================
+   頭文字D情報：作品（シリーズ）で絞り込みタブ
+   ========================== */
+
+.seriesFilterBar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:14px;
+}
+
+.seriesFilterButton{
+    padding:8px 16px;
+    border:1px solid #a2a9b1;
+    border-radius:20px;
+    background:white;
+    color:#202122;
+    font:inherit;
+    font-weight:bold;
+    font-size:.9em;
+    cursor:pointer;
+    transition:.2s;
+    white-space:nowrap;
+}
+
+.seriesFilterButton:hover{
+    background:#eaecf0;
+}
+
+.seriesFilterButton.is-active{
+    background:#d63333;
+    border-color:#d63333;
+    color:white;
+}
+
+.seriesFilterCount{
+    margin-left:4px;
+    font-weight:normal;
+    opacity:.85;
+    font-size:.9em;
+}
+
+@media (max-width:640px){
+    .seriesFilterBar{
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        padding-bottom:2px;
+    }
+
+    .seriesFilterButton{
+        flex:0 0 auto;
+    }
+}
+
+/* ==========================
    頭文字D情報：検索・絞り込みUI
    ========================== */
 
@@ -2313,6 +2368,7 @@ html.theme-dark .listControl input[type="search"]{
 
 html.theme-dark .infoTagButton,
 html.theme-dark .infoFilterButton,
+html.theme-dark .seriesFilterButton,
 html.theme-dark .favoriteImportLabel{
     background:#101112;
     border-color:#444;
@@ -2323,6 +2379,12 @@ html.theme-dark .infoTagButton.is-active,
 html.theme-dark .infoFilterButton.is-active{
     background:#36c;
     border-color:#36c;
+    color:white;
+}
+
+html.theme-dark .seriesFilterButton.is-active{
+    background:#d63333;
+    border-color:#d63333;
     color:white;
 }
 

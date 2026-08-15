@@ -10,6 +10,10 @@
     const suggestionsElement = document.getElementById("infoSearchSuggestions");
     const tagFilterContainer = document.getElementById("infoTagFilters");
     const clearFiltersButton = document.getElementById("infoFilterClear");
+    const seriesFilterContainer = document.getElementById("seriesFilterBar");
+
+    // 作品（シリーズ）で絞り込むタブ。「すべて」を含め固定の並び順で表示する
+    const SERIES_LIST = ["頭文字D", "MFゴースト", "昴と彗星", "頭文字DAC", "その他コラボ"];
 
     if(!listElement){
         return;
@@ -34,6 +38,7 @@
         keyword: "",
         searchMode: "partial", // "partial"（部分一致）または "exact"（完全一致）
         activeTags: new Set(),
+        activeSeries: "all", // "all"または頭文字D／MFゴースト／昴と彗星／頭文字DAC／その他コラボ
         sort: "new",
         period: "all",
         status: "all",
@@ -78,6 +83,16 @@
         return Array.from(state.activeTags).every(tag => itemTags.includes(tag));
     }
 
+    function matchesSeries(item){
+        if(state.activeSeries === "all"){
+            return true;
+        }
+
+        const itemSeries = Array.isArray(item.series) ? item.series : [];
+
+        return itemSeries.includes(state.activeSeries);
+    }
+
     function matchesPeriod(item){
         if(state.period === "week"){
             return isWithinCurrentWeek(item.date);
@@ -113,6 +128,7 @@
     function hasActiveFilters(){
         return Boolean(state.keyword)
             || state.activeTags.size > 0
+            || state.activeSeries !== "all"
             || state.period !== "all"
             || state.status !== "all"
             || state.unreadOnly
@@ -129,6 +145,7 @@
         return items.filter(item =>
             matchesKeyword(item)
             && matchesTags(item)
+            && matchesSeries(item)
             && matchesPeriod(item)
             && matchesStatus(item)
             && matchesUnread(item)
@@ -293,6 +310,12 @@
                 b.classList.toggle("is-active", state.activeTags.has(b.dataset.tag))
             );
         }
+
+        if(seriesFilterContainer){
+            seriesFilterContainer.querySelectorAll("[data-series]").forEach(b =>
+                b.classList.toggle("is-active", b.dataset.series === state.activeSeries)
+            );
+        }
     }
 
     // アーカイブページの統計バー（タグ／月／出典／ステータス）からのリンクを反映し、
@@ -302,6 +325,7 @@
     function applyStateFromUrlParams(){
         const params = new URLSearchParams(window.location.search);
         const tagParam = params.get("tag");
+        const seriesParam = params.get("series");
         const monthParam = params.get("month");
         const statusParam = params.get("status");
         const sourceParam = params.get("source");
@@ -313,6 +337,10 @@
                 ? tagParam.split(",").map(tag => tag.trim()).filter(tag => allTags.includes(tag))
                 : []
         );
+
+        state.activeSeries = (seriesParam && SERIES_LIST.includes(seriesParam))
+            ? seriesParam
+            : "all";
 
         if(monthParam && /^\d{4}-\d{2}$/.test(monthParam)){
             state.period = "custom-month";
@@ -354,6 +382,10 @@
 
         if(state.activeTags.size > 0){
             params.set("tag", Array.from(state.activeTags).join(","));
+        }
+
+        if(state.activeSeries !== "all"){
+            params.set("series", state.activeSeries);
         }
 
         if(state.period === "custom-month" && state.customMonth){
@@ -444,6 +476,54 @@
         });
 
         updateUrlParams(Boolean(pushHistory));
+    }
+
+    // 作品（シリーズ）タブを描画する。件数を添えてワンタップで絞り込めるようにする
+    function renderSeriesFilters(){
+        if(!seriesFilterContainer){
+            return;
+        }
+
+        const seriesCounts = new Map();
+
+        items.forEach(item => {
+            (Array.isArray(item.series) ? item.series : []).forEach(series => {
+                seriesCounts.set(series, (seriesCounts.get(series) || 0) + 1);
+            });
+        });
+
+        const buttonsHtml = [`
+            <button type="button" class="seriesFilterButton is-active" data-series="all">
+                すべて<span class="seriesFilterCount">${items.length}</span>
+            </button>
+        `].concat(
+            SERIES_LIST
+                .filter(series => seriesCounts.has(series))
+                .map(series => `
+                    <button type="button" class="seriesFilterButton" data-series="${escapeHTML(series)}">
+                        ${escapeHTML(series)}<span class="seriesFilterCount">${seriesCounts.get(series)}</span>
+                    </button>
+                `)
+        ).join("");
+
+        seriesFilterContainer.innerHTML = buttonsHtml;
+
+        seriesFilterContainer.querySelectorAll("[data-series]").forEach(button => {
+            button.addEventListener("click", () => {
+                if(button.classList.contains("is-active")){
+                    return;
+                }
+
+                state.activeSeries = button.dataset.series;
+                state.page = 1;
+
+                seriesFilterContainer.querySelectorAll("[data-series]").forEach(b =>
+                    b.classList.toggle("is-active", b === button)
+                );
+
+                render();
+            });
+        });
     }
 
     function renderTagFilters(){
@@ -695,6 +775,7 @@
         clearFiltersButton.addEventListener("click", () => {
             state.keyword = "";
             state.activeTags.clear();
+            state.activeSeries = "all";
             state.sort = "new";
             state.period = "all";
             state.status = "all";
@@ -713,6 +794,7 @@
     }
 
     renderTagFilters();
+    renderSeriesFilters();
     applyStateFromUrlParams();
     renderLastUpdatedLabel(items, "lastUpdated");
     render();
