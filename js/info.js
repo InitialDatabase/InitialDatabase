@@ -51,6 +51,7 @@
         activeGoodsCategories: new Set(), // 「グッズ」タグ選択時のみ表示されるサブカテゴリ絞り込み（複数選択・OR条件）
         activeLocations: new Set(), // 「📍開催地」フィルター（地方名・都道府県名の両方を格納。複数選択・OR条件）
         activeSeries: "all", // "all"または頭文字D／MFゴースト／昴と彗星／頭文字DAC／その他コラボ
+        activeSource: "", // 出典（発信元アカウント）での絞り込み。カード内の出典リンクやアーカイブページの統計から設定される
         sort: "new",
         period: "all",
         status: "all",
@@ -119,6 +120,14 @@
         );
     }
 
+    function matchesSource(item){
+        if(!state.activeSource){
+            return true;
+        }
+
+        return item.source === state.activeSource;
+    }
+
     function matchesSeries(item){
         if(state.activeSeries === "all"){
             return true;
@@ -167,6 +176,7 @@
             || state.activeGoodsCategories.size > 0
             || state.activeLocations.size > 0
             || state.activeSeries !== "all"
+            || Boolean(state.activeSource)
             || state.period !== "all"
             || state.status !== "all"
             || state.unreadOnly
@@ -186,6 +196,7 @@
             && matchesGoodsCategory(item)
             && matchesLocation(item)
             && matchesSeries(item)
+            && matchesSource(item)
             && matchesPeriod(item)
             && matchesStatus(item)
             && matchesUnread(item)
@@ -225,9 +236,13 @@
             .map(([tag, count]) => `${tag} ${count}`)
             .join("／");
 
-        countElement.textContent = breakdown
+        const sourceNote = state.activeSource
+            ? `｜出典「${state.activeSource}」で絞り込み中`
+            : "";
+
+        countElement.textContent = (breakdown
             ? `全 ${filteredItems.length} 件（${breakdown}）`
-            : `全 ${filteredItems.length} 件`;
+            : `全 ${filteredItems.length} 件`) + sourceNote;
     }
 
     // ==========================
@@ -391,10 +406,11 @@
         goodsCategoryFilterContainer.hidden = !isGoodsActive;
     }
 
-    // アーカイブページの統計バー（タグ／月／出典／ステータス）からのリンクを反映し、
-    // 検索キーワード・ページ番号も含めてURLと状態を双方向に同期する
+    // アーカイブページの統計バー（タグ／月／出典／ステータス）や各カードの出典リンクからの
+    // 遷移を反映し、検索キーワード・ページ番号も含めてURLと状態を双方向に同期する
     // 例：index.html?tag=グッズ　index.html?month=2026-08　index.html?status=ongoing
     //     index.html?source=GRANUP（X）　index.html?keyword=フィギュア&page=2
+    // ※sourceは出典名の完全一致による絞り込み（activeSource）。あいまい検索であるkeywordとは別物
     function applyStateFromUrlParams(){
         const params = new URLSearchParams(window.location.search);
         const tagParam = params.get("tag");
@@ -434,6 +450,8 @@
             ? seriesParam
             : "all";
 
+        state.activeSource = sourceParam || "";
+
         if(monthParam && /^\d{4}-\d{2}$/.test(monthParam)){
             state.period = "custom-month";
             state.customMonth = monthParam;
@@ -446,8 +464,7 @@
             ? statusParam
             : "all";
 
-        // keywordが優先。旧来のsourceリンク（?source=...）も引き続きキーワードとして解釈する
-        state.keyword = keywordParam || sourceParam || "";
+        state.keyword = keywordParam || "";
 
         if(searchInput){
             searchInput.value = state.keyword;
@@ -495,6 +512,10 @@
 
         if(state.activeSeries !== "all"){
             params.set("series", state.activeSeries);
+        }
+
+        if(state.activeSource){
+            params.set("source", state.activeSource);
         }
 
         if(state.period === "custom-month" && state.customMonth){
@@ -573,6 +594,25 @@
                 toggleFavorite(category, id);
                 updateFavoriteButton(button, category, id);
                 updateFavoriteBadgeInCard(button, category, id);
+            });
+        });
+
+        // カード内の「出典」表示をクリックしたら、その場で同じ出典の情報だけに絞り込む
+        // （通常のリンク遷移はpreventDefaultで止め、状態更新のみ行う）
+        listElement.querySelectorAll("[data-source-filter]").forEach(link => {
+            link.addEventListener("click", event => {
+                event.preventDefault();
+
+                const source = link.dataset.sourceFilter;
+
+                if(!source || state.activeSource === source){
+                    return;
+                }
+
+                state.activeSource = source;
+                state.page = 1;
+                render(true);
+                listElement.scrollIntoView({ behavior: "smooth", block: "start" });
             });
         });
 
@@ -1089,6 +1129,7 @@
             state.activeGoodsCategories.clear();
             state.activeLocations.clear();
             state.activeSeries = "all";
+            state.activeSource = "";
             state.sort = "new";
             state.period = "all";
             state.status = "all";

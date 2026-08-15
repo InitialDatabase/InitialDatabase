@@ -334,6 +334,18 @@ nav a:hover{
     margin-bottom:6px;
 }
 
+.infoCardSourceLink{
+    color:#72777d;
+    text-decoration:underline dotted;
+    text-underline-offset:2px;
+}
+
+.infoCardSourceLink:hover,
+.infoCardSourceLink:focus-visible{
+    color:#3366cc;
+    text-decoration:underline solid;
+}
+
 .infoCardBody h3{
     margin-bottom:10px;
 }

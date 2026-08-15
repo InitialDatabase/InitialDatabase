@@ -887,6 +887,27 @@ function buildInfoCardBadges(item, category, options){
 // 情報カード生成（頭文字D情報／お気に入り共通）
 // ==========================
 
+// pages/配下のページ（archive.html等）とルートのindex.htmlとで相対パスの深さが
+// 異なるため、現在地に応じてindex.htmlへのプレフィックスを組み立てる
+function getSiteRootPrefix(){
+    return (typeof window !== "undefined" && /\/pages\//.test(window.location.pathname))
+        ? "../"
+        : "";
+}
+
+// 出典（発信元アカウント）表示を、その出典だけに絞り込むリンクとして生成する。
+// index.html上（js/info.js）ではJS側でクリックを横取りしその場で絞り込み、
+// それ以外のページ（お気に入り等）ではindex.html?source=...への通常リンクとして機能する
+function buildSourceLinkHtml(item){
+    if(!item.source){
+        return "";
+    }
+
+    const href = `${getSiteRootPrefix()}index.html?source=${encodeURIComponent(item.source)}`;
+
+    return `<a class="infoCardSourceLink" href="${href}" data-source-filter="${escapeHTML(item.source)}" title="この出典の情報だけを表示">${escapeHTML(item.source)}</a>`;
+}
+
 function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, category){
     const cardCategory = category || "infos";
     const isTweet = isTweetUrl(item.articleUrl);
@@ -913,6 +934,10 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
 
                 <div class="infoCardBody">
 
+                    ${item.date || item.source ? `
+                        <p class="infoCardDate">${escapeHTML(item.date || "")}${item.source ? `／ ${buildSourceLinkHtml(item)}` : ""}</p>
+                    ` : ""}
+
                     ${eventPeriodLabel ? `<p class="infoCardEventPeriod">${escapeHTML(eventPeriodLabel)}</p>` : ""}
 
                     ${item.location ? `<p class="infoCardLocation">📍 ${escapeHTML(item.location)}</p>` : ""}
@@ -932,7 +957,7 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
     }
 
     const dateLabel = item.date || "";
-    const sourceLabel = item.source ? `／ ${escapeHTML(item.source)}` : "";
+    const sourceLabel = item.source ? `／ ${buildSourceLinkHtml(item)}` : "";
 
     return `
         <article class="${cardClassNames}" ${readAttrsHtml}>
