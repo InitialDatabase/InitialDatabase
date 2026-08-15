@@ -4,6 +4,7 @@
 
     const items = Array.isArray(database.infos) ? database.infos : [];
     const summaryElement = document.getElementById("archiveSummary");
+    const highlightsElement = document.getElementById("archiveHighlights");
     const monthListElement = document.getElementById("archiveMonthList");
     const archiveSearchInput = document.getElementById("archiveSearchInput");
     const clearFiltersButton = document.getElementById("archiveFilterClear");
@@ -93,6 +94,66 @@
 
     const monthKeysNewFirst = Array.from(monthGroups.keys()).sort((a, b) => b.localeCompare(a));
     const targetMonthFromHash = getMonthKeyFromHash();
+
+    // ==========================
+    // 年間ハイライト（今年最も多かったタグ／投稿が一番多かった月など）
+    // ==========================
+
+    function renderYearHighlights(){
+        if(!highlightsElement){
+            return;
+        }
+
+        const currentYear = getTodayDateOnly().getFullYear();
+        const yearItems = items.filter(item => {
+            const date = parseDateOnly(item.date);
+
+            return date && date.getFullYear() === currentYear;
+        });
+
+        if(yearItems.length === 0){
+            highlightsElement.innerHTML = "";
+            return;
+        }
+
+        const yearTagCounts = new Map();
+
+        yearItems.forEach(item => {
+            (Array.isArray(item.tags) ? item.tags : []).forEach(tag => {
+                yearTagCounts.set(tag, (yearTagCounts.get(tag) || 0) + 1);
+            });
+        });
+
+        const topTagEntry = Array.from(yearTagCounts.entries()).sort((a, b) => b[1] - a[1])[0];
+
+        const yearMonthCounts = new Map();
+
+        yearItems.forEach(item => {
+            const key = getMonthKey(item.date);
+
+            if(!key){
+                return;
+            }
+
+            yearMonthCounts.set(key, (yearMonthCounts.get(key) || 0) + 1);
+        });
+
+        const topMonthEntry = Array.from(yearMonthCounts.entries()).sort((a, b) => b[1] - a[1])[0];
+
+        const highlightParts = [`${currentYear}年はこれまでに${yearItems.length}件の情報を掲載しました。`];
+
+        if(topTagEntry){
+            highlightParts.push(`最も多かったタグは「${escapeHTML(topTagEntry[0])}」（${topTagEntry[1]}件）でした。`);
+        }
+
+        if(topMonthEntry){
+            highlightParts.push(`投稿が一番多かった月は${escapeHTML(getMonthLabel(topMonthEntry[0]))}（${topMonthEntry[1]}件）でした。`);
+        }
+
+        highlightsElement.innerHTML = `<p class="archiveHighlightsText">📊 ${highlightParts.join(" ")}</p>`;
+    }
+
+    renderYearHighlights();
 
     // ==========================
     // サマリー表示（検索時は該当件数を表示）

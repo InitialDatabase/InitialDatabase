@@ -917,6 +917,17 @@ nav a:hover{
     margin-bottom:16px;
 }
 
+.archiveHighlightsText{
+    margin:0 0 16px;
+    padding:12px 14px;
+    background:#eef6ff;
+    border:1px solid #d5e6fb;
+    border-radius:8px;
+    color:#28323c;
+    font-size:.95em;
+    line-height:1.6;
+}
+
 .visitorBadgeRow{
     margin:0 0 4px;
 }
