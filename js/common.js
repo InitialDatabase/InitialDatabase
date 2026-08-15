@@ -503,6 +503,17 @@ function getDaysUntilEventEnd(item){
     return diffDays;
 }
 
+// "2026-08-23" のような日付文字列を「8/23」の短い表記に変換する（年は省略）
+function formatShortDate(dateStr){
+    const parsed = parseDateOnly(dateStr);
+
+    if(!parsed){
+        return "";
+    }
+
+    return `${parsed.getMonth() + 1}/${parsed.getDate()}`;
+}
+
 function getEventPeriodLabel(item){
     if(item.eventStart){
         if(item.eventEnd && item.eventEnd !== item.eventStart){

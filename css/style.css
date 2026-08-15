@@ -984,6 +984,116 @@ a.statsBarLink:focus-visible{
 }
 
 /* ==========================
+   頭文字D情報：🔥 まもなく終了セクション
+   ========================== */
+
+.endingSoonSection{
+    margin-bottom:16px;
+    padding:14px 16px;
+    background:linear-gradient(135deg,#fff5f0,#fff9e8);
+    border:1px solid #f0a300;
+    border-radius:10px;
+}
+
+.endingSoonSection[hidden]{
+    display:none;
+}
+
+.endingSoonTitle{
+    margin:0 0 10px;
+    color:#c23b22;
+    font-size:1em;
+    font-weight:bold;
+}
+
+.endingSoonList{
+    display:flex;
+    flex-wrap:nowrap;
+    gap:10px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:4px;
+}
+
+.endingSoonCard{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    flex:0 0 auto;
+    width:220px;
+    padding:10px 14px;
+    background:white;
+    border:1px solid #e0c9a6;
+    border-radius:10px;
+    text-align:left;
+    font:inherit;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.endingSoonCard:hover{
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+    transform:translateY(-1px);
+}
+
+.endingSoonDate{
+    color:#54595d;
+    font-size:.8em;
+    font-weight:bold;
+}
+
+.endingSoonCardTitle{
+    color:#202122;
+    font-size:.88em;
+    line-height:1.4;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.endingSoonBadge{
+    align-self:flex-start;
+    margin-top:2px;
+    padding:2px 10px;
+    border-radius:12px;
+    font-size:.78em;
+    font-weight:bold;
+    color:white;
+    background:#f0a300;
+}
+
+.endingSoonCard--today .endingSoonBadge{
+    background:#d63333;
+}
+
+.endingSoonCard--urgent .endingSoonBadge{
+    background:#d63333;
+}
+
+.endingSoonCard--soon .endingSoonBadge{
+    background:#f0a300;
+}
+
+.endingSoonCard--later .endingSoonBadge{
+    background:#e0b400;
+}
+
+.endingSoonCard--today{
+    border-color:#d63333;
+}
+
+.endingSoonCard--urgent{
+    border-color:#d63333;
+}
+
+@media (max-width:640px){
+    .endingSoonCard{
+        width:200px;
+    }
+}
+
+/* ==========================
    頭文字D情報：作品（シリーズ）で絞り込みタブ
    ========================== */
 
@@ -2386,6 +2496,28 @@ html.theme-dark .seriesFilterButton.is-active{
     background:#d63333;
     border-color:#d63333;
     color:white;
+}
+
+html.theme-dark .endingSoonSection{
+    background:linear-gradient(135deg,#2a1a12,#2a2412);
+    border-color:#a86a00;
+}
+
+html.theme-dark .endingSoonTitle{
+    color:#ff8f6b;
+}
+
+html.theme-dark .endingSoonCard{
+    background:#1a1b1c;
+    border-color:#5a4a30;
+}
+
+html.theme-dark .endingSoonDate{
+    color:#b7b7b7;
+}
+
+html.theme-dark .endingSoonCardTitle{
+    color:#e8e8e8;
 }
 
 html.theme-dark .favoriteClearAllButton{

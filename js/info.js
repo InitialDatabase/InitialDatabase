@@ -526,6 +526,82 @@
         });
     }
 
+    // 「あと○日で終了」の情報をトップページ最上部にまとめて表示し、
+    // 「今日見に来る理由」を作る「🔥 まもなく終了」セクション
+    function renderEndingSoon(){
+        const section = document.getElementById("endingSoonSection");
+        const container = document.getElementById("endingSoonList");
+
+        if(!section || !container){
+            return;
+        }
+
+        const endingItems = items
+            .map(item => ({ item, daysLeft: getDaysUntilEventEnd(item) }))
+            .filter(({ item, daysLeft }) =>
+                daysLeft !== null
+                && daysLeft >= 0
+                && daysLeft <= 7
+                && isOngoingEvent(item)
+            )
+            .sort((a, b) => a.daysLeft - b.daysLeft)
+            .slice(0, 8);
+
+        if(endingItems.length === 0){
+            section.hidden = true;
+            container.innerHTML = "";
+            return;
+        }
+
+        section.hidden = false;
+
+        container.innerHTML = endingItems.map(({ item, daysLeft }) => {
+            const urgency = daysLeft === 0 ? "today" : daysLeft <= 1 ? "urgent" : daysLeft <= 3 ? "soon" : "later";
+            const daysLabel = daysLeft === 0 ? "本日終了" : `あと${daysLeft}日`;
+            const dateLabel = item.eventEnd ? `${formatShortDate(item.eventEnd)}まで` : "";
+
+            return `
+                <button
+                    type="button"
+                    class="endingSoonCard endingSoonCard--${urgency}"
+                    data-ending-id="${item.id}">
+                    ${dateLabel ? `<span class="endingSoonDate">${escapeHTML(dateLabel)}</span>` : ""}
+                    <span class="endingSoonCardTitle">${escapeHTML(getItemTitle(item))}</span>
+                    <span class="endingSoonBadge">${escapeHTML(daysLabel)}</span>
+                </button>
+            `;
+        }).join("");
+
+        container.querySelectorAll("[data-ending-id]").forEach(button => {
+            button.addEventListener("click", () => {
+                const id = Number(button.dataset.endingId);
+                const target = items.find(candidate => candidate.id === id);
+
+                if(!target){
+                    return;
+                }
+
+                // クリックした情報だけをキーワード検索で絞り込み、詳細（ツイート埋め込み）まで表示する
+                state.keyword = getItemTitle(target);
+                state.activeSeries = "all";
+                state.activeTags.clear();
+                state.period = "all";
+                state.status = "all";
+                state.unreadOnly = false;
+                state.page = 1;
+
+                if(searchInput){
+                    searchInput.value = state.keyword;
+                }
+
+                closeSuggestions();
+                syncControlButtons();
+                render();
+                listElement.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
+    }
+
     function renderTagFilters(){
         if(!tagFilterContainer || allTags.length === 0){
             return;
@@ -795,6 +871,7 @@
 
     renderTagFilters();
     renderSeriesFilters();
+    renderEndingSoon();
     applyStateFromUrlParams();
     renderLastUpdatedLabel(items, "lastUpdated");
     render();
