@@ -1765,6 +1765,54 @@ function setupNavScrollPersistence(){
     restoreNavScrollPosition(storage);
 }
 
+// ==========================
+// 構造化データ（BreadcrumbList）
+// ==========================
+
+// ファイル名 → パンくずリストに表示するページ名（ナビメニューの表記に合わせている）
+const BREADCRUMB_PAGE_LABELS = {
+    "favorites.html": "お気に入り",
+    "calendar.html": "イベントカレンダー",
+    "archive.html": "アーカイブ・統計",
+    "comments.html": "コメント・ご要望",
+    "updates.html": "更新情報"
+};
+
+function injectBreadcrumbStructuredData(){
+    if(typeof document === "undefined" || document.getElementById("breadcrumbStructuredData")){
+        return;
+    }
+
+    const currentFile = getCurrentPageFileName();
+    const pageLabel = BREADCRUMB_PAGE_LABELS[currentFile];
+
+    // トップページ（index.html）自体はパンくずの起点なので対象外
+    if(!pageLabel){
+        return;
+    }
+
+    const siteUrl = getSiteRootUrl() || "https://initialdatabase.github.io/InitialDatabase/";
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    const currentUrl = canonicalLink ? canonicalLink.href : window.location.href.split("#")[0].split("?")[0];
+
+    const breadcrumbList = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "トップ", item: siteUrl },
+            { "@type": "ListItem", position: 2, name: pageLabel, item: currentUrl }
+        ]
+    };
+
+    const script = document.createElement("script");
+
+    script.type = "application/ld+json";
+    script.id = "breadcrumbStructuredData";
+    script.textContent = JSON.stringify(breadcrumbList);
+
+    document.head.appendChild(script);
+}
+
 function initializeCommonUI(){
     highlightCurrentNav();
     setupNavToggle();
@@ -1772,6 +1820,7 @@ function initializeCommonUI(){
     setupThemeToggle();
     setupCalendarDownloadDelegation();
     setupNavScrollPersistence();
+    injectBreadcrumbStructuredData();
     registerServiceWorker();
     trackSiteVisit();
 }
