@@ -1,11 +1,13 @@
-// 更新情報ページ（サイト自体の機能追加・修正・変更履歴を月別に表示／種類で絞り込み）
+// 更新情報ページ（サイト自体の機能追加・修正・変更履歴を月別・日別に表示／種類で絞り込み）
 
 (function(){
 
     const items = Array.isArray(siteUpdates) ? siteUpdates : [];
     const summaryElement = document.getElementById("updateSummary");
     const groupListElement = document.getElementById("updateGroupList");
-    const filterGroupElement = document.getElementById("updateTypeFilter");
+    const statsGridElement = document.getElementById("updateTypeFilter");
+    const expandAllButton = document.getElementById("updateExpandAll");
+    const collapseAllButton = document.getElementById("updateCollapseAll");
 
     const TYPE_LABELS = {
         added:"追加",
@@ -14,12 +16,26 @@
         removed:"削除"
     };
 
+    const TYPE_ICONS = {
+        added:"➕",
+        fixed:"🔧",
+        changed:"🔁",
+        removed:"🗑️"
+    };
+
     const TYPE_ORDER = ["added", "fixed", "changed", "removed"];
+
+    // 説明文がこの文字数を超える場合は省略し、「続きを読む」で展開できるようにする
+    const DESC_TRUNCATE_LENGTH = 70;
 
     let activeType = "all";
 
     function getTypeLabel(type){
         return TYPE_LABELS[type] || "更新";
+    }
+
+    function getTypeIcon(type){
+        return TYPE_ICONS[type] || "";
     }
 
     function getTypeClass(type){
@@ -39,35 +55,41 @@
     }
 
     // ==========================
-    // 種類（追加／修正／変更／削除）フィルターの描画
+    // 種類（追加／修正／変更／削除）別の統計カード（＝絞り込みボタンを兼ねる）
     // ==========================
 
-    if(filterGroupElement){
+    if(statsGridElement){
         const typeCounts = new Map();
 
         items.forEach(item => {
             typeCounts.set(item.type, (typeCounts.get(item.type) || 0) + 1);
         });
 
-        const buttonsHtml = [
-            `<button type="button" class="infoFilterButton is-active" data-updatetype="all">すべて（${items.length}）</button>`
+        const cardsHtml = [
+            `<button type="button" class="updateStatCard is-active" data-updatetype="all">
+                <span class="updateStatIcon" aria-hidden="true">🗂️</span>
+                <span class="updateStatCount">${items.length}</span>
+                <span class="updateStatLabel">すべて</span>
+            </button>`
         ].concat(
             TYPE_ORDER
                 .filter(type => typeCounts.has(type))
                 .map(type => `
-                    <button type="button" class="infoFilterButton" data-updatetype="${type}">
-                        ${getTypeLabel(type)}（${typeCounts.get(type)}）
+                    <button type="button" class="updateStatCard" data-updatetype="${type}">
+                        <span class="updateStatIcon" aria-hidden="true">${getTypeIcon(type)}</span>
+                        <span class="updateStatCount">${typeCounts.get(type)}</span>
+                        <span class="updateStatLabel">${getTypeLabel(type)}</span>
                     </button>
                 `)
         ).join("");
 
-        filterGroupElement.innerHTML = buttonsHtml;
+        statsGridElement.innerHTML = cardsHtml;
 
-        filterGroupElement.querySelectorAll("button").forEach(button => {
+        statsGridElement.querySelectorAll("button").forEach(button => {
             button.addEventListener("click", () => {
                 activeType = button.dataset.updatetype;
 
-                filterGroupElement.querySelectorAll("button").forEach(b =>
+                statsGridElement.querySelectorAll("button").forEach(b =>
                     b.classList.toggle("is-active", b === button)
                 );
 
@@ -92,6 +114,18 @@
         return `${year}年${Number(month)}月`;
     }
 
+    function getDateLabel(dateStr){
+        const date = parseDateOnly(dateStr);
+
+        if(!date){
+            return escapeHTML(dateStr || "");
+        }
+
+        const weekday = ["日", "月", "火", "水", "木", "金", "土"][date.getDay()];
+
+        return `${date.getMonth() + 1}月${date.getDate()}日（${weekday}）`;
+    }
+
     const monthGroups = new Map();
 
     items.forEach(item => {
@@ -109,6 +143,35 @@
     });
 
     const monthKeysNewFirst = Array.from(monthGroups.keys()).sort((a, b) => b.localeCompare(a));
+
+    // ==========================
+    // 1件分のアイテムHTML（説明文が長い場合は折りたたみ表示）
+    // ==========================
+
+    function renderItem(item){
+        const description = item.description || "";
+        const isLong = description.length > DESC_TRUNCATE_LENGTH;
+        const shortText = isLong ? `${description.slice(0, DESC_TRUNCATE_LENGTH)}…` : description;
+        const newBadge = isNewItem(item.date) ? `<span class="infoBadge infoBadge--new">NEW</span>` : "";
+
+        const descHtml = description ? `
+            <div class="updateItemDesc"${isLong ? ` data-full="${escapeHTML(description)}" data-short="${escapeHTML(shortText)}"` : ""}>
+                <span class="updateItemDescText">${escapeHTML(shortText)}</span>
+                ${isLong ? `<button type="button" class="updateDescToggleBtn" aria-expanded="false">続きを読む</button>` : ""}
+            </div>
+        ` : "";
+
+        return `
+            <li class="updateItem">
+                <span class="updateItemBadge updateItemBadge--${getTypeClass(item.type)}">${getTypeIcon(item.type)} ${getTypeLabel(item.type)}</span>
+                ${newBadge}
+                <div class="updateItemBody">
+                    <div class="updateItemTitle">${escapeHTML(item.title || "")}</div>
+                    ${descHtml}
+                </div>
+            </li>
+        `;
+    }
 
     // ==========================
     // 描画
@@ -138,23 +201,37 @@
 
             visibleCount += monthItems.length;
 
-            const itemsHtml = monthItems.map(item => `
-                <li class="updateItem">
-                    <span class="updateItemDate">${escapeHTML(item.date || "")}</span>
-                    <span class="updateItemBadge updateItemBadge--${getTypeClass(item.type)}">${getTypeLabel(item.type)}</span>
-                    <div class="updateItemBody">
-                        <div class="updateItemTitle">${escapeHTML(item.title || "")}</div>
-                        ${item.description ? `<div class="updateItemDesc">${escapeHTML(item.description)}</div>` : ""}
+            // 月の中を日付ごとにさらにグループ化（同じ日付の項目をまとめて、日付の繰り返し表示を減らす）
+            const dateGroups = new Map();
+
+            monthItems.forEach(item => {
+                const dateKey = item.date || "";
+
+                if(!dateGroups.has(dateKey)){
+                    dateGroups.set(dateKey, []);
+                }
+
+                dateGroups.get(dateKey).push(item);
+            });
+
+            const dateGroupsHtml = Array.from(dateGroups.entries()).map(([dateKey, dateItems]) => `
+                <div class="updateTimelineDateGroup">
+                    <div class="updateTimelineDateHeader">
+                        <span class="updateTimelineDot" aria-hidden="true"></span>
+                        <span class="updateTimelineDateText">${getDateLabel(dateKey)}</span>
                     </div>
-                </li>
+                    <ul class="updateTimelineItems">
+                        ${dateItems.map(renderItem).join("")}
+                    </ul>
+                </div>
             `).join("");
 
             return `
                 <details class="updateGroup"${index === 0 ? " open" : ""}>
                     <summary>${escapeHTML(getMonthLabel(key))}（${monthItems.length}件）</summary>
-                    <ul class="updateList">
-                        ${itemsHtml}
-                    </ul>
+                    <div class="updateTimeline">
+                        ${dateGroupsHtml}
+                    </div>
                 </details>
             `;
         }).join("");
@@ -163,6 +240,51 @@
             || `<p class="emptyMessage">該当する更新情報がありませんでした。</p>`;
 
         updateSummary(visibleCount);
+    }
+
+    // ==========================
+    // 説明文の「続きを読む／閉じる」トグル（イベント委譲）
+    // ==========================
+
+    groupListElement.addEventListener("click", event => {
+        const toggleButton = event.target.closest(".updateDescToggleBtn");
+
+        if(!toggleButton){
+            return;
+        }
+
+        const descElement = toggleButton.closest(".updateItemDesc");
+        const textElement = descElement ? descElement.querySelector(".updateItemDescText") : null;
+
+        if(!descElement || !textElement){
+            return;
+        }
+
+        const isExpanded = toggleButton.getAttribute("aria-expanded") === "true";
+
+        textElement.textContent = isExpanded ? descElement.dataset.short : descElement.dataset.full;
+        toggleButton.textContent = isExpanded ? "続きを読む" : "閉じる";
+        toggleButton.setAttribute("aria-expanded", String(!isExpanded));
+    });
+
+    // ==========================
+    // 「すべて開く／すべて閉じる」ボタン
+    // ==========================
+
+    if(expandAllButton){
+        expandAllButton.addEventListener("click", () => {
+            groupListElement.querySelectorAll("details.updateGroup").forEach(details => {
+                details.open = true;
+            });
+        });
+    }
+
+    if(collapseAllButton){
+        collapseAllButton.addEventListener("click", () => {
+            groupListElement.querySelectorAll("details.updateGroup").forEach(details => {
+                details.open = false;
+            });
+        });
     }
 
     renderGroups();

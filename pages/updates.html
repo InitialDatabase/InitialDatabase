@@ -103,9 +103,15 @@ gtag("config", "G-19K4474718");
 掲載しているグッズ・イベント情報については「最新情報」ページをご覧ください。
 </p>
 
-<p id="updateSummary" class="updateSummary"></p>
+<div class="updateStatsGrid" id="updateTypeFilter" role="group" aria-label="種類で絞り込み"></div>
 
-<div class="infoFilterGroup" id="updateTypeFilter" role="group" aria-label="種類で絞り込み"></div>
+<div class="updateControlsRow">
+<p id="updateSummary" class="updateSummary" aria-live="polite"></p>
+<div class="updateExpandControls">
+<button type="button" id="updateExpandAll" class="updateExpandButton">すべて開く</button>
+<button type="button" id="updateCollapseAll" class="updateExpandButton">すべて閉じる</button>
+</div>
+</div>
 
 <div id="updateGroupList"></div>
 
