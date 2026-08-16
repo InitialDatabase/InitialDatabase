@@ -2445,20 +2445,19 @@ nav ul{
    ========================== */
 
 .updateStatsGrid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(84px, 1fr));
-    gap:10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
     margin-bottom:16px;
 }
 
 .updateStatCard{
-    display:flex;
-    flex-direction:column;
+    display:inline-flex;
     align-items:center;
-    gap:2px;
-    padding:12px 8px;
+    gap:8px;
+    padding:8px 14px;
     border:1px solid #c8ccd1;
-    border-radius:10px;
+    border-radius:999px;
     background:white;
     font:inherit;
     cursor:pointer;
@@ -2474,21 +2473,19 @@ nav ul{
     outline-offset:2px;
 }
 
-.updateStatIcon{
-    font-size:1.15em;
-    line-height:1;
+.updateStatLabel{
+    font-size:.93em;
+    color:#202122;
 }
 
 .updateStatCount{
-    font-size:1.3em;
+    font-size:.83em;
     font-weight:bold;
-    color:#202122;
-    line-height:1.3;
-}
-
-.updateStatLabel{
-    font-size:.78em;
     color:#54595d;
+    background:#eaecf0;
+    padding:2px 8px;
+    border-radius:999px;
+    line-height:1.5;
 }
 
 .updateStatCard.is-active{
@@ -2496,9 +2493,13 @@ nav ul{
     border-color:#e2001c;
 }
 
-.updateStatCard.is-active .updateStatCount,
 .updateStatCard.is-active .updateStatLabel{
     color:white;
+}
+
+.updateStatCard.is-active .updateStatCount{
+    color:#e2001c;
+    background:white;
 }
 
 .updateControlsRow{
@@ -3143,6 +3144,7 @@ html.theme-dark .updateExpandButton{
 
 html.theme-dark .updateStatCount{
     color:#e8e8e8;
+    background:#2a2b2c;
 }
 
 html.theme-dark .updateStatLabel{

@@ -67,18 +67,16 @@
 
         const cardsHtml = [
             `<button type="button" class="updateStatCard is-active" data-updatetype="all">
-                <span class="updateStatIcon" aria-hidden="true">🗂️</span>
-                <span class="updateStatCount">${items.length}</span>
                 <span class="updateStatLabel">すべて</span>
+                <span class="updateStatCount">${items.length}</span>
             </button>`
         ].concat(
             TYPE_ORDER
                 .filter(type => typeCounts.has(type))
                 .map(type => `
                     <button type="button" class="updateStatCard" data-updatetype="${type}">
-                        <span class="updateStatIcon" aria-hidden="true">${getTypeIcon(type)}</span>
-                        <span class="updateStatCount">${typeCounts.get(type)}</span>
                         <span class="updateStatLabel">${getTypeLabel(type)}</span>
+                        <span class="updateStatCount">${typeCounts.get(type)}</span>
                     </button>
                 `)
         ).join("");
