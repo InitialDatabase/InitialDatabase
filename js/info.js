@@ -962,7 +962,7 @@
     }
 
     // ==========================
-    // インクリメンタルサーチ・サジェストのドロップダウン
+    // インクリメンタルサーチ・サジェストのドロップダウン（タイトル候補／検索履歴）
     // ==========================
 
     function getSearchSuggestions(keyword, limit){
@@ -1009,16 +1009,35 @@
         }
     }
 
-    function applySuggestion(item){
-        const title = getItemTitle(item);
+    // currentSuggestionsの1件を確定させる。
+    // type:"item"（タイトル候補）／"history"（検索履歴）の場合はそのキーワードで検索を実行し、
+    // type:"clear"（履歴クリア行）の場合は履歴を全消去してドロップダウンを閉じるだけにする
+    function applySuggestionEntry(entry){
+        if(!entry){
+            return;
+        }
 
-        state.keyword = title;
+        if(entry.type === "clear"){
+            clearSearchHistory();
+            closeSuggestions();
+
+            if(searchInput){
+                searchInput.focus();
+            }
+
+            return;
+        }
+
+        const keyword = entry.type === "history" ? entry.keyword : getItemTitle(entry.item);
+
+        state.keyword = keyword;
         state.page = 1;
 
         if(searchInput){
-            searchInput.value = title;
+            searchInput.value = keyword;
         }
 
+        addSearchHistory(keyword);
         closeSuggestions();
         render();
         listElement.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1034,44 +1053,113 @@
         });
     }
 
-    function renderSuggestions(keyword){
-        if(!suggestionsElement){
-            return;
-        }
+    function attachSuggestionClickHandlers(){
+        suggestionsElement.querySelectorAll(".infoSearchSuggestionItem").forEach(element => {
+            element.addEventListener("mousedown", event => {
+                // blurより先にクリックを処理するためmousedownで拾う
+                event.preventDefault();
+                const index = Number(element.dataset.index);
+                applySuggestionEntry(currentSuggestions[index]);
+            });
+        });
+    }
 
-        currentSuggestions = getSearchSuggestions(keyword, 5);
-        activeSuggestionIndex = -1;
-
-        if(currentSuggestions.length === 0){
-            closeSuggestions();
-            return;
-        }
-
-        suggestionsElement.innerHTML = currentSuggestions.map((item, index) => `
-            <li
-                class="infoSearchSuggestionItem"
-                role="option"
-                id="infoSearchSuggestion-${index}"
-                data-index="${index}">
-                ${renderHighlightedText(getItemTitle(item), keyword)}
-                ${item.date ? `<span class="infoSearchSuggestionMeta">${escapeHTML(item.date)}</span>` : ""}
-            </li>
-        `).join("");
-
+    function showSuggestionsDropdown(){
         suggestionsElement.hidden = false;
 
         if(searchInput){
             searchInput.setAttribute("aria-expanded", "true");
         }
 
-        suggestionsElement.querySelectorAll(".infoSearchSuggestionItem").forEach(element => {
-            element.addEventListener("mousedown", event => {
-                // blurより先にクリックを処理するためmousedownで拾う
-                event.preventDefault();
-                const index = Number(element.dataset.index);
-                applySuggestion(currentSuggestions[index]);
-            });
-        });
+        attachSuggestionClickHandlers();
+    }
+
+    // 入力欄が空の状態でフォーカスされた時に表示する「最近の検索」履歴
+    function renderHistorySuggestions(){
+        if(!suggestionsElement){
+            return;
+        }
+
+        const history = getSearchHistory();
+        activeSuggestionIndex = -1;
+
+        if(history.length === 0){
+            closeSuggestions();
+            return;
+        }
+
+        currentSuggestions = history
+            .map(keyword => ({ type: "history", keyword }))
+            .concat([{ type: "clear" }]);
+
+        suggestionsElement.innerHTML = currentSuggestions.map((entry, index) => {
+            if(entry.type === "clear"){
+                return `
+                    <li
+                        class="infoSearchSuggestionItem infoSearchHistoryClearItem"
+                        role="option"
+                        id="infoSearchSuggestion-${index}"
+                        data-index="${index}">
+                        🗑️ 検索履歴をすべて削除
+                    </li>
+                `;
+            }
+
+            return `
+                <li
+                    class="infoSearchSuggestionItem infoSearchHistoryItem"
+                    role="option"
+                    id="infoSearchSuggestion-${index}"
+                    data-index="${index}">
+                    <span class="infoSearchHistoryIcon" aria-hidden="true">🕒</span>${escapeHTML(entry.keyword)}
+                </li>
+            `;
+        }).join("");
+
+        showSuggestionsDropdown();
+    }
+
+    // 入力中に表示するタイトル候補（従来のサジェスト）
+    function renderTitleSuggestions(keyword){
+        if(!suggestionsElement){
+            return;
+        }
+
+        const matchedItems = getSearchSuggestions(keyword, 5);
+        activeSuggestionIndex = -1;
+        currentSuggestions = matchedItems.map(item => ({ type: "item", item }));
+
+        if(currentSuggestions.length === 0){
+            closeSuggestions();
+            return;
+        }
+
+        suggestionsElement.innerHTML = currentSuggestions.map((entry, index) => `
+            <li
+                class="infoSearchSuggestionItem"
+                role="option"
+                id="infoSearchSuggestion-${index}"
+                data-index="${index}">
+                ${renderHighlightedText(getItemTitle(entry.item), keyword)}
+                ${entry.item.date ? `<span class="infoSearchSuggestionMeta">${escapeHTML(entry.item.date)}</span>` : ""}
+            </li>
+        `).join("");
+
+        showSuggestionsDropdown();
+    }
+
+    // 入力欄が空ならこれまで検索した履歴を、文字が入っていればタイトル候補を出し分ける
+    function renderSuggestions(keyword){
+        if(!suggestionsElement){
+            return;
+        }
+
+        if(!keyword){
+            renderHistorySuggestions();
+            return;
+        }
+
+        renderTitleSuggestions(keyword);
     }
 
     if(searchInput){
@@ -1080,6 +1168,14 @@
             state.page = 1;
             render();
             renderSuggestions(state.keyword);
+        });
+
+        // 入力欄が空の状態でフォーカスされたら、最近の検索履歴を候補として表示する
+        // （文字が入っている状態のフォーカスでは、従来通りinputイベント側の挙動に任せる）
+        searchInput.addEventListener("focus", () => {
+            if(!searchInput.value.trim()){
+                renderHistorySuggestions();
+            }
         });
 
         searchInput.addEventListener("keydown", event => {
@@ -1098,8 +1194,12 @@
             }else if(event.key === "Enter"){
                 if(activeSuggestionIndex >= 0){
                     event.preventDefault();
-                    applySuggestion(currentSuggestions[activeSuggestionIndex]);
+                    applySuggestionEntry(currentSuggestions[activeSuggestionIndex]);
                 }else{
+                    if(state.keyword){
+                        addSearchHistory(state.keyword);
+                    }
+
                     closeSuggestions();
                 }
             }else if(event.key === "Escape"){
@@ -1108,6 +1208,11 @@
         });
 
         searchInput.addEventListener("blur", () => {
+            // 候補を選ばずに入力欄から離れた場合も、その時点のキーワードを履歴に残す
+            if(state.keyword){
+                addSearchHistory(state.keyword);
+            }
+
             // クリック（mousedown）処理を先に走らせてから閉じる
             setTimeout(closeSuggestions, 100);
         });

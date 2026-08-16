@@ -1553,6 +1553,65 @@ function applyReadStateToCards(container){
 }
 
 // ==========================
+// 検索キーワード履歴（最新情報ページ）
+// ==========================
+
+const searchHistoryStorageKey = "initialDDatabaseSearchHistory";
+const SEARCH_HISTORY_MAX = 8;
+
+function getSearchHistory(){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return [];
+    }
+
+    try{
+        const saved = storage.getItem(searchHistoryStorageKey);
+        const parsed = saved ? JSON.parse(saved) : [];
+
+        return Array.isArray(parsed)
+            ? parsed.filter(keyword => typeof keyword === "string" && keyword)
+            : [];
+    }catch(error){
+        return [];
+    }
+}
+
+function saveSearchHistory(history){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return;
+    }
+
+    try{
+        storage.setItem(searchHistoryStorageKey, JSON.stringify(history));
+    }catch(error){
+        // 保存できない場合は無視（履歴表示自体は行わないだけで、検索自体は継続）
+    }
+}
+
+// キーワードを履歴の先頭に追加する。既に同じキーワードがあれば一旦取り除いてから
+// 先頭に追加するため、重複せず「直近に使った順」を保てる。保存件数はSEARCH_HISTORY_MAX件まで
+function addSearchHistory(keyword){
+    const trimmed = typeof keyword === "string" ? keyword.trim() : "";
+
+    if(!trimmed){
+        return;
+    }
+
+    const history = getSearchHistory().filter(entry => entry !== trimmed);
+
+    history.unshift(trimmed);
+    saveSearchHistory(history.slice(0, SEARCH_HISTORY_MAX));
+}
+
+function clearSearchHistory(){
+    saveSearchHistory([]);
+}
+
+// ==========================
 // PWA（Service Worker登録）
 // ==========================
 

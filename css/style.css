@@ -1422,6 +1422,26 @@ a.statsBarLink:focus-visible{
     font-size:.85em;
 }
 
+.infoSearchHistoryIcon{
+    margin-right:6px;
+    opacity:.7;
+}
+
+.infoSearchHistoryClearItem{
+    margin-top:4px;
+    padding-top:10px;
+    border-top:1px solid #eaecf0;
+    color:#54595d;
+    font-size:.85em;
+    text-align:center;
+}
+
+.infoSearchHistoryClearItem:hover,
+.infoSearchHistoryClearItem.is-active{
+    color:#d33;
+    background:#fff0f0;
+}
+
 .infoTagButton{
     padding:6px 14px;
     border:1px solid #a2a9b1;
@@ -2995,6 +3015,17 @@ html.theme-dark .infoSearchSuggestionItem.is-active{
 
 html.theme-dark .infoSearchSuggestionMeta{
     color:#b7b7b7;
+}
+
+html.theme-dark .infoSearchHistoryClearItem{
+    border-top-color:#444;
+    color:#b7b7b7;
+}
+
+html.theme-dark .infoSearchHistoryClearItem:hover,
+html.theme-dark .infoSearchHistoryClearItem.is-active{
+    color:#ff8080;
+    background:#2a1414;
 }
 
 html.theme-dark .rssLink{
