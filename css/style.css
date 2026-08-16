@@ -1534,6 +1534,15 @@ a.statsBarLink:focus-visible{
     display:none;
 }
 
+/* 未読0件になった時、display:noneで完全に取り除くと「表示：」グループの幅が
+   変わり、隣接するフィルターボタン群が折り返し行をまたいで大きく位置を
+   動かしてしまうことがあった。そのためレイアウト上の場所は残したまま
+   見た目だけ消す（visibility:hidden）ことで、他のボタンの位置がずれないようにする */
+.infoMarkAllReadButton.is-invisible{
+    visibility:hidden;
+    pointer-events:none;
+}
+
 .infoFilterToggleIcon{
     transition:transform .2s;
 }

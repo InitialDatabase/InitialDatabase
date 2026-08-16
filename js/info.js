@@ -211,7 +211,10 @@
     }
 
     // 現在の絞り込み条件（表示：すべて／未読のみ、自体は除く）に一致する未読件数を数え、
-    // 「すべて既読にする」ボタンの表示・件数・対象idを更新する。未読が0件なら非表示にする
+    // 「すべて既読にする」ボタンの表示・件数・対象idを更新する。
+    // 未読が0件になってもdisplay:noneでボタンを取り除くのではなく、is-invisibleクラスで
+    // 見た目だけ消す。「表示：」フィルターグループの幅が変わって隣接するボタン群の
+    // 折り返し位置がガクッと動いてしまう（ボタンが移動して見える）不具合があったため
     function updateMarkAllReadButton(filteredItemsIgnoringReadState){
         if(!markAllReadButton){
             return;
@@ -219,13 +222,14 @@
 
         const unreadItems = filteredItemsIgnoringReadState.filter(item => !isItemRead("infos", item.id));
 
+        markAllReadButton.hidden = false;
+        markAllReadButton.classList.toggle("is-invisible", unreadItems.length === 0);
+
         if(unreadItems.length === 0){
-            markAllReadButton.hidden = true;
             markAllReadButton.dataset.unreadIds = "";
             return;
         }
 
-        markAllReadButton.hidden = false;
         markAllReadButton.textContent = `✓ すべて既読にする（${unreadItems.length}件）`;
         markAllReadButton.dataset.unreadIds = unreadItems.map(item => item.id).join(",");
     }
