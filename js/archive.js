@@ -1,4 +1,4 @@
-// アーカイブ・統計ページ（月別アーカイブ検索／タグ・月・出典・ステータス別件数）
+// アーカイブ・統計ページ（月別アーカイブ検索／作品・タグ・グッズカテゴリ・出典・開催地・ステータス・月別件数）
 
 (function(){
 
@@ -9,15 +9,27 @@
     const archiveSearchInput = document.getElementById("archiveSearchInput");
     const clearFiltersButton = document.getElementById("archiveFilterClear");
     const tagStatsElement = document.getElementById("tagStatsList");
+    const seriesStatsElement = document.getElementById("seriesStatsList");
+    const goodsCategoryStatsElement = document.getElementById("goodsCategoryStatsList");
     const monthStatsElement = document.getElementById("monthStatsList");
     const monthStatsToggle = document.getElementById("monthStatsToggle");
     const sourceStatsElement = document.getElementById("sourceStatsList");
+    const sourceStatsToggle = document.getElementById("sourceStatsToggle");
+    const prefectureStatsElement = document.getElementById("prefectureStatsList");
+    const prefectureStatsToggle = document.getElementById("prefectureStatsToggle");
     const statusStatsElement = document.getElementById("statusStatsList");
     const visitorBadgeElement = document.getElementById("siteVisitorBadge");
 
     // 月別件数グラフ：デフォルトは直近12ヶ月のみ表示し、ボタンで全期間表示に切り替える
     const MONTH_STATS_DEFAULT_COUNT = 12;
     let showAllMonthStats = false;
+
+    // 出典別・開催地別件数：投稿が増えるほど項目数が伸びるため、
+    // デフォルトは件数上位10件のみ表示し、ボタンで全件表示に切り替える
+    const RANKED_STATS_DEFAULT_COUNT = 10;
+    let showAllSourceStats = false;
+    let showAllPrefectureStats = false;
+
     let searchKeyword = "";
     let searchMode = "partial"; // "partial"（部分一致）または "exact"（完全一致）
 
@@ -260,6 +272,37 @@
     }
 
     // ==========================
+    // 作品（シリーズ）別件数（クリックで一覧ページの該当作品絞り込みへ）
+    // ==========================
+
+    if(seriesStatsElement){
+        const seriesCounts = new Map();
+
+        items.forEach(item => {
+            (Array.isArray(item.series) ? item.series : []).forEach(series => {
+                seriesCounts.set(series, (seriesCounts.get(series) || 0) + 1);
+            });
+        });
+
+        const sortedSeries = Array.from(seriesCounts.entries()).sort((a, b) => b[1] - a[1]);
+        const maxSeriesCount = sortedSeries.length > 0 ? sortedSeries[0][1] : 0;
+
+        seriesStatsElement.innerHTML = sortedSeries.length === 0
+            ? `<p class="emptyMessage">作品情報がありません</p>`
+            : sortedSeries.map(([series, count]) => `
+                <li>
+                    <a class="statsBarRow statsBarLink" href="../index.html?series=${encodeURIComponent(series)}">
+                        <span class="statsBarLabel">${escapeHTML(series)}</span>
+                        <span class="statsBarTrack">
+                            <span class="statsBarFill" style="width:${maxSeriesCount ? Math.max(4, Math.round(count / maxSeriesCount * 100)) : 0}%"></span>
+                        </span>
+                        <span class="statsBarValue">${count}</span>
+                    </a>
+                </li>
+            `).join("");
+    }
+
+    // ==========================
     // タグ別件数（クリックで一覧ページの該当タグ絞り込みへ）
     // ==========================
 
@@ -283,6 +326,41 @@
                         <span class="statsBarLabel">${escapeHTML(tag)}</span>
                         <span class="statsBarTrack">
                             <span class="statsBarFill" style="width:${maxTagCount ? Math.max(4, Math.round(count / maxTagCount * 100)) : 0}%"></span>
+                        </span>
+                        <span class="statsBarValue">${count}</span>
+                    </a>
+                </li>
+            `).join("");
+    }
+
+    // ==========================
+    // グッズカテゴリ別件数（「グッズ」タグの内訳、クリックで一覧ページの該当カテゴリ絞り込みへ）
+    // ==========================
+
+    if(goodsCategoryStatsElement){
+        const goodsCategoryCounts = new Map();
+
+        items.forEach(item => {
+            const category = getItemGoodsCategory(item);
+
+            if(!category){
+                return;
+            }
+
+            goodsCategoryCounts.set(category, (goodsCategoryCounts.get(category) || 0) + 1);
+        });
+
+        const sortedGoodsCategories = Array.from(goodsCategoryCounts.entries()).sort((a, b) => b[1] - a[1]);
+        const maxGoodsCategoryCount = sortedGoodsCategories.length > 0 ? sortedGoodsCategories[0][1] : 0;
+
+        goodsCategoryStatsElement.innerHTML = sortedGoodsCategories.length === 0
+            ? `<p class="emptyMessage">グッズカテゴリ情報がありません</p>`
+            : sortedGoodsCategories.map(([category, count]) => `
+                <li>
+                    <a class="statsBarRow statsBarLink" href="../index.html?goods=${encodeURIComponent(category)}">
+                        <span class="statsBarLabel">${escapeHTML(category)}</span>
+                        <span class="statsBarTrack">
+                            <span class="statsBarFill" style="width:${maxGoodsCategoryCount ? Math.max(4, Math.round(count / maxGoodsCategoryCount * 100)) : 0}%"></span>
                         </span>
                         <span class="statsBarValue">${count}</span>
                     </a>
@@ -340,10 +418,14 @@
     renderMonthStats();
 
     // ==========================
-    // 出典（発信元アカウント）別件数
+    // 出典（発信元アカウント）別件数（デフォルトは上位10件のみ表示し、ボタンで全件表示に切り替える）
     // ==========================
 
-    if(sourceStatsElement){
+    function renderSourceStats(){
+        if(!sourceStatsElement){
+            return;
+        }
+
         const sourceCounts = new Map();
 
         items.forEach(item => {
@@ -355,11 +437,15 @@
         });
 
         const sortedSources = Array.from(sourceCounts.entries()).sort((a, b) => b[1] - a[1]);
+        const hasMoreThanDefault = sortedSources.length > RANKED_STATS_DEFAULT_COUNT;
+        const visibleSources = showAllSourceStats
+            ? sortedSources
+            : sortedSources.slice(0, RANKED_STATS_DEFAULT_COUNT);
         const maxSourceCount = sortedSources.length > 0 ? sortedSources[0][1] : 0;
 
         sourceStatsElement.innerHTML = sortedSources.length === 0
             ? `<p class="emptyMessage">出典情報がありません</p>`
-            : sortedSources.map(([source, count]) => `
+            : visibleSources.map(([source, count]) => `
                 <li>
                     <a class="statsBarRow statsBarLink" href="../index.html?source=${encodeURIComponent(source)}">
                         <span class="statsBarLabel">${escapeHTML(source)}</span>
@@ -370,7 +456,74 @@
                     </a>
                 </li>
             `).join("");
+
+        if(sourceStatsToggle){
+            sourceStatsToggle.hidden = !hasMoreThanDefault;
+            sourceStatsToggle.textContent = showAllSourceStats ? "上位10件のみ表示" : "すべて見る";
+        }
     }
+
+    if(sourceStatsToggle){
+        sourceStatsToggle.addEventListener("click", () => {
+            showAllSourceStats = !showAllSourceStats;
+            renderSourceStats();
+        });
+    }
+
+    renderSourceStats();
+
+    // ==========================
+    // 開催地（都道府県）別件数（デフォルトは上位10件のみ表示し、ボタンで全件表示に切り替える）
+    // ==========================
+
+    function renderPrefectureStats(){
+        if(!prefectureStatsElement){
+            return;
+        }
+
+        const prefectureCounts = new Map();
+
+        items.forEach(item => {
+            getItemPrefectures(item).forEach(prefecture => {
+                prefectureCounts.set(prefecture, (prefectureCounts.get(prefecture) || 0) + 1);
+            });
+        });
+
+        const sortedPrefectures = Array.from(prefectureCounts.entries()).sort((a, b) => b[1] - a[1]);
+        const hasMoreThanDefault = sortedPrefectures.length > RANKED_STATS_DEFAULT_COUNT;
+        const visiblePrefectures = showAllPrefectureStats
+            ? sortedPrefectures
+            : sortedPrefectures.slice(0, RANKED_STATS_DEFAULT_COUNT);
+        const maxPrefectureCount = sortedPrefectures.length > 0 ? sortedPrefectures[0][1] : 0;
+
+        prefectureStatsElement.innerHTML = sortedPrefectures.length === 0
+            ? `<p class="emptyMessage">開催地情報がありません</p>`
+            : visiblePrefectures.map(([prefecture, count]) => `
+                <li>
+                    <a class="statsBarRow statsBarLink" href="../index.html?location=${encodeURIComponent(prefecture)}">
+                        <span class="statsBarLabel">${escapeHTML(prefecture)}</span>
+                        <span class="statsBarTrack">
+                            <span class="statsBarFill" style="width:${maxPrefectureCount ? Math.max(4, Math.round(count / maxPrefectureCount * 100)) : 0}%"></span>
+                        </span>
+                        <span class="statsBarValue">${count}</span>
+                    </a>
+                </li>
+            `).join("");
+
+        if(prefectureStatsToggle){
+            prefectureStatsToggle.hidden = !hasMoreThanDefault;
+            prefectureStatsToggle.textContent = showAllPrefectureStats ? "上位10件のみ表示" : "すべて見る";
+        }
+    }
+
+    if(prefectureStatsToggle){
+        prefectureStatsToggle.addEventListener("click", () => {
+            showAllPrefectureStats = !showAllPrefectureStats;
+            renderPrefectureStats();
+        });
+    }
+
+    renderPrefectureStats();
 
     // ==========================
     // ステータス（発売前／予約開始／開催中／終了済み）別件数

@@ -883,6 +883,19 @@ nav a:hover{
     color:#54595d;
 }
 
+.eventCalendarLocation{
+    font-size:.85em;
+    color:#1f7a3d;
+    font-weight:bold;
+}
+
+.eventCalendarMatchNav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:8px;
+}
+
 .eventCalendarEmpty{
     color:#72777d;
     font-size:.9em;

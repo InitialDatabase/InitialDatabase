@@ -139,6 +139,26 @@ gtag("config", "G-19K4474718");
 
         <div class="infoControlRow infoTagFilters" id="calendarTagFilters" aria-label="タグで絞り込み"></div>
 
+        <div class="infoFilterGroup infoRegionGroup" role="group" aria-label="開催地（地方）で絞り込み" id="calendarRegionFilters">
+            <span class="infoFilterLabel">📍 開催地：</span>
+            <!-- 地方ボタンはjs/calendar.jsがREGION_LISTから自動生成します -->
+        </div>
+
+        <div class="infoControlRow">
+            <button
+                type="button"
+                id="calendarPrefectureToggle"
+                class="infoFilterButton infoPrefectureToggle"
+                aria-expanded="false"
+                aria-controls="calendarPrefectureFilters">
+                都道府県まで指定する <span class="infoFilterToggleIcon" aria-hidden="true">▾</span>
+            </button>
+        </div>
+
+        <div class="infoPrefectureFilters" id="calendarPrefectureFilters" hidden>
+            <!-- 都道府県ボタンは地方ごとにグループ化してjs/calendar.jsが自動生成します -->
+        </div>
+
         <div class="infoControlRow">
             <button type="button" id="calendarFilterClear" class="infoFilterButton" hidden>✕ 絞り込みをクリア</button>
         </div>
@@ -153,6 +173,11 @@ gtag("config", "G-19K4474718");
         <button type="button" id="calendarMonthIcsExport" class="infoFilterButton" hidden>🗓️ この月の開催中イベントを一括ダウンロード(.ics)</button>
     </div>
     <ul class="eventCalendarList" id="eventCalendarMonthList"></ul>
+
+    <div class="eventCalendarMatchNav">
+        <button type="button" id="calendarPrevMatchMonth" class="infoFilterButton" hidden>‹ 前の該当月へ</button>
+        <button type="button" id="calendarNextMatchMonth" class="infoFilterButton" hidden>次の該当月へ ›</button>
+    </div>
 
 </section>
 

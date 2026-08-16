@@ -618,6 +618,18 @@ function formatShortDate(dateStr){
     return `${parsed.getMonth() + 1}/${parsed.getDate()}`;
 }
 
+// item.expectedDate（"2026-12"のような年月文字列）を「2026年12月ごろ」の表記に変換する。
+// 形式が不正な場合は空文字を返す
+function formatExpectedDateLabel(expectedDate){
+    const match = /^(\d{4})-(\d{2})$/.exec(expectedDate || "");
+
+    if(!match){
+        return "";
+    }
+
+    return `${match[1]}年${Number(match[2])}月ごろ`;
+}
+
 function getEventPeriodLabel(item){
     if(item.eventStart){
         if(item.eventEnd && item.eventEnd !== item.eventStart){
@@ -633,7 +645,16 @@ function getEventPeriodLabel(item){
     }
 
     if(item.reservationStart){
-        return `予約開始：${item.reservationStart}〜`;
+        const base = `予約開始：${item.reservationStart}〜`;
+
+        // dateTBD:true（正確な発売日は未定）の場合、expectedDateがあれば
+        // 「発売時期の目安」としておおよその時期を併記する
+        if(item.dateTBD && item.expectedDate){
+            const expectedLabel = formatExpectedDateLabel(item.expectedDate);
+            return expectedLabel ? `${base}（発売時期の目安：${expectedLabel}）` : base;
+        }
+
+        return base;
     }
 
     return "";
