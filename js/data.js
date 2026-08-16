@@ -3,6 +3,60 @@ const database = {
     infos:[
 
         {
+            id:121,
+            title:"『頭文字D THE ARCADE』LINE公式アカウントで見逃し防止の情報配信を呼びかけ",
+            date:"2026-08-16",
+            source:"頭文字DAC公式（X）",
+            tags:["ゲーム"],
+            series:["頭文字DAC"],
+            description:
+            "X（旧Twitter）の情報を見逃さないよう、『頭文字D THE ARCADE』LINE公式アカウントへの登録を呼びかけ。イベントやコラボなど重要な情報にしぼって配信するとしている。",
+            articleUrl:"https://x.com/initialD_AS/status/2088823061780816278"
+        },
+
+        {
+            id:120,
+            title:"ANGEL CLOVER×『頭文字D』30周年腕時計、購入特典にオリジナルコインキーホルダー",
+            date:"2026-08-16",
+            source:"ANGEL CLOVER（X）",
+            tags:["グッズ","コラボ"],
+            goodsCategory:"時計",
+            series:["頭文字D"],
+            description:
+            "ANGEL CLOVER×『頭文字D』連載30周年記念の自動巻き腕時計について、購入特典として30周年記念ロゴをあしらったオリジナルコインキーホルダーが付属することを紹介。",
+            articleUrl:"https://x.com/ANGELCLOVER_JP/status/2088823061265232216"
+        },
+
+        {
+            id:119,
+            title:"IGモデル公式オンラインショップ、「オンラインショップ限定」ページ含めた週替わりおすすめモデルを紹介",
+            date:"2026-08-15",
+            source:"ignitionmodel（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "IGモデル公式オンラインショップが「蔵出しモデル」「訳ありアウトレット」「オンラインショップ限定」ページ掲載のおすすめモデルを紹介。掲載製品はいずれも極少量のレアモデルで、週替わり更新の「今週のおすすめ」ページも合わせてチェックできる。",
+            articleUrl:"https://x.com/ignitionmodel/status/2088762655695884458"
+        },
+
+        {
+            id:118,
+            prefecture:["山口県"],
+            location:"山口県下関市",
+            title:"ミッドナイトボートレース下関6日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
+            date:"2026-08-15",
+            source:"DYNAMITE BOATRACE（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "BR下関にて開催中の「ミッドナイトボートレース」6日目も『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを引き続き実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2088641890648535492",
+            eventStart:"2026-08-11",
+            eventEnd:"2026-08-16"
+        },
+
+        {
             prefecture:["東京都"],
             location:"東京都江東区",
             id:117,
