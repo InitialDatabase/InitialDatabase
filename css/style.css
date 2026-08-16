@@ -2451,6 +2451,18 @@ nav ul{
     margin-bottom:16px;
 }
 
+.updateNewSinceVisit{
+    display:inline-flex;
+    align-items:center;
+    padding:8px 14px;
+    margin:0 0 12px;
+    border-radius:8px;
+    background:#e6f7ff;
+    color:#0969a8;
+    font-size:.9em;
+    font-weight:bold;
+}
+
 .updateStatCard{
     display:inline-flex;
     align-items:center;
@@ -3140,6 +3152,11 @@ html.theme-dark .updateExpandButton{
     background:#101112;
     border-color:#444;
     color:#e8e8e8;
+}
+
+html.theme-dark .updateNewSinceVisit{
+    background:#12303d;
+    color:#7fd0ff;
 }
 
 html.theme-dark .updateStatCount{

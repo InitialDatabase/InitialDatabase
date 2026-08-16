@@ -55,6 +55,66 @@
     }
 
     // ==========================
+    // 前回訪問からの新着件数
+    // （getFavoriteStorageはお気に入り専用ではなく、サイト内共通の
+    //   安全なlocalStorageアクセス関数。common.js側で定義されている）
+    // ==========================
+
+    const updatesSeenCountStorageKey = "initialDDatabaseUpdatesSeenCount";
+
+    function getStoredUpdatesSeenCount(){
+        const storage = getFavoriteStorage();
+
+        if(!storage){
+            return null;
+        }
+
+        try{
+            const saved = storage.getItem(updatesSeenCountStorageKey);
+
+            if(saved === null){
+                return null;
+            }
+
+            const count = Number(saved);
+
+            return Number.isInteger(count) && count >= 0 ? count : null;
+        }catch(error){
+            return null;
+        }
+    }
+
+    function setStoredUpdatesSeenCount(count){
+        const storage = getFavoriteStorage();
+
+        if(!storage){
+            return;
+        }
+
+        try{
+            storage.setItem(updatesSeenCountStorageKey, String(count));
+        }catch(error){
+            // 保存できない場合は無視（新着件数表示ができないだけで、他の機能には影響しない）
+        }
+    }
+
+    const newSinceVisitElement = document.getElementById("updateNewSinceVisit");
+
+    if(newSinceVisitElement){
+        const previousSeenCount = getStoredUpdatesSeenCount();
+
+        // 初回訪問時（保存値がない場合）は「全件が新着」という誤解を招く表示になるため出さない
+        if(previousSeenCount !== null && items.length > previousSeenCount){
+            const newCount = items.length - previousSeenCount;
+
+            newSinceVisitElement.textContent = `前回チェックから${newCount}件更新されました`;
+            newSinceVisitElement.hidden = false;
+        }
+
+        setStoredUpdatesSeenCount(items.length);
+    }
+
+    // ==========================
     // 種類（追加／修正／変更／削除）別の統計カード（＝絞り込みボタンを兼ねる）
     // ==========================
 
