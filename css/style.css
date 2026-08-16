@@ -1491,6 +1491,29 @@ a.statsBarLink:focus-visible{
     display:none;
 }
 
+.infoMarkAllReadButton{
+    padding:5px 12px;
+    border:1px solid #2a7a3b;
+    border-radius:14px;
+    background:#f0fff2;
+    color:#2a7a3b;
+    font:inherit;
+    font-size:.85em;
+    font-weight:bold;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:.2s;
+}
+
+.infoMarkAllReadButton:hover{
+    background:#2a7a3b;
+    color:white;
+}
+
+.infoMarkAllReadButton[hidden]{
+    display:none;
+}
+
 .infoFilterToggleIcon{
     transition:transform .2s;
 }
@@ -2843,6 +2866,17 @@ html.theme-dark .infoFilterClearButton{
 
 html.theme-dark .infoFilterClearButton:hover{
     background:#d33;
+    color:white;
+}
+
+html.theme-dark .infoMarkAllReadButton{
+    background:#122a17;
+    border-color:#2a7a3b;
+    color:#7ad68f;
+}
+
+html.theme-dark .infoMarkAllReadButton:hover{
+    background:#2a7a3b;
     color:white;
 }
 

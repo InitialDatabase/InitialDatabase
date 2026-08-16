@@ -15,6 +15,7 @@
     const prefectureFilterContainer = document.getElementById("infoPrefectureFilters");
     const prefectureToggle = document.getElementById("infoPrefectureToggle");
     const goodsCategoryFilterContainer = document.getElementById("infoGoodsCategoryFilters");
+    const markAllReadButton = document.getElementById("infoMarkAllReadButton");
 
     // 作品（シリーズ）で絞り込むタブ。「すべて」を含め固定の並び順で表示する
     const SERIES_LIST = ["頭文字D", "MFゴースト", "昴と彗星", "頭文字DAC", "その他コラボ"];
@@ -189,7 +190,10 @@
         }
     }
 
-    function getFilteredItems(){
+    // 「すべて既読にする」ボタン用に、未読フィルター自体は適用しない絞り込み結果を返す。
+    // 「表示：すべて」「表示：未読のみ」のどちらを見ていても、他の絞り込み条件
+    // （タグ・キーワード・作品など）に一致する未読件数を数えられるようにするため
+    function getFilteredItemsIgnoringReadState(){
         return items.filter(item =>
             matchesKeyword(item)
             && matchesTags(item)
@@ -199,8 +203,31 @@
             && matchesSource(item)
             && matchesPeriod(item)
             && matchesStatus(item)
-            && matchesUnread(item)
         );
+    }
+
+    function getFilteredItems(){
+        return getFilteredItemsIgnoringReadState().filter(matchesUnread);
+    }
+
+    // 現在の絞り込み条件（表示：すべて／未読のみ、自体は除く）に一致する未読件数を数え、
+    // 「すべて既読にする」ボタンの表示・件数・対象idを更新する。未読が0件なら非表示にする
+    function updateMarkAllReadButton(filteredItemsIgnoringReadState){
+        if(!markAllReadButton){
+            return;
+        }
+
+        const unreadItems = filteredItemsIgnoringReadState.filter(item => !isItemRead("infos", item.id));
+
+        if(unreadItems.length === 0){
+            markAllReadButton.hidden = true;
+            markAllReadButton.dataset.unreadIds = "";
+            return;
+        }
+
+        markAllReadButton.hidden = false;
+        markAllReadButton.textContent = `✓ すべて既読にする（${unreadItems.length}件）`;
+        markAllReadButton.dataset.unreadIds = unreadItems.map(item => item.id).join(",");
     }
 
     function getSortedItems(filteredItems){
@@ -561,6 +588,7 @@
 
         renderCount(filteredItems);
         updateClearButtonVisibility();
+        updateMarkAllReadButton(getFilteredItemsIgnoringReadState());
 
         if(sortedItems.length === 0){
             renderNoResults();
@@ -1136,6 +1164,28 @@
 
                 render();
             });
+        });
+    }
+
+    if(markAllReadButton){
+        markAllReadButton.addEventListener("click", () => {
+            const ids = (markAllReadButton.dataset.unreadIds || "")
+                .split(",")
+                .filter(Boolean)
+                .map(Number);
+
+            if(ids.length === 0){
+                return;
+            }
+
+            const confirmed = window.confirm(`現在の絞り込み条件に一致する${ids.length}件を既読にします。よろしいですか？`);
+
+            if(!confirmed){
+                return;
+            }
+
+            markItemsRead("infos", ids);
+            render();
         });
     }
 

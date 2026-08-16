@@ -1449,6 +1449,37 @@ function markItemRead(category, id){
     saveReadItemKeySet(keys);
 }
 
+// 複数件をまとめて既読にする（「すべて既読にする」ボタン用）。
+// markItemReadを件数分呼ぶと読み込み・保存をその都度繰り返してしまうため、
+// まとめて1回のlocalStorage読み書きで済むようにしている
+function markItemsRead(category, ids){
+    if(!Array.isArray(ids) || ids.length === 0){
+        return;
+    }
+
+    const keys = getReadItemKeySet();
+    let changed = false;
+
+    ids.forEach(id => {
+        const normalized = normalizeFavoriteEntry({ category, id });
+
+        if(!normalized){
+            return;
+        }
+
+        const key = `${normalized.category}:${normalized.id}`;
+
+        if(!keys.has(key)){
+            keys.add(key);
+            changed = true;
+        }
+    });
+
+    if(changed){
+        saveReadItemKeySet(keys);
+    }
+}
+
 // カードが画面に一瞬でも表示されたら既読にする（PC・スマホともに、
 // スクロールで通り過ぎただけでも既読として記録される）。
 // 未読のみ表示中でも、既読化した瞬間に一覧から消えてチラつかないよう、
