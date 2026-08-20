@@ -3,6 +3,101 @@ const database = {
     infos:[
 
         {
+            title:"『頭文字D』トレーディング原作コマの免許証風カード・ドアプレート風チャームなどの予約は8月27日締切",
+            date:"2026-08-20",
+            id:138,
+            source:"AMNIBUS（アムニバス）（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "原作『頭文字D』の「トレーディング原作コマプラスチック免許証風カード」「トレーディング原作コマアクリルドアプレート風チャーム」などの予約受付がAMNIBUSにて8月27日まで。当ショップ限定特典もあり。",
+            articleUrl:"https://x.com/AMNIBUS/status/2090364465845817469"
+        },
+
+        {
+            prefecture:["神奈川県"],
+            location:"神奈川県横浜市中区（GALLERY SHIMIZU）",
+            id:139,
+            title:"『頭文字D』Art Exhibition by GAAAT、横浜・ギャラリーshimizuでの開催が決定",
+            date:"2026-08-20",
+            source:"GAAAT（X）",
+            tags:["イベント"],
+            series:["頭文字D"],
+            description:
+            "『頭文字D』の名シーンや名車たちをGAAATならではのMetal Canvas Artとして再構築した展示販売会「頭文字D Art Exhibition by GAAAT」の横浜会場開催が決定。会場は横浜・ギャラリーshimizu、会期は2026年8月28日（金）〜31日（月）。",
+            articleUrl:"https://x.com/gaaat_art/status/2090378523722830310",
+            eventStart:"2026-08-28",
+            eventEnd:"2026-08-31"
+        },
+
+        {
+            id:140,
+            title:"『レーシングマスター』×『MFゴースト』コラボ内容まとめガイドを公開",
+            date:"2026-08-20",
+            source:"【公式】レーシングマスター（X）",
+            tags:["コラボ","ゲーム"],
+            series:["頭文字D","MFゴースト"],
+            description:
+            "『レーシングマスター』×『MFゴースト』コラボの内容をまとめたガイドを公開。コラボ限定マシン、MFGキャラクターボイス、MFGエンジェルス衣装、ゴーストチャレンジ、ログイン報酬＆限定アイテムなど、コラボ期間中に楽しめる要素を紹介している。",
+            articleUrl:"https://x.com/RacingMasterJP/status/2090324144558875013",
+            eventStart:"2026-08-20"
+        },
+
+        {
+            prefecture:["長崎県"],
+            location:"長崎県大村市（BR大村）",
+            id:141,
+            title:"ミッドナイトボートレースin大村7、初日から『MFゴースト』コラボ実施",
+            date:"2026-08-20",
+            source:"DYNAMITE BOATRACE（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "BR大村にて開催の「ミッドナイトボートレースin大村7」初日より『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2090091439497842778",
+            eventStart:"2026-08-20",
+            eventEnd:"2026-08-23"
+        },
+
+        {
+            id:142,
+            title:"ユーロビートアーティストdave rodgersが『頭文字D』のAE86とユーロビートをテーマにした投稿を公開",
+            date:"2026-08-19",
+            source:"dave rodgers（X）",
+            tags:["特集"],
+            series:["頭文字D","MFゴースト"],
+            description:
+            "『Deja Vu』や『MF Ghost』などの楽曲で知られるユーロビートアーティストdave rodgersが、『頭文字D』のAE86（トレノ）とユーロビートのつながりをテーマにした投稿を公開。「#initiald」「#daverodgers」「#MFGhost」「#dejavu」などのハッシュタグとともに作品への思い入れを伝えている。",
+            articleUrl:"https://x.com/daverodgers2020/status/2090175046186889659"
+        },
+
+        {
+            id:143,
+            title:"特別映像「峠最速は誰だ　頭文字D藤原拓海 vs WRCカッレ・ロバンペラ」再生回数1000万回突破",
+            date:"2026-08-19",
+            source:"『頭文字Ｄ』公式（X）",
+            tags:["ニュース"],
+            series:["頭文字D"],
+            description:
+            "レッドブルが制作した特別映像「峠最速は誰だ　頭文字D藤原拓海 vs WRCカッレ・ロバンペラ」の再生回数が1000万回を突破。連載30周年記念のコラボ映像で、WRCチャンピオンのカッレ・ロバンペラと藤原拓海が峠でドリフトバトルを繰り広げる。",
+            articleUrl:"https://x.com/initialD_PR/status/2090072203752878537"
+        },
+
+        {
+            id:144,
+            title:"『レーシングマスター』2周年は明日開幕、『MFゴースト』コラボ・シーズン報酬400連相当を予告",
+            date:"2026-08-19",
+            source:"【公式】レーシングマスター（X）",
+            tags:["キャンペーン","ゲーム"],
+            series:["頭文字D","MFゴースト"],
+            description:
+            "『レーシングマスター』が2周年を明日（8月20日）に控え、『MFゴースト』コラボ・シーズン報酬として合計400連相当の豪華報酬を予告。毎日無料10連（合計200連）、レジェンドマシン3択プレゼント、本命マシン年間レポート＆本命マシンからの手紙などを実施予定。",
+            articleUrl:"https://x.com/RacingMasterJP/status/2090031681172562259",
+            eventStart:"2026-08-20"
+        },
+
+        {
             prefecture:["神奈川県"],
             location:"神奈川県小田原市（栄町、ミナカ小田原前）",
             id:136,
