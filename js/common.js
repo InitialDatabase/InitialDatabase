@@ -666,16 +666,187 @@ function createShareButtons(item){
     }
 
     const shareUrl = encodeURIComponent(item.articleUrl);
-    const shareText = encodeURIComponent(getItemTitle(item) || "頭文字Database");
+    const shareTitle = getItemTitle(item) || "頭文字Database";
+    const shareText = encodeURIComponent(shareTitle);
 
+    // スマホなどWeb Share API対応環境では、タップで端末標準の共有シートを直接呼び出す
+    // 単独の「共有」ボタン1つにまとめる。createShareButtons自体がブラウザ上（クライアント側）
+    // でのみ実行されるため、呼び出し時点でnavigator.shareの有無を判定できる
+    const canUseWebShare = typeof navigator !== "undefined" && typeof navigator.share === "function";
+
+    if(canUseWebShare){
+        return `
+            <button type="button" class="infoCardLink secondary shareButton" data-web-share data-share-url="${escapeHTML(item.articleUrl)}" data-share-title="${escapeHTML(shareTitle)}" aria-label="共有">
+                <span class="shareButtonIcon" aria-hidden="true">📤</span> <span class="shareButtonLabel">共有</span>
+            </button>
+        `;
+    }
+
+    // Web Share API非対応環境（主にPC）向け：単独の「共有」ボタンを押すと、
+    // その場でX／LINE／リンクコピーの選択肢を小さなメニューで表示する
     return `
-        <a class="infoCardLink secondary shareButton" href="https://x.com/intent/tweet?url=${shareUrl}&text=${shareText}" target="_blank" rel="noopener noreferrer">
-            🔁 Xでシェア
-        </a>
-        <a class="infoCardLink secondary shareButton" href="https://social-plugins.line.me/lineit/share?url=${shareUrl}" target="_blank" rel="noopener noreferrer">
-            💬 LINEでシェア
-        </a>
+        <div class="shareMenu" data-share-menu>
+            <button type="button" class="infoCardLink secondary shareButton" data-share-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="共有">
+                <span class="shareButtonIcon" aria-hidden="true">📤</span> <span class="shareButtonLabel">共有</span>
+            </button>
+            <div class="shareMenuPanel" role="menu" hidden>
+                <a class="shareMenuItem" role="menuitem" href="https://x.com/intent/tweet?url=${shareUrl}&text=${shareText}" target="_blank" rel="noopener noreferrer">
+                    <span class="shareMenuItemIcon" aria-hidden="true">🔁</span>Xでシェア
+                </a>
+                <a class="shareMenuItem" role="menuitem" href="https://social-plugins.line.me/lineit/share?url=${shareUrl}" target="_blank" rel="noopener noreferrer">
+                    <span class="shareMenuItemIcon" aria-hidden="true">💬</span>LINEでシェア
+                </a>
+                <button type="button" class="shareMenuItem" role="menuitem" data-copy-link data-share-url="${escapeHTML(item.articleUrl)}">
+                    <span class="shareMenuItemIcon" aria-hidden="true">🔗</span>リンクをコピー
+                </button>
+            </div>
+        </div>
     `;
+}
+
+// ==========================
+// 共有ボタン（Web Share API／リンクコピー）のイベント処理
+// ==========================
+
+function copyTextToClipboard(text){
+    if(navigator.clipboard && typeof navigator.clipboard.writeText === "function"){
+        return navigator.clipboard.writeText(text);
+    }
+
+    // Clipboard APIが使えない環境（非HTTPS等）向けのフォールバック
+    return new Promise((resolve, reject) => {
+        const textarea = document.createElement("textarea");
+
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        try{
+            document.execCommand("copy");
+            resolve();
+        }catch(error){
+            reject(error);
+        }finally{
+            textarea.remove();
+        }
+    });
+}
+
+function showShareButtonFeedback(button, icon, label){
+    if(button.dataset.feedbackActive){
+        return;
+    }
+
+    const originalHtml = button.innerHTML;
+    // 共有メニュー（X／LINE／リンクコピーのポップアップ）内のボタンかどうかで、
+    // フィードバック表示に使うアイコン／ラベルの構造を合わせる
+    const isMenuItem = button.classList.contains("shareMenuItem");
+
+    button.dataset.feedbackActive = "true";
+    button.classList.add("isCopied");
+    button.innerHTML = isMenuItem
+        ? `<span class="shareMenuItemIcon" aria-hidden="true">${icon}</span>${label}`
+        // アイコン／ラベルの構造を保つことで、スマホのアイコンのみ表示中でも
+        // フィードバックのアイコンだけはきちんと表示される
+        : `<span class="shareButtonIcon" aria-hidden="true">${icon}</span> <span class="shareButtonLabel">${label}</span>`;
+
+    setTimeout(() => {
+        button.innerHTML = originalHtml;
+        button.classList.remove("isCopied");
+        delete button.dataset.feedbackActive;
+
+        // 共有メニュー内のリンクコピーの場合は、フィードバック表示後にメニューも閉じる
+        if(isMenuItem){
+            closeAllShareMenus();
+        }
+    }, 2000);
+}
+
+function setupShareDelegation(){
+    if(typeof document === "undefined" || document.body.dataset.shareDelegationBound){
+        return;
+    }
+
+    document.body.dataset.shareDelegationBound = "true";
+
+    document.addEventListener("click", event => {
+        const menuToggle = event.target.closest("[data-share-menu-toggle]");
+
+        if(menuToggle){
+            const panel = menuToggle.nextElementSibling;
+            const isOpen = panel && !panel.hidden;
+
+            closeAllShareMenus();
+
+            if(panel && !isOpen){
+                panel.hidden = false;
+                menuToggle.setAttribute("aria-expanded", "true");
+            }
+
+            return;
+        }
+
+        // メニューの外側をクリックしたら、開いている共有メニューを閉じる
+        if(!event.target.closest("[data-share-menu]")){
+            closeAllShareMenus();
+        }
+
+        const webShareButton = event.target.closest("[data-web-share]");
+
+        if(webShareButton){
+            const url = webShareButton.dataset.shareUrl;
+            const title = webShareButton.dataset.shareTitle || "頭文字Database";
+
+            if(url && navigator.share){
+                // ユーザーによる共有キャンセル等のエラーは無視する
+                navigator.share({ title, url }).catch(() => {});
+            }
+
+            return;
+        }
+
+        const copyButton = event.target.closest("[data-copy-link]");
+
+        if(!copyButton){
+            return;
+        }
+
+        const url = copyButton.dataset.shareUrl;
+
+        if(!url){
+            return;
+        }
+
+        copyTextToClipboard(url)
+            .then(() => showShareButtonFeedback(copyButton, "✅", "コピーしました"))
+            .catch(() => showShareButtonFeedback(copyButton, "⚠️", "コピーに失敗しました"));
+    });
+
+    // Escキーでも開いている共有メニューを閉じられるようにする
+    document.addEventListener("keydown", event => {
+        if(event.key === "Escape"){
+            closeAllShareMenus();
+        }
+    });
+}
+
+// 開いている共有メニュー（X／LINE／リンクコピーのポップアップ）をすべて閉じる
+function closeAllShareMenus(){
+    if(typeof document === "undefined"){
+        return;
+    }
+
+    document.querySelectorAll("[data-share-menu-toggle]").forEach(toggle => {
+        const panel = toggle.nextElementSibling;
+
+        if(panel && !panel.hidden){
+            panel.hidden = true;
+            toggle.setAttribute("aria-expanded", "false");
+        }
+    });
 }
 
 // ==========================
@@ -791,12 +962,16 @@ function createCalendarActionsHtml(item){
 
     const googleUrl = buildGoogleCalendarUrl(item);
 
+    // アイコンとラベルを別要素にしておくことで、スマホ幅では共有ボタン群と同様に
+    // ラベルだけ非表示にしてアイコンのみのコンパクトなボタンに切り替えられるようにする
+    // （CSS側で制御。カレンダーページの一覧（.eventCalendarActions）ではこのラベルは
+    // 引き続き表示されるので、そちらの見た目には影響しない）
     return `
-        <a class="infoCardLink secondary calendarAddButton" href="${escapeHTML(googleUrl)}" target="_blank" rel="noopener noreferrer">
-            📅 Googleカレンダーに追加
+        <a class="infoCardLink secondary calendarAddButton" href="${escapeHTML(googleUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Googleカレンダーに追加">
+            <span class="shareButtonIcon" aria-hidden="true">📅</span> <span class="shareButtonLabel">Googleカレンダーに追加</span>
         </a>
-        <button type="button" class="infoCardLink secondary calendarAddButton" data-ics-download data-ics-item-id="${item.id}">
-            🗓️ iCalに追加
+        <button type="button" class="infoCardLink secondary calendarAddButton" data-ics-download data-ics-item-id="${item.id}" aria-label="iCalに追加">
+            <span class="shareButtonIcon" aria-hidden="true">🗓️</span> <span class="shareButtonLabel">iCalに追加</span>
         </button>
     `;
 }
@@ -1052,6 +1227,15 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
     const eventPeriodLabel = getEventPeriodLabel(item);
     const shareButtonsHtml = createShareButtons(item);
     const calendarActionsHtml = createCalendarActionsHtml(item);
+    // カレンダー追加ボタンと共有ボタンをまとめて1つのグループにしておくことで、
+    // スマホ幅ではこの2種類のボタンを縦に分かれた2段ではなく、
+    // アイコンのみで横1列にまとめて表示できるようにする
+    const quickActionsHtml = (calendarActionsHtml || shareButtonsHtml) ? `
+        <div class="quickActionsGroup">
+            ${calendarActionsHtml}
+            ${shareButtonsHtml}
+        </div>
+    ` : "";
     const cardClassNames = ["infoCard", isTweet ? "tweetCard" : "", extraClassName || ""]
         .filter(Boolean)
         .join(" ");
@@ -1078,8 +1262,7 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
                     ${item.description ? `<p>${renderHighlightedText(item.description, highlightTerm)}</p>` : ""}
 
                     <div class="infoCardLinks">
-                        ${calendarActionsHtml}
-                        ${shareButtonsHtml}
+                        ${quickActionsHtml}
                         ${actionsHtml}
                     </div>
 
@@ -1127,8 +1310,7 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
                             元記事を見る
                         </a>
                     ` : ""}
-                    ${calendarActionsHtml}
-                    ${shareButtonsHtml}
+                    ${quickActionsHtml}
                     ${actionsHtml}
                 </div>
 
@@ -1930,6 +2112,7 @@ function initializeCommonUI(){
     setupBackToTopButton();
     setupThemeToggle();
     setupCalendarDownloadDelegation();
+    setupShareDelegation();
     setupNavScrollPersistence();
     injectBreadcrumbStructuredData();
     registerServiceWorker();

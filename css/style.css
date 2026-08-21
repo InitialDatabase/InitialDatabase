@@ -393,6 +393,158 @@ nav a:hover{
     background:#dde1e8;
 }
 
+/* 共有ボタン：リンクコピー成功時などの一時的なフィードバック表示 */
+.infoCardLinks button.infoCardLink.shareButton.isCopied{
+    background:#e6f4ea;
+    color:#1e7e34;
+    cursor:default;
+}
+
+/* カレンダー追加（Googleカレンダー／iCal）と共有（単独の「共有」ボタン）を
+   まとめたラッパー。PC幅ではdisplay:contentsでレイアウトに影響を与えず、
+   中の各ボタンがそのまま.infoCardLinksの子として並ぶ */
+.quickActionsGroup{
+    display:contents;
+}
+
+.shareButtonIcon{
+    display:inline-block;
+}
+
+/* Web Share API非対応環境向けの単独「共有」ボタンのポップアップメニュー。
+   ボタンの直下にメニューを絶対配置するための基準位置 */
+.shareMenu{
+    position:relative;
+}
+
+.shareMenuPanel{
+    position:absolute;
+    top:calc(100% + 6px);
+    right:0;
+    z-index:20;
+    display:flex;
+    flex-direction:column;
+    min-width:170px;
+    background:white;
+    border:1px solid #c8ccd1;
+    border-radius:10px;
+    box-shadow:0 4px 16px rgba(0,0,0,.15);
+    padding:6px;
+    gap:2px;
+}
+
+/* display:flexの指定がhidden属性のデフォルト非表示（display:none）を
+   上書きしてしまわないよう、hidden属性が付いている間は明示的に隠す */
+.shareMenuPanel[hidden]{
+    display:none;
+}
+
+/* このメニューは常に.infoCardLinksの中に置かれるため、.infoCardLinks a等の
+   汎用ボタンスタイルより優先されるよう.infoCardLinksを前置して詳細度を上げている */
+.infoCardLinks a.shareMenuItem,
+.infoCardLinks button.shareMenuItem{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 10px;
+    border:none;
+    border-radius:6px;
+    background:none;
+    color:#0645ad;
+    font:inherit;
+    font-size:.9em;
+    font-weight:bold;
+    text-align:left;
+    text-decoration:none;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.infoCardLinks a.shareMenuItem:hover,
+.infoCardLinks button.shareMenuItem:hover{
+    background:#eaecf0;
+}
+
+.shareMenuItemIcon{
+    display:inline-block;
+}
+
+/* 共有メニュー内のリンクコピー成功時などの一時的なフィードバック表示 */
+.infoCardLinks button.shareMenuItem.isCopied{
+    background:#e6f4ea;
+    color:#1e7e34;
+    cursor:default;
+}
+
+/* スマホ幅ではボタンの数が多くなりがちなため、可変幅の折り返しではなく
+   2列の均等グリッドに整列させ、かさばって見えないようにする */
+@media (max-width:640px){
+    .infoCardLinks{
+        display:grid;
+        grid-template-columns:repeat(2, 1fr);
+        gap:8px;
+    }
+
+    .infoCardLinks a,
+    .infoCardLinks button.infoCardLink{
+        width:100%;
+        padding:9px 8px;
+        font-size:.82em;
+        line-height:1.3;
+        text-align:center;
+        white-space:normal;
+        box-sizing:border-box;
+    }
+
+    /* 「元記事を見る」など単独で目立たせたいプライマリボタンは
+       2列にまたがせて視認性を保つ */
+    .infoCardLinks > a.infoCardLink:not(.secondary):first-child{
+        grid-column:1 / -1;
+    }
+
+    /* カレンダー追加ボタン（Googleカレンダー／iCal）と共有ボタン（単独の「共有」）は
+       それぞれ縦に分かれた段にせず、まとめて2列グリッドの1行分（両方の列）を
+       使い切り、その中で横1列に並べて必ず1行に収める（折り返さない） */
+    .infoCardLinks .quickActionsGroup{
+        display:flex;
+        flex-wrap:nowrap;
+        grid-column:1 / -1;
+        gap:6px;
+    }
+
+    .infoCardLinks .quickActionsGroup .infoCardLink{
+        flex:1 1 0;
+        width:auto;
+        min-width:0;
+        min-height:44px;
+        padding:9px 2px;
+        font-size:1.05em;
+    }
+
+    /* 単独の「共有」ボタン（Web Share API非対応環境向け）のラッパーも、
+       他のアイコンボタンと同じ幅で1行に並ぶようにする */
+    .infoCardLinks .quickActionsGroup .shareMenu{
+        flex:1 1 0;
+        min-width:0;
+    }
+
+    .infoCardLinks .quickActionsGroup .shareMenu .infoCardLink{
+        width:100%;
+    }
+
+    /* アイコンのみのコンパクト表示にし、文字ラベルは非表示にする
+       （aria-labelでスクリーンリーダー向けの名称は保持） */
+    .infoCardLinks .quickActionsGroup .shareButtonLabel{
+        display:none;
+    }
+
+    /* お気に入りボタンは以前と同じく2列分の幅を使い切る単独の
+       行として目立たせる（グリッド化により片方の列だけに縮んでいたのを修正） */
+    .infoCardLinks > .favoriteButton{
+        grid-column:1 / -1;
+    }
+}
+
 /* ==========================
    情報カード：関連情報（同じタグの他の情報）
    ========================== */
@@ -2989,6 +3141,32 @@ html.theme-dark .infoCardLinks button.infoCardLink.secondary{
 html.theme-dark .infoCardLinks a.secondary:hover,
 html.theme-dark .infoCardLinks button.infoCardLink.secondary:hover{
     background:#333338;
+}
+
+html.theme-dark .infoCardLinks button.infoCardLink.shareButton.isCopied{
+    background:#1e3a26;
+    color:#8fd8a3;
+}
+
+html.theme-dark .shareMenuPanel{
+    background:#1b1b1d;
+    border-color:#3a3a3d;
+    box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+
+html.theme-dark .infoCardLinks a.shareMenuItem,
+html.theme-dark .infoCardLinks button.shareMenuItem{
+    color:#a9c4ff;
+}
+
+html.theme-dark .infoCardLinks a.shareMenuItem:hover,
+html.theme-dark .infoCardLinks button.shareMenuItem:hover{
+    background:#2b2b2e;
+}
+
+html.theme-dark .infoCardLinks button.shareMenuItem.isCopied{
+    background:#1e3a26;
+    color:#8fd8a3;
 }
 
 html.theme-dark .emptyMessage{

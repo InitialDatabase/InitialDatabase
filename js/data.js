@@ -3,6 +3,109 @@ const database = {
     infos:[
 
         {
+            title:"“ガキをかるくひねってこい”「頭文字D」藤原文太モデルのZIPPO登場！150個限定",
+            date:"2026-08-21",
+            id:145,
+            source:"アニメ！アニメ！（X）",
+            tags:["グッズ","予約開始"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "『頭文字D』の藤原文太をモチーフにした限定モデルのZIPPOが登場。CAMSHOP ZIPPOシリーズでは初めて藤原文太をモチーフに採用し、ブラックニッケル仕上げのボディに藤原文太が登場するコミックのシーンをレーザー加工で表現。150個限定でシリアルナンバーが刻印される。価格16,500円、予約受付は9月29日0時まで。",
+            articleUrl:"https://x.com/AnimeAnime_jp/status/2090629487339966639",
+            reservationStart:"2026-08-21"
+        },
+
+        {
+            id:146,
+            title:"アオシマ「1/24 頭文字D 藤原拓海 AE86トレノ 第1巻仕様」「武内 樹 AE85 レビン」再生産情報を公開",
+            date:"2026-08-21",
+            source:"アオシマ online shop（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "アオシマのプラモデル「1/24 頭文字D 藤原拓海 AE86トレノ 第1巻仕様」および「1/24 頭文字D 武内 樹 AE85 レビン」の再生産情報を公開。アオシマ online shopにて注文受付中。",
+            articleUrl:"https://x.com/aoshimatsu_han/status/2090718047895970021"
+        },
+
+        {
+            prefecture:["秋田県"],
+            location:"秋田県横手市（横手市増田まんが美術館）",
+            id:147,
+            title:"「しげの秀一原画展 ～峠から未来へ～」横手市増田まんが美術館にて開催決定",
+            date:"2026-08-21",
+            source:"横手市増田まんが美術館（公式）（X）",
+            tags:["イベント"],
+            series:["頭文字D","MFゴースト","昴と彗星"],
+            description:
+            "しげの秀一氏の原画展「しげの秀一原画展 ～峠から未来へ～」の横手市増田まんが美術館での開催が決定。「公道での最速を目指す者たちの物語」を描いた『頭文字D』『MFゴースト』『昴と彗星』の3作品にスポットを当てる。会期は2026年10月24日（土）〜12月27日（日）。",
+            articleUrl:"https://x.com/m_mangamuseum/status/2090635078888239549",
+            eventStart:"2026-10-24",
+            eventEnd:"2026-12-27"
+        },
+
+        {
+            prefecture:["東京都"],
+            location:"東京都渋谷区（MIYASHITA PARK South 3階 GAAAT GALLERY）",
+            id:148,
+            title:"『頭文字D』Art Exhibition 東京にて追加開催決定",
+            date:"2026-08-21",
+            source:"GAAAT（X）",
+            tags:["イベント"],
+            series:["頭文字D"],
+            description:
+            "大好評につき『頭文字D』Art Exhibitionの東京会場での追加開催が決定。あの頃の熱いバトルと興奮を表現したアート展。会場はMIYASHITA PARK South 3階「GAAAT GALLERY」、会期は2026年9月11日（金）〜15日（火）。",
+            articleUrl:"https://x.com/gaaat_art/status/2090756125415416142",
+            eventStart:"2026-09-11",
+            eventEnd:"2026-09-15"
+        },
+
+        {
+            id:149,
+            title:"『頭文字D』AE86イメージメガネ好評発売中",
+            date:"2026-08-21",
+            source:"アニメガネ@執事眼鏡eyemirror姉妹店（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "藤原拓海が乗るAE86をイメージしたメガネが好評発売中。ヘッドライトをイメージした四角いフロントに、車体をイメージしたカラーリングを採用。UVカットレンズを使用しており伊達メガネとしても使用可能。",
+            articleUrl:"https://x.com/animegane_akiba/status/2090635003956793551"
+        },
+
+        {
+            prefecture:["東京都"],
+            location:"東京都（秋葉原〜上野エリア）",
+            id:150,
+            title:"陳麻婆豆腐×頭文字Dコラボ仕様のAE86が8月23日に秋葉原・上野エリアを走行",
+            date:"2026-08-21",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","イベント"],
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐×頭文字Dコラボ仕様のAE86が、8月23日(日)13時〜17時に秋葉原〜上野エリアを走行。見かけた際に指定ハッシュタグ「#頭文字MD」を付けて投稿すると、コラボ限定の麻婆豆腐皿プレゼント企画の応募対象となる。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2090619900423454994",
+            eventStart:"2026-08-23"
+        },
+
+        {
+            id:151,
+            prefecture:["長崎県"],
+            location:"長崎県大村市（BR大村）",
+            title:"ミッドナイトボートレースin大村7、2日目も『MFゴースト』コラボ実施",
+            date:"2026-08-21",
+            source:"DYNAMITE BOATRACE（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "BR大村にて開催中の「ミッドナイトボートレースin大村7」2日目も『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを引き続き実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2090453825031389322",
+            eventStart:"2026-08-20",
+            eventEnd:"2026-08-23"
+        },
+
+        {
             title:"『頭文字D』トレーディング原作コマの免許証風カード・ドアプレート風チャームなどの予約は8月27日締切",
             date:"2026-08-20",
             id:138,
