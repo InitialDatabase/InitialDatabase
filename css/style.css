@@ -290,16 +290,31 @@ nav a:hover{
     background:#eaecf0;
 }
 
-.infoPageButton.is-active{
-    background:#e2001c;
-    border-color:#e2001c;
-    color:white;
-    font-weight:bold;
-}
-
 .infoPageButton:disabled{
     opacity:.4;
     cursor:default;
+}
+
+.infoPageSelectWrap{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.infoPageSelect{
+    padding:4px 8px;
+    color:#202122;
+    background:white;
+    border:1px solid #a2a9b1;
+    border-radius:6px;
+    font:inherit;
+    font-size:.9em;
+}
+
+.infoPageTotal{
+    color:#54595d;
+    font-size:.85em;
+    white-space:nowrap;
 }
 
 .infoPageNav{
@@ -3310,6 +3325,12 @@ html.theme-dark .eventCalendarLegendSwatch--reservation{
 }
 
 html.theme-dark .eventCalendarJumpSelect{
+    background:#101112;
+    border-color:#444;
+    color:#e8e8e8;
+}
+
+html.theme-dark .infoPageSelect{
     background:#101112;
     border-color:#444;
     color:#e8e8e8;

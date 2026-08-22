@@ -2223,37 +2223,51 @@ function renderPaginationControls(elementId, currentPage, totalPages, onPageChan
 
     element.hidden = false;
 
-    const pageButtonsHtml = Array.from({ length: totalPages }, (unused, index) => {
+    // ページ数が多くてもボタンが横に並びすぎないよう、番号ボタンの代わりに
+    // 1つのセレクトボックスでページを選ぶ方式にする（スマホでは端末標準の
+    // 選択画面が開くので、タップ操作もしやすい）
+    const optionsHtml = Array.from({ length: totalPages }, (unused, index) => {
         const pageNumber = index + 1;
 
-        return `
-            <button
-                type="button"
-                class="infoPageButton${pageNumber === currentPage ? " is-active" : ""}"
-                data-page="${pageNumber}"
-                ${pageNumber === currentPage ? 'aria-current="page"' : ""}>
-                ${pageNumber}
-            </button>
-        `;
+        return `<option value="${pageNumber}" ${pageNumber === currentPage ? "selected" : ""}>${pageNumber} ページ目</option>`;
     }).join("");
 
     element.innerHTML = `
         <nav class="infoPaginationNav" aria-label="ページ送り">
-            <button type="button" class="infoPageButton infoPageNav" data-page="${currentPage - 1}" ${currentPage <= 1 ? "disabled" : ""}>
+            <button type="button" class="infoPageButton infoPageNav" data-direction="prev" ${currentPage <= 1 ? "disabled" : ""}>
                 前へ
             </button>
-            ${pageButtonsHtml}
-            <button type="button" class="infoPageButton infoPageNav" data-page="${currentPage + 1}" ${currentPage >= totalPages ? "disabled" : ""}>
+            <span class="infoPageSelectWrap">
+                <select class="infoPageSelect" aria-label="ページ選択">
+                    ${optionsHtml}
+                </select>
+                <span class="infoPageTotal">/ 全${totalPages}ページ</span>
+            </span>
+            <button type="button" class="infoPageButton infoPageNav" data-direction="next" ${currentPage >= totalPages ? "disabled" : ""}>
                 次へ
             </button>
         </nav>
     `;
 
-    element.querySelectorAll("[data-page]").forEach(button => {
-        button.addEventListener("click", () => {
-            const targetPage = Number(button.dataset.page);
+    const selectElement = element.querySelector(".infoPageSelect");
+
+    if(selectElement){
+        selectElement.addEventListener("change", () => {
+            const targetPage = Number(selectElement.value);
 
             if(!targetPage || targetPage === currentPage){
+                return;
+            }
+
+            onPageChange(targetPage);
+        });
+    }
+
+    element.querySelectorAll("[data-direction]").forEach(button => {
+        button.addEventListener("click", () => {
+            const targetPage = button.dataset.direction === "prev" ? currentPage - 1 : currentPage + 1;
+
+            if(targetPage < 1 || targetPage > totalPages || targetPage === currentPage){
                 return;
             }
 
