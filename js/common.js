@@ -677,7 +677,7 @@ function createShareButtons(item){
     if(canUseWebShare){
         return `
             <button type="button" class="infoCardLink secondary shareButton" data-web-share data-share-url="${escapeHTML(item.articleUrl)}" data-share-title="${escapeHTML(shareTitle)}" aria-label="共有">
-                <span class="shareButtonIcon" aria-hidden="true">📤</span> <span class="shareButtonLabel">共有</span>
+                <span class="shareButtonIcon" aria-hidden="true">📤</span> <span class="shareButtonLabel">共有</span><span class="shareButtonLabelShort" aria-hidden="true">共有</span>
             </button>
         `;
     }
@@ -687,7 +687,7 @@ function createShareButtons(item){
     return `
         <div class="shareMenu" data-share-menu>
             <button type="button" class="infoCardLink secondary shareButton" data-share-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="共有">
-                <span class="shareButtonIcon" aria-hidden="true">📤</span> <span class="shareButtonLabel">共有</span>
+                <span class="shareButtonIcon" aria-hidden="true">📤</span> <span class="shareButtonLabel">共有</span><span class="shareButtonLabelShort" aria-hidden="true">共有</span>
             </button>
             <div class="shareMenuPanel" role="menu" hidden>
                 <a class="shareMenuItem" role="menuitem" href="https://x.com/intent/tweet?url=${shareUrl}&text=${shareText}" target="_blank" rel="noopener noreferrer">
@@ -962,16 +962,17 @@ function createCalendarActionsHtml(item){
 
     const googleUrl = buildGoogleCalendarUrl(item);
 
-    // アイコンとラベルを別要素にしておくことで、スマホ幅では共有ボタン群と同様に
-    // ラベルだけ非表示にしてアイコンのみのコンパクトなボタンに切り替えられるようにする
-    // （CSS側で制御。カレンダーページの一覧（.eventCalendarActions）ではこのラベルは
-    // 引き続き表示されるので、そちらの見た目には影響しない）
+    // アイコン・正式ラベル・短縮ラベルを別要素にしておくことで、スマホ幅では
+    // 共有ボタン群と同様に正式ラベルを隠し、代わりにアイコン＋短縮ラベル
+    // （「Google」「iCal」）を縦に並べたコンパクトなボタンに切り替えられるようにする
+    // （CSS側で制御。カレンダーページの一覧（.eventCalendarActions）ではこの正式
+    // ラベルは引き続き表示されるので、そちらの見た目には影響しない）
     return `
         <a class="infoCardLink secondary calendarAddButton" href="${escapeHTML(googleUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Googleカレンダーに追加">
-            <span class="shareButtonIcon" aria-hidden="true">📅</span> <span class="shareButtonLabel">Googleカレンダーに追加</span>
+            <span class="shareButtonIcon" aria-hidden="true">📅</span> <span class="shareButtonLabel">Googleカレンダーに追加</span><span class="shareButtonLabelShort" aria-hidden="true">Google</span>
         </a>
         <button type="button" class="infoCardLink secondary calendarAddButton" data-ics-download data-ics-item-id="${item.id}" aria-label="iCalに追加">
-            <span class="shareButtonIcon" aria-hidden="true">🗓️</span> <span class="shareButtonLabel">iCalに追加</span>
+            <span class="shareButtonIcon" aria-hidden="true">🗓️</span> <span class="shareButtonLabel">iCalに追加</span><span class="shareButtonLabelShort" aria-hidden="true">iCal</span>
         </button>
     `;
 }

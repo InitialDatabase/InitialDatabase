@@ -411,6 +411,13 @@ nav a:hover{
     display:inline-block;
 }
 
+/* スマホの.quickActionsGroup内でアイコンの下に表示する短縮ラベル
+   （例：「Google」「iCal」「共有」）。PC幅では非表示にし、
+   従来通りshareButtonLabelの方（正式なラベル）を表示する */
+.shareButtonLabelShort{
+    display:none;
+}
+
 /* Web Share API非対応環境向けの単独「共有」ボタンのポップアップメニュー。
    ボタンの直下にメニューを絶対配置するための基準位置 */
 .shareMenu{
@@ -513,11 +520,16 @@ nav a:hover{
     }
 
     .infoCardLinks .quickActionsGroup .infoCardLink{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:2px;
         flex:1 1 0;
         width:auto;
         min-width:0;
         min-height:44px;
-        padding:9px 2px;
+        padding:8px 2px;
         font-size:1.05em;
     }
 
@@ -532,10 +544,18 @@ nav a:hover{
         width:100%;
     }
 
-    /* アイコンのみのコンパクト表示にし、文字ラベルは非表示にする
-       （aria-labelでスクリーンリーダー向けの名称は保持） */
+    /* 正式な文字ラベルは非表示にし、代わりにアイコン下へ短縮ラベル
+       （「Google」「iCal」「共有」）を表示するコンパクト表示にする
+       （aria-labelでスクリーンリーダー向けの正式名称は引き続き保持） */
     .infoCardLinks .quickActionsGroup .shareButtonLabel{
         display:none;
+    }
+
+    .infoCardLinks .quickActionsGroup .shareButtonLabelShort{
+        display:block;
+        font-size:10px;
+        font-weight:normal;
+        line-height:1;
     }
 
     /* お気に入りボタンは以前と同じく2列分の幅を使い切る単独の
