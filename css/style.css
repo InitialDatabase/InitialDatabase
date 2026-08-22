@@ -1563,6 +1563,18 @@ a.statsBarLink:focus-visible{
    頭文字D情報：作品（シリーズ）で絞り込みタブ
    ========================== */
 
+/* 絞り込み・並び替えパネル内に置いた時は、パネル側のgap（行間）で
+   間隔を取るため、単体表示だった頃のmargin-bottomは打ち消す */
+.infoSeriesFilterSection{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.infoSeriesFilterSection .seriesFilterBar{
+    margin-bottom:0;
+}
+
 .seriesFilterBar{
     display:flex;
     flex-wrap:wrap;

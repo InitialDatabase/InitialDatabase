@@ -516,6 +516,7 @@
 
         const hasActiveFilter = state.activeTags.size > 0
             || state.activeLocations.size > 0
+            || state.activeSeries !== "all"
             || state.period === "custom-month"
             || state.status !== "all";
 
