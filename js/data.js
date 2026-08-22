@@ -3,6 +3,34 @@ const database = {
     infos:[
 
         {
+            id:154,
+            title:"エンジェルクローバーより『頭文字D』連載30周年記念「藤原親子」コラボレーションウォッチ登場",
+            date:"2026-08-22",
+            source:"webChronos（ウェブクロノス）（X）",
+            tags:["ニュース","グッズ"],
+            goodsCategory:"時計",
+            series:["頭文字D"],
+            description:
+            "腕時計専門メディアwebChronosが、エンジェルクローバーより発表された『頭文字D』連載30周年記念「藤原親子」コラボレーションウォッチを紹介。藤原拓海のTOYOTA AE86モデルと藤原文太のSUBARU IMPREZA WRX(GC8) type R STiモデルの自動巻き2種で、7月30日より予約受付中、9月30日発売予定。価格は拓海モデル53,900円、文太モデル49,500円（いずれも税込）。",
+            articleUrl:"https://x.com/CHRONOS_JAPAN/status/2090998644501627133",
+            reservationStart:"2026-07-30",
+            eventStart:"2026-09-30"
+        },
+
+        {
+            id:155,
+            title:"『MFゴースト』86GTイメージ眼鏡、アニメガネにて好評発売中",
+            date:"2026-08-22",
+            source:"アニメガネ@執事眼鏡eyemirror姉妹店（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["MFゴースト"],
+            description:
+            "『頭文字D』の近未来を舞台にした『MFゴースト』より、片桐夏向（カナタ・リヴィントン）の愛車トヨタ86GTをイメージした眼鏡が好評発売中。ヘッドライトをイメージしたデザインを採用しつつ、普段使いのしやすさも心掛けた商品。UVカットレンズを使用しており伊達メガネとしても使用可能。",
+            articleUrl:"https://x.com/animegane_akiba/status/2090988654055596068"
+        },
+
+        {
             title:"“ガキをかるくひねってこい”「頭文字D」藤原文太モデルのZIPPO登場！150個限定",
             date:"2026-08-21",
             id:145,
@@ -103,6 +131,36 @@ const database = {
             articleUrl:"https://x.com/Lets_BOATRACE/status/2090453825031389322",
             eventStart:"2026-08-20",
             eventEnd:"2026-08-23"
+        },
+
+        {
+            prefecture:["長崎県"],
+            location:"長崎県大村市（BR大村）",
+            id:153,
+            title:"「ミッドナイトボートレースin大村7」3日目も『MFゴースト』コラボ実施、デジタルギフト抽選",
+            date:"2026-08-22",
+            source:"DYNAMITE BOATRACE（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "BR大村にて開催中の「ミッドナイトボートレースin大村7」3日目も『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを引き続き実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2090816216286052474",
+            eventStart:"2026-08-20",
+            eventEnd:"2026-08-23"
+        },
+
+        {
+            id:152,
+            title:"『頭文字DAC』公式全国大会「公道最強決定戦4th」テーマソング「COBRA‡FORCE」をSOUND HOLICが担当",
+            date:"2026-08-21",
+            source:"SOUND HOLIC⚡️サンホリ（X）",
+            tags:["ゲーム","イベント"],
+            series:["頭文字DAC"],
+            description:
+            "SOUND HOLICが『頭文字D THE ARCADE』公式全国大会「公道最強決定戦4th」のテーマソング「COBRA‡FORCE」（SOUND HOLIC feat. Nana Takahashi × STEVIE(Trymatic)）を担当したことを発表。大会は2台バトル部門「KING OF DRIVER 4th」・4台バトル部門「峠バトロワ 4th」の予選を、8月29日の北関東大会を皮切りに全国7カ所で順次開催し、各部門の優勝者は2027年3月28日開催の決勝大会への出場権を獲得する。",
+            articleUrl:"https://x.com/SOUND_HOLIC_/status/2090770375403815292",
+            eventStart:"2026-08-29",
+            eventEnd:"2027-03-28"
         },
 
         {
