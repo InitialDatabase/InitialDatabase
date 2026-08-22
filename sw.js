@@ -16,7 +16,7 @@
 // ・完全にオフラインでキャッシュも無いページ遷移
 //   → offline.html を表示
 
-const CACHE_VERSION = "v7";
+const CACHE_VERSION = "v8";
 const STATIC_CACHE_NAME = `initial-d-database-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE_NAME = `initial-d-database-dynamic-${CACHE_VERSION}`;
 const CURRENT_CACHES = [STATIC_CACHE_NAME, DYNAMIC_CACHE_NAME];

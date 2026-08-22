@@ -237,6 +237,93 @@ function setupSearchModeToggle(containerId, onChange){
 }
 
 // ==========================
+// 表示密度（カード表示／コンパクトリスト表示）の切り替えUI
+// ==========================
+// 最新情報一覧の表示形式を切り替えるボタンを描画する。117件を超える情報を
+// 大きなカードで流し読みすると縦に長くなりすぎるため、タイトル・日付・バッジだけの
+// 1行リスト表示に切り替えられるようにしたもの。選択状態はサイト内共通でlocalStorageに
+// 保存し、次回訪問時も直前の選択を引き継ぐ（検索方法の切り替えと同じ仕組み）。
+
+const displayDensityStorageKey = "initialDDatabaseDisplayDensity";
+
+function getStoredDisplayDensity(){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return "card";
+    }
+
+    try{
+        return storage.getItem(displayDensityStorageKey) === "compact" ? "compact" : "card";
+    }catch(error){
+        return "card";
+    }
+}
+
+function setStoredDisplayDensity(density){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return;
+    }
+
+    try{
+        storage.setItem(displayDensityStorageKey, density);
+    }catch(error){
+        // 保存できない場合は無視（切り替え自体は継続）
+    }
+}
+
+// containerId要素の中に切り替えボタンを描画し、初期の表示形式（"card" | "compact"）を返す。
+// onChangeにはボタン操作で選択された表示形式が渡される。
+function setupDisplayDensityToggle(containerId, onChange){
+    const initialDensity = getStoredDisplayDensity();
+    const container = document.getElementById(containerId);
+
+    if(!container){
+        return initialDensity;
+    }
+
+    container.innerHTML = `
+        <span class="infoFilterLabel">表示：</span>
+        <button
+            type="button"
+            class="infoFilterButton${initialDensity === "card" ? " is-active" : ""}"
+            data-density="card"
+            aria-pressed="${initialDensity === "card"}">
+            🗂️ カード
+        </button>
+        <button
+            type="button"
+            class="infoFilterButton${initialDensity === "compact" ? " is-active" : ""}"
+            data-density="compact"
+            aria-pressed="${initialDensity === "compact"}">
+            📋 リスト
+        </button>
+    `;
+
+    container.querySelectorAll("[data-density]").forEach(button => {
+        button.addEventListener("click", () => {
+            const density = button.dataset.density;
+
+            if(button.classList.contains("is-active")){
+                return;
+            }
+
+            container.querySelectorAll("[data-density]").forEach(b => {
+                b.classList.toggle("is-active", b === button);
+                b.setAttribute("aria-pressed", String(b === button));
+            });
+
+            setStoredDisplayDensity(density);
+            onChange(density);
+        });
+    });
+
+    return initialDensity;
+}
+
+// ==========================
 // 「🔥 まもなく終了」セクションの表示/非表示切り替え
 // ==========================
 // ユーザーが手動で閉じた状態をサイト内共通でlocalStorageに保存し、
@@ -1320,6 +1407,47 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
             </div>
 
         </article>
+    `;
+}
+
+// 表示密度「コンパクトリスト」用の1行表示（タイトル・日付・バッジのみ）。
+// お気に入り登録やカレンダー追加・共有などの操作ボタン、画像、説明文はあえて省略し、
+// 行全体を元記事へのリンクにすることで、大量の情報をすばやく見比べたい人向けの
+// 表示にしている（それらの操作をしたい場合はカード表示に切り替える）。
+// data-favorite-toggleなどcard表示の汎用ハンドラとは独立しているが、既読トラッキング
+// （setupReadTrackingByView）はdata-read-category/data-read-id属性を見て動くため
+// buildInfoCardと同じ属性を付与し、そのまま流用できるようにしている。
+function buildInfoCompactRow(item, highlightTerm, category){
+    const cardCategory = category || "infos";
+    const badgesHtml = buildInfoCardBadges(item, cardCategory, {});
+    const readAttrsHtml = `data-read-category="${escapeHTML(cardCategory)}" data-read-id="${item.id}"`;
+    const title = getItemTitle(item);
+    const dateLabel = item.date || "";
+
+    const rowContentHtml = `
+        ${dateLabel ? `<span class="infoCompactRowDate">${escapeHTML(dateLabel)}</span>` : ""}
+        <span class="infoCompactRowTitle">${renderHighlightedText(title, highlightTerm)}</span>
+        ${badgesHtml}
+    `;
+
+    if(item.articleUrl){
+        return `
+            <a
+                class="infoCard infoCard--compact"
+                ${readAttrsHtml}
+                href="${escapeHTML(item.articleUrl)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="${escapeHTML(title)}">
+                ${rowContentHtml}
+            </a>
+        `;
+    }
+
+    return `
+        <div class="infoCard infoCard--compact" ${readAttrsHtml} title="${escapeHTML(title)}">
+            ${rowContentHtml}
+        </div>
     `;
 }
 

@@ -58,7 +58,8 @@
         status: "all",
         unreadOnly: false,
         page: 1,
-        customMonth: "" // アーカイブページの月別件数からの絞り込み（YYYY-MM）
+        customMonth: "", // アーカイブページの月別件数からの絞り込み（YYYY-MM）
+        displayDensity: "card" // "card"（カード表示）または "compact"（コンパクトリスト表示）
     };
 
     // 1ページ目・2ページ目以降ともに10件ずつ表示する
@@ -71,6 +72,13 @@
     state.searchMode = setupSearchModeToggle("infoSearchModeToggle", mode => {
         state.searchMode = mode;
         state.page = 1;
+        render();
+    });
+
+    // 表示形式（カード／コンパクトリスト）はページ番号や絞り込み結果には影響しないため、
+    // 切り替え時はpageをリセットせずそのまま再描画する
+    state.displayDensity = setupDisplayDensityToggle("infoDisplayDensityToggle", density => {
+        state.displayDensity = density;
         render();
     });
 
@@ -595,6 +603,9 @@
         updateMarkAllReadButton(getFilteredItemsIgnoringReadState());
 
         if(sortedItems.length === 0){
+            // 「注目のコンテンツ」フォールバックは件数が少なくコンパクト表示の恩恵が薄いため、
+            // 表示形式に関わらず常にカード表示にする
+            listElement.classList.remove("infoList--compact");
             renderNoResults();
             renderPaginationControls("infoPagination", 1, 1, () => {});
             updateUrlParams(Boolean(pushHistory));
@@ -613,9 +624,14 @@
 
         const [start, end] = getPaginationRange(state.page, FIRST_PAGE_SIZE, OTHER_PAGE_SIZE);
         const pageItems = sortedItems.slice(start, end);
+        const isCompact = state.displayDensity === "compact";
+
+        listElement.classList.toggle("infoList--compact", isCompact);
 
         listElement.innerHTML = pageItems.map(item =>
-            buildInfoCard(item, createFavoriteButton("infos", item.id), "", state.keyword, "infos")
+            isCompact
+                ? buildInfoCompactRow(item, state.keyword, "infos")
+                : buildInfoCard(item, createFavoriteButton("infos", item.id), "", state.keyword, "infos")
         ).join("");
 
         listElement.querySelectorAll("[data-favorite-toggle]").forEach(button => {

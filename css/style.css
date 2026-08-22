@@ -786,6 +786,101 @@ nav a:hover{
 }
 
 /* ==========================
+   表示密度切り替え（カード表示／コンパクトリスト表示）
+   ========================== */
+
+/* 「全◯件」の件数表示と同じ行に、右寄せで表示形式の切り替えボタンを同居させる。
+   件数の内訳（タグ別件数など）で行が長くなることがあるため、幅が足りない時は
+   ボタン側だけ次の行に折り返す */
+.infoListHeaderRow{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-start;
+    justify-content:space-between;
+    column-gap:16px;
+    row-gap:6px;
+    margin:8px 0 16px;
+}
+
+.infoListHeaderRow .dataCount{
+    margin:0;
+}
+
+.infoListHeaderRow .infoDisplayDensityToggle{
+    flex:0 0 auto;
+}
+
+.infoDisplayDensityToggle{
+    margin-bottom:0;
+}
+
+/* コンパクトリスト表示：カード同士のgapを詰め、代わりに枠線で1件ずつを区切る */
+.infoList.infoList--compact{
+    gap:0;
+    border:1px solid #c8ccd1;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.infoCard--compact{
+    /* .infoCardクラスも併せて持つため、@media(max-width:640px)の
+       「.infoCard{flex-direction:column}」（カード表示をスマホで縦積みにする指定）を
+       上書きし、コンパクト表示ではスマホ幅でも横並びの行のままにする */
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    align-items:baseline;
+    column-gap:14px;
+    row-gap:4px;
+    padding:10px 14px;
+    background:white;
+    border:none;
+    border-bottom:1px solid #eaecf0;
+    border-radius:0;
+    text-decoration:none;
+    color:inherit;
+    cursor:pointer;
+}
+
+.infoList--compact .infoCard--compact:last-child{
+    border-bottom:none;
+}
+
+.infoCard--compact:hover{
+    background:#f8f9fa;
+}
+
+.infoCard--compact:focus-visible{
+    outline:3px solid #36c;
+    outline-offset:-2px;
+}
+
+.infoCompactRowDate{
+    flex:0 0 auto;
+    color:#72777d;
+    font-size:.85em;
+    white-space:nowrap;
+}
+
+.infoCompactRowTitle{
+    flex:1 1 260px;
+    min-width:0;
+    font-weight:bold;
+    color:#202122;
+}
+
+.infoCard--compact .infoBadges{
+    flex:0 0 auto;
+    margin-bottom:0;
+    gap:5px;
+}
+
+.infoCard--compact .infoBadge{
+    padding:2px 8px;
+    font-size:.72em;
+}
+
+/* ==========================
    イベントカレンダー
    ========================== */
 
@@ -3006,6 +3101,29 @@ html.theme-dark .infoCardDate,
 html.theme-dark .lastUpdated,
 html.theme-dark .databaseOverview p{
     color:#b7b7b7;
+}
+
+html.theme-dark .infoList.infoList--compact{
+    border-color:#333;
+}
+
+html.theme-dark .infoCard--compact{
+    background:#1b1b1d;
+    border-bottom-color:#333;
+    color:#e8e8e8;
+}
+
+html.theme-dark .infoCard--compact:hover,
+html.theme-dark .infoCard--compact:focus-visible{
+    background:#232325;
+}
+
+html.theme-dark .infoCompactRowDate{
+    color:#b7b7b7;
+}
+
+html.theme-dark .infoCompactRowTitle{
+    color:#e8e8e8;
 }
 
 html.theme-dark .infoCardRelated{
