@@ -243,15 +243,15 @@
         }
     }
 
-    function buildDayAriaLabel(date, eventsOnDay){
+    function buildDayAriaLabel(date, displayEntries){
         const dateLabel = `${date.getMonth() + 1}月${date.getDate()}日`;
 
-        if(eventsOnDay.length === 0){
+        if(displayEntries.length === 0){
             return dateLabel;
         }
 
-        const ongoingCount = eventsOnDay.filter(item => Boolean(item.eventStart)).length;
-        const reservationCount = eventsOnDay.length - ongoingCount;
+        const ongoingCount = displayEntries.filter(entry => Boolean(entry.item.eventStart)).length;
+        const reservationCount = displayEntries.length - ongoingCount;
         const parts = [];
 
         if(ongoingCount > 0){
@@ -273,8 +273,54 @@
         return `<li class="eventCalendarEmpty">${escapeHTML(message)}</li>`;
     }
 
-    function buildEventListItemsHtml(events){
-        return events.map(item => `
+    // 同じeventGroupIdを持つ投稿（同一イベントの続報）を1件の代表投稿にまとめる。
+    // 代表は投稿日(date)が最も新しいものとし、それ以外は続報として折りたたむ。
+    // eventGroupIdを持たない投稿はそのまま{item, related:[]}として扱う。
+    // 渡された順序（既存のソート順）は代表投稿の位置に保たれる。
+    function dedupeByEventGroup(items){
+        const membersByGroup = new Map();
+
+        items.forEach(item => {
+            if(!item.eventGroupId){
+                return;
+            }
+
+            if(!membersByGroup.has(item.eventGroupId)){
+                membersByGroup.set(item.eventGroupId, []);
+            }
+
+            membersByGroup.get(item.eventGroupId).push(item);
+        });
+
+        const renderedGroups = new Set();
+        const entries = [];
+
+        items.forEach(item => {
+            if(!item.eventGroupId){
+                entries.push({ item, related: [] });
+                return;
+            }
+
+            if(renderedGroups.has(item.eventGroupId)){
+                return;
+            }
+
+            renderedGroups.add(item.eventGroupId);
+
+            const members = [...membersByGroup.get(item.eventGroupId)]
+                .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+
+            const representative = members[members.length - 1];
+            const related = members.slice(0, -1);
+
+            entries.push({ item: representative, related });
+        });
+
+        return entries;
+    }
+
+    function buildEventListItemsHtml(entries){
+        return entries.map(({ item, related }) => `
             <li>
                 <a href="${escapeHTML(item.articleUrl || "#")}" target="_blank" rel="noopener noreferrer">
                     ${escapeHTML(getItemTitle(item))}
@@ -282,12 +328,25 @@
                 <span class="eventCalendarPeriod">${escapeHTML(getEventPeriodLabel(item))}</span>
                 ${item.location ? `<span class="eventCalendarLocation">📍 ${escapeHTML(item.location)}</span>` : ""}
                 <span class="eventCalendarActions">${createCalendarActionsHtml(item)}</span>
+                ${related.length > 0 ? `
+                    <button type="button" class="eventCalendarRelatedToggle" aria-expanded="false">🔗 続報${related.length}件</button>
+                    <ul class="eventCalendarRelatedList" hidden>
+                        ${related.map(relatedItem => `
+                            <li>
+                                <a href="${escapeHTML(relatedItem.articleUrl || "#")}" target="_blank" rel="noopener noreferrer">
+                                    ${escapeHTML(getItemTitle(relatedItem))}
+                                </a>
+                                <span class="eventCalendarPeriod">${escapeHTML(relatedItem.date || "")}</span>
+                            </li>
+                        `).join("")}
+                    </ul>
+                ` : ""}
             </li>
         `).join("");
     }
 
-    function renderEventList(events){
-        if(events.length === 0){
+    function renderEventList(entries){
+        if(entries.length === 0){
             listElement.innerHTML = buildEventListEmptyHtml(
                 hasActiveFilters()
                     ? "条件に一致するイベントはありません"
@@ -296,11 +355,37 @@
             return;
         }
 
-        listElement.innerHTML = buildEventListItemsHtml(events);
+        listElement.innerHTML = buildEventListItemsHtml(entries);
     }
 
     function clearEventList(){
         listElement.innerHTML = buildEventListEmptyHtml("日付を選択してください");
+    }
+
+    // 「🔗 続報N件」ボタンの開閉。一覧はrenderのたびに作り直されるため、
+    // ボタン1つ1つにリスナーを付けるのではなく、親要素へのイベント委任にしている
+    function setupRelatedToggleDelegation(container){
+        if(!container){
+            return;
+        }
+
+        container.addEventListener("click", event => {
+            const toggle = event.target.closest(".eventCalendarRelatedToggle");
+
+            if(!toggle){
+                return;
+            }
+
+            const relatedList = toggle.nextElementSibling;
+
+            if(!relatedList){
+                return;
+            }
+
+            const willShow = relatedList.hidden;
+            relatedList.hidden = !willShow;
+            toggle.setAttribute("aria-expanded", String(willShow));
+        });
     }
 
     function getMonthOngoingEvents(events){
@@ -317,16 +402,18 @@
             monthListHeading.textContent = `${state.year}年${state.month + 1}月のイベント一覧`;
         }
 
-        const events = getMonthEvents();
+        // eventGroupIdでまとめた代表投稿のみを表示・ICS書き出し対象にする
+        // （続報の各投稿は代表投稿の「🔗 続報N件」から個別に開ける）
+        const entries = dedupeByEventGroup(getMonthEvents());
 
         if(monthIcsExportButton){
-            const ongoingEvents = getMonthOngoingEvents(events);
+            const ongoingEvents = getMonthOngoingEvents(entries.map(entry => entry.item));
 
             monthIcsExportButton.hidden = ongoingEvents.length === 0;
             monthIcsExportButton.dataset.ongoingCount = String(ongoingEvents.length);
         }
 
-        if(events.length === 0){
+        if(entries.length === 0){
             monthListElement.innerHTML = buildEventListEmptyHtml(
                 hasActiveFilters()
                     ? "条件に一致するイベントはありません"
@@ -335,7 +422,7 @@
             return;
         }
 
-        monthListElement.innerHTML = buildEventListItemsHtml(events);
+        monthListElement.innerHTML = buildEventListItemsHtml(entries);
     }
 
     // ==========================
@@ -367,6 +454,7 @@
             const date = new Date(state.year, state.month, day);
             const dateKey = formatDateKey(date);
             const eventsOnDay = getEventsOnDate(date);
+            const displayEventsOnDay = dedupeByEventGroup(eventsOnDay);
             const dayType = getDayType(eventsOnDay);
             const isToday = date.getTime() === today.getTime();
             const isSelected = dateKey === selectedKey;
@@ -385,11 +473,11 @@
                 connectsToNext ? "eventCalendarDay--connectRight" : ""
             ].filter(Boolean).join(" ");
 
-            const badge = eventsOnDay.length > 1
-                ? `<span class="eventCalendarDayBadge">${eventsOnDay.length}</span>`
+            const badge = displayEventsOnDay.length > 1
+                ? `<span class="eventCalendarDayBadge">${displayEventsOnDay.length}</span>`
                 : "";
 
-            const ariaLabel = buildDayAriaLabel(date, eventsOnDay);
+            const ariaLabel = buildDayAriaLabel(date, displayEventsOnDay);
 
             cells.push(`
                 <button type="button" class="${classNames}" data-date="${dateKey}" aria-label="${escapeHTML(ariaLabel)}" aria-pressed="${isSelected}"${isToday ? ' aria-current="date"' : ""}>
@@ -432,7 +520,7 @@
         updateMonthNavButtonState();
 
         if(state.selectedDate){
-            renderEventList(getEventsOnDate(state.selectedDate));
+            renderEventList(dedupeByEventGroup(getEventsOnDate(state.selectedDate)));
         }else{
             clearEventList();
         }
@@ -921,7 +1009,9 @@
 
     if(monthIcsExportButton){
         monthIcsExportButton.addEventListener("click", () => {
-            const ongoingEvents = getMonthOngoingEvents(getMonthEvents());
+            const ongoingEvents = getMonthOngoingEvents(
+                dedupeByEventGroup(getMonthEvents()).map(entry => entry.item)
+            );
 
             if(ongoingEvents.length === 0){
                 return;
@@ -992,6 +1082,9 @@
         syncJumpSelects();
         updateClearButtonVisibility();
     });
+
+    setupRelatedToggleDelegation(listElement);
+    setupRelatedToggleDelegation(monthListElement);
 
     renderTagFilters();
     renderRegionFilters();

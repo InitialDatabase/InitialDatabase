@@ -3,7 +3,56 @@ const database = {
     infos:[
 
         {
+            prefecture:["神奈川県"],
+            location:"神奈川県横浜市（赤レンガエリア）",
+            id:156,
+            eventGroupId:"eg-003",
+            title:"陳麻婆豆腐×頭文字Dコラボ仕様のAE86が8月24日に横浜・赤レンガ倉庫エリアを走行",
+            date:"2026-08-23",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","イベント","キャンペーン"],
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐×頭文字Dコラボ仕様のAE86が、8月24日(月)11時〜15時に「横浜・赤レンガ倉庫」エリアを走行予定。見かけた際に指定ハッシュタグ「#頭文字MD」を付けて投稿すると、コラボ限定の麻婆豆腐皿プレゼント企画の応募対象となる。写真投稿の際は他の人の顔が写り込まないよう呼びかけている。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2091487506533699796",
+            eventStart:"2026-08-24",
+            eventEnd:"2026-08-24"
+        },
+
+        {
+            id:157,
+            eventGroupId:"eg-008",
+            title:"『レーシングマスター』に日産 GT-R NISMO '20 MFゴースト第4戦Ver.が登場、8月27日実装",
+            date:"2026-08-23",
+            source:"【公式】レーシングマスター🏎️💨（X）",
+            tags:["コラボ","ゲーム"],
+            series:["頭文字D","MFゴースト"],
+            description:
+            "『頭文字D』のドリフトの魂を受け継ぐレーシングゲーム『レーシングマスター』に、日産 GT-R NISMO '20 MFゴースト第4戦Ver.が8月27日に登場。誰よりも前へ進むための意志を受け継いだレジェンドマシンで、8月27日5:00〜9月16日23:59の期間限定ガチャで入手できる。",
+            articleUrl:"https://x.com/RacingMasterJP/status/2091450371214315802",
+            eventStart:"2026-08-27",
+            eventEnd:"2026-09-16"
+        },
+
+        {
+            id:158,
+            eventGroupId:"eg-002",
+            title:"陳麻婆豆腐×頭文字Dコラボ企画開催中、対象メニュー注文で限定トレカ10種の中から1枚プレゼント",
+            date:"2026-08-23",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","キャンペーン","グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐×頭文字Dコラボ企画を開催中。コラボ限定メニューの注文で、全10種の限定トレーディングカードの中から1枚がもらえる。陳麻婆豆腐各店で実施（京王モール店・ららぽーと堺店を除く）。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2091352223972311444",
+            eventStart:"2026-08-01",
+            eventEnd:"2026-10-31"
+        },
+
+        {
             id:154,
+            eventGroupId:"eg-004",
             title:"エンジェルクローバーより『頭文字D』連載30周年記念「藤原親子」コラボレーションウォッチ登場",
             date:"2026-08-22",
             source:"webChronos（ウェブクロノス）（X）",
@@ -106,6 +155,7 @@ const database = {
             prefecture:["東京都"],
             location:"東京都（秋葉原〜上野エリア）",
             id:150,
+            eventGroupId:"eg-003",
             title:"陳麻婆豆腐×頭文字Dコラボ仕様のAE86が8月23日に秋葉原・上野エリアを走行",
             date:"2026-08-21",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -119,6 +169,7 @@ const database = {
 
         {
             id:151,
+            eventGroupId:"eg-006",
             prefecture:["長崎県"],
             location:"長崎県大村市（BR大村）",
             title:"ミッドナイトボートレースin大村7、2日目も『MFゴースト』コラボ実施",
@@ -137,6 +188,7 @@ const database = {
             prefecture:["長崎県"],
             location:"長崎県大村市（BR大村）",
             id:153,
+            eventGroupId:"eg-006",
             title:"「ミッドナイトボートレースin大村7」3日目も『MFゴースト』コラボ実施、デジタルギフト抽選",
             date:"2026-08-22",
             source:"DYNAMITE BOATRACE（X）",
@@ -194,6 +246,7 @@ const database = {
 
         {
             id:140,
+            eventGroupId:"eg-008",
             title:"『レーシングマスター』×『MFゴースト』コラボ内容まとめガイドを公開",
             date:"2026-08-20",
             source:"【公式】レーシングマスター（X）",
@@ -209,6 +262,7 @@ const database = {
             prefecture:["長崎県"],
             location:"長崎県大村市（BR大村）",
             id:141,
+            eventGroupId:"eg-006",
             title:"ミッドナイトボートレースin大村7、初日から『MFゴースト』コラボ実施",
             date:"2026-08-20",
             source:"DYNAMITE BOATRACE（X）",
@@ -247,6 +301,7 @@ const database = {
 
         {
             id:144,
+            eventGroupId:"eg-008",
             title:"『レーシングマスター』2周年は明日開幕、『MFゴースト』コラボ・シーズン報酬400連相当を予告",
             date:"2026-08-19",
             source:"【公式】レーシングマスター（X）",
@@ -274,6 +329,7 @@ const database = {
 
         {
             id:137,
+            eventGroupId:"eg-008",
             title:"『レーシングマスター』公式チャージセンターでMFゴースト限定キャンペーン開催、累計チャージで抽選参加",
             date:"2026-08-19",
             source:"【公式】レーシングマスター（X）",
@@ -289,6 +345,7 @@ const database = {
             prefecture:["東京都","神奈川県"],
             location:"東京都（新宿・銀座有楽町・有明お台場・池袋・秋葉原上野・原宿青山・渋谷エリア）、神奈川県横浜市（赤レンガエリア）",
             id:135,
+            eventGroupId:"eg-003",
             title:"陳麻婆豆腐×頭文字Dコラボ仕様のAE86、8月度走行スケジュールを公開",
             date:"2026-08-18",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -317,6 +374,7 @@ const database = {
             prefecture:["群馬県"],
             location:"群馬県高崎市",
             id:128,
+            eventGroupId:"eg-010",
             title:"GR Garage高崎が伝える、イオンモール高崎『頭文字D』POP UP STOREのAE86実車展示",
             date:"2026-08-18",
             source:"GR Garage 高崎（X）",
@@ -332,6 +390,7 @@ const database = {
 
         {
             id:127,
+            eventGroupId:"eg-001",
             title:"「頭文字D」×「カーセブン」コラボ、AE86 AUTOart製1/18モデルカーが抽選で当たる企画",
             date:"2026-08-18",
             source:"カーセブン【公式アカウント】（X）",
@@ -348,6 +407,7 @@ const database = {
             prefecture:["東京都"],
             location:"東京都（池袋エリア）",
             id:126,
+            eventGroupId:"eg-003",
             title:"陳麻婆豆腐×頭文字Dコラボ仕様のAE86が8月18日に池袋エリアを走行",
             date:"2026-08-17",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -389,6 +449,7 @@ const database = {
 
         {
             id:123,
+            eventGroupId:"eg-001",
             title:"「頭文字D」×「カーセブン」コラボキャンペーン、先着エコカップ・抽選旅行券プレゼント",
             date:"2026-08-07",
             source:"カーセブン【公式アカウント】（X）",
@@ -456,6 +517,7 @@ const database = {
 
         {
             id:118,
+            eventGroupId:"eg-005",
             prefecture:["山口県"],
             location:"山口県下関市",
             title:"ミッドナイトボートレース下関6日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
@@ -539,6 +601,7 @@ const database = {
 
         {
                         id:112,
+            eventGroupId:"eg-005",
             prefecture:["山口県"],
             location:"山口県下関市",
             title:"ミッドナイトボートレース下関5日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
@@ -568,6 +631,7 @@ const database = {
 
         {
             id:111,
+            eventGroupId:"eg-008",
             title:"『レーシングマスター』2周年、8月20日開幕「本命マシン」テーマの記念コンテンツ公開",
             date:"2026-08-14",
             source:"【公式】レーシングマスター（X）",
@@ -593,6 +657,7 @@ const database = {
 
         {
                         id:107,
+            eventGroupId:"eg-003",
             prefecture:["東京都"],
             location:"東京都（有明・お台場・湾岸エリア）",
             title:"陳麻婆豆腐×頭文字Dコラボ仕様のAE86が8月16日に有明・お台場・湾岸エリアを走行",
@@ -621,6 +686,7 @@ const database = {
 
         {
                         id:109,
+            eventGroupId:"eg-005",
             prefecture:["山口県"],
             location:"山口県下関市",
             title:"ミッドナイトボートレース下関4日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
@@ -674,6 +740,7 @@ const database = {
 
         {
             id:102,
+            eventGroupId:"eg-002",
             title:"陳麻婆豆腐×頭文字Dコラボメニュー「レッドサンズ赤麻婆」、糸唐辛子の刺激的な食感が話題",
             date:"2026-08-13",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -688,6 +755,7 @@ const database = {
 
         {
                         id:103,
+            eventGroupId:"eg-005",
             prefecture:["山口県"],
             location:"山口県下関市",
             title:"ミッドナイトボートレース下関3日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
@@ -716,6 +784,7 @@ const database = {
 
         {
                         id:98,
+            eventGroupId:"eg-005",
             prefecture:["山口県"],
             location:"山口県下関市",
             title:"ミッドナイトボートレース下関2日目も『MFゴースト』コラボ実施、抽選キャンペーン継続",
@@ -732,6 +801,7 @@ const database = {
 
         {
                         id:99,
+            eventGroupId:"eg-007",
             prefecture:["愛知県"],
             location:"愛知県名古屋市",
             title:"『頭文字D』Art Exhibition名古屋会場、本日8月11日よりスタート",
@@ -748,6 +818,7 @@ const database = {
 
         {
             id:95,
+            eventGroupId:"eg-002",
             title:"陳麻婆豆腐×頭文字Dコラボ限定「陳麻婆豆腐の素」頭文字Dパッケージが登場",
             date:"2026-08-12",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -790,6 +861,7 @@ const database = {
 
         {
             id:89,
+            eventGroupId:"eg-012",
             title:"アニメ『頭文字D』シリーズ全話がYouTubeで無料公開スタート、劇場版や『MFゴースト』第1期も網羅",
             date:"2026-08-11",
             source:"電ファミニコゲーマー（X）",
@@ -816,6 +888,7 @@ const database = {
 
         {
             id:77,
+            eventGroupId:"eg-012",
             title:"「頭文字D」夏祭り、アニメタイムズ公式YouTubeで期間限定本編配信中",
             date:"2026-08-11",
             source:"涼介@YouTube（X）",
@@ -830,6 +903,7 @@ const database = {
 
         {
                         id:79,
+            eventGroupId:"eg-005",
             prefecture:["山口県"],
             location:"山口県下関市",
             title:"ミッドナイトボートレース下関で『MFゴースト』コラボ、デジタルギフトが当たるキャンペーン実施",
@@ -858,6 +932,7 @@ const database = {
 
         {
                         id:74,
+            eventGroupId:"eg-007",
             prefecture:["愛知県"],
             location:"愛知県名古屋市",
             title:"「頭文字D」Art Exhibition by GAAAT、名古屋で開催",
@@ -874,6 +949,7 @@ const database = {
 
         {
                         id:40,
+            eventGroupId:"eg-010",
             prefecture:["群馬県"],
             location:"群馬県高崎市",
             title:"AE86実車＆1/18スケールモデルが高崎に集結、ポップアップショップ開催",
@@ -891,6 +967,7 @@ const database = {
 
         {
                         id:75,
+            eventGroupId:"eg-010",
             prefecture:["群馬県"],
             location:"群馬県高崎市",
             title:"『頭文字D』ポップアップストア、イオンモール高崎に期間限定オープン",
@@ -908,6 +985,7 @@ const database = {
 
         {
                         id:76,
+            eventGroupId:"eg-010",
             prefecture:["群馬県"],
             location:"群馬県渋川市",
             title:"伊香保温泉の宿が紹介、イオンモール高崎『頭文字D』ポップアップストア",
@@ -925,6 +1003,7 @@ const database = {
 
         {
             id:41,
+            eventGroupId:"eg-004",
             title:"ANGEL CLOVER×『頭文字D』30周年、文太のインプレッサ自動巻き腕時計デザイン公開",
             date:"2026-08-09",
             source:"ANGEL CLOVER（X）",
@@ -940,6 +1019,7 @@ const database = {
 
         {
             id:42,
+            eventGroupId:"eg-011",
             title:"アオシマ「楽プラ 文太のインプレッサ」予約受付中",
             date:"2026-08-09",
             source:"アオシマ online shop（X）",
@@ -956,6 +1036,7 @@ const database = {
 
         {
                         id:43,
+            eventGroupId:"eg-010",
             prefecture:["群馬県"],
             location:"群馬県高崎市",
             title:"藤原とうふ店ハチロクの“動くティッシュケース”が買えるポップアップショップ開催",
@@ -1000,6 +1081,7 @@ const database = {
 
         {
             id:4,
+            eventGroupId:"eg-009",
             title:"「頭文字Ｄ」×「カラオケの鉄人」コラボ限定グッズ販売中",
             date:"2026-08-04",
             source:"アニメイト商品情報局（X）",
@@ -1042,6 +1124,7 @@ const database = {
 
         {
             id:7,
+            eventGroupId:"eg-001",
             title:"「頭文字D」×「カーセブン」コラボキャンペーン開催中",
             date:"2026-08-04",
             source:"カーセブン【公式アカウント】（X）",
@@ -1097,6 +1180,7 @@ const database = {
 
         {
             id:9,
+            eventGroupId:"eg-008",
             title:"『レーシングマスター』×『MFゴースト』コラボ、8月20日スタート",
             date:"2026-08-06",
             source:"【公式】レーシングマスター（X）",
@@ -1192,6 +1276,7 @@ const database = {
 
         {
             id:14,
+            eventGroupId:"eg-002",
             title:"陳麻婆豆腐×頭文字Dコラボ本日開始、限定メニュー「拓海86黒麻婆」など登場",
             date:"2026-08-01",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -1231,6 +1316,7 @@ const database = {
 
         {
             id:16,
+            eventGroupId:"eg-002",
             title:"「頭文字Ｄ」×「陳麻婆豆腐」コラボ、限定トレカ全10種プレゼント（8/1開始）",
             date:"2026-07-31",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -1246,6 +1332,7 @@ const database = {
 
         {
             id:17,
+            eventGroupId:"eg-004",
             title:"『頭文字D』連載30周年コラボ腕時計に拓海のハチロク・文太のインプレッサ新モデル登場",
             date:"2026-07-30",
             source:"電ファミニコゲーマー（X）",
@@ -1289,6 +1376,7 @@ const database = {
 
         {
             id:20,
+            eventGroupId:"eg-004",
             title:"『頭文字D』30周年コラボ腕時計「拓海の86」「文太のインプレッサ」自動巻きモデル予約開始",
             date:"2026-07-30",
             source:"ANGEL CLOVER（X）",
@@ -1316,6 +1404,7 @@ const database = {
 
         {
             id:22,
+            eventGroupId:"eg-011",
             title:"アオシマ「楽プラ スナップキット 頭文字D 文太のインプレッサ」受注予約開始",
             date:"2026-07-29",
             source:"アオシマPR（X）",
@@ -1411,6 +1500,7 @@ const database = {
 
         {
             id:29,
+            eventGroupId:"eg-002",
             title:"陳麻婆豆腐×頭文字Dコラボ限定Tシャツ、8/1コラボ開始に先駆け予告",
             date:"2026-07-23",
             source:"陳麻婆豆腐🌶【公式】（X）",
@@ -1562,6 +1652,7 @@ const database = {
 
         {
                         id:45,
+            eventGroupId:"eg-002",
             prefecture:["東京都","神奈川県","愛知県","大阪府"],
             location:"東京・神奈川・愛知・大阪（陳麻婆豆腐 全10店舗）",
             title:"『頭文字D』が麻婆豆腐発祥の店「陳麻婆豆腐」とコラボ決定、8月1日より開催",
@@ -1631,6 +1722,7 @@ const database = {
 
         {
                         id:50,
+            eventGroupId:"eg-009",
             prefecture:["北海道"],
             location:"北海道札幌市",
             title:"『頭文字D』×カラオケの鉄人コラボ、7/16グランドオープンの札幌すすきの店で追加開催",

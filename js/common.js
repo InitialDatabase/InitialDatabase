@@ -2354,16 +2354,20 @@ function renderPaginationControls(elementId, currentPage, totalPages, onPageChan
     // ページ数が多くてもボタンが横に並びすぎないよう、番号ボタンの代わりに
     // 1つのセレクトボックスでページを選ぶ方式にする（スマホでは端末標準の
     // 選択画面が開くので、タップ操作もしやすい）
+    const maxDigits = String(totalPages).length;
+
     const optionsHtml = Array.from({ length: totalPages }, (unused, index) => {
         const pageNumber = index + 1;
+        const paddedNumber = String(pageNumber).padStart(maxDigits, "\u2007");
 
-        return `<option value="${pageNumber}" ${pageNumber === currentPage ? "selected" : ""}>${pageNumber} ページ目</option>`;
+        return `<option value="${pageNumber}" ${pageNumber === currentPage ? "selected" : ""}>${paddedNumber} ページ目</option>`;
     }).join("");
 
     element.innerHTML = `
         <nav class="infoPaginationNav" aria-label="ページ送り">
-            <button type="button" class="infoPageButton infoPageNav" data-direction="prev" ${currentPage <= 1 ? "disabled" : ""}>
-                前へ
+            <button type="button" class="infoPageButton infoPageNav" data-direction="prev" title="前のページ" ${currentPage <= 1 ? "disabled" : ""}>
+                <span aria-hidden="true">‹</span>
+                <span class="visually-hidden">前へ</span>
             </button>
             <span class="infoPageSelectWrap">
                 <select class="infoPageSelect" aria-label="ページ選択">
@@ -2371,8 +2375,9 @@ function renderPaginationControls(elementId, currentPage, totalPages, onPageChan
                 </select>
                 <span class="infoPageTotal">/ 全${totalPages}ページ</span>
             </span>
-            <button type="button" class="infoPageButton infoPageNav" data-direction="next" ${currentPage >= totalPages ? "disabled" : ""}>
-                次へ
+            <button type="button" class="infoPageButton infoPageNav" data-direction="next" title="次のページ" ${currentPage >= totalPages ? "disabled" : ""}>
+                <span aria-hidden="true">›</span>
+                <span class="visually-hidden">次へ</span>
             </button>
         </nav>
     `;

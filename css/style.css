@@ -265,54 +265,87 @@ nav a:hover{
 }
 
 .infoPaginationNav{
-    display:flex;
+    display:inline-flex;
     flex-wrap:wrap;
     align-items:center;
     justify-content:center;
-    gap:8px;
+    gap:2px;
+    background:white;
+    border:1px solid #e2e4e8;
+    border-radius:999px;
+    padding:5px;
+    box-shadow:0 1px 3px rgba(32,33,34,.08);
 }
 
 .infoPageButton{
-    min-width:36px;
-    height:36px;
-    padding:0 10px;
-    border:1px solid #a2a9b1;
-    border-radius:6px;
-    background:white;
+    width:34px;
+    height:34px;
+    min-width:34px;
+    padding:0;
+    border:none;
+    border-radius:50%;
+    background:transparent;
     color:#202122;
     font:inherit;
-    font-size:.9em;
+    font-size:1.15em;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     cursor:pointer;
-    transition:.2s;
+    transition:background .15s, color .15s;
 }
 
 .infoPageButton:hover:not(:disabled){
-    background:#eaecf0;
+    background:#fdeaea;
+    color:#e2001c;
+}
+
+.infoPageButton:focus-visible{
+    outline:2px solid #e2001c;
+    outline-offset:2px;
 }
 
 .infoPageButton:disabled{
-    opacity:.4;
+    opacity:.3;
     cursor:default;
 }
 
 .infoPageSelectWrap{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:6px;
+    padding:0 12px;
+    margin:0 2px;
+    border-left:1px solid #ebedf0;
+    border-right:1px solid #ebedf0;
 }
 
 .infoPageSelect{
-    padding:4px 8px;
+    padding:0 18px 0 10px;
     color:#202122;
-    background:white;
-    border:1px solid #a2a9b1;
-    border-radius:6px;
+    background:transparent;
+    border:none;
     font:inherit;
-    font-size:.9em;
+    font-size:.92em;
+    font-weight:bold;
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2354595d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right center;
+}
+
+.infoPageSelect:focus-visible{
+    outline:2px solid #e2001c;
+    outline-offset:2px;
+    border-radius:3px;
 }
 
 .infoPageTotal{
-    color:#54595d;
+    color:#767676;
     font-size:.85em;
     white-space:nowrap;
 }
@@ -1200,6 +1233,56 @@ nav a:hover{
 .eventCalendarActions .calendarAddButton{
     padding:4px 10px;
     border-radius:14px;
+    font-size:.8em;
+}
+
+.eventCalendarRelatedToggle{
+    align-self:flex-start;
+    margin-top:4px;
+    padding:2px 10px;
+    border:1px solid #c8ccd1;
+    border-radius:12px;
+    background:#fff;
+    color:#0645ad;
+    font-size:.8em;
+    cursor:pointer;
+}
+
+.eventCalendarRelatedToggle:hover{
+    background:#eef6ff;
+}
+
+.eventCalendarRelatedList{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    margin:4px 0 0;
+    padding:6px 0 0 12px;
+    border-left:2px solid #d5e6fb;
+    list-style:none;
+}
+
+.eventCalendarRelatedList[hidden]{
+    display:none;
+}
+
+.eventCalendarRelatedList li{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+}
+
+.eventCalendarRelatedList a{
+    color:#0645ad;
+    font-size:.9em;
+    text-decoration:none;
+}
+
+.eventCalendarRelatedList a:hover{
+    text-decoration:underline;
+}
+
+.eventCalendarRelatedList .eventCalendarPeriod{
     font-size:.8em;
 }
 
@@ -3460,10 +3543,34 @@ html.theme-dark .eventCalendarJumpSelect{
     color:#e8e8e8;
 }
 
-html.theme-dark .infoPageSelect{
-    background:#101112;
-    border-color:#444;
+html.theme-dark .infoPaginationNav{
+    background:#1b1b1d;
+    border-color:#333;
+    box-shadow:0 1px 3px rgba(0,0,0,.4);
+}
+
+html.theme-dark .infoPageButton{
     color:#e8e8e8;
+}
+
+html.theme-dark .infoPageButton:hover:not(:disabled){
+    background:#3d1c1c;
+    color:#ff6b6b;
+}
+
+html.theme-dark .infoPageSelectWrap{
+    border-left-color:#333;
+    border-right-color:#333;
+}
+
+html.theme-dark .infoPageSelect{
+    background-color:transparent;
+    color:#e8e8e8;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23b7b7b7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+html.theme-dark .infoPageTotal{
+    color:#b7b7b7;
 }
 
 html.theme-dark .eventCalendarDay--today{
@@ -3515,6 +3622,24 @@ html.theme-dark .eventCalendarPeriod{
 
 html.theme-dark .eventCalendarEmptyNotice{
     color:#b7b7b7;
+}
+
+html.theme-dark .eventCalendarRelatedToggle{
+    background:#101112;
+    border-color:#444;
+    color:#8ab4ff;
+}
+
+html.theme-dark .eventCalendarRelatedToggle:hover{
+    background:#1b1b1d;
+}
+
+html.theme-dark .eventCalendarRelatedList{
+    border-left-color:#333;
+}
+
+html.theme-dark .eventCalendarRelatedList a{
+    color:#8ab4ff;
 }
 
 html.theme-dark .archiveMonthGroup,
