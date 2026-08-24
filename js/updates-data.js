@@ -17,6 +17,20 @@
 const siteUpdates = [
 
     {
+        date:"2026-08-24",
+        type:"added",
+        title:"頭文字D情報を3件追加",
+        description:"A PIT AUTOBACS京都四条店の『頭文字D』『バリバリ伝説』『湾岸MIDNIGHT』ミニカー紹介、GAAATの『頭文字D』Metal Canvas Art紹介（横浜・東京の巡回情報を含む）、『昴と彗星』第44話「ゴンイチvs. 赤羽陸斗」掲載、の3件を追加しました。今回追加した3件はいずれも既存投稿と同一イベントの続報とは判定せず、eventGroupIdの付与は行っていません（GAAATの投稿は既存の横浜会場・東京会場のグループ化とは別に、特定会場に紐づかない一般紹介投稿のため既存の名古屋会場グループeg-007などとは統合していません）。dateTBD項目のうち直近のid:71（Mr.カラーGGX、expectedDate 2026-09）とid:63（AMNIBUS缶バッジ等、expectedDate 2026-10）を再検索しましたが、いずれも正式な発売日はまだ判明せずdateTBDのまま維持しています。"
+    },
+
+    {
+        date:"2026-08-24",
+        type:"fixed",
+        title:"整合性チェックで見つかった単発イベント2件のeventEnd未入力を修正",
+        description:"データ追加時の整合性チェックで、単発イベントにもかかわらずeventEndが未入力だった2件（id:150 陳麻婆豆腐×頭文字DコラボAE86の秋葉原・上野エリア走行〈8月23日〉、id:85 TOYOTA GAZOO Racingラリーチャレンジin渋川伊香保〈6月28日開催〉）を検出し、いずれもeventStartと同日をeventEndとして補完しました。"
+    },
+
+    {
         date:"2026-08-23",
         type:"fixed",
         title:"ページ選択一覧で10ページ目以降の表示位置がずれる問題を修正",

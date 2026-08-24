@@ -3,6 +3,48 @@ const database = {
     infos:[
 
         {
+            prefecture:["京都府"],
+            location:"京都府京都市",
+            id:159,
+            title:"A PIT AUTOBACS京都四条店、『頭文字D』『バリバリ伝説』『湾岸MIDNIGHT』などアニメ・映画の劇中車ミニカーを豊富に展開",
+            date:"2026-08-24",
+            source:"A PIT AUTOBACS KYOTO SHIJO（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "『頭文字D』『バリバリ伝説』『湾岸MIDNIGHT』をはじめ、アニメや映画に登場する名車・劇中車のミニカーを豊富に取り揃えていると紹介。",
+            articleUrl:"https://x.com/APIT_KyotoShijo/status/2091795078952132882"
+        },
+
+        {
+            prefecture:["神奈川県","東京都"],
+            location:"神奈川県横浜市・東京都渋谷区ほか巡回中",
+            id:160,
+            title:"『頭文字D』の象徴的なビジュアルをアートとして表現、GAAATのMetal Canvas Art",
+            date:"2026-08-24",
+            source:"GAAAT（X）",
+            tags:["グッズ","イベント"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "『頭文字D』の象徴的なビジュアルを、金属ならではの光沢感と32層の立体表現によるMetal Canvas Artとして表現。AE86やライバルたちとのバトルなど数々の名シーンを新たな形で届ける。展示販売会は横浜・ギャラリーshimizu（8月28日〜31日）に続き、9月11日〜15日には東京・GAAAT GALLERYでも開催予定。",
+            articleUrl:"https://x.com/gaaat_art/status/2091708813464486287"
+        },
+
+        {
+            id:161,
+            title:"『昴と彗星』第44話「ゴンイチvs. 赤羽陸斗」がヤングマガジンに掲載",
+            date:"2026-08-24",
+            source:"【公式】昴と彗星（X）",
+            tags:["連載"],
+            series:["昴と彗星"],
+            description:
+            "本日発売のヤングマガジンに『昴と彗星』第44話「ゴンイチvs. 赤羽陸斗」が掲載。第1戦ファイナルラップ、関谷たちとの駆け引きを制した昴と彗星の前方では、踏ん張る人物の姿が描かれる展開。単行本第3巻も発売中。",
+            articleUrl:"https://x.com/SubaruandSubaru/status/2091697755563647474"
+        },
+
+        {
             prefecture:["神奈川県"],
             location:"神奈川県横浜市（赤レンガエリア）",
             id:156,
@@ -164,7 +206,8 @@ const database = {
             description:
             "陳麻婆豆腐×頭文字Dコラボ仕様のAE86が、8月23日(日)13時〜17時に秋葉原〜上野エリアを走行。見かけた際に指定ハッシュタグ「#頭文字MD」を付けて投稿すると、コラボ限定の麻婆豆腐皿プレゼント企画の応募対象となる。",
             articleUrl:"https://x.com/chenmapo_doufu/status/2090619900423454994",
-            eventStart:"2026-08-23"
+            eventStart:"2026-08-23",
+            eventEnd:"2026-08-23"
         },
 
         {
@@ -2091,7 +2134,8 @@ const database = {
             description:
             "伊香保温泉の宿「横手館」が、群馬県渋川市で開催される「TOYOTA GAZOO Racing ラリーチャレンジ in 渋川伊香保」を紹介。渋川市は『頭文字D』作中の重要な舞台の一つで、2026年シリーズ第5戦目として最大90台のラリーカーが渋川市総合公園（入場無料）を舞台に激走する。6月28日（日）9:00〜16:30開催。",
             articleUrl:"https://x.com/yokotekan/status/2066667737859149893",
-            eventStart:"2026-06-28"
+            eventStart:"2026-06-28",
+            eventEnd:"2026-06-28"
         },
 
         {
