@@ -3,6 +3,67 @@ const database = {
     infos:[
 
         {
+            prefecture:["滋賀県"],
+            location:"滋賀県守山市",
+            id:162,
+            title:"attrapiaピエリ守山店、『MFゴースト』片桐夏向の愛車「ZN6 TOYOTA86 第14巻 シーサイドダブルレーン仕様」の完成品を紹介",
+            date:"2026-08-25",
+            source:"attrapiaピエリ守山店（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["MFゴースト"],
+            description:
+            "『MFゴースト』の主人公・片桐夏向の愛車をモチーフにしたアオシマの1/24スケールプラモデル「MFゴースト No.4 片桐夏向 ZN6 TOYOTA86 第14巻 シーサイドダブルレーン仕様」を完成させ、店頭で紹介。真っ赤なボディに「86」のマーキング、大型リアウイングが特徴。",
+            articleUrl:"https://x.com/attrapia/status/2092057762536837508"
+        },
+
+        {
+            id:163,
+            eventGroupId:"eg-002",
+            title:"陳麻婆豆腐×頭文字Dコラボ、「陳麻婆豆腐の素 頭文字D限定パッケージ」が当たるフォロー＆リポストキャンペーンを実施",
+            date:"2026-08-25",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","キャンペーン","グッズ"],
+            goodsCategory:"食品",
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐×頭文字Dコラボを記念し、「陳麻婆豆腐の素 頭文字D限定パッケージ」が抽選で3名に当たるキャンペーンを実施。応募方法は公式アカウントのフォローと対象ポストのリポスト。応募締切は8月31日。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2092069449830428963",
+            eventStart:"2026-08-25",
+            eventEnd:"2026-08-31"
+        },
+
+        {
+            id:164,
+            eventGroupId:"eg-013",
+            title:"『頭文字DAC』公道最強決定戦4th 地方大会、プレゼント抽選会や4台交流対戦など当日参加OKの企画を紹介",
+            date:"2026-08-25",
+            source:"頭文字DAC公式（X）",
+            tags:["ゲーム","イベント"],
+            series:["頭文字DAC"],
+            description:
+            "公式全国大会「公道最強決定戦4th」の地方大会について、大会出場者以外でも楽しめる当日参加OKの企画を紹介。豪華景品が当たるプレゼント抽選会、4台交流対戦、各地方大会限定ステッカーがもらえるリポストキャンペーンなどを実施。本大会はライフガード（株式会社チェリオジャパン）協賛。",
+            articleUrl:"https://x.com/initialD_AS/status/2092190258376884264",
+            eventStart:"2026-08-29",
+            eventEnd:"2027-03-28"
+        },
+
+        {
+            id:165,
+            eventGroupId:"eg-013",
+            title:"『頭文字D THE ARCADE』公式全国大会「公道最強決定戦4th」の地方大会が8月29日の北関東大会を皮切りに全国7カ所で開催",
+            date:"2026-08-24",
+            source:"レスポンス（X）",
+            tags:["ゲーム","イベント"],
+            series:["頭文字DAC"],
+            description:
+            "セガ フェイブが、『頭文字D THE ARCADE』公式全国大会「公道最強決定戦4th」の地方大会を、2026年8月29日の北関東大会（群馬レジャーランド高崎駅東口店）を皮切りに、東北・東海・南関東・ダブルエースCUP・九州・中四国・近畿の全国7カ所で順次開催すると発表。2部門の予選を行い、各部門優勝者は2027年3月28日の決勝大会への出場権を獲得する。",
+            articleUrl:"https://x.com/responsejp/status/2091733518833635444",
+            eventStart:"2026-08-29",
+            eventEnd:"2027-03-28"
+        },
+
+        {
             prefecture:["京都府"],
             location:"京都府京都市",
             id:159,
@@ -246,6 +307,7 @@ const database = {
 
         {
             id:152,
+            eventGroupId:"eg-013",
             title:"『頭文字DAC』公式全国大会「公道最強決定戦4th」テーマソング「COBRA‡FORCE」をSOUND HOLICが担当",
             date:"2026-08-21",
             source:"SOUND HOLIC⚡️サンホリ（X）",
