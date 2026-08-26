@@ -3,6 +3,74 @@ const database = {
     infos:[
 
         {
+            id:166,
+            title:"アオシマ、1/24 頭文字D「秋山渉 AE86レビン」を再生産、2027年1月発売予定で予約受付開始",
+            date:"2026-08-26",
+            source:"アオシマ online shop（X）",
+            tags:["グッズ","予約開始"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "アオシマが「1/24 頭文字D 秋山渉 AE86レビン」を再生産し、予約受付を開始。あわせて『ザ☆チューンドカー』B-WAVE RPS13 180SXやムービーメカ「1/48 エアーウルフ」など他アイテムの再生産予約も同時に紹介。",
+            articleUrl:"https://x.com/aoshimatsu_han/status/2092487202735296613",
+            reservationStart:"2026-08-26",
+            dateTBD:true,
+            expectedDate:"2027-01"
+        },
+
+        {
+            id:167,
+            title:"アオシマ、1/24 頭文字D「高橋涼介 FC3S RX-7」「同 箱根対決仕様」「池谷浩一郎 S13シルビア」の再生産情報を紹介",
+            date:"2026-08-26",
+            source:"アオシマ online shop（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "アオシマが『頭文字D』の「1/24 頭文字D 高橋涼介 FC3S RX-7」「高橋涼介 FC3S RX-7 箱根対決仕様」「池谷浩一郎 S13シルビア」の再生産情報を紹介。公式オンラインショップにて注文受付中で最短翌日発送。",
+            articleUrl:"https://x.com/aoshimatsu_han/status/2092529986968465784"
+        },
+
+        {
+            id:168,
+            title:"『レーシングマスター』、MFゴーストコラボ「RMエンジェルス」投稿キャンペーンを開催",
+            date:"2026-08-26",
+            source:"【公式】レーシングマスター（X）",
+            tags:["ゲーム","コラボ","キャンペーン"],
+            series:["MFゴースト"],
+            description:
+            "『レーシングマスター』にて実施中の『MFゴースト』コラボの一環として、テーマ「ガソリン車の魂」でRMエンジェルスの衣装・コーディネートを作成し、スクリーンショットを対象投稿のコメント欄へ投稿するキャンペーンを開催。",
+            articleUrl:"https://x.com/RacingMasterJP/status/2092552639234056551"
+        },
+
+        {
+            id:169,
+            eventGroupId:"eg-014",
+            title:"『頭文字DAC』EX復刻TTイベント「西行寺幽々子」編がスタート、9月16日まで",
+            date:"2026-08-26",
+            source:"頭文字DAC公式（X）",
+            tags:["イベント","コラボ","ゲーム"],
+            series:["頭文字DAC"],
+            description:
+            "『頭文字D THE ARCADE』にて「東方Project」コラボのEX復刻TTイベント「西行寺幽々子」編がスタート。舞台は「筑波/復路」。ポイントを貯めると「西行寺幽々子」のコラボアイテムを獲得でき、新規レースBGM『Against, Perfect Cherry Blossom.』も追加。期間は8月27日(木)〜9月16日(水)。",
+            articleUrl:"https://x.com/initialD_AS/status/2092552640655990879",
+            eventStart:"2026-08-27",
+            eventEnd:"2026-09-16"
+        },
+
+        {
+            id:170,
+            title:"『MFゴースト』Final Season音ロケ用、片桐夏向のZN6をBLITZが製作中と音響監督が明かす",
+            date:"2026-08-25",
+            source:"音響監督 三間雅文（X）",
+            tags:["ニュース"],
+            series:["MFゴースト"],
+            description:
+            "『MFゴースト』音響監督の三間雅文氏が、Final Seasonに向けて実際の劇中車により近い音を収録する「音ロケ」用に、片桐夏向のZN6をBLITZが5ヶ月かけて製作していることを明かし、完成が近いことをうかがわせる投稿を公開。",
+            articleUrl:"https://x.com/Sunma47/status/2092244661402497346"
+        },
+
+        {
             prefecture:["滋賀県"],
             location:"滋賀県守山市",
             id:162,
@@ -723,6 +791,7 @@ const database = {
 
         {
             id:110,
+            eventGroupId:"eg-014",
             title:"『頭文字DAC』TTイベント「八雲紫」編、8月26日まで開催中",
             date:"2026-08-14",
             source:"頭文字DAC公式（X）",
