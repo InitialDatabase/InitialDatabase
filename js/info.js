@@ -595,6 +595,32 @@
         }
     }
 
+    // ページ内の項目を並べる際、直前の項目と日付が変わったタイミングで
+    // 「8月15日」のような日付見出しを挟み込む。ページをまたいで同じ日付の項目が
+    // 分かれる場合、両方のページの先頭にその日付の見出しが表示される（ページ単位で
+    // 完結させ、前のページの内容を覚えておく必要がないようにするため）
+    function buildPageItemsHtml(pageItems, isCompact){
+        let previousDate = null;
+
+        return pageItems.map(item => {
+            const itemHtml = isCompact
+                ? buildInfoCompactRow(item, state.keyword, "infos")
+                : buildInfoCard(item, createFavoriteButton("infos", item.id), "", state.keyword, "infos");
+
+            const currentDate = item.date || "";
+            const shouldShowHeading = currentDate && currentDate !== previousDate;
+            const headingHtml = shouldShowHeading
+                ? `<h2 class="infoDateHeading">${escapeHTML(formatDateHeadingLabel(currentDate))}</h2>`
+                : "";
+
+            if(currentDate){
+                previousDate = currentDate;
+            }
+
+            return headingHtml + itemHtml;
+        }).join("");
+    }
+
     function render(pushHistory){
         const filteredItems = getFilteredItems();
         const sortedItems = getSortedItems(filteredItems);
@@ -629,11 +655,7 @@
 
         listElement.classList.toggle("infoList--compact", isCompact);
 
-        listElement.innerHTML = pageItems.map(item =>
-            isCompact
-                ? buildInfoCompactRow(item, state.keyword, "infos")
-                : buildInfoCard(item, createFavoriteButton("infos", item.id), "", state.keyword, "infos")
-        ).join("");
+        listElement.innerHTML = buildPageItemsHtml(pageItems, isCompact);
 
         listElement.querySelectorAll("[data-favorite-toggle]").forEach(button => {
             button.addEventListener("click", () => {

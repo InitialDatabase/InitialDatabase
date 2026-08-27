@@ -705,6 +705,23 @@ function formatShortDate(dateStr){
     return `${parsed.getMonth() + 1}/${parsed.getDate()}`;
 }
 
+// "2026-08-23" のような日付文字列を、一覧の日付区切り見出し用に「8月23日」の表記へ変換する。
+// 今日と年が異なる場合（年をまたいだ古い情報を見返す場合など）は「2025年8月23日」のように
+// 年も付ける。不正な形式の場合は空文字を返す
+function formatDateHeadingLabel(dateStr){
+    const parsed = parseDateOnly(dateStr);
+
+    if(!parsed){
+        return "";
+    }
+
+    const yearLabel = parsed.getFullYear() !== getTodayDateOnly().getFullYear()
+        ? `${parsed.getFullYear()}年`
+        : "";
+
+    return `${yearLabel}${parsed.getMonth() + 1}月${parsed.getDate()}日`;
+}
+
 // item.expectedDate（"2026-12"のような年月文字列）を「2026年12月ごろ」の表記に変換する。
 // 形式が不正な場合は空文字を返す
 function formatExpectedDateLabel(expectedDate){
@@ -2354,13 +2371,17 @@ function renderPaginationControls(elementId, currentPage, totalPages, onPageChan
     // ページ数が多くてもボタンが横に並びすぎないよう、番号ボタンの代わりに
     // 1つのセレクトボックスでページを選ぶ方式にする（スマホでは端末標準の
     // 選択画面が開くので、タップ操作もしやすい）
-    const maxDigits = String(totalPages).length;
-
+    //
+    // 選択肢のラベルは「1ページ目」「17ページ目」のようにそのまま桁数分の
+    // 文字列にする（以前はfigure space(\u2007)で桁を揃えていたが、iPadなど
+    // 端末標準の選択リスト表示ではこの特殊スペースの幅が数字と一致せず、
+    // 行ごとに見た目がズレて見える不具合があったため廃止した）。
+    // 閉じた状態のボタン幅が桁数によってガタつかないようにする役割は、
+    // CSS側の.infoPageSelectのmin-widthに持たせている
     const optionsHtml = Array.from({ length: totalPages }, (unused, index) => {
         const pageNumber = index + 1;
-        const paddedNumber = String(pageNumber).padStart(maxDigits, "\u2007");
 
-        return `<option value="${pageNumber}" ${pageNumber === currentPage ? "selected" : ""}>${paddedNumber} ページ目</option>`;
+        return `<option value="${pageNumber}" ${pageNumber === currentPage ? "selected" : ""}>${pageNumber}ページ目</option>`;
     }).join("");
 
     element.innerHTML = `

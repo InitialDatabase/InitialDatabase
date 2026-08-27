@@ -3,6 +3,50 @@ const database = {
     infos:[
 
         {
+            id:171,
+            eventGroupId:"eg-002",
+            title:"陳麻婆豆腐×頭文字Dコラボ開催中、「#頭文字MD」タグ投稿で限定麻婆豆腐皿が当たるキャンペーンを実施中",
+            date:"2026-08-27",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","キャンペーン"],
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐×頭文字Dコラボは10月31日まで開催中で、途中参加・再参加も可能。コラボメニューやグッズを撮影し「#頭文字MD」タグを付けて投稿すると、抽選で86名に頭文字Dコラボ限定の麻婆豆腐皿（非売品）がプレゼントされる。あわせて、コラボ限定キーホルダーの一部商品が品切れ中で、近日中に在庫が復活する予定であることも案内。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2092873317829218564",
+            eventStart:"2026-08-01",
+            eventEnd:"2026-10-31"
+        },
+
+        {
+            id:172,
+            eventGroupId:"eg-008",
+            title:"『レーシングマスター』、R35オーナー限定で日産GT-R NISMO MFゴースト第4戦Ver.を無料配布中",
+            date:"2026-08-27",
+            source:"【公式】レーシングマスター🏎️💨（X）",
+            tags:["コラボ","ゲーム","キャンペーン"],
+            series:["頭文字D","MFゴースト"],
+            description:
+            "『レーシングマスター』にて、日産 NISSAN GT-R (R35) '18の所有者を対象に、新登場の「日産 GT-R NISMO MFゴースト第4戦Ver.」を1台無料でプレゼントする還元イベントを実施中。あわせて、通常版R35のECUステージ所持数に応じて専用の無料ガチャも獲得できる。期間は8月27日5:00〜9月16日23:59。",
+            articleUrl:"https://x.com/RacingMasterJP/status/2092839523764072649",
+            eventStart:"2026-08-27",
+            eventEnd:"2026-09-16"
+        },
+
+        {
+            id:173,
+            eventGroupId:"eg-015",
+            title:"アオシマ、1/24 頭文字D「高橋涼介 FC3S RX-7」「同 箱根対決仕様」「池谷浩一郎 S13シルビア」の出荷がスタート",
+            date:"2026-08-26",
+            source:"アオシマPR（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "アオシマが『頭文字D』の「1/24 頭文字D No.3 高橋涼介 FC3S RX-7」「No.7 高橋涼介 FC3S RX-7 箱根対決仕様」「No.11 池谷浩一郎 S13シルビア」の出荷を開始したことを公式Xで発表。",
+            articleUrl:"https://x.com/aoshima_PR/status/2092733829165502727"
+        },
+
+        {
             id:166,
             title:"アオシマ、1/24 頭文字D「秋山渉 AE86レビン」を再生産、2027年1月発売予定で予約受付開始",
             date:"2026-08-26",
@@ -20,6 +64,7 @@ const database = {
 
         {
             id:167,
+            eventGroupId:"eg-015",
             title:"アオシマ、1/24 頭文字D「高橋涼介 FC3S RX-7」「同 箱根対決仕様」「池谷浩一郎 S13シルビア」の再生産情報を紹介",
             date:"2026-08-26",
             source:"アオシマ online shop（X）",

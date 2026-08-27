@@ -258,6 +258,26 @@ nav a:hover{
     gap:20px;
 }
 
+/* 一覧内の日付区切り見出し（「8月15日」など）。カード表示・コンパクトリスト表示の
+   どちらでも、日付が変わったカード／行の直前に挟み込まれる */
+.infoDateHeading{
+    margin:0;
+    font-size:1.05em;
+    font-weight:700;
+    color:#202122;
+    padding-bottom:6px;
+    border-bottom:2px solid #202122;
+}
+
+.infoList--compact .infoDateHeading{
+    margin:0;
+    padding:10px 14px 6px;
+    border-bottom:1px solid #eaecf0;
+    background:#f8f9fa;
+    font-size:.85em;
+    color:#54595d;
+}
+
 .infoPagination{
     display:flex;
     justify-content:center;
@@ -333,6 +353,11 @@ nav a:hover{
     appearance:none;
     -webkit-appearance:none;
     -moz-appearance:none;
+    /* 「1ページ目」〜「17ページ目」など桁数が変わっても閉じた状態のボタン幅が
+       ガタつかないよう、最小幅を確保しておく（以前は選択肢のラベル文字列に
+       隠し文字で桁を埋めていたが、端末標準の選択リストでズレて見える不具合の
+       原因になっていたため廃止し、幅の安定はこちらのCSS側に持たせている） */
+    min-width:6.5em;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2354595d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat:no-repeat;
     background-position:right center;
@@ -3200,6 +3225,17 @@ html.theme-dark .databaseOverview p{
 
 html.theme-dark .infoList.infoList--compact{
     border-color:#333;
+}
+
+html.theme-dark .infoDateHeading{
+    color:#e8e8e8;
+    border-bottom-color:#e8e8e8;
+}
+
+html.theme-dark .infoList--compact .infoDateHeading{
+    background:#232325;
+    border-bottom-color:#333;
+    color:#b7b7b7;
 }
 
 html.theme-dark .infoCard--compact{
