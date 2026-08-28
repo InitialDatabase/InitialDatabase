@@ -273,51 +273,9 @@
         return `<li class="eventCalendarEmpty">${escapeHTML(message)}</li>`;
     }
 
-    // 同じeventGroupIdを持つ投稿（同一イベントの続報）を1件の代表投稿にまとめる。
-    // 代表は投稿日(date)が最も新しいものとし、それ以外は続報として折りたたむ。
-    // eventGroupIdを持たない投稿はそのまま{item, related:[]}として扱う。
-    // 渡された順序（既存のソート順）は代表投稿の位置に保たれる。
-    function dedupeByEventGroup(items){
-        const membersByGroup = new Map();
-
-        items.forEach(item => {
-            if(!item.eventGroupId){
-                return;
-            }
-
-            if(!membersByGroup.has(item.eventGroupId)){
-                membersByGroup.set(item.eventGroupId, []);
-            }
-
-            membersByGroup.get(item.eventGroupId).push(item);
-        });
-
-        const renderedGroups = new Set();
-        const entries = [];
-
-        items.forEach(item => {
-            if(!item.eventGroupId){
-                entries.push({ item, related: [] });
-                return;
-            }
-
-            if(renderedGroups.has(item.eventGroupId)){
-                return;
-            }
-
-            renderedGroups.add(item.eventGroupId);
-
-            const members = [...membersByGroup.get(item.eventGroupId)]
-                .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
-
-            const representative = members[members.length - 1];
-            const related = members.slice(0, -1);
-
-            entries.push({ item: representative, related });
-        });
-
-        return entries;
-    }
+    // 同じeventGroupIdを持つ投稿（同一イベントについての一連の投稿）を1件の代表投稿にまとめる処理は
+    // js/common.jsのdedupeByEventGroup()に共通化した（頭文字D情報の最新情報一覧
+    // ／js/info.jsでも同じ関数を使う）。
 
     function buildEventListItemsHtml(entries){
         return entries.map(({ item, related }) => `
@@ -329,14 +287,17 @@
                 ${item.location ? `<span class="eventCalendarLocation">📍 ${escapeHTML(item.location)}</span>` : ""}
                 <span class="eventCalendarActions">${createCalendarActionsHtml(item)}</span>
                 ${related.length > 0 ? `
-                    <button type="button" class="eventCalendarRelatedToggle" aria-expanded="false">🔗 続報${related.length}件</button>
+                    <button type="button" class="eventCalendarRelatedToggle" aria-expanded="false">🔗 過去の関連情報${related.length}件</button>
                     <ul class="eventCalendarRelatedList" hidden>
                         ${related.map(relatedItem => `
                             <li>
-                                <a href="${escapeHTML(relatedItem.articleUrl || "#")}" target="_blank" rel="noopener noreferrer">
-                                    ${escapeHTML(getItemTitle(relatedItem))}
-                                </a>
-                                <span class="eventCalendarPeriod">${escapeHTML(relatedItem.date || "")}</span>
+                                <span class="eventCalendarRelatedDot" aria-hidden="true"></span>
+                                <div class="eventCalendarRelatedContent">
+                                    <a href="${escapeHTML(relatedItem.articleUrl || "#")}" target="_blank" rel="noopener noreferrer">
+                                        ${escapeHTML(getItemTitle(relatedItem))}
+                                    </a>
+                                    <span class="eventCalendarPeriod">${escapeHTML(relatedItem.date || "")}</span>
+                                </div>
                             </li>
                         `).join("")}
                     </ul>
@@ -362,31 +323,8 @@
         listElement.innerHTML = buildEventListEmptyHtml("日付を選択してください");
     }
 
-    // 「🔗 続報N件」ボタンの開閉。一覧はrenderのたびに作り直されるため、
-    // ボタン1つ1つにリスナーを付けるのではなく、親要素へのイベント委任にしている
-    function setupRelatedToggleDelegation(container){
-        if(!container){
-            return;
-        }
-
-        container.addEventListener("click", event => {
-            const toggle = event.target.closest(".eventCalendarRelatedToggle");
-
-            if(!toggle){
-                return;
-            }
-
-            const relatedList = toggle.nextElementSibling;
-
-            if(!relatedList){
-                return;
-            }
-
-            const willShow = relatedList.hidden;
-            relatedList.hidden = !willShow;
-            toggle.setAttribute("aria-expanded", String(willShow));
-        });
-    }
+    // 「🔗 過去の関連情報N件」ボタンの開閉処理はjs/common.jsのsetupRelatedToggleDelegation()に
+    // 共通化した（頭文字D情報の最新情報一覧／js/info.jsでも同じ関数を使う）。
 
     function getMonthOngoingEvents(events){
         // 「開催中」イベントのみが対象（eventStartを持たない予約中のみの情報は除く）
@@ -403,7 +341,7 @@
         }
 
         // eventGroupIdでまとめた代表投稿のみを表示・ICS書き出し対象にする
-        // （続報の各投稿は代表投稿の「🔗 続報N件」から個別に開ける）
+        // （過去の関連投稿は代表投稿の「🔗 過去の関連情報N件」から個別に開ける）
         const entries = dedupeByEventGroup(getMonthEvents());
 
         if(monthIcsExportButton){
@@ -1083,8 +1021,8 @@
         updateClearButtonVisibility();
     });
 
-    setupRelatedToggleDelegation(listElement);
-    setupRelatedToggleDelegation(monthListElement);
+    setupRelatedToggleDelegation(listElement, ".eventCalendarRelatedToggle");
+    setupRelatedToggleDelegation(monthListElement, ".eventCalendarRelatedToggle");
 
     renderTagFilters();
     renderRegionFilters();

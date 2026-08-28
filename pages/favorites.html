@@ -100,6 +100,14 @@ gtag("config", "G-19K4474718");
 
 <h2>お気に入り一覧</h2>
 
+<section class="endingSoonSection" id="endingSoonSection" hidden aria-label="まもなく終了するお気に入り">
+    <div class="endingSoonHeader">
+        <h3 class="endingSoonTitle">🔥 まもなく終了</h3>
+        <button type="button" id="endingSoonToggle" class="endingSoonToggle" aria-expanded="false">表示する</button>
+    </div>
+    <div class="endingSoonList" id="endingSoonList" hidden></div>
+</section>
+
 <div class="infoControls" id="favoriteToolbar">
 
     <div class="infoControlRow infoSearchRow">
@@ -174,6 +182,8 @@ gtag("config", "G-19K4474718");
 <div class="infoPagination" id="favoritePagination" hidden></div>
 
 </main>
+
+<div id="favoriteToast" class="favoriteToast" hidden role="status" aria-live="polite"></div>
 
 <footer>
 

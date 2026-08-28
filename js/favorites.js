@@ -12,6 +12,7 @@
     const suggestionsElement = document.getElementById("favoriteSearchSuggestions");
     const tagFilterContainer = document.getElementById("favoriteTagFilters");
     const clearFiltersButton = document.getElementById("favoriteFilterClear");
+    const toastElement = document.getElementById("favoriteToast");
 
     const state = {
         sort: "added",
@@ -121,6 +122,194 @@
         });
     }
 
+    // 「あと○日で終了」のお気に入りをまとめて知らせる「🔥 まもなく終了」セクション。
+    // トップページの同名セクション（info.js側のrenderEndingSoon）と同じロジック・見た目を、
+    // 対象を「サイト全体の情報」から「お気に入りに入れた情報」に絞って流用したもの。
+    // 現在の検索・タグ絞り込みの影響は受けず、常にお気に入り全体から判定する。
+    function renderFavoriteEndingSoon(resolvedFavorites){
+        const section = document.getElementById("endingSoonSection");
+        const container = document.getElementById("endingSoonList");
+        const toggleButton = document.getElementById("endingSoonToggle");
+
+        if(!section || !container){
+            return;
+        }
+
+        // 同じ出来事を複数お気に入りに入れている場合にカードが重複しないよう、
+        // 先に代表のお気に入りへまとめてから判定する
+        const favoritedItems = resolvedFavorites.map(({ item }) => item);
+        const representativeItems = dedupeByEventGroup(favoritedItems).map(entry => entry.item);
+
+        const endingItems = representativeItems
+            .map(item => ({ item, daysLeft: getDaysUntilEventEnd(item) }))
+            .filter(({ item, daysLeft }) =>
+                daysLeft !== null
+                && daysLeft >= 0
+                && daysLeft <= 7
+                && isOngoingEvent(item)
+            )
+            .sort((a, b) => a.daysLeft - b.daysLeft)
+            .slice(0, 8);
+
+        if(endingItems.length === 0){
+            section.hidden = true;
+            container.innerHTML = "";
+            return;
+        }
+
+        section.hidden = false;
+
+        // 表示/非表示の設定はトップページの「🔥 まもなく終了」と共通（サイト全体で1つの好みとして扱う）
+        const isCollapsed = getStoredEndingSoonHidden();
+        container.hidden = isCollapsed;
+
+        if(toggleButton){
+            toggleButton.textContent = isCollapsed ? "表示する" : "非表示にする";
+            toggleButton.setAttribute("aria-expanded", String(!isCollapsed));
+
+            if(!toggleButton.dataset.bound){
+                toggleButton.dataset.bound = "1";
+                toggleButton.addEventListener("click", () => {
+                    const nextCollapsed = !container.hidden;
+
+                    container.hidden = nextCollapsed;
+                    setStoredEndingSoonHidden(nextCollapsed);
+                    toggleButton.textContent = nextCollapsed ? "表示する" : "非表示にする";
+                    toggleButton.setAttribute("aria-expanded", String(!nextCollapsed));
+                });
+            }
+        }
+
+        container.innerHTML = endingItems.map(({ item, daysLeft }) => {
+            const urgency = daysLeft === 0 ? "today" : daysLeft <= 1 ? "urgent" : daysLeft <= 3 ? "soon" : "later";
+            const daysLabel = daysLeft === 0 ? "本日終了" : `あと${daysLeft}日`;
+            const dateLabel = item.eventEnd ? `${formatShortDate(item.eventEnd)}まで` : "";
+
+            return `
+                <button
+                    type="button"
+                    class="endingSoonCard endingSoonCard--${urgency}"
+                    data-fav-ending-id="${item.id}">
+                    ${dateLabel ? `<span class="endingSoonDate">${escapeHTML(dateLabel)}</span>` : ""}
+                    <span class="endingSoonCardTitle">${escapeHTML(getItemTitle(item))}</span>
+                    <span class="endingSoonBadge">${escapeHTML(daysLabel)}</span>
+                </button>
+            `;
+        }).join("");
+
+        container.querySelectorAll("[data-fav-ending-id]").forEach(button => {
+            button.addEventListener("click", () => {
+                const id = Number(button.dataset.favEndingId);
+                const target = favoritedItems.find(candidate => candidate.id === id);
+
+                if(!target){
+                    return;
+                }
+
+                // クリックした情報だけをキーワード検索で絞り込み、詳細（ツイート埋め込み）まで表示する
+                state.keyword = getItemTitle(target);
+                state.activeTags.clear();
+                state.page = 1;
+
+                if(searchInput){
+                    searchInput.value = state.keyword;
+                }
+
+                closeSuggestions();
+                renderFavorites();
+                favoriteList.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
+    }
+
+    // ==========================
+    // お気に入り解除の「元に戻す」トースト
+    // ==========================
+
+    let toastTimeoutId = null;
+
+    function hideFavoriteToast(){
+        if(!toastElement){
+            return;
+        }
+
+        if(toastTimeoutId){
+            clearTimeout(toastTimeoutId);
+            toastTimeoutId = null;
+        }
+
+        toastElement.classList.remove("is-visible");
+        toastElement.hidden = true;
+        toastElement.innerHTML = "";
+    }
+
+    function showFavoriteToast(message, onUndo){
+        if(!toastElement){
+            return;
+        }
+
+        // 連続で解除された場合は前のトーストを打ち切り、直近の1件だけ「元に戻す」を出す
+        hideFavoriteToast();
+
+        toastElement.innerHTML = `
+            <span class="favoriteToastMessage">${escapeHTML(message)}</span>
+            <button type="button" class="favoriteToastButton" id="favoriteToastUndoButton">元に戻す</button>
+        `;
+
+        toastElement.hidden = false;
+
+        // hidden解除直後にクラスを付けるとトランジションが効かないため、次フレームで付与する
+        requestAnimationFrame(() => {
+            toastElement.classList.add("is-visible");
+        });
+
+        const undoButton = document.getElementById("favoriteToastUndoButton");
+
+        if(undoButton){
+            undoButton.addEventListener("click", () => {
+                hideFavoriteToast();
+                onUndo();
+            });
+        }
+
+        toastTimeoutId = setTimeout(hideFavoriteToast, 6000);
+    }
+
+    function removeFavoriteWithUndo(category, id){
+        const favorites = getFavorites();
+        const index = favorites.findIndex(favorite => favorite.category === category && favorite.id === id);
+
+        if(index === -1){
+            return;
+        }
+
+        const removedFavorite = favorites[index];
+        const removedItem = getFavoriteItem(removedFavorite);
+        const removedTitle = removedItem ? getItemTitle(removedItem) : "お気に入り";
+
+        saveFavorites(favorites.filter((favorite, favoriteIndex) => favoriteIndex !== index));
+        renderFavorites();
+
+        showFavoriteToast(`「${removedTitle}」をお気に入りから解除しました`, () => {
+            const currentFavorites = getFavorites();
+
+            // 取り消しを押すまでの間に同じ項目が別操作で再登録されていた場合は、二重に追加しない
+            const alreadyExists = currentFavorites.some(favorite =>
+                favorite.category === removedFavorite.category && favorite.id === removedFavorite.id
+            );
+
+            if(alreadyExists){
+                return;
+            }
+
+            const restored = currentFavorites.slice();
+            restored.splice(Math.min(index, restored.length), 0, removedFavorite);
+
+            saveFavorites(restored);
+            renderFavorites();
+        });
+    }
+
     function getResolvedFavorites(){
         return getFavorites().map(favorite => {
             const item = getFavoriteItem(favorite);
@@ -132,6 +321,7 @@
     function renderFavorites(){
         const resolvedFavorites = getResolvedFavorites();
 
+        renderFavoriteEndingSoon(resolvedFavorites);
         renderTagFilters(resolvedFavorites);
 
         const filteredFavorites = resolvedFavorites.filter(({ item }) =>
@@ -181,8 +371,7 @@
 
         favoriteList.querySelectorAll("[data-remove-favorite]").forEach(button => {
             button.addEventListener("click", () => {
-                removeFavorite(button.dataset.category, button.dataset.id);
-                renderFavorites();
+                removeFavoriteWithUndo(button.dataset.category, Number(button.dataset.id));
             });
         });
 

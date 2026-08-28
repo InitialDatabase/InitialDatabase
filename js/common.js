@@ -722,6 +722,114 @@ function formatDateHeadingLabel(dateStr){
     return `${yearLabel}${parsed.getMonth() + 1}月${parsed.getDate()}日`;
 }
 
+// ==========================
+// 過去の関連情報グループ化（eventGroupId）
+// ==========================
+// 同じeventGroupIdを持つ投稿（同一の出来事についての一連の投稿）を1件の代表投稿にまとめる。
+// 代表は投稿日(date)が最も新しいものとし、それ以外は過去の関連情報として日付の新しい順に格納する。
+// eventGroupIdを持たない投稿はそのまま{item, related:[]}として扱う。
+// 渡された配列の並び順はなるべく保たれる（各グループは、そのグループの投稿が
+// 配列中で最初に出現した位置にまとめて挿入される）。呼び出し側で新着順・古い順の
+// 並び替えと組み合わせたい場合は、必ず「新着順」に並べた配列を渡してから、
+// 結果の配列をまとめて反転させること（新着順の並びであれば、各グループの代表＝
+// 最新の投稿が必ずそのグループの中で最初に出現するため、挿入位置と代表の位置が一致する）。
+// イベントカレンダー（calendar.js）と頭文字D情報の最新情報一覧（info.js）で共用する。
+function dedupeByEventGroup(items){
+    const membersByGroup = new Map();
+
+    items.forEach(item => {
+        if(!item.eventGroupId){
+            return;
+        }
+
+        if(!membersByGroup.has(item.eventGroupId)){
+            membersByGroup.set(item.eventGroupId, []);
+        }
+
+        membersByGroup.get(item.eventGroupId).push(item);
+    });
+
+    const renderedGroups = new Set();
+    const entries = [];
+
+    items.forEach(item => {
+        if(!item.eventGroupId){
+            entries.push({ item, related: [] });
+            return;
+        }
+
+        if(renderedGroups.has(item.eventGroupId)){
+            return;
+        }
+
+        renderedGroups.add(item.eventGroupId);
+
+        const members = [...membersByGroup.get(item.eventGroupId)]
+            .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
+        const representative = members[0];
+        const related = members.slice(1);
+
+        entries.push({ item: representative, related });
+    });
+
+    return entries;
+}
+
+// 「🔗 過去の関連情報N件」のような開閉ボタンのクリックを親要素で一括処理する。
+// 一覧は再描画のたびに作り直されるため、ボタン1つ1つにリスナーを付けるのではなく、
+// 親要素へのイベント委任にしている。toggleSelectorには対象ボタンのクラス名を指定する
+// （例：".eventCalendarRelatedToggle"、".infoCardGroupToggle"）
+function setupRelatedToggleDelegation(container, toggleSelector){
+    if(!container){
+        return;
+    }
+
+    container.addEventListener("click", event => {
+        const toggle = event.target.closest(toggleSelector);
+
+        if(!toggle){
+            return;
+        }
+
+        const relatedList = toggle.nextElementSibling;
+
+        if(!relatedList){
+            return;
+        }
+
+        const willShow = relatedList.hidden;
+        relatedList.hidden = !willShow;
+        toggle.setAttribute("aria-expanded", String(willShow));
+    });
+}
+
+// buildInfoCard（カード表示）専用：同じeventGroupIdの過去の関連情報一覧を開閉ボタン付きで組み立てる。
+// buildInfoCompactRow（コンパクトリスト表示）は行全体がリンクになっており、
+// ボタンを入れ子にできないため使用しない（件数はバッジ表示のみに留める）
+function buildEventGroupListHtml(relatedItems){
+    if(!Array.isArray(relatedItems) || relatedItems.length === 0){
+        return "";
+    }
+
+    return `
+        <button type="button" class="infoCardGroupToggle" aria-expanded="false">🔗 過去の関連情報${relatedItems.length}件</button>
+        <ul class="infoCardGroupList" hidden>
+            ${relatedItems.map(relatedItem => `
+                <li>
+                    <span class="infoCardGroupDot" aria-hidden="true"></span>
+                    <div class="infoCardGroupContent">
+                        <a href="${escapeHTML(relatedItem.articleUrl || "#")}" target="_blank" rel="noopener noreferrer">
+                            ${escapeHTML(getItemTitle(relatedItem))}
+                        </a>
+                        <span class="infoCardGroupDate">${escapeHTML(relatedItem.date || "")}</span>
+                    </div>
+                </li>
+            `).join("")}
+        </ul>
+    `;
+}
+
 // item.expectedDate（"2026-12"のような年月文字列）を「2026年12月ごろ」の表記に変換する。
 // 形式が不正な場合は空文字を返す
 function formatExpectedDateLabel(expectedDate){
@@ -1213,6 +1321,13 @@ function buildInfoCardBadges(item, category, options){
         badges.push(`<span class="infoBadge infoBadge--source">${escapeHTML(sourceTypeLabel)}</span>`);
     }
 
+    // 同じeventGroupIdの過去の関連情報がある場合の件数バッジ。カード表示では開閉可能な
+    // 一覧（buildEventGroupListHtml）も別途表示されるが、コンパクトリスト表示では
+    // 行全体がリンクのため開閉ボタンを置けず、この件数バッジのみで存在を知らせる
+    if(opts.relatedCount > 0){
+        badges.push(`<span class="infoBadge infoBadge--group">🔗 過去の関連情報${opts.relatedCount}件</span>`);
+    }
+
     return badges.length > 0 ? `<div class="infoBadges">${badges.join("")}</div>` : "";
 }
 
@@ -1241,94 +1356,17 @@ function buildSourceLinkHtml(item){
     return `<a class="infoCardSourceLink" href="${href}" data-source-filter="${escapeHTML(item.source)}" title="この出典の情報だけを表示">${escapeHTML(item.source)}</a>`;
 }
 
-// 「同じタグの他の情報」を求める。タグ・作品（series）・グッズカテゴリの一致数が
-// 多いものほど関連度が高いとみなし、同数の場合は日付が新しい順に並べる
-function getRelatedItems(item, limit){
-    const allItems = (typeof database !== "undefined" && Array.isArray(database.infos)) ? database.infos : [];
-    const itemTags = Array.isArray(item.tags) ? item.tags : [];
-
-    if(itemTags.length === 0){
-        return [];
-    }
-
-    const itemSeries = Array.isArray(item.series) ? item.series : [];
-
-    return allItems
-        .filter(candidate => candidate.id !== item.id)
-        .map(candidate => {
-            const candidateTags = Array.isArray(candidate.tags) ? candidate.tags : [];
-            const sharedTagCount = candidateTags.filter(tag => itemTags.includes(tag)).length;
-
-            if(sharedTagCount === 0){
-                return null;
-            }
-
-            const candidateSeries = Array.isArray(candidate.series) ? candidate.series : [];
-            const sharedSeriesCount = candidateSeries.filter(series => itemSeries.includes(series)).length;
-            const sameGoodsCategory = item.goodsCategory && candidate.goodsCategory === item.goodsCategory ? 1 : 0;
-            const relevanceScore = sharedTagCount + sharedSeriesCount + sameGoodsCategory;
-
-            return { candidate, relevanceScore };
-        })
-        .filter(Boolean)
-        .sort((a, b) => {
-            if(b.relevanceScore !== a.relevanceScore){
-                return b.relevanceScore - a.relevanceScore;
-            }
-
-            return String(b.candidate.date || "").localeCompare(String(a.candidate.date || ""));
-        })
-        .slice(0, limit)
-        .map(entry => entry.candidate);
-}
-
-// カード下部に表示する「同じタグの他の情報」ブロックを組み立てる。
-// クリックすると、index.html上ではその情報だけに絞り込んだ表示に切り替わる（js/info.js側で処理）。
-// それ以外のページではindex.html?keyword=タイトルへの通常リンクとして機能する
-function buildRelatedItemsHtml(item){
-    // 「同じタグの他の情報」欄は廃止（常に非表示）
-    return "";
-
-    const relatedItems = getRelatedItems(item, 3);
-
-    if(relatedItems.length === 0){
-        return "";
-    }
-
-    const rootPrefix = getSiteRootPrefix();
-
-    const listItemsHtml = relatedItems.map(related => {
-        const title = getItemTitle(related);
-        const truncatedTitle = title.length > 32 ? `${title.slice(0, 32)}…` : title;
-        const href = `${rootPrefix}index.html?keyword=${encodeURIComponent(title)}`;
-
-        return `
-            <li>
-                <a class="infoCardRelatedLink" href="${href}" data-related-id="${related.id}" title="${escapeHTML(title)}">
-                    ${escapeHTML(truncatedTitle)}
-                </a>
-            </li>
-        `;
-    }).join("");
-
-    return `
-        <div class="infoCardRelated">
-            <p class="infoCardRelatedLabel">🔗 同じタグの他の情報</p>
-            <ul class="infoCardRelatedList">
-                ${listItemsHtml}
-            </ul>
-        </div>
-    `;
-}
-
-function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, category){
+function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, category, relatedItems){
     const cardCategory = category || "infos";
     const isTweet = isTweetUrl(item.articleUrl);
+    const safeRelatedItems = Array.isArray(relatedItems) ? relatedItems : [];
     const badgesHtml = buildInfoCardBadges(item, cardCategory, {
         // お気に入り一覧ページ（extraClassName === "favoriteCard"）では
         // 全カードが必ずお気に入りなので、⭐バッジは表示しない
-        hideFavoriteBadge: extraClassName === "favoriteCard"
+        hideFavoriteBadge: extraClassName === "favoriteCard",
+        relatedCount: safeRelatedItems.length
     });
+    const eventGroupListHtml = buildEventGroupListHtml(safeRelatedItems);
     const eventPeriodLabel = getEventPeriodLabel(item);
     const shareButtonsHtml = createShareButtons(item);
     const calendarActionsHtml = createCalendarActionsHtml(item);
@@ -1371,7 +1409,7 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
                         ${actionsHtml}
                     </div>
 
-                    ${buildRelatedItemsHtml(item)}
+                    ${eventGroupListHtml}
 
                 </div>
 
@@ -1419,7 +1457,7 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
                     ${actionsHtml}
                 </div>
 
-                ${buildRelatedItemsHtml(item)}
+                ${eventGroupListHtml}
 
             </div>
 
@@ -1434,9 +1472,13 @@ function buildInfoCard(item, actionsHtml, extraClassName, highlightTerm, categor
 // data-favorite-toggleなどcard表示の汎用ハンドラとは独立しているが、既読トラッキング
 // （setupReadTrackingByView）はdata-read-category/data-read-id属性を見て動くため
 // buildInfoCardと同じ属性を付与し、そのまま流用できるようにしている。
-function buildInfoCompactRow(item, highlightTerm, category){
+// 過去の関連情報（eventGroupId）がある場合も、行全体がリンクのため開閉ボタンは置かず、
+// バッジ「🔗 過去の関連情報N件」のみで存在を知らせる（詳しく見たい場合はカード表示に切り替える）
+function buildInfoCompactRow(item, highlightTerm, category, relatedItems){
     const cardCategory = category || "infos";
-    const badgesHtml = buildInfoCardBadges(item, cardCategory, {});
+    const badgesHtml = buildInfoCardBadges(item, cardCategory, {
+        relatedCount: Array.isArray(relatedItems) ? relatedItems.length : 0
+    });
     const readAttrsHtml = `data-read-category="${escapeHTML(cardCategory)}" data-read-id="${item.id}"`;
     const title = getItemTitle(item);
     const dateLabel = item.date || "";

@@ -3,6 +3,112 @@ const database = {
     infos:[
 
         {
+            id:180,
+            eventGroupId:"eg-008",
+            title:"『レーシングマスター』×『MFゴースト』コラボ、諸星瀬名・片桐夏向との対決イベントを実施中",
+            date:"2026-08-28",
+            source:"【公式】レーシングマスター🏎️💨（X）",
+            tags:["ゲーム","コラボ"],
+            series:["頭文字D","MFゴースト"],
+            description:
+            "『レーシングマスター』×『MFゴースト』コラボの一環として、諸星瀬名・片桐夏向との対決イベント「公道最速理論の検証」を実施中。強敵を撃破するとコラボステッカーやダイヤなどが入手できる。コラボ期間は8月20日〜9月16日。",
+            articleUrl:"https://x.com/RacingMasterJP/status/2093201916683845646",
+            eventStart:"2026-08-20",
+            eventEnd:"2026-09-16"
+        },
+
+        {
+            id:179,
+            eventGroupId:"eg-018",
+            title:"頭文字Dドリーミーくじ第4弾が登場、取扱店舗情報を公開",
+            date:"2026-08-28",
+            source:"★GRANUPくじ公式★（X）",
+            tags:["グッズ"],
+            goodsCategory:"フィギュア",
+            series:["頭文字D"],
+            description:
+            "漫画『頭文字D』のドリーミーくじ第4弾について、頭文字Dの世界観を楽しめるラインナップと取扱店舗情報を公開。お部屋に飾って楽しめるアイテムから普段使いにぴったりなグッズまでを紹介している。発売日は本投稿時点では未発表。",
+            articleUrl:"https://x.com/grakuji_PR/status/2093247221982515566"
+        },
+
+        {
+            id:178,
+            eventGroupId:"eg-017",
+            title:"『頭文字D』つやぷくシールのくじ、8月29日発売を前に告知",
+            date:"2026-08-28",
+            source:"★GRANUPくじ公式★（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "漫画『頭文字D』の人気立体シール「つやぷくシール」のくじが、翌8月29日(土)より発売開始されることを改めて告知。",
+            articleUrl:"https://x.com/grakuji_PR/status/2093247217947824326",
+            eventStart:"2026-08-29"
+        },
+
+        {
+            id:177,
+            title:"Hobby JAPAN、1/64 頭文字D「乾信司 VS 藤原拓海」トヨタ スプリンタートレノ(AE86)2ドアのミニカー予約受付中",
+            date:"2026-08-28",
+            source:"ホビーサーチ ミニカー（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "ホビージャパンの1/64スケールミニカー「Toyota SPRINTER TRUENO (AE86) 2door／頭文字D 乾信司 VS 藤原拓海」が予約受付中であることをホビーサーチが紹介。",
+            articleUrl:"https://x.com/hobbysearch_mc/status/2093250686742061556"
+        },
+
+        {
+            prefecture:["神奈川県"],
+            location:"神奈川県横浜市中区（ギャラリーshimizu）",
+            id:176,
+            eventGroupId:"eg-016",
+            title:"『頭文字D』Art Exhibition by GAAAT、横浜・ギャラリーshimizuにて開幕",
+            date:"2026-08-28",
+            source:"GAAAT（X）",
+            tags:["イベント","グッズ"],
+            series:["頭文字D"],
+            description:
+            "『頭文字D』Art Exhibition by GAAATが横浜・ギャラリーshimizuにて開幕。名シーンや名車をMetal Canvas Artとして再構築した作品を展示・販売しているほか、会場限定グッズも多数販売中。会期は8月31日(月)まで。",
+            articleUrl:"https://x.com/gaaat_art/status/2093262321346867625",
+            eventStart:"2026-08-28",
+            eventEnd:"2026-08-31"
+        },
+
+        {
+            prefecture:["神奈川県"],
+            location:"神奈川県横浜市中区（ギャラリーshimizu）",
+            id:175,
+            eventGroupId:"eg-016",
+            title:"『頭文字D』Art Exhibition by GAAAT、横浜・ギャラリーshimizuにて8月28日開幕へ",
+            date:"2026-08-27",
+            source:"GAAAT（X）",
+            tags:["イベント"],
+            series:["頭文字D"],
+            description:
+            "『頭文字D』Art Exhibition by GAAATが8月28日(金)より横浜・ギャラリーshimizuにて開幕することを前日に告知。夜の峠を駆け抜けたAE86や限界まで攻め込むコーナー、ライバルとのバトルなど、『頭文字D』の熱狂と青春をアートとして表現した展示会。",
+            articleUrl:"https://x.com/gaaat_art/status/2092930301400137742",
+            eventStart:"2026-08-28",
+            eventEnd:"2026-08-31"
+        },
+
+        {
+            id:174,
+            eventGroupId:"eg-001",
+            title:"「頭文字D」×「カーセブン」コラボ、来店査定で先着7,000名にオリジナルエコカップをプレゼント",
+            date:"2026-08-27",
+            source:"カーセブン【公式アカウント】（X）",
+            tags:["コラボ","キャンペーン"],
+            series:["頭文字D"],
+            description:
+            "『頭文字D』×カーセブンのコラボキャンペーンにて、来店査定を受けた方に「頭文字D オリジナルエコカップ」を先着7,000名にその場でプレゼント。キャンペーン期間は8月1日〜9月30日まで。",
+            articleUrl:"https://x.com/carseven/status/2093111321453633911",
+            eventStart:"2026-08-01",
+            eventEnd:"2026-09-30"
+        },
+
+        {
             id:171,
             eventGroupId:"eg-002",
             title:"陳麻婆豆腐×頭文字Dコラボ開催中、「#頭文字MD」タグ投稿で限定麻婆豆腐皿が当たるキャンペーンを実施中",
@@ -450,6 +556,7 @@ const database = {
             prefecture:["神奈川県"],
             location:"神奈川県横浜市中区（GALLERY SHIMIZU）",
             id:139,
+            eventGroupId:"eg-016",
             title:"『頭文字D』Art Exhibition by GAAAT、横浜・ギャラリーshimizuでの開催が決定",
             date:"2026-08-20",
             source:"GAAAT（X）",
@@ -1692,6 +1799,7 @@ const database = {
 
         {
             id:27,
+            eventGroupId:"eg-017",
             title:"『頭文字D』立体シール「つやぷくシール」のくじが2026年8月29日発売予定",
             date:"2026-07-24",
             source:"GRANUPくじ公式（X）",
@@ -2030,6 +2138,7 @@ const database = {
 
         {
             id:56,
+            eventGroupId:"eg-018",
             title:"頭文字Dドリーミーくじ第4弾、一部グッズ写真を先行公開",
             date:"2026-07-03",
             source:"GRANUPくじ公式（X）",

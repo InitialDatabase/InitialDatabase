@@ -242,26 +242,40 @@
         markAllReadButton.dataset.unreadIds = unreadItems.map(item => item.id).join(",");
     }
 
-    function getSortedItems(filteredItems){
-        // 日付が同じ項目が複数ある場合、Array.sortは安定ソートのため、
-        // 昇順に並べてからreverse()すると同日内の順序まで反転してしまい、
-        // 「新しい順」で同日の項目の前後関係が意図と逆になる不具合があった。
-        // そのため常に「新しい順」を直接ソートし、「古い順」はそれを丸ごと反転して作る。
+    // フィルター後の項目を「新着順」または「古い順」に並べたうえで、同じeventGroupId
+    // （同一の出来事についての一連の投稿）を1件の代表投稿にまとめる。返り値は
+    // {item:代表投稿, related:過去の関連情報の配列} の配列（1件ずつ画面に表示するカード単位）。
+    //
+    // 日付が同じ項目が複数ある場合、Array.sortは安定ソートのため、昇順に並べてから
+    // reverse()すると同日内の順序まで反転してしまい、「新しい順」で同日の項目の
+    // 前後関係が意図と逆になる不具合があった。そのため常に「新しい順」を直接ソートし、
+    // 「古い順」はそれを丸ごと反転して作る。
+    //
+    // dedupeByEventGroup（js/common.js）は「渡された配列の中でグループが最初に
+    // 出現した位置」に代表投稿を挿入する仕様のため、必ず「新着順」に並べた配列を
+    // 渡してからグループ化し（＝各グループの代表＝最新の投稿がそのグループの中で
+    // 最初に出現するため、挿入位置と代表の位置が一致する）、「古い順」表示の場合は
+    // グループ化した後の結果をまとめて反転する。
+    function getGroupedSortedItems(filteredItems){
         const sortedNewFirst = [...filteredItems].sort((a, b) =>
             String(b.date || "").localeCompare(String(a.date || ""))
         );
 
-        return state.sort === "old" ? sortedNewFirst.reverse() : sortedNewFirst;
+        const groupedNewFirst = dedupeByEventGroup(sortedNewFirst);
+
+        return state.sort === "old" ? groupedNewFirst.reverse() : groupedNewFirst;
     }
 
-    function renderCount(filteredItems){
+    // displayItemsには、グループ化後の代表投稿のみを渡す（過去の関連情報としてまとめられた
+    // ものは重複カウントしない）。表示されているカードの件数・タグ内訳と一致させるため
+    function renderCount(displayItems){
         if(!countElement){
             return;
         }
 
         const tagCounts = new Map();
 
-        filteredItems.forEach(item => {
+        displayItems.forEach(item => {
             const primaryTag = getPrimaryTag(item);
 
             if(!primaryTag){
@@ -280,8 +294,8 @@
             : "";
 
         countElement.textContent = (breakdown
-            ? `全 ${filteredItems.length} 件（${breakdown}）`
-            : `全 ${filteredItems.length} 件`) + sourceNote;
+            ? `全 ${displayItems.length} 件（${breakdown}）`
+            : `全 ${displayItems.length} 件`) + sourceNote;
     }
 
     // ==========================
@@ -599,13 +613,13 @@
     // 「8月15日」のような日付見出しを挟み込む。ページをまたいで同じ日付の項目が
     // 分かれる場合、両方のページの先頭にその日付の見出しが表示される（ページ単位で
     // 完結させ、前のページの内容を覚えておく必要がないようにするため）
-    function buildPageItemsHtml(pageItems, isCompact){
+    function buildPageItemsHtml(pageEntries, isCompact){
         let previousDate = null;
 
-        return pageItems.map(item => {
+        return pageEntries.map(({ item, related }) => {
             const itemHtml = isCompact
-                ? buildInfoCompactRow(item, state.keyword, "infos")
-                : buildInfoCard(item, createFavoriteButton("infos", item.id), "", state.keyword, "infos");
+                ? buildInfoCompactRow(item, state.keyword, "infos", related)
+                : buildInfoCard(item, createFavoriteButton("infos", item.id), "", state.keyword, "infos", related);
 
             const currentDate = item.date || "";
             const shouldShowHeading = currentDate && currentDate !== previousDate;
@@ -623,13 +637,15 @@
 
     function render(pushHistory){
         const filteredItems = getFilteredItems();
-        const sortedItems = getSortedItems(filteredItems);
+        const groupedEntries = getGroupedSortedItems(filteredItems);
 
-        renderCount(filteredItems);
+        // 件数・タグ内訳は、グループ化後の代表投稿の件数で表示する
+        // （実際に表示されるカードの件数と一致させるため）
+        renderCount(groupedEntries.map(entry => entry.item));
         updateClearButtonVisibility();
         updateMarkAllReadButton(getFilteredItemsIgnoringReadState());
 
-        if(sortedItems.length === 0){
+        if(groupedEntries.length === 0){
             // 「注目のコンテンツ」フォールバックは件数が少なくコンパクト表示の恩恵が薄いため、
             // 表示形式に関わらず常にカード表示にする
             listElement.classList.remove("infoList--compact");
@@ -639,7 +655,7 @@
             return;
         }
 
-        const totalPages = getPaginationPageCount(sortedItems.length, FIRST_PAGE_SIZE, OTHER_PAGE_SIZE);
+        const totalPages = getPaginationPageCount(groupedEntries.length, FIRST_PAGE_SIZE, OTHER_PAGE_SIZE);
 
         if(state.page > totalPages){
             state.page = totalPages;
@@ -650,12 +666,12 @@
         }
 
         const [start, end] = getPaginationRange(state.page, FIRST_PAGE_SIZE, OTHER_PAGE_SIZE);
-        const pageItems = sortedItems.slice(start, end);
+        const pageEntries = groupedEntries.slice(start, end);
         const isCompact = state.displayDensity === "compact";
 
         listElement.classList.toggle("infoList--compact", isCompact);
 
-        listElement.innerHTML = buildPageItemsHtml(pageItems, isCompact);
+        listElement.innerHTML = buildPageItemsHtml(pageEntries, isCompact);
 
         listElement.querySelectorAll("[data-favorite-toggle]").forEach(button => {
             button.addEventListener("click", () => {
@@ -682,41 +698,6 @@
 
                 state.activeSource = source;
                 state.page = 1;
-                render(true);
-                listElement.scrollIntoView({ behavior: "smooth", block: "start" });
-            });
-        });
-
-        // カード内の「同じタグの他の情報」をクリックしたら、その情報だけに絞り込んで詳細を表示する
-        // （「🔥 まもなく終了」カードのクリック挙動と同じく、タイトルをキーワードとして使い1件に絞り込む）
-        listElement.querySelectorAll("[data-related-id]").forEach(link => {
-            link.addEventListener("click", event => {
-                const id = Number(link.dataset.relatedId);
-                const target = items.find(candidate => candidate.id === id);
-
-                if(!target){
-                    return;
-                }
-
-                event.preventDefault();
-
-                state.keyword = getItemTitle(target);
-                state.activeTags.clear();
-                state.activeGoodsCategories.clear();
-                state.activeLocations.clear();
-                state.activeSeries = "all";
-                state.activeSource = "";
-                state.period = "all";
-                state.status = "all";
-                state.unreadOnly = false;
-                state.page = 1;
-
-                if(searchInput){
-                    searchInput.value = state.keyword;
-                }
-
-                closeSuggestions();
-                syncControlButtons();
                 render(true);
                 listElement.scrollIntoView({ behavior: "smooth", block: "start" });
             });
@@ -793,7 +774,11 @@
             return;
         }
 
-        const endingItems = items
+        // 同じeventGroupIdの投稿が複数「まもなく終了」に該当してしまうと
+        // 同じイベントのカードが重複して並んでしまうため、先に代表投稿へまとめてから判定する
+        const representativeItems = dedupeByEventGroup(items).map(entry => entry.item);
+
+        const endingItems = representativeItems
             .map(item => ({ item, daysLeft: getDaysUntilEventEnd(item) }))
             .filter(({ item, daysLeft }) =>
                 daysLeft !== null
@@ -1390,6 +1375,10 @@
     renderLastUpdatedLabel(items, "lastUpdated");
     render();
     injectListStructuredData(items, "infoStructuredData");
+
+    // カード内「🔗 過去の関連情報N件」ボタンの開閉（一覧はrenderのたびに作り直されるため、
+    // listElement自体に一度だけイベント委任を設定しておく）
+    setupRelatedToggleDelegation(listElement, ".infoCardGroupToggle");
 
     // ブラウザの戻る/進むボタンで検索キーワード・ページ番号などの状態を復元する
     window.addEventListener("popstate", () => {
