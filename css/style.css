@@ -1001,6 +1001,12 @@ nav a:hover{
     gap:5px;
 }
 
+.eventCalendarDotsHint{
+    font-size:.8em;
+    color:#72777d;
+    margin-bottom:12px;
+}
+
 .eventCalendarLegendSwatch{
     width:12px;
     height:12px;
@@ -1120,14 +1126,80 @@ nav a:hover{
     min-width:0;
     width:100%;
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
+    gap:2px;
     border:1px solid transparent;
     border-radius:6px;
     background:#f6f6f6;
     font:inherit;
     font-size:.9em;
     cursor:pointer;
+}
+
+.eventCalendarDayNumber{
+    line-height:1;
+}
+
+.eventCalendarDayDots{
+    display:flex;
+    align-items:center;
+    gap:2px;
+    line-height:0;
+}
+
+.eventCalendarDayDot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    flex:none;
+    display:inline-block;
+}
+
+.eventCalendarDayDot--goods{
+    background:#3b82f6;
+}
+
+.eventCalendarDayDot--collab{
+    background:#f97316;
+}
+
+.eventCalendarDayDot--event{
+    background:#6366f1;
+}
+
+.eventCalendarDayDot--campaign{
+    background:#ec4899;
+}
+
+.eventCalendarDayDot--game{
+    background:#10b981;
+}
+
+.eventCalendarDayDot--reservation{
+    background:#eab308;
+}
+
+.eventCalendarDayDot--feature{
+    background:#a855f7;
+}
+
+.eventCalendarDayDot--serial{
+    background:#14b8a6;
+}
+
+.eventCalendarDayDot--news{
+    background:#6b7280;
+}
+
+/* タグで絞り込みボタンに添える色ドットは、日付セルのものより少し大きめにして
+   凡例として見やすくする */
+.infoTagButton .eventCalendarDayDot{
+    width:8px;
+    height:8px;
+    margin-right:5px;
+    vertical-align:middle;
 }
 
 .eventCalendarDay--empty{
@@ -1224,6 +1296,15 @@ nav a:hover{
     gap:8px;
 }
 
+/* [hidden]属性はブラウザ標準でdisplay:noneになるはずだが、上のdisplay:flex指定が
+   #eventCalendarList（「選択した日のイベント」欄。アジェンダ表示モードで隠す対象）に
+   競合して優先されてしまうため、IDセレクタで明示的に上書きする。
+   #eventCalendarMonthList（この月のイベント一覧）は同じクラスを使うが、
+   アジェンダ表示モードでも隠さないため対象外のまま */
+#eventCalendarList[hidden]{
+    display:none;
+}
+
 .eventCalendarList li{
     display:flex;
     flex-direction:column;
@@ -1241,6 +1322,13 @@ nav a:hover{
 
 .eventCalendarList a:hover{
     text-decoration:underline;
+}
+
+/* イベントカレンダー一覧内のステータス・終了間近バッジ（.infoBadges自体は
+   情報カード用の見た目をそのまま再利用しつつ、下マージンだけはこの一覧の
+   詰まった行間(li側のgap:2px)に合わせて打ち消す */
+.eventCalendarList .infoBadges{
+    margin-bottom:0;
 }
 
 .eventCalendarPeriod{
@@ -3765,6 +3853,14 @@ html.theme-dark .eventCalendarDayBadge{
 
 html.theme-dark .eventCalendarLegend{
     color:#b7b7b7;
+}
+
+html.theme-dark .eventCalendarDotsHint{
+    color:#b7b7b7;
+}
+
+html.theme-dark .eventCalendarDayDot--news{
+    background:#9aa0a6;
 }
 
 html.theme-dark .eventCalendarLegendSwatch--event{

@@ -107,6 +107,8 @@ gtag("config", "G-19K4474718");
         <li><span class="eventCalendarLegendSwatch eventCalendarLegendSwatch--multi" aria-hidden="true">2</span>複数件</li>
     </ul>
 
+    <p class="eventCalendarDotsHint">日付の下の色ドットは、その日のイベントに含まれるタグ（グッズ・コラボなど）を表します（最大3色。色の意味は下の「タグで絞り込み」ボタンでも確認できます）。</p>
+
     <div class="eventCalendarHeader">
         <button type="button" id="calendarPrevMonth" aria-label="前の月へ">‹</button>
         <span id="calendarMonthLabel" aria-live="polite"></span>
@@ -120,6 +122,8 @@ gtag("config", "G-19K4474718");
         <label for="calendarMonthSelect" class="visually-hidden">表示する月を選択</label>
         <select id="calendarMonthSelect" class="eventCalendarJumpSelect" aria-label="表示する月"></select>
     </div>
+
+    <div class="infoFilterGroup eventCalendarViewToggle" id="calendarViewModeToggle" role="group" aria-label="表示形式の切り替え（グリッド表示／アジェンダ表示）"></div>
 
     <div class="eventCalendarGrid" id="eventCalendarGrid"></div>
 
@@ -165,7 +169,7 @@ gtag("config", "G-19K4474718");
 
     </div>
 
-    <h3 class="eventCalendarListHeading">選択した日のイベント</h3>
+    <h3 class="eventCalendarListHeading" id="calendarSelectedDateHeading">選択した日のイベント</h3>
     <ul class="eventCalendarList" id="eventCalendarList"></ul>
 
     <div class="eventCalendarListHeadingRow">
@@ -175,8 +179,8 @@ gtag("config", "G-19K4474718");
     <ul class="eventCalendarList" id="eventCalendarMonthList"></ul>
 
     <div class="eventCalendarMatchNav">
-        <button type="button" id="calendarPrevMatchMonth" class="infoFilterButton" hidden>‹ 前の該当月へ</button>
-        <button type="button" id="calendarNextMatchMonth" class="infoFilterButton" hidden>次の該当月へ ›</button>
+        <button type="button" id="calendarPrevMatchMonth" class="infoFilterButton" hidden>‹ 前にイベントがある月へ</button>
+        <button type="button" id="calendarNextMatchMonth" class="infoFilterButton" hidden>次にイベントがある月へ ›</button>
     </div>
 
 </section>

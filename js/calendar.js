@@ -4,16 +4,24 @@
 // 日付ごとの「対象期間かどうか」の判定は共通関数 isDateWithinEventRange()（common.js）に
 // 一本化してある。calendar.js側で同等のロジックを再実装しないことで、
 // 頭文字D情報ページ（common.js）とカレンダーページの表示がズレないようにする。
+//
+// また、eventEndが未入力のままeventStartから長期間（common.js側のCALENDAR_STALE_EVENT_THRESHOLD_DAYS）
+// 経過した項目は、isCalendarTrackedItem()によりこの時点で対象データ（eventItems）から
+// 除外している。以降のカレンダー表示・一覧・ICS書き出しはすべてeventItemsを起点にしているため、
+// この1箇所の絞り込みだけで水増し防止が全体に反映される。
 
 (function(){
 
     const items = Array.isArray(database.infos) ? database.infos : [];
-    const eventItems = items.filter(item => item.eventStart || item.reservationStart);
+    const eventItems = items.filter(item =>
+        (item.eventStart || item.reservationStart) && isCalendarTrackedItem(item)
+    );
 
     const section = document.getElementById("eventCalendarSection");
     const grid = document.getElementById("eventCalendarGrid");
     const monthLabel = document.getElementById("calendarMonthLabel");
     const listElement = document.getElementById("eventCalendarList");
+    const selectedDateHeading = document.getElementById("calendarSelectedDateHeading");
     const monthListElement = document.getElementById("eventCalendarMonthList");
     const monthListHeading = document.getElementById("calendarMonthListHeading");
     const monthIcsExportButton = document.getElementById("calendarMonthIcsExport");
@@ -56,6 +64,7 @@
         selectedDate: null,
         keyword: "",
         searchMode: "partial", // "partial"（部分一致）または "exact"（完全一致）
+        viewMode: "grid", // "grid"（グリッド表示）または "agenda"（日付順の一覧のみ表示）
         activeTags: new Set(),
         activeLocations: new Set() // 「📍開催地」フィルター（地方名・都道府県名の両方を格納。複数選択・OR条件）
     };
@@ -155,6 +164,52 @@
         return eventsOnDay.some(item => Boolean(item.eventStart)) ? "event" : "reservation";
     }
 
+    // ==========================
+    // 日付セルのタグ色ドット
+    // ==========================
+    // 件数バッジ（数字）だけでは「グッズ系かコラボ系か」など中身のジャンルが
+    // タップするまで分からないため、日付セルの数字の下に小さな色ドットを
+    // 最大3個添えて、パッと見で内容の傾向が分かるようにする。
+    // 色とタグの対応は、下の「タグで絞り込み」ボタン（renderTagFilters）に
+    // 添える色ドットと揃えてあるので、そちらで凡例代わりに確認できる。
+
+    const TAG_DOT_CLASS_MAP = {
+        "グッズ": "goods",
+        "コラボ": "collab",
+        "イベント": "event",
+        "キャンペーン": "campaign",
+        "ゲーム": "game",
+        "予約開始": "reservation",
+        "特集": "feature",
+        "連載": "serial",
+        "ニュース": "news"
+    };
+
+    // 1日に付けられる色ドットが4個以上になる場合の優先順位（先頭から最大3個を採用）
+    const TAG_DOT_ORDER = Object.keys(TAG_DOT_CLASS_MAP);
+
+    // displayEntries（dedupeByEventGroup後の代表投稿の配列）に含まれるタグから、
+    // 色ドットとして表示するタグ名を最大3個、優先順位順に返す
+    function getDayDotTags(displayEntries){
+        const presentTags = new Set(
+            displayEntries.flatMap(entry => Array.isArray(entry.item.tags) ? entry.item.tags : [])
+        );
+
+        return TAG_DOT_ORDER.filter(tag => presentTags.has(tag)).slice(0, 3);
+    }
+
+    function buildDayDotsHtml(dotTags){
+        if(dotTags.length === 0){
+            return "";
+        }
+
+        return `
+            <span class="eventCalendarDayDots" aria-hidden="true">
+                ${dotTags.map(tag => `<span class="eventCalendarDayDot eventCalendarDayDot--${TAG_DOT_CLASS_MAP[tag]}"></span>`).join("")}
+            </span>
+        `;
+    }
+
     function isItemInMonth(item, year, month){
         const start = getEventCalendarRangeStart(item);
 
@@ -188,6 +243,7 @@
     }
 
     // 指定した年月に、現在の絞り込み条件に一致するイベントが1件でもあるか
+    // （絞り込みなしの場合は、イベントが1件でもあれば一致とみなす）
     function monthHasMatch(year, month){
         return getEventsInMonth(year, month).length > 0;
     }
@@ -221,12 +277,17 @@
         return null;
     }
 
+    // 表示中の月に該当イベントが1件もない時にボタンを出す。以前は絞り込み中のみ
+    // 表示していたが、絞り込みなしの状態でもイベントが1件もない月は普通にあり得るため、
+    // 絞り込みの有無にかかわらず「次にイベントがある月」を探せるようにしている
+    // （絞り込みなし時のfindNearestMatchingMonth／monthHasMatchは、条件なし＝
+    // 「イベントが1件でもあれば一致」として扱われるので、この関数側の変更は不要）
     function updateMatchNavButtons(){
         if(!prevMatchButton && !nextMatchButton){
             return;
         }
 
-        const show = hasActiveFilters() && getMonthEvents().length === 0;
+        const show = getMonthEvents().length === 0;
 
         if(prevMatchButton){
             const target = show ? findNearestMatchingMonth(-1) : null;
@@ -262,6 +323,13 @@
             parts.push(`予約中の情報${reservationCount}件`);
         }
 
+        // 色ドットは装飾目的（aria-hidden）のため、同じ情報をテキストでも読み上げられるようにする
+        const dotTags = getDayDotTags(displayEntries);
+
+        if(dotTags.length > 0){
+            parts.push(`タグ：${dotTags.join("、")}`);
+        }
+
         return `${dateLabel}、${parts.join("、")}`;
     }
 
@@ -283,6 +351,7 @@
                 <a href="${escapeHTML(item.articleUrl || "#")}" target="_blank" rel="noopener noreferrer">
                     ${escapeHTML(getItemTitle(item))}
                 </a>
+                ${buildEventStatusBadgesHtml(item)}
                 <span class="eventCalendarPeriod">${escapeHTML(getEventPeriodLabel(item))}</span>
                 ${item.location ? `<span class="eventCalendarLocation">📍 ${escapeHTML(item.location)}</span>` : ""}
                 <span class="eventCalendarActions">${createCalendarActionsHtml(item)}</span>
@@ -415,11 +484,15 @@
                 ? `<span class="eventCalendarDayBadge">${displayEventsOnDay.length}</span>`
                 : "";
 
+            const dotsHtml = buildDayDotsHtml(getDayDotTags(displayEventsOnDay));
+
             const ariaLabel = buildDayAriaLabel(date, displayEventsOnDay);
 
             cells.push(`
                 <button type="button" class="${classNames}" data-date="${dateKey}" aria-label="${escapeHTML(ariaLabel)}" aria-pressed="${isSelected}"${isToday ? ' aria-current="date"' : ""}>
-                    ${day}${badge}
+                    <span class="eventCalendarDayNumber">${day}</span>
+                    ${dotsHtml}
+                    ${badge}
                 </button>
             `);
         }
@@ -450,12 +523,28 @@
         });
     }
 
+    // アジェンダ表示モードでは、日付を1つずつタップする必要があるグリッド本体と
+    // 「選択した日のイベント」欄を隠し、常に日付順に並んでいる「この月のイベント一覧」
+    // だけを表示する（月送り・絞り込みUIはどちらのモードでも表示したままにする）
+    function applyViewMode(){
+        const isAgenda = state.viewMode === "agenda";
+
+        grid.hidden = isAgenda;
+
+        if(selectedDateHeading){
+            selectedDateHeading.hidden = isAgenda;
+        }
+
+        listElement.hidden = isAgenda;
+    }
+
     function refreshAll(){
         renderGrid();
         renderMonthList();
         updateMatchNavButtons();
         updateJumpSelectMarks();
         updateMonthNavButtonState();
+        applyViewMode();
 
         if(state.selectedDate){
             renderEventList(dedupeByEventGroup(getEventsOnDate(state.selectedDate)));
@@ -647,8 +736,11 @@
             return;
         }
 
+        // 日付セルの色ドットと同じ色をここにも添えて、ドットの色がどのタグを表すかの
+        // 凡例代わりになるようにする（TAG_DOT_CLASS_MAPに対応がないタグはドットなしで表示）
         tagFilterContainer.innerHTML = allTags.map(tag => `
             <button type="button" class="infoTagButton" data-tag="${escapeHTML(tag)}">
+                ${TAG_DOT_CLASS_MAP[tag] ? `<span class="eventCalendarDayDot eventCalendarDayDot--${TAG_DOT_CLASS_MAP[tag]}" aria-hidden="true"></span>` : ""}
                 ${escapeHTML(tag)}
             </button>
         `).join("");
@@ -905,6 +997,11 @@
         state.searchMode = mode;
         refreshAll();
         updateClearButtonVisibility();
+    });
+
+    state.viewMode = setupCalendarViewToggle("calendarViewModeToggle", mode => {
+        state.viewMode = mode;
+        applyViewMode();
     });
 
     if(prefectureToggle && prefectureFilterContainer){

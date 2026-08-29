@@ -324,6 +324,95 @@ function setupDisplayDensityToggle(containerId, onChange){
 }
 
 // ==========================
+// カレンダー表示形式（グリッド表示／アジェンダ表示）の切り替えUI
+// ==========================
+// イベントカレンダーの表示形式を切り替えるボタンを描画する。グリッド表示は日付マスを
+// 1つずつタップして中身を確認する必要があり、スマートフォンで目当てのイベントを
+// 素早く探したい場合には不向きなことがあるため、日付順に並んだ一覧（既存の
+// 「この月のイベント一覧」）だけを表示するアジェンダ表示モードを選べるようにした。
+// 選択状態はサイト内共通でlocalStorageに保存し、次回訪問時も直前の選択を引き継ぐ
+// （表示密度・検索方法の切り替えと同じ仕組み）。
+
+const calendarViewModeStorageKey = "initialDDatabaseCalendarViewMode";
+
+function getStoredCalendarViewMode(){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return "grid";
+    }
+
+    try{
+        return storage.getItem(calendarViewModeStorageKey) === "agenda" ? "agenda" : "grid";
+    }catch(error){
+        return "grid";
+    }
+}
+
+function setStoredCalendarViewMode(mode){
+    const storage = getFavoriteStorage();
+
+    if(!storage){
+        return;
+    }
+
+    try{
+        storage.setItem(calendarViewModeStorageKey, mode);
+    }catch(error){
+        // 保存できない場合は無視（切り替え自体は継続）
+    }
+}
+
+// containerId要素の中に切り替えボタンを描画し、初期の表示形式（"grid" | "agenda"）を返す。
+// onChangeにはボタン操作で選択された表示形式が渡される。
+function setupCalendarViewToggle(containerId, onChange){
+    const initialMode = getStoredCalendarViewMode();
+    const container = document.getElementById(containerId);
+
+    if(!container){
+        return initialMode;
+    }
+
+    container.innerHTML = `
+        <span class="infoFilterLabel">表示：</span>
+        <button
+            type="button"
+            class="infoFilterButton${initialMode === "grid" ? " is-active" : ""}"
+            data-view-mode="grid"
+            aria-pressed="${initialMode === "grid"}">
+            🗓️ グリッド
+        </button>
+        <button
+            type="button"
+            class="infoFilterButton${initialMode === "agenda" ? " is-active" : ""}"
+            data-view-mode="agenda"
+            aria-pressed="${initialMode === "agenda"}">
+            📋 アジェンダ
+        </button>
+    `;
+
+    container.querySelectorAll("[data-view-mode]").forEach(button => {
+        button.addEventListener("click", () => {
+            const mode = button.dataset.viewMode;
+
+            if(button.classList.contains("is-active")){
+                return;
+            }
+
+            container.querySelectorAll("[data-view-mode]").forEach(b => {
+                b.classList.toggle("is-active", b === button);
+                b.setAttribute("aria-pressed", String(b === button));
+            });
+
+            setStoredCalendarViewMode(mode);
+            onChange(mode);
+        });
+    });
+
+    return initialMode;
+}
+
+// ==========================
 // 「🔥 まもなく終了」セクションの表示/非表示切り替え
 // ==========================
 // ユーザーが手動で閉じた状態をサイト内共通でlocalStorageに保存し、
@@ -630,6 +719,36 @@ function isDateWithinEventRange(item, date){
     const end = parseDateOnly(item.eventEnd);
 
     return !end || date <= end;
+}
+
+// ==========================
+// カレンダー用：eventEnd未入力のまま長期間経過した項目の除外
+// ==========================
+// eventStartはあるがeventEndが未入力のまま長期間が経過した項目は、実際にはとっくに
+// 終了しているのに単に終了日の更新を忘れているだけのケースが多く、そのまま放置すると
+// 「開催中」としてカレンダーの集計・一覧にいつまでも残り続けてしまう（水増しの原因）。
+// カレンダー機能（calendar.js）に限り、eventStartからCALENDAR_STALE_EVENT_THRESHOLD_DAYS日を
+// 過ぎてもeventEndが未入力の項目は対象外にする。情報カード側のステータスバッジ・期間表示
+// （「終了時期未定」の文言）自体はこれまで通り表示され続ける
+// （isOngoingEvent／getItemEventStatusはこのしきい値の影響を受けないよう、あえて変更していない）。
+const CALENDAR_STALE_EVENT_THRESHOLD_DAYS = 30;
+
+function isCalendarTrackedItem(item){
+    // eventStartを持たない情報（予約開始のみの情報など）や、eventEndが既に判明している
+    // 情報は、この除外ルールの対象外（従来通りisDateWithinEventRange側の判定に任せる）
+    if(!item.eventStart || item.eventEnd){
+        return true;
+    }
+
+    const start = parseDateOnly(item.eventStart);
+
+    if(!start){
+        return true;
+    }
+
+    const daysSinceStart = Math.floor((getTodayDateOnly() - start) / (1000 * 60 * 60 * 24));
+
+    return daysSinceStart <= CALENDAR_STALE_EVENT_THRESHOLD_DAYS;
 }
 
 // ==========================
@@ -1262,6 +1381,43 @@ function getSourceTypeLabel(url){
     }catch(error){
         return "🔗 外部サイト";
     }
+}
+
+// ==========================
+// イベントカレンダー一覧用：ステータス・終了間近バッジ
+// ==========================
+// buildInfoCardBadges()が生成する「📅ステータス」「⏰終了間近」バッジと同じ見た目・
+// 判定ロジックを、イベントカレンダーの一覧（選択日／月別一覧）向けに切り出したもの。
+// カレンダー一覧では、お気に入り・未読・タグ・NEW・出典種別・過去の関連情報件数までは
+// 表示する必要がないため、この2種類のみに絞っている（buildInfoCardBadges本体は
+// 他ページで既に動いているため、そちらのロジックにはあえて手を入れていない）。
+function buildEventStatusBadgesHtml(item){
+    const badges = [];
+    const eventStatus = getItemEventStatus(item);
+
+    if(eventStatus){
+        badges.push(`
+            <span class="infoBadge infoBadge--status infoBadge--status-${eventStatus}">
+                📅 ${escapeHTML(getEventStatusLabel(eventStatus))}
+            </span>
+        `);
+    }
+
+    if(isOngoingEvent(item)){
+        const daysLeft = getDaysUntilEventEnd(item);
+
+        if(daysLeft !== null && daysLeft >= 0 && daysLeft <= 7){
+            const isUrgent = daysLeft <= 3;
+
+            badges.push(`
+                <span class="infoBadge infoBadge--ending${isUrgent ? " infoBadge--ending-urgent" : ""}">
+                    ⏰ ${daysLeft === 0 ? "本日終了" : `あと${daysLeft}日で終了`}
+                </span>
+            `);
+        }
+    }
+
+    return badges.length > 0 ? `<div class="infoBadges">${badges.join("")}</div>` : "";
 }
 
 function buildInfoCardBadges(item, category, options){
