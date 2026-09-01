@@ -3,6 +3,49 @@ const database = {
     infos:[
 
         {
+            id:186,
+            eventGroupId:"eg-019",
+            title:"『MFゴースト』ミハイル・ベッケンバウアーオードトワレ、マイファボで販売中",
+            date:"2026-09-01",
+            source:"マイファボ（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["MFゴースト"],
+            description:
+            "マイファボが『MFゴースト』のキャラクター香水「オードトワレ ミハイル・ベッケンバウアー」を販売中であることを紹介。ミハイル・ベッケンバウアーをイメージした香りを日常に取り入れられる商品として案内している。",
+            articleUrl:"https://x.com/myfav_info/status/2094726963034509480"
+        },
+
+        {
+            id:185,
+            eventGroupId:"eg-008",
+            title:"『レーシングマスター』×『MFゴースト』コラボ、キャラクターアルバムイベントを実施中",
+            date:"2026-09-01",
+            source:"【公式】レーシングマスター🏎️💨（X）",
+            tags:["ゲーム","コラボ","キャンペーン"],
+            series:["頭文字D","MFゴースト"],
+            description:
+            "『レーシングマスター』×『MFゴースト』コラボの一環として、キャラクターカードを集める「キャラクターアルバム」イベントを実施中。ミッションをクリアしてカードを収集し、集めたカードの枚数に応じて報酬を獲得できる。コラボ期間は8月20日〜9月16日。",
+            articleUrl:"https://x.com/RacingMasterJP/status/2094719165194182942",
+            eventStart:"2026-08-20",
+            eventEnd:"2026-09-16"
+        },
+
+        {
+            id:184,
+            title:"ミッドナイトボートレース、2026年度『MFゴースト』コラボの9月開催スケジュールを公開",
+            date:"2026-08-31",
+            source:"公式 DYNAMITE BOATRACE｜ボートレース（X）",
+            tags:["コラボ","イベント"],
+            series:["MFゴースト"],
+            description:
+            "DYNAMITE BOATRACE公式が、2026年度も継続する『MFゴースト』とのコラボについて、9月の開催スケジュールを公開。ライブ視聴からスマホでの投票まで完結する、夜の時間帯に楽しめるミッドナイトボートレースの情報を案内している。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2094440079041466776",
+            eventStart:"2026-09-01",
+            eventEnd:"2026-09-30"
+        },
+
+        {
             prefecture:["東京都"],
             location:"東京都（原宿・青山エリア）",
             id:183,
@@ -2080,6 +2123,7 @@ const database = {
 
         {
             id:49,
+            eventGroupId:"eg-019",
             title:"『MFゴースト』ミハイル・ベッケンバウアーをイメージしたオードトワレをマイファボが紹介",
             date:"2026-07-09",
             source:"マイファボ（X）",
