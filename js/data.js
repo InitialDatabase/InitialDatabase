@@ -3,6 +3,156 @@ const database = {
     infos:[
 
         {
+            id:196,
+            eventGroupId:"eg-003",
+            prefecture:["東京都"],
+            location:"東京都（銀座・有楽町エリア）",
+            title:"陳麻婆豆腐×頭文字DコラボAE86が9月6日に銀座・有楽町エリアを走行",
+            date:"2026-09-04",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","イベント","キャンペーン"],
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐×頭文字DコラボAE86が、9月6日(日)11時〜15時に「銀座」・「有楽町」エリアを走行予定。見かけた際に指定ハッシュタグ「#頭文字MD」を付けて投稿すると、コラボ限定の麻婆豆腐皿プレゼント企画の応募対象となる。写真投稿の際は他の人の顔が写り込まないよう呼びかけている。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2095688836135432546",
+            eventStart:"2026-09-06",
+            eventEnd:"2026-09-06"
+        },
+
+        {
+            id:195,
+            prefecture:["愛知県"],
+            location:"愛知県名古屋市（ミッドランドスクエアシネマ）",
+            title:"『新劇場版「頭文字D」Legend1 覚醒』トークイベント、ミッドランドスクエアシネマ「どまんなかアニメ映画祭：new era２」内で10月4日開催",
+            date:"2026-09-04",
+            source:"ミッドランドスクエアシネマ・ミッドランドシネマ名古屋空港 MOVIE-STATION（X）",
+            tags:["イベント"],
+            series:["頭文字D"],
+            description:
+            "ミッドランドスクエアシネマで開催の特別興行「どまんなかアニメ映画祭：new era２」（2026年10月2日〜8日）にて、10月4日(日)14:40の回に『新劇場版「頭文字D」Legend1 -覚醒-』の上映後トークイベントを実施。ゲストは脚本の関島眞頼氏、インタビュアーは石井誠氏。オンラインチケットは9月3日22時より、劇場窓口チケットは9月4日より販売開始。",
+            articleUrl:"https://x.com/moviestation758/status/2095768041569353760",
+            eventStart:"2026-10-04",
+            eventEnd:"2026-10-04"
+        },
+
+        {
+            id:194,
+            title:"音響監督・三間雅文氏、『MFゴースト』音ロケ用にBLITZが製作中のトヨタ86(14R・カナタFinal version仕様)を訪問",
+            date:"2026-09-04",
+            source:"音響監督 三間雅文（X）",
+            tags:["ニュース"],
+            series:["MFゴースト"],
+            description:
+            "『MFゴースト』音響監督の三間雅文氏が、カナタのFinal version仕様として音録りする為の車両として、BLITZが製作中のトヨタ86（14R）をひと足先に見学したことを報告。詳細は近日中にBLITZの公式YouTubeで公開予定としている。",
+            articleUrl:"https://x.com/Sunma47/status/2095808138326983070"
+        },
+
+        {
+            id:193,
+            eventGroupId:"eg-021",
+            prefecture:["長崎県"],
+            location:"長崎県大村市（BR大村）",
+            title:"「ミッドナイトボートレースin大村8」4日目も『MFゴースト』コラボ実施",
+            date:"2026-09-03",
+            source:"公式 DYNAMITE BOATRACE｜ボートレース（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "長崎県のBR大村にて開催中の「ミッドナイトボートレースin大村8」（9月1日〜4日）4日目も『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを引き続き実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2095527259805528128"
+        },
+
+        {
+            id:192,
+            eventGroupId:"eg-001",
+            title:"「頭文字D」×「カーセブン」コラボ、車の売却で抽選7名に『頭文字Dオリジナル旅行券』5万円分プレゼント",
+            date:"2026-09-03",
+            source:"カーセブン【公式アカウント】（X）",
+            tags:["コラボ","キャンペーン"],
+            series:["頭文字D"],
+            description:
+            "『頭文字D』×カーセブンのコラボキャンペーンにて、キャンペーン期間中（8月1日〜9月30日）に車を売却した方の中から、抽選で7名に「頭文字Dオリジナル旅行券」5万円分をプレゼント。",
+            articleUrl:"https://x.com/carseven/status/2095651050036576373",
+            eventStart:"2026-08-01",
+            eventEnd:"2026-09-30"
+        },
+
+        {
+            id:191,
+            eventGroupId:"eg-013",
+            title:"『頭文字DAC』公道最強決定戦4th、『ダブルエースCUP』の事前エントリー受付開始",
+            date:"2026-09-03",
+            source:"頭文字DAC公式（X）",
+            tags:["ゲーム","イベント"],
+            series:["頭文字DAC"],
+            description:
+            "『頭文字D THE ARCADE』公式全国大会「公道最強決定戦4th」の地方大会の一つ「ダブルエースCUP」について、事前エントリーの受付を開始。7thラウンドで上位にランクインすると『ダブルエースCUP』の出場権を獲得できる。事前エントリーの受付は10月7日(水)23:59まで。",
+            articleUrl:"https://x.com/initialD_AS/status/2095451745702842435",
+            eventStart:"2026-09-03",
+            eventEnd:"2026-10-07"
+        },
+
+        {
+            id:190,
+            eventGroupId:"eg-019",
+            title:"『MFゴースト』沢渡光輝オードトワレ、マイファボで販売中",
+            date:"2026-09-03",
+            source:"マイファボ（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["MFゴースト"],
+            description:
+            "マイファボが『MFゴースト』のキャラクター香水「オードトワレ 沢渡光輝」を販売中であることを紹介。お出かけやドライブ前に、お気に入りの香りを日常に取り入れられる商品として案内している。",
+            articleUrl:"https://x.com/myfav_info/status/2095451739126223116"
+        },
+
+        {
+            id:189,
+            eventGroupId:"eg-002",
+            title:"陳麻婆豆腐×頭文字Dコラボ、『拓海86黒麻婆』『啓介FD黄麻婆』『レッドサンズ赤麻婆』の限定麻婆豆腐3種を展開中",
+            date:"2026-09-03",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","キャンペーン"],
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐×頭文字Dコラボにて、頭文字Dの世界観を表現した3種類の限定麻婆豆腐「拓海86黒麻婆」「啓介FD黄麻婆」「レッドサンズ赤麻婆」を展開中。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2095333189862752546"
+        },
+
+        {
+            id:188,
+            eventGroupId:"eg-020",
+            prefecture:["長野県"],
+            location:"長野県須坂市",
+            title:"『頭文字D』POP UP SHOPが長野・須坂の未来屋書店にて開催",
+            date:"2026-09-02",
+            source:"マリモクラフト_イベント用アカウント（X）",
+            tags:["グッズ","イベント"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "『頭文字D』オリジナルグッズのPOP UP SHOP「～一万一千店舗までキッチリ回せ！！～」を、未来屋書店 須坂店（長野県須坂市）にて開催。お買い上げ特典も用意されている。開催期間は9月9日(水)から10月5日(月)まで。",
+            articleUrl:"https://x.com/marimocraft_eve/status/2095081320506605990",
+            eventStart:"2026-09-09",
+            eventEnd:"2026-10-05"
+        },
+
+        {
+            id:187,
+            eventGroupId:"eg-021",
+            prefecture:["長崎県"],
+            location:"長崎県大村市（BR大村）",
+            title:"ミッドナイトボートレース大村、9月開催3日目も『MFゴースト』コラボを実施",
+            date:"2026-09-02",
+            source:"公式 DYNAMITE BOATRACE｜ボートレース（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "9月に開催中のミッドナイトボートレース（BR大村）3日目でも『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2095164872401273291"
+        },
+
+        {
             id:186,
             eventGroupId:"eg-019",
             title:"『MFゴースト』ミハイル・ベッケンバウアーオードトワレ、マイファボで販売中",
@@ -33,6 +183,7 @@ const database = {
 
         {
             id:184,
+            eventGroupId:"eg-021",
             title:"ミッドナイトボートレース、2026年度『MFゴースト』コラボの9月開催スケジュールを公開",
             date:"2026-08-31",
             source:"公式 DYNAMITE BOATRACE｜ボートレース（X）",
@@ -2194,6 +2345,7 @@ const database = {
 
         {
                         id:54,
+            eventGroupId:"eg-020",
             prefecture:["東京都"],
             location:"東京都豊島区",
             title:"『頭文字D』POP UP SHOPが池袋・三省堂書店にて開催、新商品先行発売",
