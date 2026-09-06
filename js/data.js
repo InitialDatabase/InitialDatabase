@@ -3,6 +3,36 @@ const database = {
     infos:[
 
         {
+            id:198,
+            eventGroupId:"eg-003",
+            prefecture:["静岡県"],
+            location:"静岡県駿東郡小山町（富士スピードウェイ）ほか",
+            title:"陳麻婆豆腐×頭文字DコラボAE86、9月の走行スケジュールを公開　9月12日は富士スピードウェイに登場",
+            date:"2026-09-06",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","イベント","キャンペーン"],
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐×頭文字DコラボAE86による9月の走行スケジュールを公開。9月12日(土)には静岡県の富士スピードウェイに登場予定。見かけた際に指定ハッシュタグ「#頭文字MD」を付けて投稿すると、コラボ限定の麻婆豆腐皿プレゼント企画の応募対象となる。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2096410554042880093",
+            eventStart:"2026-09-12",
+            eventEnd:"2026-09-12"
+        },
+
+        {
+            id:197,
+            eventGroupId:"eg-022",
+            title:"BLITZ公式YouTubeで『MFゴースト』カナタ仕様トヨタ86(14R)のエンジンオーバーホール完了・大改造の様子を紹介、音響監督・三間雅文氏も反応",
+            date:"2026-09-05",
+            source:"音響監督 三間雅文（X）",
+            tags:["ニュース"],
+            series:["MFゴースト"],
+            description:
+            "音響監督・三間雅文氏が、BLITZ公式YouTubeで公開された動画『【トヨタ86 14R】エンジンのオーバーホール完了!? MFゴースト仕様への大改造が進行中！【BLITZ】』を紹介。カナタのFinal version仕様として音録り用に製作中のトヨタ86（14R）のエンジンオーバーホールが完了し、大改造が進行中であることが明らかになった。",
+            articleUrl:"https://x.com/Sunma47/status/2096250572282470732"
+        },
+
+        {
             id:196,
             eventGroupId:"eg-003",
             prefecture:["東京都"],
@@ -37,6 +67,7 @@ const database = {
 
         {
             id:194,
+            eventGroupId:"eg-022",
             title:"音響監督・三間雅文氏、『MFゴースト』音ロケ用にBLITZが製作中のトヨタ86(14R・カナタFinal version仕様)を訪問",
             date:"2026-09-04",
             source:"音響監督 三間雅文（X）",
