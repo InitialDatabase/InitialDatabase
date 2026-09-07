@@ -3,6 +3,95 @@ const database = {
     infos:[
 
         {
+            id:204,
+            eventGroupId:"eg-004",
+            title:"『頭文字D』×ANGEL CLOVER自動巻き腕時計「AE86」「GC8」、9月30日発売",
+            date:"2026-09-07",
+            source:"アダッチ@AE86（X）",
+            tags:["グッズ","コラボ"],
+            goodsCategory:"時計",
+            series:["頭文字D"],
+            description:
+            "AE86オーナーのインフルエンサー「アダッチ@AE86」氏が、『頭文字D』×ANGEL CLOVERコラボの自動巻き腕時計を紹介。連載30周年の締めくくりとして、「AE86」「GC8」の親子2台をモチーフにした2種展開で、9月30日発売。楽天市場にて購入可能。",
+            articleUrl:"https://x.com/adacchi_ae86/status/2096905914347659575",
+            eventStart:"2026-09-30",
+            eventEnd:"2026-09-30"
+        },
+
+        {
+            id:203,
+            eventGroupId:"eg-023",
+            prefecture:["東京都"],
+            location:"東京都渋谷区（MIYASHITA PARK South 3階 GAAAT GALLERY）",
+            title:"『頭文字D』Art Exhibition 東京会期、宮下パークにて9月11日より開催",
+            date:"2026-09-07",
+            source:"GAAAT（X）",
+            tags:["イベント"],
+            series:["頭文字D"],
+            description:
+            "『頭文字D』Art Exhibition東京会期が、宮下パーク（MIYASHITA PARK South 3階 GAAAT GALLERY）にて9月11日より開催。各地を巡回し追加された作品を含め、多数の作品を展示・販売する。",
+            articleUrl:"https://x.com/gaaat_art/status/2096901435837558812",
+            eventStart:"2026-09-11",
+            eventEnd:"2026-09-15"
+        },
+
+        {
+            id:202,
+            prefecture:["広島県"],
+            location:"広島県広島市（エディオン広島本店 東館8階 ホビーフロア）",
+            title:"エディオン広島本店、ホビーフロアの模型コンテストで「頭文字D＆MFゴーストコンテスト」を開催",
+            date:"2026-09-07",
+            source:"エディオン広島本店【公式】（X）",
+            tags:["イベント"],
+            series:["頭文字D","MFゴースト"],
+            description:
+            "エディオン広島本店 東館8階ホビーフロアで実施中の模型コンテストにて、今月より「頭文字D＆MFゴーストコンテスト」を開催。青島文化教材社製のプラモデルシリーズを製作して参加できる。",
+            articleUrl:"https://x.com/edion_hiroshima/status/2096873868367626266"
+        },
+
+        {
+            id:201,
+            title:"CAMSHOPより『頭文字D』ヒートチェンジマグカップが登場",
+            date:"2026-09-07",
+            source:"CAMSHOP（キャムショップ）（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "『頭文字D』をモチーフにしたヒートチェンジマグカップがCAMSHOPより登場。商品ページにて紹介。",
+            articleUrl:"https://x.com/CAMSHOP_byFaith/status/2096796280316113325"
+        },
+
+        {
+            id:200,
+            eventGroupId:"eg-003",
+            prefecture:["東京都"],
+            location:"東京都新宿区（新宿エリア）",
+            title:"陳麻婆豆腐×頭文字DコラボAE86が9月8日に新宿エリアを走行",
+            date:"2026-09-07",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","イベント","キャンペーン"],
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐×頭文字DコラボAE86が、9月8日(火)11時〜15時に「新宿」エリアを走行予定。見かけた際に指定ハッシュタグ「#頭文字MD」を付けて投稿すると、コラボ限定の麻婆豆腐皿プレゼント企画の応募対象となる。写真投稿の際は他の人の顔が写り込まないよう呼びかけている。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2096775936494706811",
+            eventStart:"2026-09-08",
+            eventEnd:"2026-09-08"
+        },
+
+        {
+            id:199,
+            title:"『昴と彗星』第45話「残念すぎるボイスカウント」がヤングマガジンに掲載",
+            date:"2026-09-07",
+            source:"【公式】昴と彗星（X）",
+            tags:["連載"],
+            series:["昴と彗星"],
+            description:
+            "本日発売のヤングマガジンに『昴と彗星』第45話「残念すぎるボイスカウント」が掲載。後方集団を突き放すように依然トップをひた走るクルサードに対し、8号車・赤羽陸斗にジリジリと追い詰められる権藤市郎が秘策を発動する展開。単行本第3巻も発売中。",
+            articleUrl:"https://x.com/SubaruandSubaru/status/2096773586883342705"
+        },
+
+        {
             id:198,
             eventGroupId:"eg-003",
             prefecture:["静岡県"],
@@ -717,6 +806,7 @@ const database = {
             prefecture:["東京都"],
             location:"東京都渋谷区（MIYASHITA PARK South 3階 GAAAT GALLERY）",
             id:148,
+            eventGroupId:"eg-023",
             title:"『頭文字D』Art Exhibition 東京にて追加開催決定",
             date:"2026-08-21",
             source:"GAAAT（X）",
