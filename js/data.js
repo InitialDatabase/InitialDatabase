@@ -3,6 +3,85 @@ const database = {
     infos:[
 
         {
+            id:209,
+            title:"MAZDA SPIRIT RACING、マツダ×『頭文字D』初の公式コラボモデルカーを予告、2027年5月発売予定",
+            date:"2026-09-10",
+            source:"MAZDA SPIRIT RACING（X）",
+            tags:["グッズ","コラボ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "MAZDA SPIRIT RACING公式が「MAZDA COLLECTION」に関する参考情報として、マツダと『頭文字D』の初の公式コラボレーションモデルカーが登場することを予告。2027年5月に発売予定であることを明らかにしたが、投稿本文が途中までしか公開されておらず、対象車種など詳細は現時点で不明。続報が待たれる。",
+            articleUrl:"https://x.com/MAZDA_SPIRIT_R/status/2097875207427940858",
+            dateTBD:true,
+            expectedDate:"2027-05"
+        },
+
+        {
+            id:208,
+            eventGroupId:"eg-024",
+            prefecture:["静岡県"],
+            location:"静岡県駿東郡小山町（富士スピードウェイ、FUJI 86/BRZ STYLE 2026）",
+            title:"『MFゴースト』音響監督・三間雅文氏、BLITZ製作の片桐夏向レプリカ86完成をお披露目　「FUJI 86/BRZ STYLE 2026」に登場",
+            date:"2026-09-09",
+            source:"音響監督 三間雅文（X）",
+            tags:["ニュース","イベント"],
+            series:["MFゴースト"],
+            description:
+            "『MFゴースト』音響監督の三間雅文氏が、週末開催の「FUJI 86/BRZ STYLE 2026」に参加することを報告。BLITZが音ロケ用に製作していた片桐夏向の愛車「ZN6 シーサイドダブルレーン仕様」のレプリカ86がついに完成し、会場でお披露目される様子を伝えるYouTube動画を紹介した。",
+            articleUrl:"https://x.com/Sunma47/status/2097683916459253832",
+            eventStart:"2026-09-12",
+            eventEnd:"2026-09-12"
+        },
+
+        {
+            id:207,
+            prefecture:["静岡県"],
+            location:"静岡県駿東郡小山町（富士スピードウェイ、FUJI 86/BRZ STYLE 2026 BLITZブース）",
+            title:"BLITZブース、「FUJI 86/BRZ STYLE 2026」で『MFゴースト』OSTと『頭文字D』30周年記念CDを販売",
+            date:"2026-09-10",
+            source:"【公式】BLITZ（X）",
+            tags:["イベント","グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D","MFゴースト"],
+            description:
+            "【公式】BLITZが、「FUJI 86/BRZ STYLE 2026」出展のBLITZブースにて、昨年に続きTVアニメ『MFゴースト』のオリジナルサウンドトラックCDを販売すると告知。あわせて『頭文字D』連載30周年記念のAnniversary Collection CDも販売する。",
+            articleUrl:"https://x.com/BLITZ_PR/status/2097848782683779177",
+            eventStart:"2026-09-12",
+            eventEnd:"2026-09-12"
+        },
+
+        {
+            id:206,
+            title:"京商オリジナル「MOTN」1/64 頭文字D LED搭載ミニカー、4車種の予約受付中",
+            date:"2026-09-10",
+            source:"ホビーサーチ ミニカー（X）",
+            tags:["グッズ","予約開始"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "ホビーサーチ ミニカーが、京商オリジナルブランド「MOTN」による1/64スケール・LED搭載の『頭文字D』ミニカーの予約受付中であることを紹介。ラインナップはトヨタ スプリンタートレノ(AE86)、マツダ RX-7(FD3S)、マツダ サバンナRX-7(FC3S)、SUBARU インプレッサ WRX(GC8)の4車種。",
+            articleUrl:"https://x.com/hobbysearch_mc/status/2097906821097009442"
+        },
+
+        {
+            id:205,
+            eventGroupId:"eg-023",
+            prefecture:["東京都"],
+            location:"東京都渋谷区（MIYASHITA PARK South 3階 GAAAT GALLERY）",
+            title:"『頭文字D』Art Exhibition 東京会期、いよいよ9月11日開催 GAAATが前日リマインド",
+            date:"2026-09-10",
+            source:"GAAAT（X）",
+            tags:["イベント"],
+            series:["頭文字D"],
+            description:
+            "GAAATが、宮下パーク（MIYASHITA PARK South 3階 GAAAT GALLERY）で翌日9月11日より開催する『頭文字D』Art Exhibition東京会期について、開催前日のリマインド投稿を公開。レースバトルに夢中になった頃の車への熱い想いを会場で感じてほしいと来場を呼びかけている。",
+            articleUrl:"https://x.com/gaaat_art/status/2097988666400657635",
+            eventStart:"2026-09-11",
+            eventEnd:"2026-09-15"
+        },
+
+        {
             id:204,
             eventGroupId:"eg-004",
             title:"『頭文字D』×ANGEL CLOVER自動巻き腕時計「AE86」「GC8」、9月30日発売",
@@ -569,6 +648,7 @@ const database = {
 
         {
             id:170,
+            eventGroupId:"eg-024",
             title:"『MFゴースト』Final Season音ロケ用、片桐夏向のZN6をBLITZが製作中と音響監督が明かす",
             date:"2026-08-25",
             source:"音響監督 三間雅文（X）",
@@ -2709,18 +2789,18 @@ const database = {
 
         {
             id:71,
-            title:"GSIクレオス、『頭文字D』キット向け塗料「Mr.カラーGGX」4色を9月発売、予約受付中",
+            title:"GSIクレオス、『頭文字D』キット向け塗料「Mr.カラーGGX」4色を9月30日発売、予約受付中",
             date:"2026-06-19",
             source:"ホビーサーチ カーモデル（X）",
             tags:["グッズ","予約開始"],
             goodsCategory:"雑貨",
             series:["頭文字D"],
             description:
-            "GSIクレオスより『頭文字D』キット向け塗料「Mr.カラーGGX」シリーズが登場。GXD01拓海ホワイト・GXD02啓介イエロー・GXD03涼介ホワイト・GXD04文太ブルーの4色展開で、2026年9月発売予定。予約受付中。",
+            "GSIクレオスより『頭文字D』キット向け塗料「Mr.カラーGGX」シリーズが登場。GXD01拓海ホワイト・GXD02啓介イエロー・GXD03涼介ホワイト・GXD04文太ブルーの4色展開で、発売予定日は2026年9月30日。予約受付中。",
             articleUrl:"https://x.com/hobbysearch_mc/status/2067889245206016158",
             reservationStart:"2026-06-19",
-            dateTBD:true,
-            expectedDate:"2026-09"
+            eventStart:"2026-09-30",
+            eventEnd:"2026-09-30"
         },
 
         {
