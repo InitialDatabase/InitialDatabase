@@ -3,6 +3,277 @@ const database = {
     infos:[
 
         {
+            id:232,
+            title:"トミカプレミアムunlimited『頭文字D』中里毅のスカイラインGT-R(BNR32)・庄司慎吾のシビックSiR-II(EG6)が本日発売",
+            date:"2026-09-19",
+            source:"おもちゃのメルヘン（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "おもちゃのメルヘンが、第3土曜日の「トミカの日」に、「トミカプレミアムunlimited 頭文字D」の日産 スカイライン GT-R (BNR32)（中里毅）とホンダ シビック SiR-II (EG6)（庄司慎吾）が本日9月19日に発売されたことを紹介。いずれも1/62スケール。",
+            articleUrl:"https://x.com/Toy_Marchen/status/2101193722033520965",
+            eventStart:"2026-09-19"
+        },
+
+        {
+            id:231,
+            prefecture:["埼玉県"],
+            location:"埼玉県坂戸市（Ahead Motor Service）",
+            title:"Ahead Motor Service、『頭文字D』『MFゴースト』の音響監督・三間雅文氏が来店",
+            date:"2026-09-19",
+            source:"Ahead Motor Service（X）",
+            tags:["ニュース"],
+            series:["頭文字D","MFゴースト"],
+            description:
+            "埼玉県坂戸市のAhead Motor Serviceが、先日『頭文字D』『MFゴースト』などを手掛ける音響監督の三間雅文氏が来店したことを報告。在庫車を見ながらいろいろな話をしたと伝えている。",
+            articleUrl:"https://x.com/ahead_works/status/2101142822363763193"
+        },
+
+        {
+            id:230,
+            eventGroupId:"eg-021",
+            prefecture:["長崎県"],
+            location:"長崎県大村市（BR大村）",
+            title:"ミッドナイトボートレースin大村9、3日目も『MFゴースト』コラボを実施",
+            date:"2026-09-18",
+            source:"公式 DYNAMITE BOATRACE｜ボートレース（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "長崎県のBR大村で9月17日〜20日に開催中の「ミッドナイトボートレースin大村9」3日目も『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを引き続き実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2100963057413579187",
+            eventStart:"2026-09-17",
+            eventEnd:"2026-09-20"
+        },
+
+        {
+            id:229,
+            prefecture:["静岡県"],
+            location:"静岡県駿東郡小山町（富士スピードウェイ）",
+            title:"マツダファンフェスタ2026（10月3日〜4日）、787B新作アイテムや頭文字Dコラボモデルカー、セイコーコラボウォッチなど新グッズを発表",
+            date:"2026-09-18",
+            source:"Car Watch（X）",
+            tags:["イベント","グッズ","コラボ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "Car Watchが、マツダが9月18日に発表した「MAZDA FAN FESTA 2026 at FUJI SPEEDWAY」（10月3日〜4日、富士スピードウェイ）の新グッズ情報を紹介。マツダオフィシャルグッズショップでは『頭文字D』のコンテンツとあわせて楽しめるコラボモデルカーなど新作グッズを用意する。ほかに、MAZDA 787Bをテーマにしたアイテムや、SEIKOとのコラボ第3弾「MAZDA クロノグラフウォッチ」（頭文字Dとは別企画）の会場先行販売も決定している。",
+            articleUrl:"https://x.com/car_watch/status/2100924320939995526",
+            eventStart:"2026-10-03",
+            eventEnd:"2026-10-04"
+        },
+
+        {
+            id:228,
+            eventGroupId:"eg-026",
+            prefecture:["東京都"],
+            location:"東京都台東区（浅草ROX本館1階）",
+            title:"CAMSHOP、浅草ROXで『頭文字D』POPUPを開催中　藤原拓海の等身大パネルも登場、10月19日まで",
+            date:"2026-09-18",
+            source:"CAMSHOP（キャムショップ）（X）",
+            tags:["イベント","グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "CAMSHOP（運営：フェイス）が、浅草ROX本館1階で開催中の『頭文字D』POPUP「頭文字D＆CAMSHOP POPUP」（9月18日〜10月19日）を改めて告知。藤原拓海の等身大パネルが登場し、フォトスポットとしても楽しめる。同作のポップアップは今回が4回目で、AE86をかたどったウェットティッシュケースやコンピューターマウス、作品デザインのTシャツ、タイヤが回る3Dキーチェーンなどを取りそろえる。",
+            articleUrl:"https://x.com/CAMSHOP_byFaith/status/2100806294622044543",
+            eventStart:"2026-09-18",
+            eventEnd:"2026-10-19"
+        },
+
+        {
+            id:227,
+            title:"『MFゴースト』制作のFelix Film、制作進行・3DCGデザイナー・リガーなどを募集　2027年春卒業見込み・未経験者可",
+            date:"2026-09-18",
+            source:"CGWORLD.jp（X）",
+            tags:["ニュース"],
+            series:["MFゴースト"],
+            description:
+            "『MFゴースト』シリーズを手掛けるアニメ制作会社Felix Filmが、制作進行・3DCGデザイナー・3DCGアニメーター（中途のみ）・リガー・3Dマネージャーを募集。職種により経験者優遇で、2027年春卒業見込みの方や未経験者も応募可。CGWORLD.jpの求人情報によると、制作進行は東京本社、3DCGデザイナー・3DCGアニメーター・リガー・3Dマネージャーは三鷹スタジオ、3DCGデザイナー・3DCGアニメーター・リガーは神戸オフィスの勤務。",
+            articleUrl:"https://x.com/CGWjp/status/2100782369964016026"
+        },
+
+        {
+            id:226,
+            title:"『昴と彗星』第47話「追加される注目フラグ」がヤングマガジンに掲載　次号から休載、YM48号より再開予定",
+            date:"2026-09-18",
+            source:"【公式】昴と彗星（X）",
+            tags:["連載"],
+            series:["昴と彗星"],
+            description:
+            "本日発売のヤングマガジンに『昴と彗星』第47話「追加される注目フラグ」が掲載。着実に順位を上げる昴と彗星が、4位の権藤市郎に迫る展開。次号からしばらく休載となり、YM48号（10月28日発売）より再開予定。",
+            articleUrl:"https://x.com/SubaruandSubaru/status/2100768901865017600"
+        },
+
+        {
+            id:225,
+            eventGroupId:"eg-026",
+            prefecture:["東京都"],
+            location:"東京都台東区（浅草ROX本館1階）",
+            title:"CAMSHOP、浅草ROXで『頭文字D』POPUPを本日より開催　藤原拓海の等身大パネルも登場",
+            date:"2026-09-17",
+            source:"CAMSHOP（キャムショップ）（X）",
+            tags:["イベント","グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "CAMSHOP（運営：フェイス）が、浅草ROX本館1階で『頭文字D』POPUP「頭文字D＆CAMSHOP POPUP」を9月18日（金）から10月19日（月）まで開催することを報告。藤原拓海の等身大パネルも登場し、フォトスポットとして楽しめる。会場ではデザインTシャツ、AE86型ウェットティッシュケース、マグネット、バッグ、折り畳みスツール、誕生日ごとのキーホルダーなどを販売する。",
+            articleUrl:"https://x.com/CAMSHOP_byFaith/status/2100732327907455390",
+            eventStart:"2026-09-18",
+            eventEnd:"2026-10-19"
+        },
+
+        {
+            id:224,
+            title:"アオシマ、1/24 頭文字D「No.6 藤原拓海 AE86トレノ 第37巻仕様」「No.19 東京から来た二人 S15 シルビア」の出荷がスタート",
+            date:"2026-09-17",
+            source:"アオシマPR（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "アオシマPRが、1/24スケール「頭文字D」シリーズの「No.6 藤原拓海 AE86トレノ 第37巻仕様」と「No.19 東京から来た二人 S15 シルビア」の出荷がスタートしたことを報告。No.6は神奈川エリア小柏カイ戦仕様のトレノで、2026年9月に再生産される分。",
+            articleUrl:"https://x.com/aoshima_PR/status/2100706374036467712"
+        },
+
+        {
+            id:223,
+            eventGroupId:"eg-021",
+            prefecture:["長崎県"],
+            location:"長崎県大村市（BR大村）",
+            title:"ミッドナイトボートレースin大村9、2日目も『MFゴースト』コラボを実施",
+            date:"2026-09-17",
+            source:"公式 DYNAMITE BOATRACE｜ボートレース（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "長崎県のBR大村で9月17日〜20日に開催中の「ミッドナイトボートレースin大村9」2日目も『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを引き続き実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2100600683984732170",
+            eventStart:"2026-09-17",
+            eventEnd:"2026-09-20"
+        },
+
+        {
+            id:222,
+            eventGroupId:"eg-024",
+            prefecture:["静岡県"],
+            location:"静岡県駿東郡小山町（富士スピードウェイ、FUJI 86/BRZ STYLE 2026 BLITZブース）",
+            title:"『MFゴースト』音響監督・三間雅文氏、くるまのニュースの記事に謝意　BLITZが「FUJI 86/BRZ STYLE 2026」で初披露した最終戦仕様86レプリカの開発の裏側",
+            date:"2026-09-17",
+            source:"音響監督 三間雅文（X）",
+            tags:["ニュース","イベント"],
+            series:["MFゴースト"],
+            description:
+            "『MFゴースト』音響監督の三間雅文氏が、くるまのニュースに掲載された「ブリッツが本気で再現！「86/BRZスタイル2026」で初公開「MFゴースト」最終戦仕様の“86”レプリカマシン開発の裏側とは」の記事に謝意を投稿。記事は9月12日の「FUJI 86/BRZ STYLE 2026」でBLITZが初披露した最終戦仕様の86レプリカについて、ブリッツ社長へのインタビューで開発の裏側を紹介しており、原作の86のベースとなった「14R」を車両ごと購入するところから製作を始めたことなどを伝えている。",
+            articleUrl:"https://x.com/Sunma47/status/2100434423347085620",
+            eventStart:"2026-09-12",
+            eventEnd:"2026-09-12"
+        },
+
+        {
+            id:221,
+            eventGroupId:"eg-002",
+            prefecture:["東京都"],
+            location:"東京都渋谷区（陳麻婆豆腐 新宿サザンテラス店、小田急サザンタワー3階）",
+            title:"陳麻婆豆腐×頭文字Dコラボ、新宿サザンテラス店でフォトスポットを開設中　9月27日まで",
+            date:"2026-09-17",
+            source:"陳麻婆豆腐🌶【公式】（X）",
+            tags:["コラボ","イベント"],
+            series:["頭文字D"],
+            description:
+            "陳麻婆豆腐 新宿サザンテラス店で、陳麻婆豆腐×頭文字Dコラボを記念したフォトスポットを開設中（9月27日まで）。利用できる時間は平日17時から、土日祝は「前日」と案内されている（全日の意とみられる）。開設開始日は投稿では明記されておらず、投稿日の9月17日時点ですでに開設中。",
+            articleUrl:"https://x.com/chenmapo_doufu/status/2100413022347079680",
+            eventStart:"2026-09-17",
+            eventEnd:"2026-09-27"
+        },
+
+        {
+            id:220,
+            title:"ホビージャパン、1/64 頭文字D「RX-7(FC3S) RedSuns 高橋涼介 VS 須藤京一」のミニカー予約受付中",
+            date:"2026-09-17",
+            source:"ホビーサーチ ミニカー（X）",
+            tags:["グッズ","予約開始"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "ホビージャパンの1/64スケールミニカー「MAZDA RX-7 (FC3S) RedSuns／頭文字D 高橋涼介 VS 須藤京一」が予約受付中であることをホビーサーチが紹介。赤城レッドサンズの高橋涼介が、須藤京一のランサーエボリューションⅢをアウト側からオーバーテイクするシーンを再現したディオラマシート付きのダイキャストモデル＆ディオラマセット（ランサーエボリューションⅢは付属しない）。",
+            articleUrl:"https://x.com/hobbysearch_mc/status/2100404199192481963"
+        },
+
+        {
+            id:219,
+            eventGroupId:"eg-021",
+            prefecture:["長崎県"],
+            location:"長崎県大村市（BR大村）",
+            title:"ミッドナイトボートレースin大村9、初日から『MFゴースト』コラボを実施",
+            date:"2026-09-16",
+            source:"公式 DYNAMITE BOATRACE｜ボートレース（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "長崎県のBR大村で9月17日〜20日に開催される「ミッドナイトボートレースin大村9」の初日から『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを行っている。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2100238278926766412",
+            eventStart:"2026-09-17",
+            eventEnd:"2026-09-20"
+        },
+
+        {
+            id:218,
+            title:"『頭文字D』テーマソングコレクション vol.1＆vol.2のアナログレコードが9月16日発売",
+            date:"2026-09-16",
+            source:"SUPER EUROBEAT（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "SUPER EUROBEAT（avex）が、『頭文字D』のテーマソングを収録した「頭文字[イニシャル]D テーマソングコレクション vol.1＆vol.2」のアナログレコードが本日発売されたことを紹介。アニメのオープニング／エンディングを彩ってきた楽曲を収録している。品番はvol.1がAQJD-77780、vol.2がAQJD-77781（avex infinity）。",
+            articleUrl:"https://x.com/avexsebofficial/status/2100066908758540591",
+            eventStart:"2026-09-16"
+        },
+
+        {
+            id:217,
+            title:"Williams F1×『頭文字D』の公式コラボが決定、UNDONE Labの「Sector Zero」で全14商品を来週発売予定",
+            date:"2026-09-15",
+            source:"efmania（X）",
+            tags:["グッズ","コラボ"],
+            goodsCategory:"アパレル",
+            series:["頭文字D"],
+            description:
+            "efmaniaが、Atlassian Williams F1 Teamと『頭文字D』の公式コラボを紹介。AE86とWilliamsのF1マシンを組み合わせたビジュアルが公開され、UNDONE Labが展開するコラボ企画「Sector Zero」で来週（9月21日〜27日の週）に新たなカプセルコレクションが発売される予定。全14商品で、Tシャツ・フーディー・ジャケットなどのアパレル、トートバッグ・キーチェーン・ピンバッジ・ジグソーパズル、UNDONE製の腕時計「Project D Automatic Watch」（699ドル）などをラインナップ。販売開始の具体的な日時は現時点で未公表。",
+            articleUrl:"https://x.com/efmania/status/2099845539009552458",
+            dateTBD:true,
+            expectedDate:"2026-09"
+        },
+
+        {
+            id:216,
+            title:"『MFゴースト』「SUPER EUROBEAT presents MF GHOST NONSTOP MIX vol.1」、2027年1月13日発売決定　法人特典も解禁",
+            date:"2026-09-14",
+            source:"TVアニメ MFゴースト 公式（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["MFゴースト"],
+            description:
+            "TVアニメ『MFゴースト』公式が、1st & 2nd Seasonのレースシーンで使われたスーパーユーロビート曲に関する「SUPER EUROBEAT presents MF GHOST NONSTOP MIX vol.1」が2027年1月13日（水）に発売決定したことを告知。法人特典も解禁された。",
+            articleUrl:"https://x.com/mfg_anime/status/2099332312529772647",
+            eventStart:"2027-01-13"
+        },
+
+        {
+            id:215,
+            title:"『昴と彗星』第46話「林間区間」がヤングマガジンに掲載",
+            date:"2026-09-14",
+            source:"【公式】昴と彗星（X）",
+            tags:["連載"],
+            series:["昴と彗星"],
+            description:
+            "本日発売のヤングマガジンに『昴と彗星』第46話「林間区間」が掲載。スコット・クルサードと佐倉桃の激しい首位争いがさらに白熱し、5位に浮上した昴たちも勢いが止まらない展開。単行本第3巻も発売中。",
+            articleUrl:"https://x.com/SubaruandSubaru/status/2099324929372213338"
+        },
+
+        {
             id:214,
             eventGroupId:"eg-025",
             prefecture:["静岡県"],
