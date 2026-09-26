@@ -3,6 +3,159 @@ const database = {
     infos:[
 
         {
+            id:233,
+            prefecture:["埼玉県"],
+            location:"埼玉県鴻巣市（ENEOS吹上西 KeePer PROSHOP）",
+            title:"ENEOS吹上西、ENEOS X PRIMEリニューアル記念で頭文字Dコラボキャンペーンを10月1日から開催",
+            date:"2026-09-26",
+            source:"埼玉礦油㈲ エネオス吹上西 KeePer PROSHOP（X）",
+            tags:["キャンペーン","コラボ"],
+            series:["頭文字D"],
+            description:
+            "埼玉県鴻巣市のENEOS吹上西（埼玉礦油、KeePer PROSHOP）が、「ENEOS X PRIME」リニューアル記念として『頭文字D』とのコラボキャンペーンを間もなく開始することを事前告知。期間中（10月1日〜11月30日）は来店すると限定グッズが抽選で当たる・もらえる企画を実施予定で、詳細はスタッフまで案内するとしている。",
+            articleUrl:"https://x.com/saitamakouyu/status/2103770636313415894",
+            eventStart:"2026-10-01",
+            eventEnd:"2026-11-30"
+        },
+
+        {
+            id:234,
+            title:"『頭文字D』×ウィリアムズF1「BEFORE DAWN」、9月21日発売開始　峠道コースを立体的に配置した文字盤の腕時計など全14アイテム",
+            date:"2026-09-25",
+            source:"アニメ！アニメ！（X）",
+            tags:["グッズ","コラボ"],
+            goodsCategory:"アパレル",
+            series:["頭文字D"],
+            description:
+            "アニメ！アニメ！が、Atlassian Williams F1 Teamのポップカルチャープログラム「Sector Zero」と『頭文字D Legend3 -夢現-』のコラボカプセルコレクション「BEFORE DAWN」について、2026年9月21日よりSector Zero公式メンバープラットフォームで販売が開始されたことを紹介。ジャケット・フーディー・Tシャツなどのアパレルから、ピンバッジ・キーホルダー・ボトル・機械式時計まで全14アイテムを展開し、価格帯は3,200円〜111,900円。コレクションのヒーロープロダクトとなるUNDONE製の自動巻き腕時計「PROJECT D AUTOMATIC WATCH」は、峠道のコースレイアウトを立体的に配置したスケルトン文字盤が特徴。",
+            articleUrl:"https://x.com/AnimeAnime_jp/status/2103410463623250155",
+            eventStart:"2026-09-21"
+        },
+
+        {
+            id:235,
+            eventGroupId:"eg-018",
+            title:"頭文字Dドリーミーくじ第4弾、9月26日より発売開始",
+            date:"2026-09-25",
+            source:"★GRANUPくじ公式★（X）",
+            tags:["グッズ"],
+            goodsCategory:"フィギュア",
+            series:["頭文字D"],
+            description:
+            "★GRANUPくじ公式★が、漫画『頭文字D』の「ドリーミーくじ」第4弾について、明日9月26日（土）より発売を開始することを告知。メッセージボード付きぬいぐるみやハンガー、ミニフィギュアなど、これまで先行公開してきたラインナップの取扱店舗での購入を呼びかけている。",
+            articleUrl:"https://x.com/grakuji_PR/status/2103394074988597378",
+            eventStart:"2026-09-26"
+        },
+
+        {
+            id:236,
+            title:"童友社、『頭文字D』藤原豆腐店ブロックキットを店内・住居スペースまで再現した“特大”仕様で11月発売予定",
+            date:"2026-09-25",
+            source:"電撃ホビーウェブ（X）",
+            tags:["グッズ"],
+            goodsCategory:"雑貨",
+            series:["頭文字D"],
+            description:
+            "電撃ホビーウェブが、童友社の新商品「ブロックキット『頭文字D』藤原豆腐店（店舗）特大」を紹介。“最速の豆腐屋”藤原豆腐店を、看板などの外観だけでなく店内・住居スペースまでこだわって再現した特大仕様のブロックキットで、完成時のサイズは約24×27×20センチ。2026年11月発売予定。",
+            articleUrl:"https://x.com/hobby_magazine/status/2103378975053750584",
+            dateTBD:true,
+            expectedDate:"2026-11"
+        },
+
+        {
+            id:237,
+            eventGroupId:"eg-027",
+            prefecture:["静岡県"],
+            location:"静岡県駿東郡小山町（富士スピードウェイ）",
+            title:"マツダファンフェスタ2026開催直前、動画でイベントの様子や当日抽選コンテンツを紹介",
+            date:"2026-09-25",
+            source:"MAZDA SPIRIT RACING（X）",
+            tags:["イベント"],
+            series:["頭文字D"],
+            description:
+            "MAZDA SPIRIT RACINGが、10月3日（土）・4日（日）開催の「MAZDA FAN FESTA 2026 at FUJI SPEEDWAY」の本番まで残り8日となったことを告知。動画でイベントの雰囲気を紹介するとともに、当日会場で楽しめる抽選コンテンツにも触れ、来場を呼びかけている。",
+            articleUrl:"https://x.com/MAZDA_SPIRIT_R/status/2103311024225239091",
+            eventStart:"2026-10-03",
+            eventEnd:"2026-10-04"
+        },
+
+        {
+            id:238,
+            title:"T-SPARK、Q VILLAGE「頭文字D Toyota AE86 TRUENO」「同 Mazda RX-7 FD3S」の発売延期分が2026年10月下旬発売に決定",
+            date:"2026-09-25",
+            source:"T-SPARK 公式（X）",
+            tags:["グッズ"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "T-SPARK公式が、発売延期となっていたデフォルメディスプレイモデル「Q VILLAGE」の『頭文字D』アイテム2商品について、2026年10月下旬の発売が決定したことを告知。「QV-05 頭文字D Toyota AE86 TRUENO」（藤原拓海とのセット）と「QV-06 頭文字D Mazda RX-7 FD3S」で、いずれも当初は2026年5月下旬発売予定だったが、諸般の事情により延期されていた。",
+            articleUrl:"https://x.com/tspark_official/status/2103289764447498392",
+            dateTBD:true,
+            expectedDate:"2026-10"
+        },
+
+        {
+            id:239,
+            title:"ATS MODELS、1/64『頭文字D』高橋啓介のマツダ RX-7(FD3S)ミニカーを予約受付開始",
+            date:"2026-09-24",
+            source:"ホビーサーチ ミニカー（X）",
+            tags:["グッズ","予約開始"],
+            goodsCategory:"ミニカー",
+            series:["頭文字D"],
+            description:
+            "ホビーサーチ ミニカーが、ATS MODELSの1/64ダイキャストミニカー「マツダ RX-7（FD3S）」の予約受付開始を紹介。『頭文字D』の高橋啓介の愛車を再現した塗装済み完成品で、リトラクタブルヘッドライトは可動式。コレクションに最適なクリアケースと台座が付属する。入荷は2027年2月以降を予定。",
+            articleUrl:"https://x.com/hobbysearch_mc/status/2103049758357221572",
+            reservationStart:"2026-09-24",
+            dateTBD:true,
+            expectedDate:"2027-02"
+        },
+
+        {
+            id:240,
+            prefecture:["埼玉県"],
+            location:"埼玉県坂戸市（Ahead Motor Service）",
+            title:"「テリー土屋のくるまの話」出張坂戸店、三間雅文氏購入とされる車両も交え86・BRZの在庫車を紹介",
+            date:"2026-09-21",
+            source:"音響監督 三間雅文（X）",
+            tags:["ニュース"],
+            series:["MFゴースト"],
+            description:
+            "『MFゴースト』音響監督の三間雅文氏が、YouTube番組「テリー土屋のくるまの話」出張坂戸店回の動画を紹介。同氏が購入したとされる車両も交えながら、埼玉県坂戸市のAhead Motor Serviceに並ぶ個性豊かな86・BRZの在庫車を取り上げている。",
+            articleUrl:"https://x.com/Sunma47/status/2102047334494539935"
+        },
+
+        {
+            id:241,
+            title:"『頭文字D THE ARCADE』、『ペルソナ5 ザ・ロイヤル』とのコラボを10月8日から2027年1月20日まで開催",
+            date:"2026-09-20",
+            source:"モルガナ_ペルソナ広報（X）",
+            tags:["コラボ","ゲーム"],
+            series:["頭文字D"],
+            description:
+            "モルガナ_ペルソナ広報が、アーケードゲーム『頭文字D THE ARCADE』と『ペルソナ5 ザ・ロイヤル』のコラボレーションが決定したことを発表。「ペルソナ30周年」スペシャル生放送内で明らかにされたもので、開催期間は2026年10月8日から2027年1月20日まで。ジョーカー・パンサー・クイーンをモチーフにしたコラボカーやBGMなどが登場する。",
+            articleUrl:"https://x.com/p_kouhou/status/2101639108372422678",
+            eventStart:"2026-10-08",
+            eventEnd:"2027-01-20"
+        },
+
+        {
+            id:242,
+            eventGroupId:"eg-021",
+            prefecture:["長崎県"],
+            location:"長崎県大村市（BR大村）",
+            title:"ミッドナイトボートレースin大村9、4日目も『MFゴースト』コラボを実施",
+            date:"2026-09-19",
+            source:"公式 DYNAMITE BOATRACE｜ボートレース（X）",
+            tags:["コラボ","キャンペーン","イベント"],
+            series:["MFゴースト"],
+            description:
+            "長崎県のBR大村で9月17日〜20日に開催中の「ミッドナイトボートレースin大村9」4日目も『MFゴースト』とのコラボを実施。公式アカウントのフォロー＆リポストで、デジタルギフトが抽選で25名にその場で当たるキャンペーンを引き続き実施中。",
+            articleUrl:"https://x.com/Lets_BOATRACE/status/2101325482784600301",
+            eventStart:"2026-09-17",
+            eventEnd:"2026-09-20"
+        },
+
+        {
             id:232,
             title:"トミカプレミアムunlimited『頭文字D』中里毅のスカイラインGT-R(BNR32)・庄司慎吾のシビックSiR-II(EG6)が本日発売",
             date:"2026-09-19",
@@ -243,8 +396,7 @@ const database = {
             description:
             "efmaniaが、Atlassian Williams F1 Teamと『頭文字D』の公式コラボを紹介。AE86とWilliamsのF1マシンを組み合わせたビジュアルが公開され、UNDONE Labが展開するコラボ企画「Sector Zero」で来週（9月21日〜27日の週）に新たなカプセルコレクションが発売される予定。全14商品で、Tシャツ・フーディー・ジャケットなどのアパレル、トートバッグ・キーチェーン・ピンバッジ・ジグソーパズル、UNDONE製の腕時計「Project D Automatic Watch」（699ドル）などをラインナップ。販売開始の具体的な日時は現時点で未公表。",
             articleUrl:"https://x.com/efmania/status/2099845539009552458",
-            dateTBD:true,
-            expectedDate:"2026-09"
+            eventStart:"2026-09-21"
         },
 
         {
@@ -2948,6 +3100,7 @@ const database = {
 
         {
                         id:57,
+            eventGroupId:"eg-027",
             prefecture:["静岡県"],
             location:"静岡県駿東郡小山町",
             title:"マツダファンフェスタ2026、頭文字Dとのコラボコンテンツ情報を公開",
